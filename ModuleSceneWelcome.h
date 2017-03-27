@@ -13,15 +13,11 @@ class ModuleSceneWelcome :
 	public Module
 {
 private:
-	SDL_Texture* background_graphics[BACKGROUND_NUMBER];
-	//SDL_Texture* sprite_graphics;
-
-	float image_index;
-	int last_image = 0;
+	SDL_Texture* background_graphics;
+	SDL_Texture* title_graphics;
+	Animation welcome_anim;
 
 public:
-	float speed;
-
 	bool Init();
 	bool Start();
 	update_status PreUpdate();
