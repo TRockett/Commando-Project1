@@ -5,6 +5,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleSceneGame.h"
 
 
 ModuleSceneWelcome::ModuleSceneWelcome()
@@ -40,8 +41,8 @@ bool ModuleSceneWelcome::Start() {
 }
 
 update_status ModuleSceneWelcome::PreUpdate() {
-	//if(App->input->keyboard[SDL_SCANCODE_PAGEUP] == 1)
-		//App->fade->FadeToBlack(this, App->)
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		App->fade->FadeToBlack(this, App->scene_game, 2.0f);
 	return UPDATE_CONTINUE;
 }
 

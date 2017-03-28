@@ -50,7 +50,7 @@ bool ModuleTextures::CleanUp()
 }
 
 // Load new texture from file path
-SDL_Texture* const ModuleTextures::Load(const char* path)
+SDL_Texture* const ModuleTextures::Load(const char* path, p2Point<int>* dim)
 {
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
@@ -69,6 +69,9 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 		}
 		else
 		{
+			if (dim != nullptr)
+				SDL_QueryTexture(texture, NULL, NULL, &dim->x, &dim->y);
+
 			bool room = false;
 			for (int i = 0; i < MAX_TEXTURES; ++i)
 			{

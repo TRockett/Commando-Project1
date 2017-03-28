@@ -5,8 +5,6 @@
 #include "Animation.h"
 #include "Globals.h"
 
-#define BACKGROUND_NUMBER 3
-
 struct SDL_Texture;
 
 class ModuleSceneWelcome :

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "p2Point.h"
 
 #define MAX_TEXTURES 50
 
@@ -17,7 +18,7 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	SDL_Texture* const Load(const char* path);
+	SDL_Texture* const Load(const char* path, p2Point<int>* dim = nullptr);
 	bool Unload(SDL_Texture * texture);
 
 public:
