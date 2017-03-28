@@ -3,8 +3,6 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleSceneKen.h"
-#include "ModuleSceneHonda.h"
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneWelcome.h"
@@ -17,13 +15,11 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = scene_honda = new ModuleSceneHonda();
-	modules[5] = scene_ken = new ModuleSceneKen();
-	modules[6] = player = new ModulePlayer();
-	modules[7] = scene_congrats = new ModuleSceneCongrats();
-	modules[8] = scene_welcome = new ModuleSceneWelcome();
-	modules[9] = scene_game = new ModuleSceneGame();
-	modules[10] = fade = new ModuleFadeToBlack();
+	modules[4] = player = new ModulePlayer();
+	modules[5] = scene_congrats = new ModuleSceneCongrats();
+	modules[6] = scene_welcome = new ModuleSceneWelcome();
+	modules[7] = scene_game = new ModuleSceneGame();
+	modules[8] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -39,8 +35,6 @@ bool Application::Init()
 	// Player will be enabled on the first update of a new scene
 	player->Disable();
 	// Disable the map that you do not start with
-	scene_honda->Disable();
-	scene_ken->Disable();
 	scene_game->Disable();
 	scene_congrats->Disable();
 	scene_welcome->Enable();
