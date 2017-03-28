@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneWelcome.h"
+#include "ModuleSound.h"
 
 
 ModuleSceneCongrats::ModuleSceneCongrats()
@@ -29,6 +30,9 @@ bool ModuleSceneCongrats::Start() {
 	if (background_graphics == nullptr)
 		ret = false;
 
+	if (App->sound->LoadMusic("Soundtrack/13. Namen eingeben.wav") == nullptr)
+		ret = false;
+
 	return ret;
 }
 
@@ -50,6 +54,10 @@ update_status ModuleSceneCongrats::PostUpdate() {
 
 bool ModuleSceneCongrats::CleanUp() {
 	bool ret = true;
-
+	ret = App->sound->CleanUp();
 	return ret;
+}
+
+void ModuleSceneCongrats::onFadeInEnd() {
+	App->sound->PlayMusic();
 }

@@ -16,6 +16,8 @@ private:
 	int level;
 	p2Point<int> initial_camera_pos;
 	SDL_Texture* background_graphics;
+	int targetY = 0;
+	bool moving = false;
 
 public:
 	bool Init();
@@ -24,6 +26,7 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
+	void onFadeInEnd();
 
 	void setLevel(int lvl) { level = lvl; }
 	int getLevel() { return level; }

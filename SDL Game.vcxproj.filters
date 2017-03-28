@@ -59,6 +59,9 @@
     <ClInclude Include="ModuleSceneCongrats.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSound.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -92,10 +95,13 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneGame.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneCongrats.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSound.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

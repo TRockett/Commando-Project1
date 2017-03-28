@@ -8,6 +8,7 @@
 #include "ModuleSceneWelcome.h"
 #include "ModuleSceneGame.h"
 #include "ModuleSceneCongrats.h"
+#include "ModuleSound.h"
 
 Application::Application()
 {
@@ -15,11 +16,12 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = player = new ModulePlayer();
-	modules[5] = scene_congrats = new ModuleSceneCongrats();
-	modules[6] = scene_welcome = new ModuleSceneWelcome();
-	modules[7] = scene_game = new ModuleSceneGame();
-	modules[8] = fade = new ModuleFadeToBlack();
+	modules[4] = sound = new ModuleSound();
+	modules[5] = player = new ModulePlayer();
+	modules[6] = scene_congrats = new ModuleSceneCongrats();
+	modules[7] = scene_welcome = new ModuleSceneWelcome();
+	modules[8] = scene_game = new ModuleSceneGame();
+	modules[9] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
