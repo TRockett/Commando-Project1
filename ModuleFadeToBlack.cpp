@@ -38,6 +38,7 @@ update_status ModuleFadeToBlack::Update()
 			if(now >= total_time)
 			{
 				// TODO 2: enable / disable the modules received when FadeToBlacks() gets called
+				App->render->ResetCamera();
 				module_off->Disable();
 				module_on->Enable();
 				// ---

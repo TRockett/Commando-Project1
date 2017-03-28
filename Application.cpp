@@ -9,6 +9,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneWelcome.h"
 #include "ModuleSceneGame.h"
+#include "ModuleSceneCongrats.h"
 
 Application::Application()
 {
@@ -19,9 +20,10 @@ Application::Application()
 	modules[4] = scene_honda = new ModuleSceneHonda();
 	modules[5] = scene_ken = new ModuleSceneKen();
 	modules[6] = player = new ModulePlayer();
-	modules[7] = fade = new ModuleFadeToBlack();
+	modules[7] = scene_congrats = new ModuleSceneCongrats();
 	modules[8] = scene_welcome = new ModuleSceneWelcome();
 	modules[9] = scene_game = new ModuleSceneGame();
+	modules[10] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -40,6 +42,7 @@ bool Application::Init()
 	scene_honda->Disable();
 	scene_ken->Disable();
 	scene_game->Disable();
+	scene_congrats->Disable();
 	scene_welcome->Enable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

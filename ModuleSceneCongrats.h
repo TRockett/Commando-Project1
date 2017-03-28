@@ -1,22 +1,16 @@
-#ifndef __ModuleSceneGame_H__
-#define __ModuleSceneGame_H__
+#pragma once
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
 
-#define MAX_LEVEL 2
 struct SDL_Texture;
 
-
-class ModuleSceneGame :
+class ModuleSceneCongrats :
 	public Module
 {
 private:
-	int level;
-	p2Point<int> initial_camera_pos;
 	SDL_Texture* background_graphics;
-
 public:
 	bool Init();
 	bool Start();
@@ -25,11 +19,7 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	void setLevel(int lvl) { level = lvl; }
-	int getLevel() { return level; }
-
-	ModuleSceneGame();
-	~ModuleSceneGame();
+	ModuleSceneCongrats();
+	~ModuleSceneCongrats();
 };
 
-#endif

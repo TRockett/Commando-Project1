@@ -5,6 +5,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleSceneCongrats.h"
 #include <string>
 
 
@@ -38,13 +39,16 @@ bool ModuleSceneGame::Start() {
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
-		level++;
-		if (level > MAX_LEVEL) {
-			level = 1;
-			///Congrats screen
-			//App->fade->FadeToBlack(this, )
+		if (level + 1 > MAX_LEVEL) {
+			if (App->fade->FadeToBlack(this, App->scene_congrats, 2.0f)) {
+				level = 1;
+			}
 		}
-		else App->fade->FadeToBlack(this, this, 2.0f);
+		else {
+			if (App->fade->FadeToBlack(this, this, 1.0f)) {
+				level++;
+			}
+		}
 	}
 	return UPDATE_CONTINUE;
 }

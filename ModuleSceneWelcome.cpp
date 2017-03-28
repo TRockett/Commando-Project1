@@ -42,7 +42,7 @@ bool ModuleSceneWelcome::Start() {
 
 update_status ModuleSceneWelcome::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-		App->fade->FadeToBlack(this, App->scene_game, 2.0f);
+		App->fade->FadeToBlack(this, App->scene_game, 3.0f);
 	return UPDATE_CONTINUE;
 }
 
