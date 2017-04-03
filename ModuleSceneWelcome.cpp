@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneGame.h"
+#include "ModuleSound.h"
 
 
 ModuleSceneWelcome::ModuleSceneWelcome()
@@ -31,11 +32,12 @@ bool ModuleSceneWelcome::Init() {
 }
 
 bool ModuleSceneWelcome::Start() {
-	background_graphics = App->textures->Load("Images/Mapa4.png");
 	bool ret = true;
-	
+
+	background_graphics = App->textures->Load("Images/Mapa4.png");
 	if (background_graphics == nullptr)
 		ret = false;
+
 
 	return ret;
 }

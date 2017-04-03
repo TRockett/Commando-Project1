@@ -52,8 +52,10 @@ update_status ModuleFadeToBlack::Update()
 		{
 			normalized = 1.0f - normalized;
 
-			if(now >= total_time)
+			if (now >= total_time) {
+				module_on->onFadeInEnd();
 				current_step = fade_step::none;
+			}
 		} break;
 	}
 

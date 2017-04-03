@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
+#include "ModuleSound.h"
 #include <string>
 
 
@@ -33,7 +34,9 @@ bool ModuleSceneGame::Start() {
 	if (background_graphics == nullptr)
 		ret = false;
 
-
+	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
+		ret = false;
+	
 	return ret;
 }
 
@@ -55,8 +58,9 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
-	//SDL_Rect target = { 0,0,189,216 };
-	ret = App->render->Blit(background_graphics, 0, -initial_camera_pos.y + 216, nullptr);
+	if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
+		targetY++;
+	ret = App->render->Blit(background_graphics, 0, -initial_camera_pos.y + SCREEN_HEIGHT + targetY, nullptr);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
@@ -67,8 +71,19 @@ update_status ModuleSceneGame::PostUpdate() {
 
 bool ModuleSceneGame::CleanUp() {
 	bool ret = true;
-
+	targetY = 0;
+	moving = false;
+	ret = App->sound->CleanUp();
+	if (!ret) {
+		App->textures->Unload(background_graphics);
+		return ret;
+	}
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;
+}
+
+void ModuleSceneGame::onFadeInEnd() {
+	moving = true;
+	App->sound->PlayMusic();
 }
