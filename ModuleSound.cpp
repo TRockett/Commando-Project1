@@ -44,6 +44,10 @@ update_status ModuleSound::PostUpdate() {
 bool ModuleSound::CleanUp() {
 	LOG("Freeing sounds and Sound library");
 
+	for (int i = 0; i < MIX_DEFAULT_CHANNELS; i++) {
+		Mix_HaltChannel(i);
+	}
+
 	for (int i = 0; i < MAX_SOUNDS; i++)
 	{
 		if (sounds[i] != nullptr) {
