@@ -4,13 +4,12 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleSceneGame.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 100;
-	position.y = 220;
 
 
 	// walk forward animation (arcade sprite sheet)
@@ -27,10 +26,14 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+	player_rect.y = 200;
+	player_rect.x = 200;
+	player_rect.h = 23;
+	player_rect.w = 13;
+
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("Images/sprites.png"); // arcade version
-
+	graphics = App->textures->Load("Images/sprites.png"); 
 	return ret;
 }
 
@@ -47,16 +50,16 @@ update_status ModulePlayer::Update()
 
 	int speed = 1;
 
-	if(App->input->keyboard[SDL_SCANCODE_D] == 1)
+	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
 	{
 		current_animation = &forward;
-		position.x += speed;
+	
 	}
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	App->render->Blit(graphics, player_rect.x, player_rect.y - r.h, &r);
 	
 	return UPDATE_CONTINUE;
 }

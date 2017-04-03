@@ -21,7 +21,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect* player_rect;
+	SDL_Rect player_rect;
 	Animation forward;
 	Animation backward;
 	Animation left;

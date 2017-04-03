@@ -26,6 +26,8 @@ bool ModuleSceneGame::Init() {
 
 bool ModuleSceneGame::Start() {
 	bool ret = true;
+
+	App->player->Enable();
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
 	str.append(".png");
@@ -58,8 +60,8 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
-	if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
-		targetY++;
+	//if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
+	//	targetY++;
 	ret = App->render->Blit(background_graphics, 0, -initial_camera_pos.y + SCREEN_HEIGHT + targetY, nullptr);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
