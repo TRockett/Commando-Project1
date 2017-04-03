@@ -75,7 +75,7 @@ bool ModuleSceneGame::CleanUp() {
 	bool ret = true;
 	targetY = 0;
 	moving = false;
-	ret = App->sound->CleanUp();
+	App->sound->StopAll();
 	if (!ret) {
 		App->textures->Unload(background_graphics);
 		return ret;

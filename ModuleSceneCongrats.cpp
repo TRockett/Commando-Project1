@@ -54,7 +54,7 @@ update_status ModuleSceneCongrats::PostUpdate() {
 
 bool ModuleSceneCongrats::CleanUp() {
 	bool ret = true;
-	ret = App->sound->CleanUp();
+	App->sound->StopAll();
 	return ret;
 }
 
