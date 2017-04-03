@@ -19,7 +19,7 @@ ModuleSound::~ModuleSound()
 
 bool ModuleSound::Init() {
 	//int flags = MIX_INIT_OGG;
-	int init = Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 4, 4096);
+	int init = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 	bool ret = true;
 	if (init < 0)
 	{
@@ -46,8 +46,10 @@ bool ModuleSound::CleanUp() {
 
 	for (int i = 0; i < MAX_SOUNDS; i++)
 	{
-		if (sounds[i] != nullptr)
+		if (sounds[i] != nullptr) {
 			Mix_FreeChunk(sounds[i]);
+			sounds[i] = nullptr;
+		}
 	}
 	if (isPlaying())
 		StopMusic();
@@ -55,6 +57,24 @@ bool ModuleSound::CleanUp() {
 
 	Mix_Quit();
 	return true;
+}
+
+void ModuleSound::StopAll() {
+	for (int i = 0; i < MIX_DEFAULT_CHANNELS; i++) {
+		Mix_HaltChannel(i);
+	}
+
+	for (int i = 0; i < MAX_SOUNDS; i++)
+	{
+		if (sounds[i] != nullptr) {
+			Mix_FreeChunk(sounds[i]);
+			sounds[i] = nullptr;
+		}
+	}
+
+	if (isPlaying())
+		StopMusic();
+	Mix_FreeMusic(music);
 }
 
 bool ModuleSound::PlayMusic() {

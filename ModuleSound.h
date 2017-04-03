@@ -2,6 +2,7 @@
 #define __ModuleSound_H__
 
 #include "Module.h"
+#include "Globals.h"
 
 #define MAX_SOUNDS 20
 
@@ -25,6 +26,7 @@ public:
 	update_status PostUpdate();
 	bool PlayMusic();
 	void StopMusic(bool pause = false);
+	void StopAll();
 	bool PlaySound(Mix_Chunk* sound, int loops);
 	bool isPlaying();
 	bool CleanUp();
