@@ -12,21 +12,12 @@ ModulePlayer::ModulePlayer()
 	position.x = 100;
 	position.y = 220;
 
-	// idle animation (arcade sprite sheet)
-	idle.PushBack({7, 14, 60, 90});
-	idle.PushBack({95, 15, 60, 89});
-	idle.PushBack({184, 14, 60, 90});
-	idle.PushBack({276, 11, 60, 93});
-	idle.PushBack({366, 12, 60, 92});
-	idle.speed = 0.2f;
 
 	// walk forward animation (arcade sprite sheet)
-	//forward.frames.PushBack({9, 136, 53, 83});
-	forward.PushBack({78, 131, 60, 88});
-	forward.PushBack({162, 128, 64, 92});
-	forward.PushBack({259, 128, 63, 90});
-	forward.PushBack({352, 128, 54, 91});
-	forward.PushBack({432, 131, 50, 89});
+	
+	forward.PushBack({0, 0, 13, 23});
+	forward.PushBack({0, 14, 13, 22});
+	forward.PushBack({0, 28, 13, 22});
 	forward.speed = 0.1f;
 }
 
@@ -38,7 +29,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryu.png"); // arcade version
+	graphics = App->textures->Load("Images/sprites.png"); // arcade version
+
 	return ret;
 }
 
@@ -51,7 +43,7 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	Animation* current_animation = &idle;
+	Animation* current_animation = &forward;
 
 	int speed = 1;
 
