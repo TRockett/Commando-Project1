@@ -32,10 +32,11 @@ ModulePlayer::ModulePlayer()
 
 	//walk diagonal down-left
 
-	down_left.PushBack({115,23,15,22});
-	down_left.PushBack({121,23,15,22});
-	down_left.PushBack({ 115,23,15,22 });
-	down_left.PushBack({137,23,15,22});
+	down_left.PushBack({115,24,15,22});
+	down_left.PushBack({121,24,15,22});
+	down_left.PushBack({115,24,15,22 });
+	down_left.PushBack({137,24,15,22});
+	down_left.speed = 0.15f;
 
 	//walk diagonal down-right
 
@@ -43,19 +44,21 @@ ModulePlayer::ModulePlayer()
 	down_right.PushBack({56,23,15,22});
 	down_right.PushBack({ 88,23,15,22 });
 	down_right.PushBack({73,23,15,22});
+	down_right.speed = 0.15f;
 
 	//walk diagonal up-right
 
 	up_right.PushBack({});
 	up_right.PushBack({});
 	up_right.PushBack({});
+	up_right.speed = 0.15f;
 
 	//walk diagonal down-left
 
 	up_left.PushBack({});
 	up_left.PushBack({});
 	up_left.PushBack({});
-
+	up_right.speed = 0.15f;
 
 	//walk right animation
 
@@ -110,23 +113,18 @@ update_status ModulePlayer::Update()
 	Animation* current_animation = &idle;
 
 	int speed = 1;
+	direction.x = 0;
+	direction.y = 0;
 
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
 		position.x += speed;
-		if (current_animation != &right)
-		{
-			current_animation = &right;
-
-		}
+		direction.x = 1;
 	}
 	if (App->input->keyboard[SDL_SCANCODE_A] ==1)
 	{
 		position.x -= speed;
-		if (current_animation != &left)
-		{
-			current_animation = &left;
-		}
+		direction.x = -1;
 	}
 
 
@@ -138,18 +136,73 @@ update_status ModulePlayer::Update()
 			current_animation = &forward;
 			
 		}
-	
+		direction.y = 1;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_S] ==1)
 	{
 		position.y += speed;
-		if (current_animation != &backward)
-		{
-			current_animation = &backward;
-			
-		}
+		
+		direction.y = -1;
 	}
+	
+		if (direction.y == -1)
+		{
+			if (direction.x == -1)
+			{
+				if (current_animation != &down_left)
+				{
+					current_animation = &down_left;
+				}
+			}
+			else if (direction.x == 0)
+			{
+				if (current_animation != &backward)
+				{
+					current_animation = &backward;
+
+				}
+			}
+			else if (direction.x == 1)
+			{
+				if (current_animation != &down_right)
+				{
+					current_animation = &down_right;
+				}
+			}
+
+		}
+		else if (direction.y == 0)
+		{
+			if (direction.x == 0)
+			{
+				if (current_animation != &idle)
+				{
+					current_animation = &idle;
+				}
+			}
+			else if (direction.x == 1)
+			{
+				if (current_animation != &right)
+				{
+					current_animation = &right;
+
+				}
+			}
+			else if (direction.x == -1)
+			{
+				if (current_animation != &left)
+				{
+					current_animation = &left;
+
+				}
+			}
+		}
+
+
+	
+
+	
 
 	// Draw everything --------------------------------------
 	//SDL_Rect r = current_animation->GetCurrentFrame();

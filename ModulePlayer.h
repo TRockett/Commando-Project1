@@ -34,6 +34,7 @@ public:
 	iPoint position;
 	iPoint direction;
 
+
 };
 
 #endif
