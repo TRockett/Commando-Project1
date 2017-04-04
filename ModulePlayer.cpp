@@ -118,25 +118,25 @@ update_status ModulePlayer::Update()
 	direction.x = 0;
 	direction.y = 0;
 
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
 		position.x += speed;
 		direction.x = 1;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] ==1)
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
 		position.x -= speed;
 		direction.x = -1;
 	}
 
 
-	if(App->input->keyboard[SDL_SCANCODE_UP] == 1)
+	if(App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		position.y -= speed;
 		direction.y = 1;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] ==1)
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		position.y += speed;		
 		direction.y = -1;

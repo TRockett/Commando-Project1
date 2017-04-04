@@ -62,7 +62,9 @@ update_status ModuleSceneGame::Update() {
 	bool ret = true;
 	//if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
 	//	targetY++;
-	ret = App->render->Blit(background_graphics, 20, -initial_camera_pos.y + SCREEN_HEIGHT + targetY, nullptr);
+	targetY = App->player->position.y;
+	SDL_Rect target = { 10, App->player->position.y * SCREEN_SIZE, 216, 256 };
+	ret = App->render->Blit(background_graphics, 0, 0, &target);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

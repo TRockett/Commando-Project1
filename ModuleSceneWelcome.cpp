@@ -55,7 +55,7 @@ update_status ModuleSceneWelcome::Update() {
 		
 	ret = App->render->Blit(background_graphics, 0, 0, &welcome_anim.GetCurrentFrame(), 0.0f);
 	if (welcome_anim.getFrameIndex() != 0)
-		App->render->Blit(title_graphics, 0, 48, nullptr, 0);
+		App->render->Blit(title_graphics, 10, 56, nullptr, 0);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
@@ -68,5 +68,7 @@ bool ModuleSceneWelcome::CleanUp() {
 	bool ret = true;
 	
 	ret = App->textures->Unload(background_graphics);
+	if (!App->textures->Unload(title_graphics))
+		ret = false;
 	return ret;
 }
