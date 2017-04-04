@@ -52,6 +52,7 @@ public:
 	{
 		current_frame = 0.0f;
 	}
+	int getFrameIndex() { return (int)current_frame; }
 };
 
 #endif
