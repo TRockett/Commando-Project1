@@ -25,8 +25,8 @@ The game has a variety of levels and the maximum amount of players is 2.
 TEAM MEMBERS:
 
 -Pol Carrera (Art & Design)
--Marc Gascón (QA)
--Nina López (Management)
+-Marc Gascon (QA)
+-Nina Lopez (Management)
 -Marc Moreno (Code)
 
 CONTROLS:
