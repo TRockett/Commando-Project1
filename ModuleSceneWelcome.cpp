@@ -35,9 +35,11 @@ bool ModuleSceneWelcome::Start() {
 	bool ret = true;
 
 	background_graphics = App->textures->Load("Images/Mapa4.png");
+	title_graphics = App->textures->Load("Images/title.png");
 	if (background_graphics == nullptr)
 		ret = false;
-
+	if (title_graphics == nullptr)
+		ret = false;
 
 	return ret;
 }
@@ -52,6 +54,8 @@ update_status ModuleSceneWelcome::Update() {
 	bool ret = false;
 		
 	ret = App->render->Blit(background_graphics, 0, 0, &welcome_anim.GetCurrentFrame(), 0.0f);
+	if (welcome_anim.getFrameIndex() != 0)
+		App->render->Blit(title_graphics, 0, 48, nullptr, 0);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

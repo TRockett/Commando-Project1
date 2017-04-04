@@ -29,6 +29,8 @@ public:
 
 		return frames[(int)current_frame];
 	}
+
+	int getFrameIndex() { return (int)current_frame; }
 };
 
 #endif
