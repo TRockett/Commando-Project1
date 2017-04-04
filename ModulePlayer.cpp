@@ -25,32 +25,65 @@ ModulePlayer::ModulePlayer()
 	
 	forward.PushBack({0, 0, 13, 23});
 	forward.PushBack({14, 0, 13, 22});
+	forward.PushBack({ 0, 0, 13, 23 });
 	forward.PushBack({28, 0, 13, 22});
-	forward.speed = 0.1f;
+	
+	forward.speed = 0.15f;
+
+	//walk diagonal down-left
+
+	down_left.PushBack({115,23,15,22});
+	down_left.PushBack({121,23,15,22});
+	down_left.PushBack({ 115,23,15,22 });
+	down_left.PushBack({137,23,15,22});
+
+	//walk diagonal down-right
+
+	down_right.PushBack({88,23,15,22});
+	down_right.PushBack({56,23,15,22});
+	down_right.PushBack({ 88,23,15,22 });
+	down_right.PushBack({73,23,15,22});
+
+	//walk diagonal up-right
+
+	up_right.PushBack({});
+	up_right.PushBack({});
+	up_right.PushBack({});
+
+	//walk diagonal down-left
+
+	up_left.PushBack({});
+	up_left.PushBack({});
+	up_left.PushBack({});
+
 
 	//walk right animation
 
 	
-	right.PushBack({ 95,0,18,21 });
-	right.PushBack({ 73,0,21,21 });
-	right.PushBack({ 114,0,16,22 });
-	right.speed = 0.1f;
+	right.PushBack({ 42,0,19,22 });
+	right.PushBack({ 62,0,25,21 });
+	right.PushBack({ 42,0,19,22 });
+	right.PushBack({ 88,0,22,21 });
+	right.speed = 0.15f;
 	
 
 	//walk left annimation
 
 	
-	left.PushBack({ 169,0,18,21 });
-	left.PushBack({ 188,0,21,21 });
-	left.PushBack({ 152,0,16,22 });
-	left.speed = 0.1f;
+	left.PushBack({ 160,0,19,22 });
+	left.PushBack({ 134,0,25,21 });
+	left.PushBack({ 160,0,19,22 });
+	left.PushBack({ 111,0,19,22 });
+	left.speed = 0.15f;
 	
 	//walk backward animation
 
-	backward.PushBack({ 0,24,13,22 });
-	backward.PushBack({ 13,24,13,22 });
 	backward.PushBack({ 28,24,13,22 });
-	backward.speed = 0.1f;
+	backward.PushBack({ 0,24,13,22 });
+	backward.PushBack({ 28,24,13,22 });
+	backward.PushBack({ 13,24,13,22 });
+	
+	backward.speed = 0.15f;
 	
 }
 
@@ -95,6 +128,7 @@ update_status ModulePlayer::Update()
 			current_animation = &left;
 		}
 	}
+
 
 	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
 	{
