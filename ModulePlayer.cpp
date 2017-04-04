@@ -32,9 +32,9 @@ ModulePlayer::ModulePlayer()
 
 	//walk diagonal down-left
 
-	down_left.PushBack({115,24,15,22});
-	down_left.PushBack({121,24,15,22});
-	down_left.PushBack({115,24,15,22 });
+	down_left.PushBack({105,24,15,22});
+	down_left.PushBack({120,24,15,22});
+	down_left.PushBack({105,24,15,22 });
 	down_left.PushBack({137,24,15,22});
 	down_left.speed = 0.15f;
 
