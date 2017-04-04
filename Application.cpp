@@ -17,10 +17,10 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = sound = new ModuleSound();
-	modules[5] = player = new ModulePlayer();
-	modules[6] = scene_congrats = new ModuleSceneCongrats();
-	modules[7] = scene_welcome = new ModuleSceneWelcome();
-	modules[8] = scene_game = new ModuleSceneGame();
+	modules[5] = scene_congrats = new ModuleSceneCongrats();
+	modules[6] = scene_welcome = new ModuleSceneWelcome();
+	modules[7] = scene_game = new ModuleSceneGame();
+	modules[8] = player = new ModulePlayer();
 	modules[9] = fade = new ModuleFadeToBlack();
 }	
 

@@ -21,8 +21,9 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect player_rect;
+	Animation* current_animation = nullptr;
 	Animation forward;
+	Animation idle;
 	Animation backward;
 	Animation left;
 	Animation right;
