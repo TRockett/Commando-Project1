@@ -43,7 +43,7 @@ bool ModuleSceneGame::Start() {
 }
 
 update_status ModuleSceneGame::PreUpdate() {
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 		if (level + 1 > MAX_LEVEL) {
 			if (App->fade->FadeToBlack(this, App->scene_congrats, 2.0f)) {
 				level = 1;
@@ -62,7 +62,7 @@ update_status ModuleSceneGame::Update() {
 	bool ret = true;
 	//if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
 	//	targetY++;
-	ret = App->render->Blit(background_graphics, 0, -initial_camera_pos.y + SCREEN_HEIGHT + targetY, nullptr);
+	ret = App->render->Blit(background_graphics, 20, -initial_camera_pos.y + SCREEN_HEIGHT + targetY, nullptr);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

@@ -9,6 +9,8 @@
 #include "ModuleSceneGame.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleSound.h"
+#include "ModuleCollision.h"
+#include "ModuleParticles.h"
 
 Application::Application()
 {
@@ -21,7 +23,9 @@ Application::Application()
 	modules[6] = scene_welcome = new ModuleSceneWelcome();
 	modules[7] = scene_game = new ModuleSceneGame();
 	modules[8] = player = new ModulePlayer();
-	modules[9] = fade = new ModuleFadeToBlack();
+	modules[9] = particles = new ModuleParticles();
+	modules[10] = collision = new ModuleCollision();
+	modules[11] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()

@@ -23,9 +23,9 @@ bool ModuleSceneWelcome::Init() {
 	
 	background_graphics = nullptr;
 	welcome_anim.speed = 0.0037f;
-	welcome_anim.PushBack({ 0,150,189,216 });
-	welcome_anim.PushBack({ 0,1589,189,216 });
-	welcome_anim.PushBack({ 0,0,189,216 });
+	welcome_anim.PushBack({ 20,150,216,256 });
+	welcome_anim.PushBack({ 20,1800,216,256 });
+	welcome_anim.PushBack({ 20,0,216,256 });
 
 
 	return true;

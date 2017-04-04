@@ -43,7 +43,7 @@ update_status ModuleSceneCongrats::PreUpdate() {
 }
 
 update_status ModuleSceneCongrats::Update() {
-	SDL_Rect target = { 0, 465, 189, 216 };
+	SDL_Rect target = { 20, 465, 216, 256 };
 	App->render->Blit(background_graphics, 0, 0, &target, 0.0f);
 	return update_status::UPDATE_CONTINUE;
 }
