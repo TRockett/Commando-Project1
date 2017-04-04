@@ -48,17 +48,19 @@ ModulePlayer::ModulePlayer()
 
 	//walk diagonal up-right
 
-	up_right.PushBack({});
-	up_right.PushBack({});
-	up_right.PushBack({});
+	up_right.PushBack({0,47,15,22});
+	up_right.PushBack({38,47,18,21});
+	up_right.PushBack({ 0,47,15,22 });
+	up_right.PushBack({15,47,21,21});
 	up_right.speed = 0.15f;
 
 	//walk diagonal down-left
 
-	up_left.PushBack({});
-	up_left.PushBack({});
-	up_left.PushBack({});
-	up_right.speed = 0.15f;
+	up_left.PushBack({97,47,15,22});
+	up_left.PushBack({56,47,18,21});
+	up_left.PushBack({ 97,47,15,22 });
+	up_left.PushBack({75,47,21,21});
+	up_left.speed = 0.15f;
 
 	//walk right animation
 
@@ -116,36 +118,30 @@ update_status ModulePlayer::Update()
 	direction.x = 0;
 	direction.y = 0;
 
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == 1)
 	{
 		position.x += speed;
 		direction.x = 1;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_A] ==1)
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] ==1)
 	{
 		position.x -= speed;
 		direction.x = -1;
 	}
 
 
-	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
+	if(App->input->keyboard[SDL_SCANCODE_UP] == 1)
 	{
 		position.y -= speed;
-		if (current_animation != &forward)
-		{
-			current_animation = &forward;
-			
-		}
 		direction.y = 1;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_S] ==1)
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] ==1)
 	{
-		position.y += speed;
-		
+		position.y += speed;		
 		direction.y = -1;
 	}
-	
+
 		if (direction.y == -1)
 		{
 			if (direction.x == -1)
@@ -153,6 +149,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &down_left)
 				{
 					current_animation = &down_left;
+					speed = 0.75f;
 				}
 			}
 			else if (direction.x == 0)
@@ -160,7 +157,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &backward)
 				{
 					current_animation = &backward;
-
+				
 				}
 			}
 			else if (direction.x == 1)
@@ -168,6 +165,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &down_right)
 				{
 					current_animation = &down_right;
+					speed = 0.75f;
 				}
 			}
 
@@ -195,6 +193,32 @@ update_status ModulePlayer::Update()
 				{
 					current_animation = &left;
 
+				}
+			}
+		}
+		else if (direction.y == 1)
+		{
+			if (direction.x == 0)
+			{
+				if (current_animation != &forward)
+				{
+					current_animation = &forward;
+				}
+			}
+			else if (direction.x == 1)
+			{
+				if (current_animation != &up_right)
+				{
+					current_animation = &up_right;
+					speed = 0.75f;
+				}
+			}
+			else if (direction.x == -1)
+			{
+				if (current_animation != &up_left)
+				{
+					current_animation = &up_left;
+					speed = 0.75f;
 				}
 			}
 		}
