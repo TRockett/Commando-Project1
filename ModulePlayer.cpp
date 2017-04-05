@@ -29,6 +29,18 @@ ModulePlayer::ModulePlayer()
 	// idle left position
 	idle_right.PushBack({ 42,0,19,22 });
 
+	// idle forward position
+	idle_down_left.PushBack({ 105,24,15,22 });
+
+	// idle backward position
+	idle_down_right.PushBack({ 88,23,15,22 });
+
+	// idle right position
+	idle_up_left.PushBack({ 97,47,15,22 });
+
+	// idle left position
+	idle_up_right.PushBack({ 0,47,15,22 });
+
 	// walk forward animation (arcade sprite sheet)
 	
 	forward.PushBack({0, 0, 13, 23});
@@ -135,26 +147,40 @@ update_status ModulePlayer::Update()
 	direction.x = 0;
 	direction.y = 0;
 
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+
+	bool move = 0;
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
-		direction.x = 1;
-		
-	}
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.x = -1;
-	}
+		direction_animations.x = 0;
+		direction_animations.y = 0;
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.x = 1;
+			direction.x = 1;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.x = -1;
+			direction.x = -1;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.y = 1;
+			direction.y = 1;
+		}
 
 
-	if(App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.y = 1;
+		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.y = -1;
+			direction.y = -1;
+		}
+		move = 1;
 	}
-
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.y = -1;
-	}
+	else
+		move = 0;
 
 	if (direction.x != 0 && direction.y != 0) {
 		position.x += roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * direction.x);
@@ -172,82 +198,115 @@ update_status ModulePlayer::Update()
 		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
 	}
 
-	if (direction.y == -1)
-	{
-		if (direction.x == -1)
+		if (direction_animations.y == -1)
 		{
-			if (current_animation != &down_left)
+			if (direction_animations.x == -1)
 			{
-				current_animation = &down_left;
-				//speed = 0.1f;
+				if (move == true)
+				{
+					if (current_animation != &down_left)
+					{
+						current_animation = &down_left;
+					}
+				}
+				else
+					current_animation = &idle_down_left;
+			}
+			else if (direction_animations.x == 0)
+			{
+				if (move == true)
+				{
+					if (current_animation != &backward)
+					{
+						current_animation = &backward;
+					}
+				}
+				else
+					current_animation = &idle_backward;
+			}
+			else if (direction_animations.x == 1)
+			{
+				if (move == true)
+				{
+					if (current_animation != &down_right)
+					{
+						current_animation = &down_right;
+					}
+				}
+				else
+					current_animation = &idle_down_right;
+			}
+		}
+		else if (direction_animations.y == 0)
+		{
 
-			}
-		}
-		else if (direction.x == 0)
-		{
-			if (current_animation != &backward)
+			if (direction_animations.x == 1)
 			{
-				current_animation = &backward;
-				
+				if (move == true)
+				{
+					if (current_animation != &right)
+					{
+						current_animation = &right;
+					}
+				}
+				else
+					current_animation = &idle_right;
 			}
-		}
-		else if (direction.x == 1)
-		{
-			if (current_animation != &down_right)
+			else if (direction_animations.x == -1)
 			{
-				current_animation = &down_right;
-				//speed = 0.1f;
+				if (move == true)
+				{
+					if (current_animation != &left)
+					{
+						current_animation = &left;
+					}
+				}
+				else
+					current_animation = &idle_left;
 			}
 		}
-
-	}
-	else if (direction.y == 0)
-	{
-			
-		if (direction.x == 1)
+		else if (direction_animations.y == 1)
 		{
-			if (current_animation != &right)
+			if (direction_animations.x == 0)
 			{
-				current_animation = &right;
-
+				if (move == true)
+				{
+					if (current_animation != &forward)
+					{
+						current_animation = &forward;
+					}
+				}
+				else
+					current_animation = &idle_forward;
+			}
+			else if (direction_animations.x == 1)
+			{
+				if (move == true)
+				{
+					if (current_animation != &up_right)
+					{
+						current_animation = &up_right;
+					}
+				}
+				else
+					current_animation = &idle_up_right;
+			}
+			else if (direction_animations.x == -1)
+			{
+				if (move == true)
+				{
+					if (current_animation != &up_left)
+					{
+						current_animation = &up_left;
+					}
+				}
+				else
+					current_animation = &idle_up_left;
 			}
 		}
-		else if (direction.x == -1)
-		{
-			if (current_animation != &left)
-			{
-				current_animation = &left;
-
-			}
-		}
-	}
-	else if (direction.y == 1)
-	{
-		if (direction.x == 0)
-		{
-			if (current_animation != &forward)
-			{
-				current_animation = &forward;
-			}
-		}
-		else if (direction.x == 1)
-		{
-			if (current_animation != &up_right)
-			{
-				current_animation = &up_right;
-				//speed = 0.5f;
-			}
-		}
-		else if (direction.x == -1)
-		{
-			if (current_animation != &up_left)
-			{
-				current_animation = &up_left;
-				//speed = 0.5f;
-			}
-		}
-	}
-
+	
+		
+		move = 0;
 	
 
 	

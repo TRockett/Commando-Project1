@@ -29,6 +29,10 @@ public:
 	Animation idle_backward;
 	Animation idle_right;
 	Animation idle_left;
+	Animation idle_up_left;
+	Animation idle_down_left;
+	Animation idle_up_right;
+	Animation idle_down_right;
 	Animation backward;
 	Animation left;
 	Animation right;
@@ -38,6 +42,7 @@ public:
 	Animation down_left;
 	iPoint position;
 	iPoint direction;
+	iPoint direction_animations;
 	Mix_Chunk* shoot;
 	Collider* collider;
 
