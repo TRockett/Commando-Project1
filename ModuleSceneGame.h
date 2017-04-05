@@ -16,8 +16,10 @@ private:
 	int level;
 	iPoint initial_camera_pos;
 	SDL_Texture* background_graphics;
+	SDL_Texture* sprite_graphics;
 	int targetY = 0;
 	bool moving = false;
+	Animation tree1;
 
 public:
 	bool Init();

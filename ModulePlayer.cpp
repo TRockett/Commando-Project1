@@ -157,13 +157,13 @@ update_status ModulePlayer::Update()
 		direction.y = -1;
 	}
 
-	if (direction.x != 0 && direction.y != 0) {
-		float angle = 1.0f / tanf(direction.y / direction.x);
+	if (direction.x != 0 && direction.y != 0) {//To Fix
+		float angle = acosf((direction.x * 1.0f + direction.y * 0.0f) / (sqrtf(powf(direction.x, 2.0f)+powf(direction.y, 2.0f))*sqrtf(powf(1.0f, 2.0f) + powf(0.0f, 2.0f))));
 		position.x += speed * roundf(sinf(angle));
 		position.y += speed * roundf(cosf(angle));
 	}
 	else {
-		position.x += speed * -direction.x;
+		position.x += speed * direction.x;
 		position.y += speed * -direction.y;
 	}
 

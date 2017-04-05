@@ -21,6 +21,8 @@ ModuleSceneGame::~ModuleSceneGame()
 
 bool ModuleSceneGame::Init() {
 	level = 1;
+	tree1.PushBack({ 219, 0, 31, 32 });
+	tree1.PushBack({ 251, 0, 30, 32 });
 	return true;
 }
 
@@ -32,8 +34,12 @@ bool ModuleSceneGame::Start() {
 	str.append(std::to_string(level));
 	str.append(".png");
 	background_graphics = App->textures->Load(str.c_str(), &initial_camera_pos);
+	sprite_graphics = App->textures->Load("Images/sprites.png");
 
 	if (background_graphics == nullptr)
+		ret = false;
+	
+	if (sprite_graphics == nullptr)
 		ret = false;
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
@@ -65,6 +71,7 @@ update_status ModuleSceneGame::Update() {
 	targetY = App->player->position.y-10;
 	SDL_Rect target = { 10, App->player->position.y, 216, 256 };
 	ret = App->render->Blit(background_graphics, 0, 0, &target);
+	App->render->Blit(sprite_graphics, 205, 1780, &tree1.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
