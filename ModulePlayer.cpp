@@ -6,7 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleSceneGame.h"
 #include "ModuleParticles.h"
-
+#include "ModuleSound.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -101,6 +101,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
+	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	return true;
 }
 
@@ -145,6 +146,8 @@ update_status ModulePlayer::Update()
 	}
 	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 	{
+		
+		App->sound->PlaySound(shoot, 0);
 		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
 	}
 
