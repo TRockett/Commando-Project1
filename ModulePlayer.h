@@ -40,6 +40,7 @@ public:
 	Animation down_left;
 	iPoint position;
 	iPoint direction;
+	iPoint direction_animations;
 	Mix_Chunk* shoot;
 
 };

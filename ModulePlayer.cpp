@@ -148,26 +148,40 @@ update_status ModulePlayer::Update()
 	direction.x = 0;
 	direction.y = 0;
 
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+
+	bool move = 0;
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
-		direction.x = 1;
-		
-	}
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.x = -1;
-	}
+		direction_animations.x = 0;
+		direction_animations.y = 0;
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.x = 1;
+			direction.x = 1;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.x = -1;
+			direction.x = -1;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.y = 1;
+			direction.y = 1;
+		}
 
 
-	if(App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.y = 1;
+		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+		{
+			direction_animations.y = -1;
+			direction.y = -1;
+		}
+		move = 1;
 	}
-
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-	{
-		direction.y = -1;
-	}
+	else
+		move = 0;
 
 	if (direction.x != 0 && direction.y != 0) {//To Fix
 		float angle = acosf((direction.x * 1.0f + direction.y * 0.0f) / (sqrtf(powf(direction.x, 2.0f)+powf(direction.y, 2.0f))*sqrtf(powf(1.0f, 2.0f) + powf(0.0f, 2.0f))));
@@ -186,39 +200,45 @@ update_status ModulePlayer::Update()
 		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
 	}
 
-		if (direction.y == -1)
+		if (direction_animations.y == -1)
 		{
-			if (direction.x == -1)
+			if (direction_animations.x == -1)
 			{
-				if (current_animation != &down_left)
+				if (move == true)
 				{
-					current_animation = &down_left;
-					speed = 0.1f;
-
+					if (current_animation != &down_left)
+					{
+						current_animation = &down_left;
+					}
 				}
+				else
+					current_animation = &idle_left;
 			}
-			else if (direction.x == 0)
+			else if (direction_animations.x == 0)
 			{
-				if (current_animation != &backward)
+				if (move == true)
 				{
-					current_animation = &backward;
-				
+					if (current_animation != &backward)
+					{
+						current_animation = &backward;
+					}
 				}
+				else
+					current_animation = &idle_backward;
 			}
-			else if (direction.x == 1)
+			else if (direction_animations.x == 1)
 			{
 				if (current_animation != &down_right)
 				{
 					current_animation = &down_right;
-					speed = 0.1f;
 				}
 			}
 
 		}
-		else if (direction.y == 0)
+		else if (direction_animations.y == 0)
 		{
 			
-			if (direction.x == 1)
+			if (direction_animations.x == 1)
 			{
 				if (current_animation != &right)
 				{
@@ -226,43 +246,45 @@ update_status ModulePlayer::Update()
 
 				}
 			}
-			else if (direction.x == -1)
+			else if (direction_animations.x == -1)
 			{
 				if (current_animation != &left)
 				{
 					current_animation = &left;
 
-				}
+				}				
 			}
 		}
-		else if (direction.y == 1)
+		else if (direction_animations.y == 1)
 		{
-			if (direction.x == 0)
+			if (direction_animations.x == 0)
 			{
 				if (current_animation != &forward)
 				{
 					current_animation = &forward;
 				}
 			}
-			else if (direction.x == 1)
+			else if (direction_animations.x == 1)
 			{
 				if (current_animation != &up_right)
 				{
 					current_animation = &up_right;
-					speed = 0.5f;
 				}
 			}
-			else if (direction.x == -1)
+			else if (direction_animations.x == -1)
 			{
 				if (current_animation != &up_left)
 				{
 					current_animation = &up_left;
-					speed = 0.5f;
 				}
 			}
 		}
-
-
+		else if (direction_animations.y == 2)
+		{
+			current_animation = &idle_forward;
+		}
+		
+		move = 0;
 	
 
 	
