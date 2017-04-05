@@ -7,7 +7,7 @@
 #include "p2Point.h"
 
 struct SDL_Texture;
-
+struct Mix_Chunk;
 class ModulePlayer : public Module
 {
 public:
@@ -23,7 +23,10 @@ public:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation forward;
-	Animation idle;
+	Animation idle_forward;
+	Animation idle_backward;
+	Animation idle_right;
+	Animation idle_left;
 	Animation backward;
 	Animation left;
 	Animation right;
@@ -33,7 +36,7 @@ public:
 	Animation down_left;
 	iPoint position;
 	iPoint direction;
-
+	Mix_Chunk* shoot;
 
 };
 
