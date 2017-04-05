@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneGame.h"
+#include "ModuleParticles.h"
 
 
 
@@ -122,6 +123,7 @@ update_status ModulePlayer::Update()
 	{
 		position.x += speed;
 		direction.x = 1;
+		
 	}
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
@@ -141,6 +143,10 @@ update_status ModulePlayer::Update()
 		position.y += speed;		
 		direction.y = -1;
 	}
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
+	{
+		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
+	}
 
 		if (direction.y == -1)
 		{
@@ -149,7 +155,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &down_left)
 				{
 					current_animation = &down_left;
-					speed = 0.75f;
+					speed = 0.1f;
 				}
 			}
 			else if (direction.x == 0)
@@ -165,7 +171,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &down_right)
 				{
 					current_animation = &down_right;
-					speed = 0.75f;
+					speed = 0.1f;
 				}
 			}
 
@@ -210,7 +216,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &up_right)
 				{
 					current_animation = &up_right;
-					speed = 0.75f;
+					speed = 0.5f;
 				}
 			}
 			else if (direction.x == -1)
@@ -218,7 +224,7 @@ update_status ModulePlayer::Update()
 				if (current_animation != &up_left)
 				{
 					current_animation = &up_left;
-					speed = 0.75f;
+					speed = 0.5f;
 				}
 			}
 		}
