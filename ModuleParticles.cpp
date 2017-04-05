@@ -67,7 +67,8 @@ update_status ModuleParticles::Update()
 		}
 		else if(SDL_GetTicks() >= p->born)
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			AnimationFrame frame = p->anim.GetCurrentFrame();
+			App->render->Blit(graphics, p->position.x - frame.pivot.x, p->position.y - frame.pivot.y, &(frame.rect));
 			if(p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -89,7 +90,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->position.x = x;
 			p->position.y = y;
 			if(collider_type != COLLIDER_NONE)
-				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 			active[i] = p;
 			break;
 		}

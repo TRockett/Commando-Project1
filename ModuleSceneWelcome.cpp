@@ -52,8 +52,8 @@ update_status ModuleSceneWelcome::PreUpdate() {
 
 update_status ModuleSceneWelcome::Update() {
 	bool ret = false;
-		
-	ret = App->render->Blit(background_graphics, 0, 0, &welcome_anim.GetCurrentFrame(), 0.0f);
+	AnimationFrame frame = welcome_anim.GetCurrentFrame();
+	ret = App->render->Blit(background_graphics, 0 + frame.pivot.x, 0 + frame.pivot.y, &frame.rect, 0.0f);
 	if (welcome_anim.getFrameIndex() != 0)
 		App->render->Blit(title_graphics, 10, 56, nullptr, 0);
 

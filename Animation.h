@@ -2,14 +2,20 @@
 #define __ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
+#include "p2Point.h"
 #define MAX_FRAMES 25
+
+struct AnimationFrame {
+	SDL_Rect rect;
+	iPoint pivot;
+};
 
 class Animation
 {
 public:
 	bool loop = true;
 	float speed = 1.0f;
-	SDL_Rect frames[MAX_FRAMES];
+	AnimationFrame frames[MAX_FRAMES];
 
 private:
 	float current_frame = 0.0f;
@@ -26,12 +32,12 @@ public:
 		SDL_memcpy(&frames, anim.frames, sizeof(frames));
 	}
 
-	void PushBack(const SDL_Rect& rect)
+	void PushBack(const SDL_Rect& rect, const iPoint& pivot = { 0, 0 })
 	{
-		frames[last_frame++] = rect;
+		frames[last_frame++] = { rect, pivot };
 	}
 
-	SDL_Rect& GetCurrentFrame()
+	AnimationFrame& GetCurrentFrame()
 	{
 		current_frame += speed;
 		if(current_frame >= last_frame)
@@ -52,7 +58,11 @@ public:
 	{
 		current_frame = 0.0f;
 	}
-	int getFrameIndex() { return (int)current_frame; }
+
+	int getFrameIndex() const
+	{
+		return (int)current_frame;
+	}
 };
 
 #endif

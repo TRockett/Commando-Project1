@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleSceneGame.h"
 #include "ModuleParticles.h"
+#include <math.h>
 
 
 
@@ -35,7 +36,7 @@ ModulePlayer::ModulePlayer()
 
 	down_left.PushBack({105,24,15,22});
 	down_left.PushBack({120,24,15,22});
-	down_left.PushBack({105,24,15,22 });
+	down_left.PushBack({105,24,15,22});
 	down_left.PushBack({137,24,15,22});
 	down_left.speed = 0.15f;
 
@@ -43,16 +44,16 @@ ModulePlayer::ModulePlayer()
 
 	down_right.PushBack({88,23,15,22});
 	down_right.PushBack({56,23,15,22});
-	down_right.PushBack({ 88,23,15,22 });
+	down_right.PushBack({88,23,15,22});
 	down_right.PushBack({73,23,15,22});
 	down_right.speed = 0.15f;
 
 	//walk diagonal up-right
 
 	up_right.PushBack({0,47,15,22});
-	up_right.PushBack({38,47,18,21});
-	up_right.PushBack({ 0,47,15,22 });
-	up_right.PushBack({15,47,21,21});
+	up_right.PushBack({ 38,47,18,21 }, { 2,0 });
+	up_right.PushBack({0,47,15,22 });
+	up_right.PushBack({16,47,21,21}, { 7,0 });
 	up_right.speed = 0.15f;
 
 	//walk diagonal down-left
@@ -67,9 +68,9 @@ ModulePlayer::ModulePlayer()
 
 	
 	right.PushBack({ 42,0,19,22 });
-	right.PushBack({ 62,0,25,21 });
+	right.PushBack({ 62,0,25,21 }, { 4,0 });
 	right.PushBack({ 42,0,19,22 });
-	right.PushBack({ 88,0,22,21 });
+	right.PushBack({ 88,0,22,21 }, { 2,0 });
 	right.speed = 0.15f;
 	
 
@@ -121,28 +122,35 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
-		position.x += speed;
 		direction.x = 1;
 		
 	}
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
-		position.x -= speed;
 		direction.x = -1;
 	}
 
 
 	if(App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
-		position.y -= speed;
 		direction.y = 1;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
-		position.y += speed;		
 		direction.y = -1;
 	}
+
+	if (direction.x != 0 && direction.y != 0) {
+		float angle = 1.0f / tanf(direction.y / direction.x);
+		position.x += speed * roundf(sinf(angle));
+		position.y += speed * roundf(cosf(angle));
+	}
+	else {
+		position.x += speed * -direction.x;
+		position.y += speed * -direction.y;
+	}
+
 	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 	{
 		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
@@ -235,9 +243,9 @@ update_status ModulePlayer::Update()
 	
 
 	// Draw everything --------------------------------------
-	//SDL_Rect r = current_animation->GetCurrentFrame();
+	AnimationFrame frame =  current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y , &(current_animation->GetCurrentFrame()));
+	App->render->Blit(graphics, position.x - frame.pivot.x, position.y - frame.pivot.y, &frame.rect);
 	
 	return UPDATE_CONTINUE;
 }
