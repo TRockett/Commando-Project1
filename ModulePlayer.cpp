@@ -19,8 +19,17 @@ ModulePlayer::ModulePlayer()
 	
 
 
-	// idle position
-	idle.PushBack({ 0,0, 13, 23 });
+	// idle forward position
+	idle_forward.PushBack({ 0,0, 13, 23 });
+
+	// idle backward position
+	idle_backward.PushBack({ 28,24,13,22 });
+
+	// idle right position
+	idle_left.PushBack({ 160,0,19,22 });
+
+	// idle left position
+	idle_right.PushBack({ 42,0,19,22 });
 
 	// walk forward animation (arcade sprite sheet)
 	
@@ -28,7 +37,7 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({14, 0, 13, 22});
 	forward.PushBack({ 0, 0, 13, 23 });
 	forward.PushBack({28, 0, 13, 22});
-	
+	forward.loop = true;
 	forward.speed = 0.15f;
 
 	//walk diagonal down-left
@@ -70,6 +79,7 @@ ModulePlayer::ModulePlayer()
 	right.PushBack({ 62,0,25,21 });
 	right.PushBack({ 42,0,19,22 });
 	right.PushBack({ 88,0,22,21 });
+	right.loop = true;
 	right.speed = 0.15f;
 	
 
@@ -80,6 +90,7 @@ ModulePlayer::ModulePlayer()
 	left.PushBack({ 134,0,25,21 });
 	left.PushBack({ 160,0,19,22 });
 	left.PushBack({ 111,0,19,22 });
+	left.loop = true;
 	left.speed = 0.15f;
 	
 	//walk backward animation
@@ -88,7 +99,7 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 0,24,13,22 });
 	backward.PushBack({ 28,24,13,22 });
 	backward.PushBack({ 13,24,13,22 });
-	
+	backward.loop = true;
 	backward.speed = 0.15f;
 	
 }
@@ -101,6 +112,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
+	current_animation= &idle_forward;
 	return true;
 }
 
@@ -113,7 +125,6 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	Animation* current_animation = &idle;
 
 	int speed = 1;
 	direction.x = 0;
@@ -156,6 +167,7 @@ update_status ModulePlayer::Update()
 				{
 					current_animation = &down_left;
 					speed = 0.1f;
+
 				}
 			}
 			else if (direction.x == 0)
@@ -178,14 +190,8 @@ update_status ModulePlayer::Update()
 		}
 		else if (direction.y == 0)
 		{
-			if (direction.x == 0)
-			{
-				if (current_animation != &idle)
-				{
-					current_animation = &idle;
-				}
-			}
-			else if (direction.x == 1)
+			
+			if (direction.x == 1)
 			{
 				if (current_animation != &right)
 				{
