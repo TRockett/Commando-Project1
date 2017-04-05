@@ -32,6 +32,18 @@ ModulePlayer::ModulePlayer()
 	// idle left position
 	idle_right.PushBack({ 42,0,19,22 });
 
+	// idle forward position
+	idle_down_left.PushBack({ 105,24,15,22 });
+
+	// idle backward position
+	idle_down_right.PushBack({ 88,23,15,22 });
+
+	// idle right position
+	idle_up_left.PushBack({ 97,47,15,22 });
+
+	// idle left position
+	idle_up_right.PushBack({ 0,47,15,22 });
+
 	// walk forward animation (arcade sprite sheet)
 	
 	forward.PushBack({0, 0, 13, 23});
