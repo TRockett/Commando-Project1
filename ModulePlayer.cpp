@@ -212,7 +212,7 @@ update_status ModulePlayer::Update()
 					}
 				}
 				else
-					current_animation = &idle_left;
+					current_animation = &idle_down_left;
 			}
 			else if (direction_animations.x == 0)
 			{
@@ -228,61 +228,86 @@ update_status ModulePlayer::Update()
 			}
 			else if (direction_animations.x == 1)
 			{
-				if (current_animation != &down_right)
+				if (move == true)
 				{
-					current_animation = &down_right;
+					if (current_animation != &down_right)
+					{
+						current_animation = &down_right;
+					}
 				}
+				else
+					current_animation = &idle_down_right;
 			}
 
 		}
 		else if (direction_animations.y == 0)
 		{
-			
+
 			if (direction_animations.x == 1)
 			{
-				if (current_animation != &right)
+				if (move == true)
 				{
-					current_animation = &right;
-
+					if (current_animation != &right)
+					{
+						current_animation = &right;
+					}
 				}
+				else
+					current_animation = &idle_right;
 			}
 			else if (direction_animations.x == -1)
 			{
-				if (current_animation != &left)
+				if (move == true)
 				{
-					current_animation = &left;
-
-				}				
+					if (current_animation != &left)
+					{
+						current_animation = &left;
+					}
+				}
+				else
+					current_animation = &idle_left;
 			}
 		}
 		else if (direction_animations.y == 1)
 		{
 			if (direction_animations.x == 0)
 			{
-				if (current_animation != &forward)
+				if (move == true)
 				{
-					current_animation = &forward;
+					if (current_animation != &forward)
+					{
+						current_animation = &forward;
+					}
 				}
+				else
+					current_animation = &idle_forward;
 			}
 			else if (direction_animations.x == 1)
 			{
-				if (current_animation != &up_right)
+				if (move == true)
 				{
-					current_animation = &up_right;
+					if (current_animation != &up_right)
+					{
+						current_animation = &up_right;
+					}
 				}
+				else
+					current_animation = &idle_up_right;
 			}
 			else if (direction_animations.x == -1)
 			{
-				if (current_animation != &up_left)
+				if (move == true)
 				{
-					current_animation = &up_left;
+					if (current_animation != &up_left)
+					{
+						current_animation = &up_left;
+					}
 				}
+				else
+					current_animation = &idle_up_left;
 			}
 		}
-		else if (direction_animations.y == 2)
-		{
-			current_animation = &idle_forward;
-		}
+	
 		
 		move = 0;
 	
