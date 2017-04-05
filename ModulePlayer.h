@@ -8,6 +8,7 @@
 
 struct SDL_Texture;
 struct Mix_Chunk;
+struct Collider;
 class ModulePlayer : public Module
 {
 public:
@@ -17,6 +18,7 @@ public:
 	bool Start();
 	bool CleanUp();
 	update_status Update();
+	void OnCollision(Collider*, Collider*);
 
 public:
 
@@ -37,6 +39,10 @@ public:
 	iPoint position;
 	iPoint direction;
 	Mix_Chunk* shoot;
+	Collider* collider;
+
+
+	int speed;
 
 };
 

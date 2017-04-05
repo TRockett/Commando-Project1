@@ -8,16 +8,13 @@
 #include "ModuleParticles.h"
 #include <math.h>
 #include "ModuleSound.h"
+#include "ModuleCollision.h"
 
 
 ModulePlayer::ModulePlayer()
 {
 	graphics = NULL;
 	current_animation = NULL;
-
-	position.x =150;
-	position.y = 195;
-	
 
 
 	// idle forward position
@@ -104,6 +101,7 @@ ModulePlayer::ModulePlayer()
 	backward.loop = true;
 	backward.speed = 0.15f;
 	
+	speed = 1;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -112,6 +110,9 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+	position.x = SCREEN_WIDTH / 2;
+	position.y = 190;
+	collider = App->collision->AddCollider({ position.x, position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
 
@@ -131,8 +132,6 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-
-	int speed = 1;
 	direction.x = 0;
 	direction.y = 0;
 
@@ -157,10 +156,9 @@ update_status ModulePlayer::Update()
 		direction.y = -1;
 	}
 
-	if (direction.x != 0 && direction.y != 0) {//To Fix
-		float angle = acosf((direction.x * 1.0f + direction.y * 0.0f) / (sqrtf(powf(direction.x, 2.0f)+powf(direction.y, 2.0f))*sqrtf(powf(1.0f, 2.0f) + powf(0.0f, 2.0f))));
-		position.x += speed * roundf(sinf(angle));
-		position.y += speed * roundf(cosf(angle));
+	if (direction.x != 0 && direction.y != 0) {
+		position.x += roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * direction.x);
+		position.y += roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * -direction.y);
 	}
 	else {
 		position.x += speed * direction.x;
@@ -174,82 +172,81 @@ update_status ModulePlayer::Update()
 		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
 	}
 
-		if (direction.y == -1)
+	if (direction.y == -1)
+	{
+		if (direction.x == -1)
 		{
-			if (direction.x == -1)
+			if (current_animation != &down_left)
 			{
-				if (current_animation != &down_left)
-				{
-					current_animation = &down_left;
-					speed = 0.1f;
+				current_animation = &down_left;
+				//speed = 0.1f;
 
-				}
 			}
-			else if (direction.x == 0)
+		}
+		else if (direction.x == 0)
+		{
+			if (current_animation != &backward)
 			{
-				if (current_animation != &backward)
-				{
-					current_animation = &backward;
+				current_animation = &backward;
 				
-				}
 			}
-			else if (direction.x == 1)
-			{
-				if (current_animation != &down_right)
-				{
-					current_animation = &down_right;
-					speed = 0.1f;
-				}
-			}
-
 		}
-		else if (direction.y == 0)
+		else if (direction.x == 1)
 		{
+			if (current_animation != &down_right)
+			{
+				current_animation = &down_right;
+				//speed = 0.1f;
+			}
+		}
+
+	}
+	else if (direction.y == 0)
+	{
 			
-			if (direction.x == 1)
-			{
-				if (current_animation != &right)
-				{
-					current_animation = &right;
-
-				}
-			}
-			else if (direction.x == -1)
-			{
-				if (current_animation != &left)
-				{
-					current_animation = &left;
-
-				}
-			}
-		}
-		else if (direction.y == 1)
+		if (direction.x == 1)
 		{
-			if (direction.x == 0)
+			if (current_animation != &right)
 			{
-				if (current_animation != &forward)
-				{
-					current_animation = &forward;
-				}
-			}
-			else if (direction.x == 1)
-			{
-				if (current_animation != &up_right)
-				{
-					current_animation = &up_right;
-					speed = 0.5f;
-				}
-			}
-			else if (direction.x == -1)
-			{
-				if (current_animation != &up_left)
-				{
-					current_animation = &up_left;
-					speed = 0.5f;
-				}
+				current_animation = &right;
+
 			}
 		}
+		else if (direction.x == -1)
+		{
+			if (current_animation != &left)
+			{
+				current_animation = &left;
 
+			}
+		}
+	}
+	else if (direction.y == 1)
+	{
+		if (direction.x == 0)
+		{
+			if (current_animation != &forward)
+			{
+				current_animation = &forward;
+			}
+		}
+		else if (direction.x == 1)
+		{
+			if (current_animation != &up_right)
+			{
+				current_animation = &up_right;
+				//speed = 0.5f;
+			}
+		}
+		else if (direction.x == -1)
+		{
+			if (current_animation != &up_left)
+			{
+				current_animation = &up_left;
+				//speed = 0.5f;
+			}
+		}
+	}
 
 	
 
@@ -257,8 +254,22 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	AnimationFrame frame =  current_animation->GetCurrentFrame();
-
-	App->render->Blit(graphics, position.x - frame.pivot.x, position.y - frame.pivot.y, &frame.rect);
+	iPoint camera = App->scene_game->getLevelDimensions();
+	int margin = 200;
+	collider->rect = { position.x - frame.pivot.x, position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
+	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
+	App->render->Blit(graphics, (position.x - frame.pivot.x), (position.y - frame.pivot.y), &frame.rect);
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::OnCollision(Collider* self, Collider* other) {
+	if (direction.x != 0 && direction.y != 0) {
+		position.x -= roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * direction.x);
+		position.y -= roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * -direction.y);
+	}
+	else {
+		position.x -= speed * direction.x;
+		position.y -= speed * -direction.y;
+	}
 }

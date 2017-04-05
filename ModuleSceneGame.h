@@ -14,7 +14,7 @@ class ModuleSceneGame :
 {
 private:
 	int level;
-	iPoint initial_camera_pos;
+	iPoint level_dimensions;
 	SDL_Texture* background_graphics;
 	SDL_Texture* sprite_graphics;
 	int targetY = 0;
@@ -30,8 +30,8 @@ public:
 	bool CleanUp();
 	void onFadeInEnd();
 
-	iPoint getCameraPosition() {
-		return{ -initial_camera_pos.x, -initial_camera_pos.y + SCREEN_HEIGHT + targetY };
+	iPoint getLevelDimensions() {
+		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };
 	}
 
 	void setLevel(int lvl) { level = lvl; }

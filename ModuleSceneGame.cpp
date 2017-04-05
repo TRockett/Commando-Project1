@@ -7,6 +7,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleSound.h"
+#include "ModuleCollision.h"
 #include <string>
 
 
@@ -23,19 +24,22 @@ bool ModuleSceneGame::Init() {
 	level = 1;
 	tree1.PushBack({ 219, 0, 31, 32 });
 	tree1.PushBack({ 251, 0, 30, 32 });
+	tree1.speed = 0.015f;
 	return true;
 }
 
 bool ModuleSceneGame::Start() {
 	bool ret = true;
-
-	App->player->Enable();
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
 	str.append(".png");
-	background_graphics = App->textures->Load(str.c_str(), &initial_camera_pos);
+	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
+	App->render->camera.x = -20 * SCREEN_SIZE;
+	//App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
+	App->collision->AddCollider({ 203, 128, 31, 32 }, COLLIDER_WALL);
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 
+	App->player->Enable();
 	if (background_graphics == nullptr)
 		ret = false;
 	
@@ -66,12 +70,8 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
-	if (-initial_camera_pos.y + SCREEN_HEIGHT + targetY < 0 && moving)
-		targetY++;
-	targetY = App->player->position.y-10;
-	SDL_Rect target = { 10, App->player->position.y, 216, 256 };
-	ret = App->render->Blit(background_graphics, 0, 0, &target);
-	App->render->Blit(sprite_graphics, 205, 1780, &tree1.GetCurrentFrame().rect);
+	ret = App->render->Blit(background_graphics, 0, -level_dimensions.y + SCREEN_HEIGHT, nullptr);
+	App->render->Blit(sprite_graphics, 203, 128, &tree1.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
@@ -85,6 +85,7 @@ bool ModuleSceneGame::CleanUp() {
 	targetY = 0;
 	moving = false;
 	App->sound->StopAll();
+	App->player->Disable();
 	if (!ret) {
 		App->textures->Unload(background_graphics);
 		return ret;
