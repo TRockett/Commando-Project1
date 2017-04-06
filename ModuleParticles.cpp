@@ -21,12 +21,12 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("rtype/sprites.png");
+	graphics = App->textures->Load("images/sprites.png");
 
 	//bullet particles
-	bullet.anim.PushBack({366,622,2,2});
+	bullet.anim.PushBack({0,100,2,2});
 	bullet.anim.speed = 0.2f;
-	bullet.speed.x = 5;
+	bullet.speed.y = -5;
 	bullet.life = 3000;
 
 	return true;
