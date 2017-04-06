@@ -10,6 +10,13 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 
+enum PLAYER_STATE {
+	IDLE = 0,
+	MOVING_UP = 1,
+	MOVING_DOWN = 2,
+	MOVING_RIGHT = 4,
+	MOVING_LEFT = 8
+};
 
 ModulePlayer::ModulePlayer()
 {
