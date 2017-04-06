@@ -16,17 +16,13 @@ enum PLAYER_STATE : int {
 	MOVING_DOWN = 2,
 	MOVING_RIGHT = 4,
 	MOVING_LEFT = 8,
-	SHOOTING = 16,
 	MOVING_UP_RIGHT = 1 | 4,
 	MOVING_UP_LEFT = 1 | 8,
 	MOVING_DOWN_RIGHT = 2 | 4,
 	MOVING_DOWN_LEFT = 2 | 8
 };
 
-PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
-	PLAYER_STATE ret = static_cast<PLAYER_STATE>((int)p | (int)s);
-	return ret;
-}
+PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
 
 class ModulePlayer : public Module
 {
@@ -43,14 +39,6 @@ private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation forward;
-	Animation idle_forward;
-	Animation idle_backward;
-	Animation idle_right;
-	Animation idle_left;
-	Animation idle_up_left;
-	Animation idle_down_left;
-	Animation idle_up_right;
-	Animation idle_down_right;
 	Animation backward;
 	Animation left;
 	Animation right;
@@ -58,17 +46,18 @@ private:
 	Animation up_left;
 	Animation down_right;
 	Animation down_left;
-	iPoint position;
-	iPoint direction;
-	iPoint direction_animations;
+	fPoint position;
 	Mix_Chunk* shoot;
 	Collider* collider;
 
 	PLAYER_STATE state = IDLE;
 	PLAYER_STATE prev_state = IDLE;
-
+	bool shooting;
 
 	int speed;
+
+	void checkInput();
+	void processInput();
 
 };
 

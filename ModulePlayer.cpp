@@ -16,31 +16,6 @@ ModulePlayer::ModulePlayer()
 	graphics = NULL;
 	current_animation = NULL;
 
-
-	// idle forward position
-	idle_forward.PushBack({ 0,0, 13, 23 });
-
-	// idle backward position
-	idle_backward.PushBack({ 28,24,13,22 });
-
-	// idle right position
-	idle_left.PushBack({ 160,0,19,22 });
-
-	// idle left position
-	idle_right.PushBack({ 42,0,19,22 });
-
-	// idle forward position
-	idle_down_left.PushBack({ 105,24,15,22 });
-
-	// idle backward position
-	idle_down_right.PushBack({ 88,23,15,22 });
-
-	// idle right position
-	idle_up_left.PushBack({ 97,47,15,22 });
-
-	// idle left position
-	idle_up_right.PushBack({ 0,47,15,22 });
-
 	// walk forward animation (arcade sprite sheet)
 	
 	forward.PushBack({0, 0, 13, 23});
@@ -114,6 +89,7 @@ ModulePlayer::ModulePlayer()
 	backward.speed = 0.15f;
 	
 	speed = 1;
+	shooting = false;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -122,13 +98,14 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+	shooting = false;
 	position.x = SCREEN_WIDTH / 2;
 	position.y = 190;
-	collider = App->collision->AddCollider({ position.x, position.y, 13, 23 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
 
-	current_animation= &idle_forward;
+	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 
@@ -144,202 +121,129 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	direction.x = 0;
-	direction.y = 0;
-
-	prev_state = state;
 	state = IDLE;
-	bool move = 0;
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT || App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-	{
-		direction_animations.x = 0;
-		direction_animations.y = 0;
-		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT && position.x < SCREEN_WIDTH)
-		{
-			/*direction_animations.x = 1;
-			direction.x = 1;*/
-			state = MOVING_RIGHT | state;
-		}
+	current_animation->speed = 0.15f;
 
-		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT && position.x - collider->rect.w > 0)
-		{
-			/*direction_animations.x = -1;
-			direction.x = -1;*/
-			state = MOVING_LEFT | state;
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
-		{
-			/*direction_animations.y = 1;
-			direction.y = 1;*/
-			state = MOVING_UP | state;
-		}
-
-
-		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-		{
-			/*direction_animations.y = -1;
-			direction.y = -1;*/
-			state = MOVING_DOWN | state;
-		}
-		move = true;
-	}
-	else {
-		state = IDLE;
-		move = false;
-	}
-
-	/*if (direction.x != 0 && direction.y != 0) {
-		position.x += roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * direction.x);
-		position.y += roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * -direction.y);
-	}
-	else {
-		position.x += speed * direction.x;
-		position.y += speed * -direction.y;
-	}*/
-
-	switch (state) {
-	case MOVING_DOWN:
-		position.y += speed;
-		break;
-	case MOVING_DOWN_RIGHT:
-		break;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
-	{
-		App->sound->PlaySound(shoot, 0);
-		App->particles->AddParticle(App->particles->bullet,position.x, position.y, COLLIDER_PLAYER_SHOT);
-	}
-
-	/*if (direction_animations.y == -1)
-	{
-		if (direction_animations.x == -1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &down_left)
-				{
-					current_animation = &down_left;
-				}
-			}
-			else
-				current_animation = &idle_down_left;
-		}
-		else if (direction_animations.x == 0)
-		{
-			if (move == true)
-			{
-				if (current_animation != &backward)
-				{
-					current_animation = &backward;
-				}
-			}
-			else
-				current_animation = &idle_backward;
-		}
-		else if (direction_animations.x == 1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &down_right)
-				{
-					current_animation = &down_right;
-				}
-			}
-			else
-				current_animation = &idle_down_right;
-		}
-	}
-	else if (direction_animations.y == 0)
-	{
-
-		if (direction_animations.x == 1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &right)
-				{
-					current_animation = &right;
-				}
-			}
-			else
-				current_animation = &idle_right;
-		}
-		else if (direction_animations.x == -1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &left)
-				{
-					current_animation = &left;
-				}
-			}
-			else
-				current_animation = &idle_left;
-		}
-	}
-	else if (direction_animations.y == 1)
-	{
-		if (direction_animations.x == 0)
-		{
-			if (move == true)
-			{
-				if (current_animation != &forward)
-				{
-					current_animation = &forward;
-				}
-			}
-			else
-				current_animation = &idle_forward;
-		}
-		else if (direction_animations.x == 1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &up_right)
-				{
-					current_animation = &up_right;
-				}
-			}
-			else
-				current_animation = &idle_up_right;
-		}
-		else if (direction_animations.x == -1)
-		{
-			if (move == true)
-			{
-				if (current_animation != &up_left)
-				{
-					current_animation = &up_left;
-				}
-			}
-			else
-				current_animation = &idle_up_left;
-		}
-	}*/
-	
-
-	
+	checkInput();
+	processInput();
 
 	// Draw everything --------------------------------------
 	AnimationFrame frame =  current_animation->GetCurrentFrame();
 	iPoint camera = App->scene_game->getLevelDimensions();
-	int margin = 200;
-	collider->rect = { position.x - frame.pivot.x, position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
+	int margin = MAX(200, position.y);
+	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
 	App->render->Blit(graphics, (position.x - frame.pivot.x), (position.y - frame.pivot.y), &frame.rect);
 	
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::OnCollision(Collider* self, Collider* other) {
-	if (direction.x != 0 && direction.y != 0) {
-		position.x -= roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * direction.x);
-		position.y -= roundf(speed * sqrtf(powf(direction.x, 2.0f) + powf(direction.y, 2.0f)) * -direction.y);
+void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final version
+	switch (state) {
+	case MOVING_DOWN:
+		position.y -= speed;
+		break;
+	case MOVING_UP:
+		position.y += speed;
+		break;
+	case MOVING_RIGHT:
+		position.x -= speed;
+		break;
+	case MOVING_LEFT:
+		position.x += speed;
+		break;
+	case MOVING_DOWN_RIGHT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_DOWN_LEFT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_UP_LEFT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_UP_RIGHT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		break;
 	}
-	else {
-		position.x -= speed * direction.x;
-		position.y -= speed * -direction.y;
+}
+
+void ModulePlayer::checkInput() {
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+	{
+		state = MOVING_RIGHT | state;
 	}
+
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+	{
+		state = MOVING_LEFT | state;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+	{
+		state = MOVING_UP | state;
+	}
+
+
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+	{
+		state = MOVING_DOWN | state;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
+	{
+		shooting = true;
+	}
+}
+
+void ModulePlayer::processInput() {
+	switch (state) {
+	case MOVING_DOWN:
+		position.y += speed;
+		current_animation = &backward;
+		break;
+	case MOVING_UP:
+		position.y -= speed;
+		current_animation = &forward;
+		break;
+	case MOVING_RIGHT:
+		position.x += speed;
+		current_animation = &right;
+		break;
+	case MOVING_LEFT:
+		position.x -= speed;
+		current_animation = &left;
+		break;
+	case MOVING_DOWN_RIGHT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		current_animation = &down_right;
+		break;
+	case MOVING_DOWN_LEFT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		current_animation = &down_left;
+		break;
+	case MOVING_UP_LEFT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		current_animation = &up_left;
+		break;
+	case MOVING_UP_RIGHT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		current_animation = &up_right;
+		break;
+	case IDLE:
+		current_animation->speed = 0.0f;
+		break;
+	}
+}
+
+PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
+	PLAYER_STATE ret = static_cast<PLAYER_STATE>((int)p | (int)s);
+	return ret;
 }
