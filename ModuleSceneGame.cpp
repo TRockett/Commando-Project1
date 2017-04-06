@@ -36,19 +36,36 @@ bool ModuleSceneGame::Start() {
 	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	//App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
-	//App->collision->AddCollider({ 203, 128, 31, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 218, 152, 5, 9 }, COLLIDER_WALL);
-	//App->collision->AddCollider({ 19, 128, 31, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 34, 152, 5, 9 }, COLLIDER_WALL);
-	//App->collision->AddCollider({ 146, 193, 31, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 161, 217, 5, 9 }, COLLIDER_WALL);
-	//App->collision->AddCollider({ 155, 209, 31, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 170, 233, 5, 9 }, COLLIDER_WALL);
-	//App->collision->AddCollider({ 130, 209, 31, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 145, 232, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 208, 76, 48 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 195, 64 , 45, 40 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 32, 192, 48, 16 }, COLLIDER_WALL);
+
+	// Collisions of the rock at the left  upcorner at the beggining of the game
+	App->collision->AddCollider({ 20, 8, 10, 22 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 30, 11, 2, 19 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, 16, 5, 14 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 37, 20, 5, 10 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 42, 20, 4, 8 }, COLLIDER_WALL);
+
+	// Palm trees collisions
+	App->collision->AddCollider({ 218, 152, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 98, 24, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 34, 152, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 161, 217, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 170, 233, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 145, 233, 4, 9 }, COLLIDER_WALL);
+
+	//Collisions of the rock at the right at the beggining of the game
+	App->collision->AddCollider({ 196, 74 , 45, 23 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 201, 70 , 35, 4 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 204, 66 , 33, 4 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 214, 64 , 24, 2 }, COLLIDER_WALL);
+
+	//Collisions of the trees and lake of the left down corner
+	App->collision->AddCollider({ 20, 213, 76, 43 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 210, 71, 3 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 208,  68, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 201, 59, 7 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 199, 58, 2 }, COLLIDER_WALL);
+
+
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 
 	App->player->Enable();
@@ -90,6 +107,8 @@ update_status ModuleSceneGame::Update() {
 	App->render->Blit(sprite_graphics, 146, 193, &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 155, 209, &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 130, 209, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 83, 0, &tree1.GetCurrentFrame().rect);
+
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
