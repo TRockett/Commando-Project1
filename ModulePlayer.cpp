@@ -98,9 +98,10 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	shooting = false;
 	position.x = SCREEN_WIDTH / 2;
 	position.y = 190;
+	shooting_angle = 0;
+	shooting_position = { 9,1 };
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
@@ -123,6 +124,7 @@ update_status ModulePlayer::Update()
 {
 	state = IDLE;
 	current_animation->speed = 0.15f;
+	shooting = false;
 
 	checkInput();
 	processInput();
@@ -130,50 +132,23 @@ update_status ModulePlayer::Update()
 	// Draw everything --------------------------------------
 	AnimationFrame frame =  current_animation->GetCurrentFrame();
 	iPoint camera = App->scene_game->getLevelDimensions();
+
+	if (shooting) {
+		App->sound->PlaySound(shoot, 0);
+		Particle bullet = App->particles->bullet;
+		bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
+		App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT);
+		//Particle delay doesnt work
+		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
+		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
+	}
+
 	int margin = MAX(200, position.y);
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
 	App->render->Blit(graphics, (position.x - frame.pivot.x), (position.y - frame.pivot.y), &frame.rect);
-	
-	if (shooting) {
-		App->sound->PlaySound(shoot, 0);
-		App->particles->AddParticle(App->particles->bullet, position.x, position.y, COLLIDER_PLAYER_SHOT);
-	}
 
 	return UPDATE_CONTINUE;
-}
-
-void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final version
-	switch (state) {
-	case MOVING_DOWN:
-		position.y -= speed;
-		break;
-	case MOVING_UP:
-		position.y += speed;
-		break;
-	case MOVING_RIGHT:
-		position.x -= speed;
-		break;
-	case MOVING_LEFT:
-		position.x += speed;
-		break;
-	case MOVING_DOWN_RIGHT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_DOWN_LEFT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_UP_LEFT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_UP_RIGHT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
-		break;
-	}
 }
 
 void ModulePlayer::checkInput() {
@@ -207,34 +182,42 @@ void ModulePlayer::checkInput() {
 void ModulePlayer::processInput() {
 	switch (state) {
 	case MOVING_DOWN:
+		shooting_position = { 2,16 };
 		shooting_angle = 180;
 		current_animation = &backward;
 		break;
 	case MOVING_UP:
+		shooting_position = { 10,2 };
 		shooting_angle = 0;
 		current_animation = &forward;
 		break;
 	case MOVING_RIGHT:
+		shooting_position = { 20,8 };
 		shooting_angle = 90;
 		current_animation = &right;
 		break;
 	case MOVING_LEFT:
+		shooting_position = { 0,8 };
 		shooting_angle = -90;
 		current_animation = &left;
 		break;
 	case MOVING_DOWN_RIGHT:
+		shooting_position = { 15,17 };
 		shooting_angle = 135;
 		current_animation = &down_right;
 		break;
 	case MOVING_DOWN_LEFT:
+		shooting_position = { 2,15 };
 		shooting_angle = -135;
 		current_animation = &down_left;
 		break;
 	case MOVING_UP_LEFT:
+		shooting_position = { 0,4 };
 		shooting_angle = -45;
 		current_animation = &up_left;
 		break;
 	case MOVING_UP_RIGHT:
+		shooting_position = { 15,5 };
 		shooting_angle = 45;
 		current_animation = &up_right;
 		break;
@@ -245,6 +228,39 @@ void ModulePlayer::processInput() {
 
 	position.x += speed * sinf(shooting_angle * M_PI / 180);
 	position.y -= speed * cosf(shooting_angle * M_PI / 180);
+}
+
+void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final version
+	switch (state) {
+	case MOVING_DOWN:
+		position.y -= speed;
+		break;
+	case MOVING_UP:
+		position.y += speed;
+		break;
+	case MOVING_RIGHT:
+		position.x -= speed;
+		break;
+	case MOVING_LEFT:
+		position.x += speed;
+		break;
+	case MOVING_DOWN_RIGHT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_DOWN_LEFT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_UP_LEFT:
+		position.x += speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		break;
+	case MOVING_UP_RIGHT:
+		position.x -= speed * sinf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
+		break;
+	}
 }
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {

@@ -56,6 +56,7 @@ private:
 
 	int speed;
 	float shooting_angle;
+	iPoint shooting_position;
 
 	void checkInput();
 	void processInput();

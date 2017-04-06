@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 
 #define MAX_ACTIVE_PARTICLES 100
+#define PLAYER_BULLET_SPEED 5
 
 struct SDL_Texture;
 struct Collider;

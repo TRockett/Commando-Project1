@@ -26,7 +26,7 @@ bool ModuleParticles::Start()
 	//bullet particles
 	bullet.anim.PushBack({0,100,2,2});
 	bullet.anim.speed = 0.2f;
-	bullet.speed.y = -5;
+	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 3000;
 
 	return true;
