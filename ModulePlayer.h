@@ -9,6 +9,25 @@
 struct SDL_Texture;
 struct Mix_Chunk;
 struct Collider;
+
+enum PLAYER_STATE : int {
+	IDLE = 0,
+	MOVING_UP = 1,
+	MOVING_DOWN = 2,
+	MOVING_RIGHT = 4,
+	MOVING_LEFT = 8,
+	SHOOTING = 16,
+	MOVING_UP_RIGHT = 1 | 4,
+	MOVING_UP_LEFT = 1 | 8,
+	MOVING_DOWN_RIGHT = 2 | 4,
+	MOVING_DOWN_LEFT = 2 | 8
+};
+
+PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
+	PLAYER_STATE ret = static_cast<PLAYER_STATE>((int)p | (int)s);
+	return ret;
+}
+
 class ModulePlayer : public Module
 {
 public:
@@ -20,8 +39,7 @@ public:
 	update_status Update();
 	void OnCollision(Collider*, Collider*);
 
-public:
-
+private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation forward;
@@ -45,6 +63,9 @@ public:
 	iPoint direction_animations;
 	Mix_Chunk* shoot;
 	Collider* collider;
+
+	PLAYER_STATE state = IDLE;
+	PLAYER_STATE prev_state = IDLE;
 
 
 	int speed;
