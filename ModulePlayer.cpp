@@ -153,7 +153,7 @@ update_status ModulePlayer::Update()
 	{
 		direction_animations.x = 0;
 		direction_animations.y = 0;
-		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT && position.x + collider->rect.w < SCREEN_WIDTH)
 		{
 			direction_animations.x = 1;
 			direction.x = 1;
@@ -191,7 +191,7 @@ update_status ModulePlayer::Update()
 		position.y += speed * -direction.y;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
 	{
 		
 		App->sound->PlaySound(shoot, 0);
