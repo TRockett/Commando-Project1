@@ -135,6 +135,11 @@ update_status ModulePlayer::Update()
 	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
 	App->render->Blit(graphics, (position.x - frame.pivot.x), (position.y - frame.pivot.y), &frame.rect);
 	
+	if (shooting) {
+		App->sound->PlaySound(shoot, 0);
+		App->particles->AddParticle(App->particles->bullet, position.x, position.y, COLLIDER_PLAYER_SHOT);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -202,45 +207,44 @@ void ModulePlayer::checkInput() {
 void ModulePlayer::processInput() {
 	switch (state) {
 	case MOVING_DOWN:
-		position.y += speed;
+		shooting_angle = 180;
 		current_animation = &backward;
 		break;
 	case MOVING_UP:
-		position.y -= speed;
+		shooting_angle = 0;
 		current_animation = &forward;
 		break;
 	case MOVING_RIGHT:
-		position.x += speed;
+		shooting_angle = 90;
 		current_animation = &right;
 		break;
 	case MOVING_LEFT:
-		position.x -= speed;
+		shooting_angle = -90;
 		current_animation = &left;
 		break;
 	case MOVING_DOWN_RIGHT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
+		shooting_angle = 135;
 		current_animation = &down_right;
 		break;
 	case MOVING_DOWN_LEFT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
+		shooting_angle = -135;
 		current_animation = &down_left;
 		break;
 	case MOVING_UP_LEFT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
+		shooting_angle = -45;
 		current_animation = &up_left;
 		break;
 	case MOVING_UP_RIGHT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
+		shooting_angle = 45;
 		current_animation = &up_right;
 		break;
 	case IDLE:
 		current_animation->speed = 0.0f;
-		break;
+		return;
 	}
+
+	position.x += speed * sinf(shooting_angle * M_PI / 180);
+	position.y -= speed * cosf(shooting_angle * M_PI / 180);
 }
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
