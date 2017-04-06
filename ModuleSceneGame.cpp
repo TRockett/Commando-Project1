@@ -24,7 +24,7 @@ bool ModuleSceneGame::Init() {
 	level = 1;
 	tree1.PushBack({ 219, 0, 31, 32 });
 	tree1.PushBack({ 251, 0, 30, 32 });
-	tree1.speed = 0.015f;
+	tree1.speed = 0.05f;
 	return true;
 }
 
