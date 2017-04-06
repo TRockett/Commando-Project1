@@ -153,13 +153,13 @@ update_status ModulePlayer::Update()
 	{
 		direction_animations.x = 0;
 		direction_animations.y = 0;
-		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT && position.x + collider->rect.w < SCREEN_WIDTH)
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT && position.x < SCREEN_WIDTH)
 		{
 			direction_animations.x = 1;
 			direction.x = 1;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT && position.x - collider->rect.w > 0)
 		{
 			direction_animations.x = -1;
 			direction.x = -1;
