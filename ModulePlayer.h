@@ -53,6 +53,7 @@ private:
 	PLAYER_STATE state = IDLE;
 	PLAYER_STATE prev_state = IDLE;
 	bool shooting;
+	bool grenade;
 
 	int speed;
 	float shooting_angle;

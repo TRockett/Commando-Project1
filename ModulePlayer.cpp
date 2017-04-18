@@ -125,7 +125,7 @@ update_status ModulePlayer::Update()
 	state = IDLE;
 	current_animation->speed = 0.15f;
 	shooting = false;
-
+	grenade = false;
 	checkInput();
 	processInput();
 
@@ -142,7 +142,11 @@ update_status ModulePlayer::Update()
 		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
 		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
 	}
-
+	if (grenade)
+	{
+		Particle grenade = App->particles->grenade;
+		grenade.speed = {((int)0),((int)-20)};
+	}
 	int margin = MAX(200, position.y);
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
@@ -176,6 +180,10 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
 	{
 		shooting = true;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN)
+	{
+		grenade = true;
 	}
 }
 
