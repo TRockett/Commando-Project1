@@ -29,6 +29,15 @@ bool ModuleParticles::Start()
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 3000;
 
+	// explosion animation
+	explosion.anim.PushBack({49, 96, 7, 7});
+	explosion.anim.PushBack({60, 94, 16, 13});
+	explosion.anim.PushBack({78, 92, 16, 14});
+	explosion.anim.PushBack({95, 93, 16, 15});
+	explosion.anim.PushBack({112, 94, 16, 13});
+	explosion.anim.PushBack({130, 94, 15, 13});
+	explosion.anim.speed = 0.15f;
+	explosion.anim.loop = false;
 	return true;
 }
 
@@ -105,6 +114,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
+			//App->render->Blit(graphics, position.x,position.y, &explosion.anim.GetCurrentFrame().rect);
 			AddParticle(explosion, active[i]->position.x, active[i]->position.y);
 			delete active[i];
 			active[i] = nullptr;
