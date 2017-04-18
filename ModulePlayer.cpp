@@ -109,6 +109,13 @@ ModulePlayer::ModulePlayer()
 	drown.PushBack({ 377, 40, 15, 13 });
 	drown.loop = false;
 	drown.speed = 0.10f;
+
+	//throw grenade animation
+	throw_grenade.PushBack({ 87,70,17,22 });
+	throw_grenade.PushBack({ 109,71,23,21 });
+	throw_grenade.PushBack({ 136,68,20,24 });
+	throw_grenade.loop = false;
+	throw_grenade.speed = 0.10f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -174,7 +181,7 @@ update_status ModulePlayer::Update()
 				App->particles->AddParticle(grenade, position.x + 20, position.y + 20, COLLIDER_NONE);
 
 			}
-			if (SDL_GetTicks() + grenade.born >= grenade.life)
+			if (SDL_GetTicks() - grenade.born >= grenade.life)
 			{
 				App->particles->AddParticle(grenade_explosion, position.x, position.y - 100, COLLIDER_PLAYER_SHOT);
 			}
@@ -234,6 +241,8 @@ void ModulePlayer::checkInput() {
 	{
 		grenade1 = true;
 		grenade_on = true;
+		current_animation = &throw_grenade;
+
 	
 	}
 }
@@ -284,7 +293,10 @@ void ModulePlayer::processInput() {
 		current_animation->speed = 0.0f;
 		return;
 	}
-
+	if (grenade_on == true)
+	{
+		current_animation = &throw_grenade;
+	}
 	position.x += speed * sinf(shooting_angle * M_PI / 180);
 	position.y -= speed * cosf(shooting_angle * M_PI / 180);
 }

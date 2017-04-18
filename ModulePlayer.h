@@ -49,6 +49,7 @@ private:
 	Animation down_left;
 	Animation death;
 	Animation drown;
+	Animation throw_grenade;
 	fPoint position;
 	Mix_Chunk* shoot;
 	Collider* collider;
