@@ -42,6 +42,7 @@ bool ModuleSceneGame::Start() {
 	str.append(".png");
 	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
+	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 	//App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
 	// Collisions of the rock at the left  upcorner at the beggining of the game
@@ -150,7 +151,8 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
-	ret = App->render->Blit(background_graphics, 0, -level_dimensions.y + SCREEN_HEIGHT, nullptr);
+	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
+
 	App->render->Blit(sprite_graphics, 208, 128, &tree2.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 19, 128, &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 83, 0, &tree1.GetCurrentFrame().rect);

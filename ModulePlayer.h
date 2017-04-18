@@ -56,6 +56,7 @@ private:
 	bool grenade;
 
 	int speed;
+	int player_min_y;
 	float shooting_angle;
 	iPoint shooting_position;
 
