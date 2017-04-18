@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "p2Point.h"
+#include "Animation.h"
 
 #define MAX_ENEMIES 30
 
@@ -45,6 +46,16 @@ private:
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
 	SDL_Texture* sprites;
+
+	//Basic enemy animations
+	Animation e1_forward;
+	Animation e1_backward;
+	Animation e1_left;
+	Animation e1_right;
+	Animation e1_up_right;
+	Animation e1_up_left;
+	Animation e1_down_right;
+	Animation e1_down_left;
 };
 
 #endif // __ModuleEnemies_H__
