@@ -13,6 +13,79 @@ ModuleEnemies::ModuleEnemies()
 {
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
+
+	// walk forward animation (arcade sprite sheet)
+
+	forward.PushBack({ 0, 220, 15, 23 });
+	forward.PushBack({ 16, 220, 15, 22 });
+	forward.PushBack({ 36, 220, 15, 23 });
+	forward.loop = true;
+	forward.speed = 0.15f;
+
+	//walk diagonal down-left
+
+	down_left.PushBack({ 105,24,15,22 });
+	down_left.PushBack({ 120,24,15,22 });
+	down_left.PushBack({ 105,24,15,22 });
+	down_left.PushBack({ 137,24,15,22 });
+	down_left.speed = 0.15f;
+
+	//walk diagonal down-right
+
+	down_right.PushBack({ 88,23,15,22 });
+	down_right.PushBack({ 56,23,15,22 });
+	down_right.PushBack({ 88,23,15,22 });
+	down_right.PushBack({ 73,23,15,22 });
+	down_right.speed = 0.15f;
+
+	//walk diagonal up-right enemy
+
+	up_right.PushBack({ 0,246,17,22 });
+	up_right.PushBack({ 19,246,15,22 }, { 2,0 });
+	up_right.PushBack({ 44,246,16,21 });
+	up_right.PushBack({ 19,246,15,22 }, { 7,0 });
+	up_right.speed = 0.15f;
+
+	//walk diagonal down-left
+
+	up_left.PushBack({ 97,47,15,22 });
+	up_left.PushBack({ 56,47,18,21 });
+	up_left.PushBack({ 97,47,15,22 });
+	up_left.PushBack({ 75,47,21,21 });
+	up_left.speed = 0.15f;
+
+	//walk right animation enemyy
+
+
+	right.PushBack({ 78,246,16,22 });
+	right.PushBack({ 98,246,15,22 }, { 4,0 });
+	right.PushBack({ 78,246,16,22 });
+	right.PushBack({ 118,246,16,21 }, { 2,0 });
+	
+	right.loop = true;
+	right.speed = 0.15f;
+
+
+	//walk left annimation enemy
+
+	left.PushBack({ 0,246,17,22 });
+	left.PushBack({ 19,246,15,22 }, { 2,0 });
+	left.PushBack({ 44,246,16,21 });
+	left.PushBack({ 19,246,15,22 }, { 7,0 });
+	left.loop = true;
+	left.speed = 0.15f;
+
+	//walk backward animation emey
+
+	backward.PushBack({ 0, 220, 15, 23 });
+	backward.PushBack({ 16, 220, 15, 22 });
+	backward.PushBack({ 36, 220, 15, 23 });
+	backward.loop = true;
+	backward.speed = 0.15f;
+
+	speed = 1;
+	shooting = false;
+}
 }
 
 // Destructor
