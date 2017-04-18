@@ -17,9 +17,9 @@ private:
 	iPoint level_dimensions;
 	SDL_Texture* background_graphics;
 	SDL_Texture* sprite_graphics;
-	int targetY = 0;
-	bool moving = false;
 	Animation tree1;
+	Animation tree2;
+	Animation rock;
 
 public:
 	bool Init();
@@ -37,8 +37,10 @@ public:
 	void setLevel(int lvl) { level = lvl; }
 	int getLevel() { return level; }
 
+	bool restart = false;
+
 	ModuleSceneGame();
-	~ModuleSceneGame();
+	virtual ~ModuleSceneGame();
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleCollision.h"
+#include <functional>
 
 #define MAX_ACTIVE_PARTICLES 100
 #define PLAYER_BULLET_SPEED 5
@@ -29,6 +30,8 @@ struct Particle
 	Particle(const Particle& p);
 	~Particle();
 	bool Update();
+
+	std::function<void()> onCollision;
 };
 
 class ModuleParticles : public Module
@@ -53,6 +56,8 @@ public:
 
 	Particle explosion;
 	Particle bullet;
+	Particle grenade;
+	Particle grenade_explosion;
 };
 
 #endif // __MODULEPARTICLES_H__

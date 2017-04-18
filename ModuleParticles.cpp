@@ -23,11 +23,43 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	graphics = App->textures->Load("images/sprites.png");
 
+	// explosion animation
+	explosion.anim.PushBack({49, 96, 7, 7});
+	explosion.anim.PushBack({60, 94, 16, 13});
+	explosion.anim.PushBack({78, 92, 16, 14});
+	explosion.anim.PushBack({95, 93, 16, 15});
+	explosion.anim.PushBack({112, 94, 16, 13});
+	explosion.anim.PushBack({130, 94, 15, 13});
+	explosion.anim.speed = 0.15f;
+	explosion.anim.loop = false;
+	
 	//bullet particles
-	bullet.anim.PushBack({0,100,2,2});
+	bullet.anim.PushBack({ 0,100,2,2 });
 	bullet.anim.speed = 0.2f;
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 3000;
+	bullet.onCollision = [&]() {
+		AddParticle(explosion, bullet.position.x - 7, bullet.position.y - 5);
+	};
+
+	// grenade animation
+	grenade.anim.PushBack({ 0,131,4,5 });
+	grenade.anim.PushBack({ 4,131,5,6 });
+	grenade.anim.PushBack({ 11 ,131,6,8 });
+	grenade.anim.PushBack({ 4,131,5,6 });
+	grenade.anim.PushBack({ 0,131,4,5 });
+
+	grenade.life = 1000;
+	grenade.anim.speed = 0.1f;
+	grenade.anim.loop = false;
+
+	// grenade explosion anim
+	grenade_explosion.anim.PushBack({ 18,131,30,27 });
+	grenade_explosion.anim.PushBack({ 48,131,21,23 });
+	grenade_explosion.anim.PushBack({ 70,131,27,26 });
+	grenade_explosion.anim.PushBack({ 99,131,32,32 });
+	grenade_explosion.anim.loop = false;
+	grenade_explosion.anim.speed = 0.1f;
 
 	return true;
 }
@@ -108,7 +140,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
-			AddParticle(explosion, active[i]->position.x, active[i]->position.y);
+			if (active[i]->onCollision)
+				active[i]->onCollision();
+
 			delete active[i];
 			active[i] = nullptr;
 			break;
@@ -132,6 +166,7 @@ fx(p.fx), born(p.born), life(p.life)
 
 Particle::~Particle()
 {
+
 	if(collider != nullptr)
 		App->collision->EraseCollider(collider);
 }
