@@ -90,6 +90,24 @@ ModulePlayer::ModulePlayer()
 	
 	speed = 1;
 	shooting = false;
+
+	//death animation
+	death.PushBack({170,104, 27, 23});
+	death.PushBack({202, 105, 25, 22});
+	death.PushBack({235, 104, 15,22});
+	death.loop = true;
+	death.speed = 0.15f;
+
+
+	//drown animation
+
+	drown.PushBack({ 270, 40, 17, 23 });
+	drown.PushBack({ 296, 40, 25, 14 });
+	drown.PushBack({ 334, 40, 15, 12 });
+	drown.PushBack({ 357, 40, 14, 12 });
+	drown.PushBack({ 377, 40, 15, 13 });
+	drown.loop = true;
+	drown.speed = 0.15f;
 }
 
 ModulePlayer::~ModulePlayer()
