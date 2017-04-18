@@ -9,6 +9,7 @@
 #include <math.h>
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
+#include "SDL/include/SDL_timer.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -144,7 +145,10 @@ update_status ModulePlayer::Update()
 	state = IDLE;
 	current_animation->speed = 0.15f;
 	shooting = false;
-	grenade = false;
+	grenade1 = false;
+
+	Particle grenade = App->particles->grenade;
+	Particle grenade_explosion = App->particles->grenade_explosion;
 	checkInput();
 	processInput();
 
@@ -160,11 +164,25 @@ update_status ModulePlayer::Update()
 		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
 		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
 	}
-	if (grenade)
+	if (grenade_on == true)
 	{
-		Particle grenade = App->particles->grenade;
-		grenade.speed = { 0,-20 };
+	
+		if (grenade1)
+		{
+			grenade.speed = { 0, -1 };
+			App->particles->AddParticle(grenade, position.x + 20, position.y + 20, COLLIDER_NONE);
+			
+		}
+		if (SDL_GetTicks() + grenade.born >= grenade.life)
+		{
+			App->particles->AddParticle(grenade_explosion, position.x, position.y - 100, COLLIDER_PLAYER_SHOT);
+		}
+		grenade_on = false;
 	}
+
+			
+		
+	
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
 	int margin = 150;
@@ -208,7 +226,9 @@ void ModulePlayer::checkInput() {
 	}
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN)
 	{
-		grenade = true;
+		grenade1 = true;
+		grenade_on = true;
+	
 	}
 }
 
