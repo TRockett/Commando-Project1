@@ -40,7 +40,7 @@ public:
 	int getLevel() { return level; }
 
 	ModuleSceneGame();
-	~ModuleSceneGame();
+	virtual ~ModuleSceneGame();
 };
 
 #endif

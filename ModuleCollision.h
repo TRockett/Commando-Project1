@@ -13,6 +13,7 @@ enum COLLIDER_TYPE
 	COLLIDER_ENEMY,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_ENEMY_SHOT,
+	COLLIDER_WATER,
 
 	COLLIDER_MAX
 };
@@ -48,7 +49,6 @@ public:
 
 	update_status PreUpdate();
 	update_status Update();
-	//update_status PostUpdate();
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);

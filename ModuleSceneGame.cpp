@@ -46,9 +46,8 @@ bool ModuleSceneGame::Start() {
 	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
-	//App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
-	// Collisions of the rock at the left  upcorner at the beggining of the game
+	// Collisions of the rock at the upper left corner at the beggining of the game
 	App->collision->AddCollider({ 20, 8 - (-level_dimensions.y + SCREEN_HEIGHT), 10, 22 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 30, 11 - (-level_dimensions.y + SCREEN_HEIGHT), 2, 19 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 32, 16 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 14 }, COLLIDER_WALL);
@@ -87,31 +86,32 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 203, -166 - (-level_dimensions.y + SCREEN_HEIGHT), 40, 15 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 215, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 40, 7 }, COLLIDER_WALL);
 
-	//Collisions of the rock at the middle of the before the briedge 
+	//Collisions of the rock at the middle of the before the bridge 
 	App->collision->AddCollider({ 84, -482 - (-level_dimensions.y + SCREEN_HEIGHT), 87, 17 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 89, -497 - (-level_dimensions.y + SCREEN_HEIGHT), 80, 15 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 114, -505 - (-level_dimensions.y + SCREEN_HEIGHT), 41, 8 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 126, -511 - (-level_dimensions.y + SCREEN_HEIGHT), 24, 6 }, COLLIDER_WALL);
 
-	//Collisions of the big rock at the left before the briedge
+	//Collisions of the big rock at the left before the bridge
 	App->collision->AddCollider({ 20, -448 - (-level_dimensions.y + SCREEN_HEIGHT), 35, 80 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 55, -438 - (-level_dimensions.y + SCREEN_HEIGHT), 22 ,50 }, COLLIDER_WALL);
 
-	//Collisions of the briedge
+	//Collisions of the bridge
 	App->collision->AddCollider({ 20, -850 - (-level_dimensions.y + SCREEN_HEIGHT), 78, 78 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 159, -850 - (-level_dimensions.y + SCREEN_HEIGHT), 80 ,78 }, COLLIDER_WALL);
 	
 	//Collisions for the lake
-	App->collision->AddCollider({ 20, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 25, 27 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 25, 27 }, COLLIDER_WATER);
 
-	//Collisions for the bukers
+	//Collisions for the bunkers
 	App->collision->AddCollider({ 128, -289 - (-level_dimensions.y + SCREEN_HEIGHT), 60, 10 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 192, -738 - (-level_dimensions.y + SCREEN_HEIGHT), 52, 10 }, COLLIDER_WALL);
 
 	//Collisions of the trees and lake of the left down corner
-	App->collision->AddCollider({ 20, 213 - (-level_dimensions.y + SCREEN_HEIGHT), 76, 43 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 210 - (-level_dimensions.y + SCREEN_HEIGHT), 71, 3 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 208 - (-level_dimensions.y + SCREEN_HEIGHT),  68, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 213 - (-level_dimensions.y + SCREEN_HEIGHT), 66, 25 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 238 - (-level_dimensions.y + SCREEN_HEIGHT), 70, 18 }, COLLIDER_WATER);
+	App->collision->AddCollider({ 20, 210 - (-level_dimensions.y + SCREEN_HEIGHT), 65, 3 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 208 - (-level_dimensions.y + SCREEN_HEIGHT),  63, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 201 - (-level_dimensions.y + SCREEN_HEIGHT), 59, 7 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 199 - (-level_dimensions.y + SCREEN_HEIGHT), 58, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 192 - (-level_dimensions.y + SCREEN_HEIGHT), 56, 7 }, COLLIDER_WALL);
