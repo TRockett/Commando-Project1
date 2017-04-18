@@ -114,8 +114,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
-			//App->render->Blit(graphics, position.x,position.y, &explosion.anim.GetCurrentFrame().rect);
-			AddParticle(explosion, active[i]->position.x, active[i]->position.y);
+			
+			AddParticle(explosion, active[i]->position.x-7, active[i]->position.y-5);
 			delete active[i];
 			active[i] = nullptr;
 			break;

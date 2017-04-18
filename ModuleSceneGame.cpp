@@ -22,9 +22,15 @@ ModuleSceneGame::~ModuleSceneGame()
 
 bool ModuleSceneGame::Init() {
 	level = 1;
+	//Tree left
 	tree1.PushBack({ 219, 0, 31, 32 });
 	tree1.PushBack({ 251, 0, 30, 32 });
-	tree1.speed = 0.05f;
+	tree1.speed = 0.0f;
+
+	//Tree right
+	tree2.PushBack({ 178,46,31,32 });
+	tree2.PushBack({ 209,46,30,32 });
+	tree2.speed = 0.0f;
 	return true;
 }
 
@@ -64,6 +70,7 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 20, 208,  68, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 201, 59, 7 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 199, 58, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 192, 56, 7 }, COLLIDER_WALL);
 
 
 	sprite_graphics = App->textures->Load("Images/sprites.png");
@@ -102,13 +109,31 @@ update_status ModuleSceneGame::PreUpdate() {
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
 	ret = App->render->Blit(background_graphics, 0, -level_dimensions.y + SCREEN_HEIGHT, nullptr);
-	App->render->Blit(sprite_graphics, 203, 128, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 208, 128, &tree2.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 19, 128, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 146, 193, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 155, 209, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 130, 209, &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 83, 0, &tree1.GetCurrentFrame().rect);
+	//Group of three palms
+	App->render->Blit(sprite_graphics, 146, 193, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 160, 209, &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 130, 209, &tree1.GetCurrentFrame().rect);
+	
+	//Groups of three palms
+	App->render->Blit(sprite_graphics, 130, -49, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 160, -49, &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 146, -65, &tree1.GetCurrentFrame().rect);
+	//Group of three palms
+	App->render->Blit(sprite_graphics, 1, -240, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 32, -240, &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 17, -256, &tree1.GetCurrentFrame().rect);
 
+	App->render->Blit(sprite_graphics, 82, -129, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 82, -320, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 144, -257, &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 146, -385, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 210, -449 , &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 144, -642, &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 18, -642, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 82, -706, &tree1.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

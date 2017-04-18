@@ -20,6 +20,7 @@ private:
 	int targetY = 0;
 	bool moving = false;
 	Animation tree1;
+	Animation tree2;
 
 public:
 	bool Init();
