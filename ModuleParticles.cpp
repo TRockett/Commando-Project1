@@ -38,6 +38,17 @@ bool ModuleParticles::Start()
 	explosion.anim.PushBack({130, 94, 15, 13});
 	explosion.anim.speed = 0.15f;
 	explosion.anim.loop = false;
+
+	// grenade animation
+	grenade.anim.PushBack({ 0,131,4,5 });
+	grenade.anim.PushBack({ 4,5,5,6 });
+	grenade.anim.PushBack({ 11 ,131,6,8 });
+
+	// grenade explosion anim
+	grenade_explosion.anim.PushBack({ 18,131,30,27 });
+	grenade_explosion.anim.PushBack({ 48,131,21,23 });
+	grenade_explosion.anim.PushBack({ 70,131,27,26 });
+	grenade_explosion.anim.PushBack({ 99,131,32,32 });
 	return true;
 }
 
