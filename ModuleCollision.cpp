@@ -71,6 +71,8 @@ update_status ModuleCollision::Update()
 			continue;
 
 		c1 = colliders[i];
+		if (c1->active == false)
+			continue;
 
 		// avoid checking collisions already checked
 		for(uint k = i+1; k < MAX_COLLIDERS; ++k)
@@ -109,6 +111,9 @@ void ModuleCollision::DebugDraw()
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if(colliders[i] == nullptr)
+			continue;
+
+		if (colliders[i]->active == false)
 			continue;
 		
 		switch(colliders[i]->type)

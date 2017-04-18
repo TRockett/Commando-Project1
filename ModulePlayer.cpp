@@ -136,10 +136,11 @@ update_status ModulePlayer::Update()
 	if (shooting) {
 		App->sound->PlaySound(shoot, 0);
 		Particle bullet = App->particles->bullet;
+		//bullet.life = 200;
 		bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
 		App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT);
 		//Particle delay doesnt work
-		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
+		App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 100);
 		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
 	}
 

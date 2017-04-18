@@ -60,12 +60,13 @@ update_status ModuleParticles::Update()
 		if(p == nullptr)
 			continue;
 
+		Sint32 ticks = SDL_GetTicks();
 		if(p->Update() == false)
 		{
 			delete p;
 			active[i] = nullptr;
 		}
-		else if(SDL_GetTicks() >= p->born)
+		else if(ticks >= p->born)
 		{
 			AnimationFrame frame = p->anim.GetCurrentFrame();
 			App->render->Blit(graphics, p->position.x - frame.pivot.x, p->position.y - frame.pivot.y, &(frame.rect));
@@ -79,7 +80,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Sint32 delay)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -89,8 +90,10 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
-			if(collider_type != COLLIDER_NONE)
+			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
+				p->collider->active = false;
+			}
 			active[i] = p;
 			break;
 		}
@@ -137,17 +140,22 @@ bool Particle::Update()
 {
 	bool ret = true;
 
+	Sint32 ticks = SDL_GetTicks();
 	if(life > 0)
 	{
-		if((SDL_GetTicks() - born) > life)
+		if((ticks - born) > life)
 			ret = false;
 	}
 	else
 		if(anim.Finished())
 			ret = false;
 
-	position.x += speed.x;
-	position.y += speed.y;
+	if (ticks >= born) {
+		if (collider != nullptr)
+			collider->active = true;
+		position.x += speed.x;
+		position.y += speed.y;
+	}
 
 	if(collider != nullptr)
 		collider->SetPos(position.x, position.y);
