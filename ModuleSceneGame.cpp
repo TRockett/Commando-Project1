@@ -49,72 +49,72 @@ bool ModuleSceneGame::Start() {
 	//App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
 	// Collisions of the rock at the left  upcorner at the beggining of the game
-	App->collision->AddCollider({ 20, 8, 10, 22 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 30, 11, 2, 19 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 32, 16, 5, 14 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 37, 20, 5, 10 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 42, 20, 4, 8 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 8 - (-level_dimensions.y + SCREEN_HEIGHT), 10, 22 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 30, 11 - (-level_dimensions.y + SCREEN_HEIGHT), 2, 19 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, 16 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 14 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 37, 20 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 10 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 42, 20 - (-level_dimensions.y + SCREEN_HEIGHT), 4, 8 }, COLLIDER_WALL);
 
 	// Palm trees collisions
-	App->collision->AddCollider({ 218, 152, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 170, -24, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 144, -24, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 160, -40, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 42, -217, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 154, -233, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 32, -233, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 154, -618, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 32, -618, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 97, -681, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 98, 24, 4, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 97, -106, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 97, -298, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 160, -361 , 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 225, -425 , 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 34, 152, 4, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 161, 217, 4, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 170, 233, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 145, 233, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 218, 152 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 170, -24 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 144, -24 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 160, -40 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 42, -217 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 154, -233 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, -233 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 154, -618 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, -618 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -681 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 98, 24 - (-level_dimensions.y + SCREEN_HEIGHT), 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -106 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -298 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 160, -361 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 225, -425 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 34, 152 - (-level_dimensions.y + SCREEN_HEIGHT), 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 161, 217 - (-level_dimensions.y + SCREEN_HEIGHT), 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 170, 233 - (-level_dimensions.y + SCREEN_HEIGHT), 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 145, 233 - (-level_dimensions.y + SCREEN_HEIGHT), 4, 9 }, COLLIDER_WALL);
 
 	//Collisions of the rock at the right at the beggining of the game
-	App->collision->AddCollider({ 196, 74 , 45, 23 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 201, 70 , 35, 4 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 204, 66 , 33, 4 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 214, 64 , 24, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 196, 74 - (-level_dimensions.y + SCREEN_HEIGHT), 45, 23 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 201, 70 - (-level_dimensions.y + SCREEN_HEIGHT), 35, 4 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 204, 66 - (-level_dimensions.y + SCREEN_HEIGHT), 33, 4 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 214, 64 - (-level_dimensions.y + SCREEN_HEIGHT), 24, 2 }, COLLIDER_WALL);
 
 	//Collisions of the 2nd rock at the right 
-	App->collision->AddCollider({ 196, -151 , 48, 38 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 203, -166 , 40, 15 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 215, -173 , 40, 7 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 196, -151 - (-level_dimensions.y + SCREEN_HEIGHT), 48, 38 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 203, -166 - (-level_dimensions.y + SCREEN_HEIGHT), 40, 15 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 215, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 40, 7 }, COLLIDER_WALL);
 
 	//Collisions of the rock at the middle of the before the briedge 
-	App->collision->AddCollider({ 84, -482 , 87, 17 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 89, -497 , 80, 15 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 114, -505 , 41, 8 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 126, -511 , 24, 6 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 84, -482 - (-level_dimensions.y + SCREEN_HEIGHT), 87, 17 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 89, -497 - (-level_dimensions.y + SCREEN_HEIGHT), 80, 15 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 114, -505 - (-level_dimensions.y + SCREEN_HEIGHT), 41, 8 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 126, -511 - (-level_dimensions.y + SCREEN_HEIGHT), 24, 6 }, COLLIDER_WALL);
 
 	//Collisions of the big rock at the left before the briedge
-	App->collision->AddCollider({ 20, -448 , 35, 80 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 55, -438 , 22 ,50 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, -448 - (-level_dimensions.y + SCREEN_HEIGHT), 35, 80 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 55, -438 - (-level_dimensions.y + SCREEN_HEIGHT), 22 ,50 }, COLLIDER_WALL);
 
 	//Collisions of the briedge
-	App->collision->AddCollider({ 20, -850 , 78, 78 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 159, -850 , 80 ,78 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, -850 - (-level_dimensions.y + SCREEN_HEIGHT), 78, 78 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 159, -850 - (-level_dimensions.y + SCREEN_HEIGHT), 80 ,78 }, COLLIDER_WALL);
 	
 	//Collisions for the lake
-	App->collision->AddCollider({ 20, -173 , 25, 27 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 25, 27 }, COLLIDER_WALL);
 
 	//Collisions for the bukers
-	App->collision->AddCollider({ 128, -289 , 60, 10 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 192, -738 , 52, 10 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 128, -289 - (-level_dimensions.y + SCREEN_HEIGHT), 60, 10 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 192, -738 - (-level_dimensions.y + SCREEN_HEIGHT), 52, 10 }, COLLIDER_WALL);
 
 	//Collisions of the trees and lake of the left down corner
-	App->collision->AddCollider({ 20, 213, 76, 43 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 210, 71, 3 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 208,  68, 2 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 201, 59, 7 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 199, 58, 2 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 192, 56, 7 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 213 - (-level_dimensions.y + SCREEN_HEIGHT), 76, 43 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 210 - (-level_dimensions.y + SCREEN_HEIGHT), 71, 3 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 208 - (-level_dimensions.y + SCREEN_HEIGHT),  68, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 201 - (-level_dimensions.y + SCREEN_HEIGHT), 59, 7 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 199 - (-level_dimensions.y + SCREEN_HEIGHT), 58, 2 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 20, 192 - (-level_dimensions.y + SCREEN_HEIGHT), 56, 7 }, COLLIDER_WALL);
 
 
 	sprite_graphics = App->textures->Load("Images/sprites.png");
@@ -156,31 +156,31 @@ update_status ModuleSceneGame::Update() {
 	bool ret = true;
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
-	App->render->Blit(sprite_graphics, 208, 128, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 19, 128, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 83, 0, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 208, 128 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 19, 128 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 83, 0 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 	//Group of three palms
-	App->render->Blit(sprite_graphics, 146, 193, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 160, 209, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 130, 209, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 146, 193 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 160, 209 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 130, 209 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 	
 	//Groups of three palms
-	App->render->Blit(sprite_graphics, 130, -49, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 160, -49, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 146, -65, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 130, -49 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 160, -49 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 146, -65 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 	//Group of three palms
-	App->render->Blit(sprite_graphics, 1, -240, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 32, -240, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 17, -256, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 1, -240 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 32, -240 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 17, -256 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 
-	App->render->Blit(sprite_graphics, 82, -129, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 82, -320, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 144, -257, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 146, -385, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 210, -449 , &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 144, -642, &tree2.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 18, -642, &tree1.GetCurrentFrame().rect);
-	App->render->Blit(sprite_graphics, 82, -706, &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 82, -129 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 82, -320 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 144, -257 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 146, -385 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 210, -449 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 144, -642 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 18, -642 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 82, -706 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 
 	//Rocks sprites
 	App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);
