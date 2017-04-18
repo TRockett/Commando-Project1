@@ -126,7 +126,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
 			
-			AddParticle(explosion, active[i]->position.x-7, active[i]->position.y-5);
+			//AddParticle(explosion, active[i]->position.x-7, active[i]->position.y-5);
 			delete active[i];
 			active[i] = nullptr;
 			break;

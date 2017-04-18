@@ -95,7 +95,7 @@ ModulePlayer::ModulePlayer()
 	death.PushBack({170,104, 27, 23});
 	death.PushBack({202, 105, 25, 22});
 	death.PushBack({235, 104, 15,22});
-	death.loop = true;
+	death.loop = false;
 	death.speed = 0.15f;
 
 
@@ -106,8 +106,8 @@ ModulePlayer::ModulePlayer()
 	drown.PushBack({ 334, 40, 15, 12 });
 	drown.PushBack({ 357, 40, 14, 12 });
 	drown.PushBack({ 377, 40, 15, 13 });
-	drown.loop = true;
-	drown.speed = 0.15f;
+	drown.loop = false;
+	drown.speed = 0.10f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -121,6 +121,7 @@ bool ModulePlayer::Start()
 	shooting_angle = 0;
 	shooting_position = { 9,1 };
 	player_min_y = (int)position.y;
+	state = IDLE;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
@@ -141,33 +142,40 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	state = IDLE;
-	current_animation->speed = 0.15f;
-	shooting = false;
-	grenade = false;
-	checkInput();
-	processInput();
+	if (state != DEAD && !App->scene_game->restart){
+		state = IDLE;
+		current_animation->speed = 0.15f;
+		shooting = false;
+		grenade = false;
+		checkInput();
+		processInput();
+		
+		if (shooting) {
+			App->sound->PlaySound(shoot, 0);
+			Particle bullet = App->particles->bullet;
+			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
+			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT);
+			//Particle delay doesnt work
+			//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
+			//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
+		}
 
+		if (grenade)
+		{
+			Particle grenade = App->particles->grenade;
+			grenade.speed = { 0,-20 };
+		}
+	}
+	else if (current_animation->Finished() && !App->scene_game->restart) {
+		App->scene_game->restart = true;
+		//current_animation->Reset();
+		state = IDLE;
+	}
 	// Draw everything --------------------------------------
-	AnimationFrame frame =  current_animation->GetCurrentFrame();
-
-	if (shooting) {
-		App->sound->PlaySound(shoot, 0);
-		Particle bullet = App->particles->bullet;
-		bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
-		App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT);
-		//Particle delay doesnt work
-		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 500);
-		//App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 1000);
-	}
-	if (grenade)
-	{
-		Particle grenade = App->particles->grenade;
-		grenade.speed = { 0,-20 };
-	}
+	AnimationFrame frame = current_animation->GetCurrentFrame();
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
-	int margin = 150;
+	int margin = 150; //Must be equal to the player's initial position
 	player_min_y = MIN(player_min_y, (int)position.y);
 	
 	if (App->render->camera.y < 0)
@@ -263,7 +271,19 @@ void ModulePlayer::processInput() {
 	position.y -= speed * cosf(shooting_angle * M_PI / 180);
 }
 
-void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final version
+void ModulePlayer::OnCollision(Collider* self, Collider* other) {
+	switch (other->type) {
+	case COLLIDER_WALL:
+		wallCollision();
+		break;
+	case COLLIDER_WATER:
+		waterCollision();
+		break;
+	}
+}
+
+void ModulePlayer::wallCollision() {
+
 	switch (state) {
 	case MOVING_DOWN:
 		position.y -= speed;
@@ -293,6 +313,19 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final ve
 		position.x -= speed * sinf(45 * M_PI / 180);
 		position.y += speed * cosf(45 * M_PI / 180);
 		break;
+	}
+}
+
+void ModulePlayer::waterCollision() {
+	Drown();
+}
+
+void ModulePlayer::Drown() {
+	if (state != DEAD) {
+		state = DEAD;
+		current_animation = &drown;
+		if (current_animation->Finished())
+			current_animation->Reset();
 	}
 }
 

@@ -101,7 +101,7 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 159, -850 - (-level_dimensions.y + SCREEN_HEIGHT), 80 ,78 }, COLLIDER_WALL);
 	
 	//Collisions for the lake
-	App->collision->AddCollider({ 20, -173 - (-level_dimensions.y + SCREEN_HEIGHT), 25, 27 }, COLLIDER_WATER);
+	App->collision->AddCollider({ 20, -171 - (-level_dimensions.y + SCREEN_HEIGHT), 16, 1 }, COLLIDER_WATER);
 
 	//Collisions for the bunkers
 	App->collision->AddCollider({ 128, -289 - (-level_dimensions.y + SCREEN_HEIGHT), 60, 10 }, COLLIDER_WALL);
@@ -109,7 +109,7 @@ bool ModuleSceneGame::Start() {
 
 	//Collisions of the trees and lake of the left down corner
 	App->collision->AddCollider({ 20, 213 - (-level_dimensions.y + SCREEN_HEIGHT), 66, 25 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 20, 238 - (-level_dimensions.y + SCREEN_HEIGHT), 70, 18 }, COLLIDER_WATER);
+	App->collision->AddCollider({ 20, 238 - (-level_dimensions.y + SCREEN_HEIGHT), 66, 18 }, COLLIDER_WATER);
 	App->collision->AddCollider({ 20, 210 - (-level_dimensions.y + SCREEN_HEIGHT), 65, 3 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 208 - (-level_dimensions.y + SCREEN_HEIGHT),  63, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 201 - (-level_dimensions.y + SCREEN_HEIGHT), 59, 7 }, COLLIDER_WALL);
@@ -137,17 +137,8 @@ bool ModuleSceneGame::Start() {
 }
 
 update_status ModuleSceneGame::PreUpdate() {
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-		if (level + 1 > MAX_LEVEL) {
-			if (App->fade->FadeToBlack(this, App->scene_congrats, 2.0f)) {
-				level = 1;
-			}
-		}
-		else {
-			if (App->fade->FadeToBlack(this, this, 1.0f)) {
-				level++;
-			}
-		}
+	if (restart) {
+		App->fade->FadeToBlack(this, this, 0.0f);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -195,8 +186,6 @@ update_status ModuleSceneGame::PostUpdate() {
 
 bool ModuleSceneGame::CleanUp() {
 	bool ret = true;
-	targetY = 0;
-	moving = false;
 	App->sound->StopAll();
 	App->player->Disable();
 	App->collision->Disable();
@@ -211,6 +200,6 @@ bool ModuleSceneGame::CleanUp() {
 }
 
 void ModuleSceneGame::onFadeInEnd() {
-	moving = true;
 	App->sound->PlayMusic();
+	restart = false;
 }

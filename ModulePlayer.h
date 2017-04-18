@@ -19,7 +19,8 @@ enum PLAYER_STATE : int {
 	MOVING_UP_RIGHT = 1 | 4,
 	MOVING_UP_LEFT = 1 | 8,
 	MOVING_DOWN_RIGHT = 2 | 4,
-	MOVING_DOWN_LEFT = 2 | 8
+	MOVING_DOWN_LEFT = 2 | 8,
+	DEAD = -1
 };
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
@@ -56,6 +57,7 @@ private:
 	PLAYER_STATE prev_state = IDLE;
 	bool shooting;
 	bool grenade;
+	bool dead;
 
 	int speed;
 	int player_min_y;
@@ -64,6 +66,10 @@ private:
 
 	void checkInput();
 	void processInput();
+	void wallCollision();
+	void waterCollision();
+
+	void Drown();
 
 };
 
