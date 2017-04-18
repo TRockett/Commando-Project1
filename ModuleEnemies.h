@@ -10,10 +10,7 @@
 
 enum ENEMY_TYPES
 {
-	
 	NO_TYPE,
-	LEFT_WEAPON,
-	RIGHT_WEAPON,
 };
 
 class Enemy;
@@ -51,8 +48,6 @@ private:
 	SDL_Texture* sprites;
 
 	//Basic enemy animations
-
-		//Enemy left weapon
 	Animation e1_forward;
 	Animation e1_backward;
 	Animation e1_left;
@@ -61,16 +56,6 @@ private:
 	Animation e1_up_left;
 	Animation e1_down_right;
 	Animation e1_down_left;
-
-		//Enemy right weapon
-	Animation e2_forward;
-	Animation e2_backward;
-	Animation e2_left;
-	Animation e2_right;
-	Animation e2_up_right;
-	Animation e2_up_left;
-	Animation e2_down_right;
-	Animation e2_down_left;
 };
 
 #endif // __ModuleEnemies_H__

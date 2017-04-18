@@ -14,8 +14,6 @@ ModuleEnemies::ModuleEnemies()
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 
-	//ENEMY WITH WEAPON (LEFT)
-
 	// walk forward animation (arcade sprite sheet)
 
 	e1_forward.PushBack({ 0, 220, 15, 23 });
@@ -95,7 +93,7 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	// Create a prototype for each enemy available so we can copy them around
-	sprites = App->textures->Load("Images/sprites.png");
+	sprites = App->textures->Load("rtype/enemies.png");
 
 	return true;
 }
