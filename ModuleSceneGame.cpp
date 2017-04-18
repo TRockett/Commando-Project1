@@ -51,11 +51,16 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 42, 20, 4, 8 }, COLLIDER_WALL);
 
 	// Palm trees collisions
-	App->collision->AddCollider({ 218, 152, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 218, 152, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 170, -24, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 150, -24, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 42, -217, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 154, -233, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 154, -618, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 98, 24, 4, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 34, 152, 4, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 161, 217, 4, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 170, 233, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 170, 233, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 145, 233, 4, 9 }, COLLIDER_WALL);
 
 	//Collisions of the rock at the right at the beggining of the game
