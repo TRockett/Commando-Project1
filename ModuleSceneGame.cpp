@@ -32,6 +32,9 @@ bool ModuleSceneGame::Init() {
 	tree2.PushBack({ 178,46,31,32 });
 	tree2.PushBack({ 209,46,30,32 });
 	tree2.speed = 0.0f;
+
+	//Rock animation
+	rock.PushBack({ 825,83,28,11 });
 	return true;
 }
 
@@ -178,6 +181,10 @@ update_status ModuleSceneGame::Update() {
 	App->render->Blit(sprite_graphics, 144, -642, &tree2.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 18, -642, &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 82, -706, &tree1.GetCurrentFrame().rect);
+
+	//Rocks sprites
+	App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

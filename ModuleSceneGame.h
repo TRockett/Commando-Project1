@@ -21,6 +21,7 @@ private:
 	bool moving = false;
 	Animation tree1;
 	Animation tree2;
+	Animation rock;
 
 public:
 	bool Init();
