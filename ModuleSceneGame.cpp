@@ -54,11 +54,19 @@ bool ModuleSceneGame::Start() {
 	// Palm trees collisions
 	App->collision->AddCollider({ 218, 152, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 170, -24, 5, 9 }, COLLIDER_WALL);
-	App->collision->AddCollider({ 150, -24, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 144, -24, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 160, -40, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 42, -217, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 154, -233, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, -233, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 154, -618, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 32, -618, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -681, 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 98, 24, 4, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -106, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 97, -298, 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 160, -361 , 5, 9 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 225, -425 , 5, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 34, 152, 4, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 161, 217, 4, 9 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 170, 233, 5, 9 }, COLLIDER_WALL);
@@ -69,6 +77,32 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 201, 70 , 35, 4 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 204, 66 , 33, 4 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 214, 64 , 24, 2 }, COLLIDER_WALL);
+
+	//Collisions of the 2nd rock at the right 
+	App->collision->AddCollider({ 196, -151 , 48, 38 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 203, -166 , 40, 15 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 215, -173 , 40, 7 }, COLLIDER_WALL);
+
+	//Collisions of the rock at the middle of the before the briedge 
+	App->collision->AddCollider({ 84, -482 , 87, 17 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 89, -497 , 80, 15 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 114, -505 , 41, 8 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 126, -511 , 24, 6 }, COLLIDER_WALL);
+
+	//Collisions of the big rock at the left before the briedge
+	App->collision->AddCollider({ 20, -448 , 35, 80 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 55, -438 , 22 ,50 }, COLLIDER_WALL);
+
+	//Collisions of the briedge
+	App->collision->AddCollider({ 20, -850 , 78, 78 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 159, -850 , 80 ,78 }, COLLIDER_WALL);
+	
+	//Collisions for the lake
+	App->collision->AddCollider({ 20, -173 , 25, 27 }, COLLIDER_WALL);
+
+	//Collisions for the bukers
+	App->collision->AddCollider({ 128, -289 , 60, 10 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 192, -738 , 52, 10 }, COLLIDER_WALL);
 
 	//Collisions of the trees and lake of the left down corner
 	App->collision->AddCollider({ 20, 213, 76, 43 }, COLLIDER_WALL);
