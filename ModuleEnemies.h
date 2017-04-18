@@ -2,8 +2,9 @@
 #define __ModuleEnemies_H__
 
 #include "Module.h"
+#include "p2Point.h"
 
-#define MAX_ENEMIES 100
+#define MAX_ENEMIES 30
 
 
 enum ENEMY_TYPES
@@ -16,7 +17,7 @@ class Enemy;
 struct EnemyInfo
 {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
-	int x, y;
+	iPoint pos;
 };
 
 class ModuleEnemies : public Module

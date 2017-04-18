@@ -46,6 +46,7 @@ bool Application::Init()
 	scene_game->Disable();
 	scene_congrats->Disable();
 	scene_welcome->Enable();
+	enemies->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

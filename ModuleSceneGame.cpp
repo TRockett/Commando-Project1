@@ -8,6 +8,7 @@
 #include "ModuleSceneCongrats.h"
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemies.h"
 #include <string>
 
 
@@ -80,7 +81,11 @@ bool ModuleSceneGame::Start() {
 
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 
+	//Enabling modules
 	App->player->Enable();
+	App->enemies->Enable();
+	App->collision->Enable();
+
 	if (background_graphics == nullptr)
 		ret = false;
 	
@@ -98,13 +103,11 @@ update_status ModuleSceneGame::PreUpdate() {
 		if (level + 1 > MAX_LEVEL) {
 			if (App->fade->FadeToBlack(this, App->scene_congrats, 2.0f)) {
 				level = 1;
-				App->collision->Disable();
 			}
 		}
 		else {
 			if (App->fade->FadeToBlack(this, this, 1.0f)) {
 				level++;
-				App->collision->Disable();
 			}
 		}
 	}
@@ -153,6 +156,7 @@ bool ModuleSceneGame::CleanUp() {
 	moving = false;
 	App->sound->StopAll();
 	App->player->Disable();
+	App->collision->Disable();
 	
 	if (!ret) {
 		App->textures->Unload(background_graphics);

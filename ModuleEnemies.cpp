@@ -108,11 +108,11 @@ update_status ModuleEnemies::PreUpdate()
 	{
 		if(queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if(queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
+			if(queue[i].pos.x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
+				LOG("Spawning enemy at %d", queue[i].pos.x * SCREEN_SIZE);
 			}
 		}
 	}
@@ -139,7 +139,10 @@ update_status ModuleEnemies::PostUpdate()
 	{
 		if(enemies[i] != nullptr)
 		{
-			if(enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			if(enemies[i]->position.x * SCREEN_SIZE < App->render->camera.x - SPAWN_MARGIN
+				|| enemies[i]->position.x * SCREEN_SIZE > (App->render->camera.x + SCREEN_WIDTH) * SCREEN_SIZE + SPAWN_MARGIN
+				|| enemies[i]->position.y * SCREEN_SIZE < App->render->camera.y - SPAWN_MARGIN
+				|| enemies[i]->position.y * SCREEN_SIZE > (App->render->camera.y + SCREEN_HEIGHT) * SCREEN_SIZE + SPAWN_MARGIN)
 			{
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];
@@ -179,8 +182,8 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 		if(queue[i].type == ENEMY_TYPES::NO_TYPE)
 		{
 			queue[i].type = type;
-			queue[i].x = x;
-			queue[i].y = y;
+			queue[i].pos.x = x;
+			queue[i].pos.y = y;
 			ret = true;
 			break;
 		}

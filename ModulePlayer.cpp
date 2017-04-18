@@ -131,7 +131,6 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	AnimationFrame frame =  current_animation->GetCurrentFrame();
-	iPoint camera = App->scene_game->getLevelDimensions();
 
 	if (shooting) {
 		App->sound->PlaySound(shoot, 0);
@@ -149,8 +148,22 @@ update_status ModulePlayer::Update()
 	}
 	int margin = MAX(200, position.y);
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
-	App->render->camera.y = (-position.y + margin) * SCREEN_SIZE;
-	App->render->Blit(graphics, (position.x - frame.pivot.x), (position.y - frame.pivot.y), &frame.rect);
+
+	/*switch (state)
+	{
+	case MOVING_UP:
+	case MOVING_UP_RIGHT:
+	case MOVING_UP_LEFT:*/
+		//if (fabsf(position.y) > App->render->camera.y + margin)
+			App->render->camera.y = ((int)position.y + margin);
+	/*	break;
+	default:
+		break;
+	}*/
+	LOG("Player position.y:: %f", position.y);
+	LOG("Camera position.y:: %d", App->render->camera.y);
+
+	App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y - App->render->camera.y), &frame.rect);
 
 	return UPDATE_CONTINUE;
 }
@@ -170,8 +183,7 @@ void ModulePlayer::checkInput() {
 	{
 		state = MOVING_UP | state;
 	}
-
-
+	
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_DOWN | state;
@@ -235,16 +247,16 @@ void ModulePlayer::processInput() {
 	}
 
 	position.x += speed * sinf(shooting_angle * M_PI / 180);
-	position.y -= speed * cosf(shooting_angle * M_PI / 180);
+	position.y += speed * cosf(shooting_angle * M_PI / 180);
 }
 
 void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final version
 	switch (state) {
 	case MOVING_DOWN:
-		position.y -= speed;
+		position.y += speed;
 		break;
 	case MOVING_UP:
-		position.y += speed;
+		position.y -= speed;
 		break;
 	case MOVING_RIGHT:
 		position.x -= speed;
@@ -254,19 +266,19 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) { //Not final ve
 		break;
 	case MOVING_DOWN_RIGHT:
 		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
 		break;
 	case MOVING_DOWN_LEFT:
 		position.x += speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
+		position.y += speed * cosf(45 * M_PI / 180);
 		break;
 	case MOVING_UP_LEFT:
 		position.x += speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
 		break;
 	case MOVING_UP_RIGHT:
 		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
+		position.y -= speed * cosf(45 * M_PI / 180);
 		break;
 	}
 }
