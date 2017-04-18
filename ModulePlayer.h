@@ -56,8 +56,8 @@ private:
 	PLAYER_STATE state = IDLE;
 	PLAYER_STATE prev_state = IDLE;
 	bool shooting;
-	bool grenade;
-	bool dead;
+	bool grenade1;
+	bool grenade_on;
 
 	int speed;
 	int player_min_y;

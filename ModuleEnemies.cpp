@@ -5,6 +5,7 @@
 #include "ModuleParticles.h"
 #include "ModuleTextures.h"
 #include "Enemy.h"
+#include "EnemyLeft.h"
 #include <random>
 
 #define SPAWN_MARGIN 50
@@ -201,10 +202,11 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 	{
 		switch(info.type)
 		{
-			/*case ENEMY_TYPES::REDBIRD:
-			enemies[i] = new Enemy_RedBird(info.x,info.y);
+			case ENEMY_TYPES::LEFT_WEAPON:
+			enemies[i] = new EnemyLeft(info.pos.x,info.pos.y);
 			break;
-			case ENEMY_TYPES::BROWNCOOKIE:
+
+			/*case ENEMY_TYPES::BROWNCOOKIE:
 			int delay = rand() % 20 - 10;
 			enemies[i] = new Enemy_BrownCookie(info.x, info.y, delay);
 			break;*/
