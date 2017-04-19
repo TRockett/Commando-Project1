@@ -19,6 +19,7 @@ class ModuleCollision;
 class ModuleParticles;
 class ModuleEnemies;
 class Module;
+class ModuleHelicopter;
 
 class Application
 {
@@ -38,6 +39,7 @@ public:
 	ModuleCollision* collision;
 	ModuleParticles* particles;
 	ModuleEnemies* enemies;
+	ModuleHelicopter* helicopter;
 
 public:
 
