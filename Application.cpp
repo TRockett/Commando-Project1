@@ -24,12 +24,11 @@ Application::Application()
 	modules[5] = scene_congrats = new ModuleSceneCongrats();
 	modules[6] = scene_welcome = new ModuleSceneWelcome();
 	modules[7] = scene_game = new ModuleSceneGame();
-	modules[8] = helicopter = new ModuleHelicopter();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = enemies = new ModuleEnemies();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
-	modules[13] = fade = new ModuleFadeToBlack();
+	modules[8] = player = new ModulePlayer();
+	modules[9] = enemies = new ModuleEnemies();
+	modules[10] = particles = new ModuleParticles();
+	modules[11] = collision = new ModuleCollision();
+	modules[12] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
