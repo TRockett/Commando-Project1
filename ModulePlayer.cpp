@@ -158,7 +158,7 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;			
 		
-		Particle grenade;
+		
 		Particle grenade_explosion;
 
 		checkInput();
@@ -168,36 +168,21 @@ update_status ModulePlayer::Update()
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
 			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT);
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 100);
+			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET , COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET , COLLIDER_PLAYER_SHOT);
 		}
 
 		
 
 		if (grenade1)
-		{		
+		{
+			Particle grenade;
 			grenade = App->particles->grenade;
 			grenade_explosion = App->particles->grenade_explosion;
 			grenade.speed = { 0, -1 };
-			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);			
-			
-			grenade_on = true;
-		}
 
-		if (grenade_on == true)
-		{
-			if (grenade.position.y <= position.y - 10)
-			{
-				grenade.life = false;
-				grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
-				grenade1 = false;
-				grenade_on = false;
-			}
+
 		}
-	
-		}
-		grenade1 = false;
-	}
 	
 	else if (current_animation->Finished() && !App->scene_game->restart) {
 		App->scene_game->restart = true;

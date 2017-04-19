@@ -39,7 +39,7 @@ bool ModuleParticles::Start()
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 3000;
 	bullet.onCollision = [&]() {
-		AddParticle(explosion, bullet.position.x - 7, bullet.position.y - 5);
+		AddParticle(explosion, bullet.position.x - 7, bullet.position.y - 5,EXPLOSION, COLLIDER_ENEMY_SHOT);
 	};
 
 	// grenade animation
@@ -97,6 +97,7 @@ update_status ModuleParticles::Update()
 		{
 			delete p;
 			active[i] = nullptr;
+
 		}
 		else if(ticks >= p->born)
 		{
@@ -112,7 +113,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-Particle* ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Sint32 delay)
+ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type, Sint32 delay)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -122,12 +123,13 @@ Particle* ModuleParticles::AddParticle(const Particle& particle, int x, int y, C
 			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
+			p->partycletype = particle_type;
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
 			}
 			active[i] = p;
-			return p;
+			break;
 		}
 		
 	}
@@ -180,8 +182,16 @@ bool Particle::Update()
 	Sint32 ticks = SDL_GetTicks();
 	if(life > 0)
 	{
-		if((ticks - born) > life)
-			ret = false;
+		if ((ticks - born) > life)
+		{
+			if (partycletype = GRENADE)
+			{
+				Grenade_explosion = App->particles->grenade_explosion;
+				App->particles->AddParticle(Grenade_explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+			}
+			ret = false;			
+		}
+	
 	}
 	else
 		if(anim.Finished())

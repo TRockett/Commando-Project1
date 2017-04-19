@@ -15,6 +15,13 @@ struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
 
+enum PARTICLE_TYPE
+{
+	BULLET = 1,
+	GRENADE = 2,
+	EXPLOSION = 3,
+};
+
 struct Particle
 {
 	Collider* collider = nullptr;
@@ -25,6 +32,7 @@ struct Particle
 	Sint32 born = 0;
 	Sint32 life = 0;
 	bool fx_played = false;
+	PARTICLE_TYPE partycletype;
 
 	Particle();
 	Particle(const Particle& p);
@@ -33,6 +41,8 @@ struct Particle
 
 	std::function<void()> onCollision;
 };
+
+Particle Grenade_explosion;
 
 class ModuleParticles : public Module
 {
@@ -45,7 +55,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	Particle* AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Sint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Sint32 delay = 0);
 
 private:
 
