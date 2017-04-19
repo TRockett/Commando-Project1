@@ -137,7 +137,7 @@ bool ModulePlayer::Start()
 	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
-	grenade1 = false;
+	
 
 	return true;
 }
@@ -156,7 +156,8 @@ update_status ModulePlayer::Update()
 		state = IDLE;
 		current_animation->speed = 0.15f;
 		shooting = false;
-	
+		grenade1 = false;			
+		
 
 		Particle grenade = App->particles->grenade;
 		Particle grenade_explosion = App->particles->grenade_explosion;
@@ -175,18 +176,23 @@ update_status ModulePlayer::Update()
 		
 
 		if (grenade1)
-		{			
-			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);		
+		{
+			grenade.speed = { 0, -1 };
+			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);			
+			grenade1 = false;
+			grenade_on = true;
 		}
-			grenade.speed = { 0, -10 };
 
-
-			if (grenade.position.y <= position.y - 100)
+		if (grenade_on == true)
+		{
+			if (grenade.position.y <= position.y - 10)
 			{
 				grenade.life = false;
 				grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
+				grenade_on = false;
 			}
-			grenade1 = false;
+		}
+	
 		}
 	
 	else if (current_animation->Finished() && !App->scene_game->restart) {
