@@ -4,7 +4,7 @@
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
 
-Enemy::Enemy(int x, int y) : position(x, y)
+Enemy::Enemy(int x, int y) : position(x, y), initial_position(x, y)
 {}
 
 Enemy::~Enemy()
@@ -27,7 +27,7 @@ void Enemy::Draw(SDL_Texture* sprites)
 
 	if (collider != nullptr) {
 		//collider->SetPos(position.x, position.y);
-		collider->rect = { position.x, position.y, current_frame.rect.w, current_frame.rect.h };
+		collider->rect = { position.x - current_frame.pivot.x, position.y - current_frame.pivot.y, current_frame.rect.w, current_frame.rect.h };
 	}
 }
 

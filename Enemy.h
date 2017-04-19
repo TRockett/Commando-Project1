@@ -13,6 +13,7 @@ protected:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	AnimationFrame current_frame;
+	iPoint initial_position;
 
 public:
 	iPoint position;

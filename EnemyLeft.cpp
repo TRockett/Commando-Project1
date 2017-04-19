@@ -16,7 +16,8 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 
-	movement.PushBack({0.5f, 0.6f }, 65, animation);
+	movement.PushBack({ 0.0f, -1.0f }, 100, animation);
+	movement.PushBack({ 0.0f, 1.0f }, 100, animation);
 }
 
 
@@ -26,5 +27,5 @@ EnemyLeft::~EnemyLeft()
 
 void EnemyLeft::Move() {
 	animation = &App->enemies->e1_forward;
-	position += movement.GetCurrentPosition();
+	position = initial_position + movement.GetCurrentPosition();
 }

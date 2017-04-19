@@ -176,18 +176,18 @@ update_status ModulePlayer::Update()
 
 		if (grenade1)
 		{			
-			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);		
+			//grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);		
 		}
-			grenade.speed = { 0, -10 };
+		grenade.speed = { 0, -10 };
 
 
-			if (grenade.position.y <= position.y - 100)
-			{
-				grenade.life = false;
-				grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
-			}
-			grenade1 = false;
+		if (grenade.position.y <= position.y - 100)
+		{
+			grenade.life = false;
+			//grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
 		}
+		grenade1 = false;
+	}
 	
 	else if (current_animation->Finished() && !App->scene_game->restart) {
 		App->scene_game->restart = true;
