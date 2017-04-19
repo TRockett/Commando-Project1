@@ -13,6 +13,7 @@
 #include "ModuleParticles.h"
 #include "Moduleenemies.h"
 #include "ModuleHelicopter.h"
+
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
