@@ -112,7 +112,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Sint32 delay)
+Particle* ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Sint32 delay)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -127,9 +127,11 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 				p->collider->active = false;
 			}
 			active[i] = p;
-			break;
+			return p;
 		}
+		
 	}
+
 }
 
 // TODO 5: Make so every time a particle hits a wall it triggers an explosion particle

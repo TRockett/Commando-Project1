@@ -137,6 +137,7 @@ bool ModulePlayer::Start()
 	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
+	grenade1 = false;
 
 	return true;
 }
@@ -150,11 +151,12 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	if (state != DEAD && !App->scene_game->restart){
+	if (state != DEAD && !App->scene_game->restart)
+	{
 		state = IDLE;
 		current_animation->speed = 0.15f;
 		shooting = false;
-		grenade1 = false;
+	
 
 		Particle grenade = App->particles->grenade;
 		Particle grenade_explosion = App->particles->grenade_explosion;
@@ -170,22 +172,23 @@ update_status ModulePlayer::Update()
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, COLLIDER_PLAYER_SHOT, 100);
 		}
 
-		if (grenade_on)
-		{
+		
 
-			if (grenade1)
-			{
-				grenade.speed = { 0, -1 };
-				App->particles->AddParticle(grenade, position.x + 20, position.y + 20, COLLIDER_NONE);
-
-			}
-			if (SDL_GetTicks() - grenade.born >= grenade.life)
-			{
-				App->particles->AddParticle(grenade_explosion, position.x, position.y - 100, COLLIDER_PLAYER_SHOT);
-			}
-			grenade_on = false;
+		if (grenade1)
+		{			
+			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);		
 		}
-	}
+			grenade.speed = { 0, -10 };
+
+
+			if (grenade.position.y <= position.y - 100)
+			{
+				grenade.life = false;
+				grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
+			}
+			grenade1 = false;
+		}
+	
 	else if (current_animation->Finished() && !App->scene_game->restart) {
 		App->scene_game->restart = true;
 		//current_animation->Reset();
@@ -250,8 +253,7 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN)
 	{
 		grenade1 = true;
-		grenade_on = true;
-		current_animation = &throw_grenade;
+		//current_animation = &throw_grenade;
 
 	
 	}
