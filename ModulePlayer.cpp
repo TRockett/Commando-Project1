@@ -158,9 +158,8 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;			
 		
-
-		Particle grenade = App->particles->grenade;
-		Particle grenade_explosion = App->particles->grenade_explosion;
+		Particle grenade;
+		Particle grenade_explosion;
 
 		checkInput();
 		processInput();
@@ -176,10 +175,12 @@ update_status ModulePlayer::Update()
 		
 
 		if (grenade1)
-		{
+		{		
+			grenade = App->particles->grenade;
+			grenade_explosion = App->particles->grenade_explosion;
 			grenade.speed = { 0, -1 };
 			grenade = *App->particles->AddParticle(grenade, position.x + 10, position.y, COLLIDER_NONE);			
-			grenade1 = false;
+			
 			grenade_on = true;
 		}
 
@@ -189,6 +190,7 @@ update_status ModulePlayer::Update()
 			{
 				grenade.life = false;
 				grenade_explosion = *App->particles->AddParticle(grenade_explosion, position.x, position.y - 80, COLLIDER_PLAYER_SHOT);
+				grenade1 = false;
 				grenade_on = false;
 			}
 		}
