@@ -42,7 +42,6 @@ struct Particle
 	std::function<void()> onCollision;
 };
 
-Particle Grenade_explosion;
 
 class ModuleParticles : public Module
 {

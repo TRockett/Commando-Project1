@@ -186,6 +186,7 @@ bool Particle::Update()
 		{
 			if (partycletype = GRENADE)
 			{
+				Particle Grenade_explosion;
 				Grenade_explosion = App->particles->grenade_explosion;
 				App->particles->AddParticle(Grenade_explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 			}
