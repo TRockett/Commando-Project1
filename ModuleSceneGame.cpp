@@ -116,7 +116,7 @@ bool ModuleSceneGame::Start() {
 	App->collision->AddCollider({ 20, 199 - (-level_dimensions.y + SCREEN_HEIGHT), 58, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 192 - (-level_dimensions.y + SCREEN_HEIGHT), 56, 7 }, COLLIDER_WALL);
 
-	App->enemies->AddEnemy(LEFT_WEAPON, 100, 100 );
+	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 

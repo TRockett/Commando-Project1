@@ -8,6 +8,7 @@ class EnemyLeft :
 
 private:
 	Path movement;
+
 	Animation e1_forward;
 	Animation e1_backward;
 	Animation e1_left;

@@ -20,12 +20,14 @@ const Collider* Enemy::GetCollider() const
 
 void Enemy::Draw(SDL_Texture* sprites)
 {
-	if(collider != nullptr)
-		collider->SetPos(position.x, position.y);
-
 	if (animation != nullptr) {
-		AnimationFrame frame = animation->GetCurrentFrame();
-		App->render->Blit(sprites, position.x - frame.pivot.x, position.y - frame.pivot.y, &(frame.rect));
+		current_frame = animation->GetCurrentFrame();
+		App->render->Blit(sprites, position.x - current_frame.pivot.x, position.y - current_frame.pivot.y, &(current_frame.rect));
+	}
+
+	if (collider != nullptr) {
+		//collider->SetPos(position.x, position.y);
+		collider->rect = { position.x, position.y, current_frame.rect.w, current_frame.rect.h };
 	}
 }
 

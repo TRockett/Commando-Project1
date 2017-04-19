@@ -52,7 +52,8 @@ private:
 
 	//Basic enemy animations
 
-		//Enemy left weapon
+public:
+	//Enemy left weapon
 	Animation e1_forward;
 	Animation e1_backward;
 	Animation e1_left;
