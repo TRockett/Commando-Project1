@@ -192,12 +192,13 @@ bool ModuleSceneGame::CleanUp() {
 	App->player->Disable();
 	App->collision->Disable();
 	App->enemies->Disable();
-	
+
+	ret = App->textures->Unload(background_graphics);
+
 	if (!ret) {
-		App->textures->Unload(background_graphics);
+		App->textures->Unload(sprite_graphics);
 		return ret;
 	}
-	ret = App->textures->Unload(background_graphics);
 
 	return ret;
 }
