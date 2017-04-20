@@ -37,7 +37,7 @@ bool ModuleParticles::Start()
 	bullet.anim.PushBack({ 0,100,2,2 });
 	bullet.anim.speed = 0.2f;
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
-	bullet.life = 3000;
+	bullet.life = 300;
 	bullet.onCollision = [&]() {
 		AddParticle(explosion, bullet.position.x - 7, bullet.position.y - 5,EXPLOSION, COLLIDER_ENEMY_SHOT);
 	};
@@ -184,11 +184,17 @@ bool Particle::Update()
 	{
 		if ((ticks - born) > life)
 		{
-			if (partycletype = GRENADE)
+			if (partycletype == GRENADE)
 			{
 				Particle Grenade_explosion;
 				Grenade_explosion = App->particles->grenade_explosion;
 				App->particles->AddParticle(Grenade_explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+			}
+			else if (partycletype == BULLET)
+			{
+				Particle explosion;
+				explosion = App->particles->explosion;
+				App->particles->AddParticle(explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 			}
 			ret = false;			
 		}
