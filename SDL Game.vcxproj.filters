@@ -86,7 +86,7 @@
     <ClInclude Include="ModuleHelicopter.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\SDL9_Handout\ModuleFonts.h">
+    <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -148,7 +148,7 @@
     <ClCompile Include="ModuleHelicopter.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\SDL9_Handout\ModuleFonts.cpp">
+    <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
