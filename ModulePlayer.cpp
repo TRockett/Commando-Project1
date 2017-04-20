@@ -138,7 +138,7 @@ bool ModulePlayer::Start()
 	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
-	
+
 
 	return true;
 }
@@ -159,6 +159,7 @@ update_status ModulePlayer::Update()
 		current_animation->speed = 0.15f;
 		shooting = false;
 		grenade1 = false;
+		Particle fire;
 
 		checkInput();
 		processInput();
@@ -166,9 +167,11 @@ update_status ModulePlayer::Update()
 		if (shooting) {
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
-			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180)) };
+
+			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180))};
+			App->particles->AddParticle(fire, position.x + shooting_position.x, position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, 50);
 		}
 
 		if (grenade1)
@@ -215,8 +218,10 @@ update_status ModulePlayer::Update()
 }
 
 void ModulePlayer::checkInput() {
+
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
+
 		state = MOVING_RIGHT | state;
 	}
 
@@ -249,46 +254,88 @@ void ModulePlayer::checkInput() {
 }
 
 void ModulePlayer::processInput() {
+	
+
 	switch (state) {
 	case MOVING_DOWN:
 		shooting_position = { 2,16 };
 		shooting_angle = 180;
 		current_animation = &backward;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_down;
+		}
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
 		shooting_angle = 0;
 		current_animation = &forward;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_up;
+		}
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
 		shooting_angle = 90;
 		current_animation = &right;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_right;
+		}
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
 		shooting_angle = -90;
 		current_animation = &left;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_left;
+		}
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
 		shooting_angle = 135;
 		current_animation = &down_right;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_downright;
+		}
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
 		shooting_angle = -135;
 		current_animation = &down_left;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_downleft;
+		}
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
 		shooting_angle = -45;
 		current_animation = &up_left;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_upleft;
+		}
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
 		shooting_angle = 45;
 		current_animation = &up_right;
+		if (shooting == true)
+		{
+			Particle fire;
+			fire = App->particles->fire_upright;
+		}
 		break;
 	case IDLE:
 		current_animation->speed = 0.0f;

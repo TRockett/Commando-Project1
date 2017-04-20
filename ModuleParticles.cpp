@@ -49,8 +49,8 @@ bool ModuleParticles::Start()
 	grenade.anim.PushBack({ 4,131,5,6 });
 	grenade.anim.PushBack({ 0,131,4,5 });
 
-	grenade.life = 1000;
-	grenade.anim.speed = 0.1f;
+	grenade.life = 1200;
+	grenade.anim.speed = 0.07f;
 	grenade.anim.loop = false;
 
 	// grenade explosion anim
@@ -60,6 +60,39 @@ bool ModuleParticles::Start()
 	grenade_explosion.anim.PushBack({ 99,131,32,32 });
 	grenade_explosion.anim.loop = false;
 	grenade_explosion.anim.speed = 0.1f;
+
+	// fire
+	fire_up.anim.PushBack({ 0, 113, 5,6 });
+	fire_up.anim.loop = false;
+	fire_up.life = fire_life;
+
+	fire_upright.anim.PushBack({ 7,113,6,6 });
+	fire_upright.anim.loop = false;
+	fire_downright.life = fire_life;
+
+	fire_right.anim.PushBack({ 15,113,8,5 });
+	fire_right.anim.loop = false;
+	fire_right.life = fire_life;
+
+	fire_left.anim.PushBack({ 24,113,8,5 });
+	fire_left.anim.loop = false;
+	fire_left.life = fire_life;
+
+	fire_down.anim.PushBack({ 0,121,5,6 });
+	fire_down.anim.loop = false;
+	fire_down.life = fire_life;
+
+	fire_upleft.anim.PushBack({ 8,121,6,6 });
+	fire_upleft.anim.loop = false;
+	fire_upleft.life = fire_life;
+
+	fire_downleft.anim.PushBack({ 16,121,6,6 });
+	fire_downleft.anim.loop = false;
+	fire_downleft.life = fire_life;
+
+	fire_downright.anim.PushBack({ 24,121,6,6 });
+	fire_downright.anim.loop = false;
+	fire_downright.life = fire_life;
 
 	return true;
 }
@@ -97,10 +130,10 @@ update_status ModuleParticles::Update()
 		{
 			switch (p->particletype) {
 			case GRENADE:
-				App->particles->AddParticle(grenade_explosion, p->position.x, p->position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+				App->particles->AddParticle(grenade_explosion, p->position.x - 13, p->position.y - 13, EXPLOSION, COLLIDER_ENEMY_SHOT);
 				break;
 			case BULLET:
-				App->particles->AddParticle(explosion, p->position.x, p->position.y, EXPLOSION, COLLIDER_NONE);
+				App->particles->AddParticle(explosion, p->position.x , p->position.y , EXPLOSION, COLLIDER_NONE);
 				break;
 			}
 			delete p;
@@ -135,6 +168,7 @@ update_status ModuleParticles::Update()
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
+
 			}
 			active[i] = p;
 			break;

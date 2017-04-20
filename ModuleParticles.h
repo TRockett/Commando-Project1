@@ -43,6 +43,7 @@ struct Particle
 };
 
 
+
 class ModuleParticles : public Module
 {
 public:
@@ -56,6 +57,7 @@ public:
 
 	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Sint32 delay = 0);
 
+	int fire_life = 30;
 private:
 
 	SDL_Texture* graphics = nullptr;
@@ -67,6 +69,14 @@ public:
 	Particle bullet;
 	Particle grenade;
 	Particle grenade_explosion;
+	Particle fire_up;
+	Particle fire_upleft;
+	Particle fire_left;
+	Particle fire_downleft;
+	Particle fire_down;
+	Particle fire_downright;
+	Particle fire_right;
+	Particle fire_upright;
 };
 
 #endif // __MODULEPARTICLES_H__

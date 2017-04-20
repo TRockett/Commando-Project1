@@ -25,6 +25,8 @@ enum PLAYER_STATE : int {
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
 
+
+
 class ModulePlayer : public Module
 {
 public:
@@ -35,6 +37,9 @@ public:
 	bool CleanUp();
 	update_status Update();
 	void OnCollision(Collider*, Collider*);
+	PLAYER_STATE state = IDLE;
+
+
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -55,7 +60,8 @@ private:
 	Mix_Chunk* shoot;
 	Collider* collider;
 
-	PLAYER_STATE state = IDLE;
+
+	
 	PLAYER_STATE prev_state = IDLE;
 	bool shooting;
 	bool grenade1;
