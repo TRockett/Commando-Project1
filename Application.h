@@ -40,6 +40,7 @@ public:
 	ModuleCollision* collision;
 	ModuleParticles* particles;
 	ModuleEnemies* enemies;
+	ModuleFonts* fonts;
 	//ModuleHelicopter* helicopter;
 
 public:

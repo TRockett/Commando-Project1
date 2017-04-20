@@ -32,7 +32,7 @@ struct Particle
 	Sint32 born = 0;
 	Sint32 life = 0;
 	bool fx_played = false;
-	PARTICLE_TYPE partycletype;
+	PARTICLE_TYPE particletype;
 
 	Particle();
 	Particle(const Particle& p);

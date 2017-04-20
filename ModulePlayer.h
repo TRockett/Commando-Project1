@@ -51,6 +51,7 @@ private:
 	Animation drown;
 	Animation throw_grenade;
 	fPoint position;
+	fPoint prev_position;
 	Mix_Chunk* shoot;
 	Collider* collider;
 

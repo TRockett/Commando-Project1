@@ -124,6 +124,7 @@ bool ModuleSceneGame::Start() {
 	App->player->Enable();
 	App->enemies->Enable();
 	App->collision->Enable();
+	App->enemies->Enable();
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -190,6 +191,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->sound->StopAll();
 	App->player->Disable();
 	App->collision->Disable();
+	App->enemies->Disable();
 	
 	if (!ret) {
 		App->textures->Unload(background_graphics);

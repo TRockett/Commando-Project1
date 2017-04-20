@@ -8,6 +8,7 @@
 #define MAX_TEXTURES 50
 
 struct SDL_Texture;
+struct SDL_Surface;
 
 class ModuleTextures : public Module
 {

@@ -129,6 +129,7 @@ bool ModulePlayer::Start()
 	shooting_angle = 0;
 	shooting_position = { 9,1 };
 	player_min_y = (int)position.y;
+	prev_position = position;
 	state = IDLE;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
@@ -153,6 +154,7 @@ update_status ModulePlayer::Update()
 {
 	if (state != DEAD && !App->scene_game->restart)
 	{
+		prev_position = position;
 		state = IDLE;
 		current_animation->speed = 0.15f;
 		shooting = false;
@@ -169,8 +171,6 @@ update_status ModulePlayer::Update()
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
 		}
 
-
-
 		if (grenade1)
 		{
 			Particle grenade;
@@ -178,12 +178,10 @@ update_status ModulePlayer::Update()
 			grenade.speed = { 0, -1 };
 			App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE);
 		}
-
-		else if (current_animation->Finished() && !App->scene_game->restart) {
-			App->scene_game->restart = true;
-			//current_animation->Reset();
-			state = IDLE;
-		}
+	}
+	else if (current_animation->Finished() && !App->scene_game->restart) {
+		App->scene_game->restart = true;
+		state = IDLE;
 	}
 
 
@@ -316,8 +314,8 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 }
 
 void ModulePlayer::wallCollision() {
-
-	switch (state) {
+	position = prev_position;
+	/*switch (state) {
 	case MOVING_DOWN:
 		position.y -= speed;
 		break;
@@ -346,7 +344,7 @@ void ModulePlayer::wallCollision() {
 		position.x -= speed * sinf(45 * M_PI / 180);
 		position.y += speed * cosf(45 * M_PI / 180);
 		break;
-	}
+	}*/
 }
 
 void ModulePlayer::waterCollision() {

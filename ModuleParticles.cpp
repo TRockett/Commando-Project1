@@ -95,6 +95,14 @@ update_status ModuleParticles::Update()
 		Sint32 ticks = SDL_GetTicks();
 		if(p->Update() == false)
 		{
+			switch (p->particletype) {
+			case GRENADE:
+				App->particles->AddParticle(grenade_explosion, p->position.x, p->position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+				break;
+			case BULLET:
+				App->particles->AddParticle(explosion, p->position.x, p->position.y, EXPLOSION, COLLIDER_NONE);
+				break;
+			}
 			delete p;
 			active[i] = nullptr;
 
@@ -123,7 +131,7 @@ update_status ModuleParticles::Update()
 			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
-			p->partycletype = particle_type;
+			p->particletype = particle_type;
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
@@ -146,6 +154,16 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (active[i]->onCollision)
 				active[i]->onCollision();
+
+			if (active[i]->particletype == GRENADE)
+			{
+				App->particles->AddParticle(grenade_explosion, active[i]->position.x, active[i]->position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+			}
+			else if (active[i]->particletype == BULLET)
+			{
+				App->particles->AddParticle(explosion, active[i]->position.x, active[i]->position.y, EXPLOSION, COLLIDER_NONE);
+			}
+
 
 			delete active[i];
 			active[i] = nullptr;
@@ -183,21 +201,7 @@ bool Particle::Update()
 	if(life > 0)
 	{
 		if ((ticks - born) > life)
-		{
-			if (partycletype == GRENADE)
-			{
-				Particle Grenade_explosion;
-				Grenade_explosion = App->particles->grenade_explosion;
-				App->particles->AddParticle(Grenade_explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
-			}
-			else if (partycletype == BULLET)
-			{
-				Particle explosion;
-				explosion = App->particles->explosion;
-				App->particles->AddParticle(explosion, position.x, position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
-			}
-			ret = false;			
-		}
+			ret = false;
 	
 	}
 	else
