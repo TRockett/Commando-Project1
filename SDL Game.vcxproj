@@ -82,6 +82,7 @@
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleHelicopter.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleObjects.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleHelicopter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleObjects.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />

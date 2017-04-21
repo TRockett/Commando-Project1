@@ -16,10 +16,7 @@ private:
 	int level;
 	iPoint level_dimensions;
 	SDL_Texture* background_graphics;
-	SDL_Texture* sprite_graphics;
-	Animation tree1;
-	Animation tree2;
-	Animation rock;
+	
 
 public:
 	bool Init();
