@@ -101,7 +101,6 @@ ModulePlayer::ModulePlayer()
 
 
 	//drown animation
-
 	drown.PushBack({ 270, 40, 17, 23 });
 	drown.PushBack({ 296, 40, 25, 14 });
 	drown.PushBack({ 334, 40, 15, 12 });
@@ -139,7 +138,7 @@ bool ModulePlayer::Start()
 	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
-
+	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
 
 	return true;
 }
@@ -165,14 +164,15 @@ update_status ModulePlayer::Update()
 		processInput();
 
 
-		if (shooting) {
+		if (shooting)
+		{
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
 
 			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180))};
 			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180), EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, 50);
+			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
 		}
 
 		if (grenade_on == false)
@@ -184,8 +184,7 @@ update_status ModulePlayer::Update()
 				bthrowing = true;
 				grenade = App->particles->grenade;
 				grenade.speed = { 0, -1 };
-				App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE);
-
+				App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE, grenade_explosion);
 			}
 			
 		}
@@ -345,36 +344,6 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 
 void ModulePlayer::wallCollision() {
 	position = prev_position;
-	/*switch (state) {
-	case MOVING_DOWN:
-		position.y -= speed;
-		break;
-	case MOVING_UP:
-		position.y += speed;
-		break;
-	case MOVING_RIGHT:
-		position.x -= speed;
-		break;
-	case MOVING_LEFT:
-		position.x += speed;
-		break;
-	case MOVING_DOWN_RIGHT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_DOWN_LEFT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y -= speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_UP_LEFT:
-		position.x += speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
-		break;
-	case MOVING_UP_RIGHT:
-		position.x -= speed * sinf(45 * M_PI / 180);
-		position.y += speed * cosf(45 * M_PI / 180);
-		break;
-	}*/
 }
 
 void ModulePlayer::waterCollision() {

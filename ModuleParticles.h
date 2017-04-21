@@ -13,6 +13,7 @@
 
 struct SDL_Texture;
 struct Collider;
+struct Mix_Chunk;
 enum COLLIDER_TYPE;
 
 enum PARTICLE_TYPE
@@ -33,6 +34,7 @@ struct Particle
 	Sint32 life = 0;
 	bool fx_played = false;
 	PARTICLE_TYPE particletype;
+	Mix_Chunk* onEndSound = nullptr;
 
 	Particle();
 	Particle(const Particle& p);
@@ -55,7 +57,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Sint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Mix_Chunk* on_end_sound = nullptr, Sint32 delay = 0);
 
 	int fire_life = 100;
 private:

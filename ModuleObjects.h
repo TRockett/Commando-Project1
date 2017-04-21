@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 
+#define MAX_OBJECTS 100
 
 struct SDL_Texture;
 
@@ -18,6 +19,7 @@ private:
 	Animation tree2;
 	Animation rock;
 	Animation rock2;
+	SDL_Rect objects[MAX_OBJECTS];
 
 public:
 	ModuleObjects();

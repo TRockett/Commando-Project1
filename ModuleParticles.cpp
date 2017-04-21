@@ -6,6 +6,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "ModuleSound.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -23,6 +24,7 @@ bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
 	graphics = App->textures->Load("images/sprites.png");
+
 
 	// explosion animation
 	explosion.anim.PushBack({ 49, 96, 7, 7 }, { 3, 3 });
@@ -57,7 +59,7 @@ bool ModuleParticles::Start()
 	grenade_explosion.anim.PushBack({ 70,131,27,26 }, { 13, 13 });
 	grenade_explosion.anim.PushBack({ 99,131,32,32 }, { 16, 16 });
 	grenade_explosion.anim.loop = false;
-	grenade_explosion.anim.speed = 0.035f;
+	grenade_explosion.anim.speed = 0.25f;
 
 	// fire
 	fire_up.anim.PushBack({ 0, 113, 5,6 });
@@ -138,6 +140,10 @@ update_status ModuleParticles::Update()
 				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
 				break;
 			}
+
+			if (p->onEndSound != nullptr)
+				App->sound->PlaySound(p->onEndSound, 0);
+
 			delete p;
 			active[i] = nullptr;
 
@@ -156,7 +162,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
- void ModuleParticles::AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type, Sint32 delay)
+ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type, Mix_Chunk* on_end_sound, Sint32 delay)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -167,6 +173,7 @@ update_status ModuleParticles::Update()
 			p->position.x = x;
 			p->position.y = y;
 			p->particletype = particle_type;
+			p->onEndSound = on_end_sound;
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
@@ -195,6 +202,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			int x = 0, y = 0;
 			if (p->particletype == GRENADE)
 			{
+				//App->sound->PlaySound()
 				x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.x;
 				y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.y;
 				App->particles->AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
@@ -206,6 +214,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
 			}
 
+			if (p->onEndSound != nullptr)
+				App->sound->PlaySound(p->onEndSound, 0);
 
 			delete active[i];
 			active[i] = nullptr;

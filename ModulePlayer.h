@@ -27,7 +27,6 @@ enum PLAYER_STATE : int {
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
 
 
-
 class ModulePlayer : public Module
 {
 public:
@@ -60,6 +59,7 @@ private:
 	fPoint position;
 	fPoint prev_position;
 	Mix_Chunk* shoot;
+	Mix_Chunk* grenade_explosion;
 	Collider* collider;
 
 	Particle fire;	//Fire shot particle

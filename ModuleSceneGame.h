@@ -16,10 +16,9 @@ private:
 	int level = 1;
 
 	SDL_Texture* background_graphics;
-	
+	iPoint level_dimensions;
 
 public:
-	iPoint level_dimensions;
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
