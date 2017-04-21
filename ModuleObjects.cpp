@@ -38,7 +38,12 @@ bool ModuleObjects::Init() {
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
+
+	//Rock after bridge 
+	rock2.PushBack({358, 0, 31, 17});
 	return true;
+
+
 }
 
 bool ModuleObjects::Start() {
@@ -115,7 +120,9 @@ bool ModuleObjects::Start() {
 	App->collision->AddCollider({ 20, 199 - (-level_dimensions.y + SCREEN_HEIGHT), 58, 2 }, COLLIDER_WALL);
 	App->collision->AddCollider({ 20, 192 - (-level_dimensions.y + SCREEN_HEIGHT), 56, 7 }, COLLIDER_WALL);
 
+	//Collisions of the rocks after the bridge
 
+	//App->collision->AddCollider({18,-708});
 
 
 
@@ -143,6 +150,7 @@ update_status ModuleObjects::Update() {
 	App->render->Blit(sprite_graphics, 130, -49 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 160, -49 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 146, -65 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
+
 	//Group of three palms
 	App->render->Blit(sprite_graphics, 1, -240 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 32, -240 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
@@ -158,8 +166,12 @@ update_status ModuleObjects::Update() {
 	App->render->Blit(sprite_graphics, 82, -706 - (-level_dimensions.y + SCREEN_HEIGHT), &tree1.GetCurrentFrame().rect);
 
 	//Rocks sprites
-	App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 112, -925 , &rock.GetCurrentFrame().rect);
 	App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
+
+	//Rock after bridge
+
+	App->render->Blit(sprite_graphics, 18, -708 + 17 - (-level_dimensions.y + SCREEN_HEIGHT), &rock2.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
