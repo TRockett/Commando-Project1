@@ -171,11 +171,11 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
 
 		//Rock after bridge
-		int h = 14;
+		int h = 10;
 		App->render->Blit(sprite_graphics, 15, 696, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 112, 738 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 224, 675 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 62, 641 - h, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 224, 673 - h, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 64, 641 - h, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 160, 608 - h, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 16, 513 - h, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 111, 513 - h, &rock2.GetCurrentFrame().rect);

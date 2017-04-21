@@ -266,6 +266,10 @@ void ModulePlayer::checkInput() {
 		grenade1 = true;
 	
 	}
+
+	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
+		speed = 10;
+	else speed = 1;
 }
 
 void ModulePlayer::processInput() {
