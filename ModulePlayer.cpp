@@ -114,8 +114,8 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.PushBack({ 87,70,17,22 });
 	throw_grenade.PushBack({ 109,71,23,21 });
 	throw_grenade.PushBack({ 136,68,20,24 });
-	throw_grenade.loop = 1;
-	throw_grenade.speed = 1.0f;
+	throw_grenade.loop = true;
+	throw_grenade.speed = 2.0f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -180,6 +180,7 @@ update_status ModulePlayer::Update()
 			{
 				Particle grenade;
 				grenade_on = true;
+				bthrowing = true;
 				grenade = App->particles->grenade;
 				grenade.speed = { 0, -1 };
 				App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE);
@@ -187,8 +188,16 @@ update_status ModulePlayer::Update()
 			}
 			
 		}
-		else 
+		else if  (bthrowing == true)
+		{
 			current_animation = &throw_grenade;
+			if (current_animation->Finished() == true)
+			{
+				bthrowing = false;
+				current_animation->Reset();
+				state = MOVING_RIGHT;
+			}
+		}
 	}
 	else if (current_animation->Finished() && !App->scene_game->restart) {
 		App->scene_game->restart = true;
@@ -255,8 +264,6 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN)
 	{
 		grenade1 = true;
-		//current_animation = &throw_grenade;
-
 	
 	}
 }
@@ -312,7 +319,7 @@ void ModulePlayer::processInput() {
 		fire = App->particles->fire_upright;
 		break;
 	case IDLE:
-		if (grenade_on == false)
+		if (bthrowing == false)
 		{
 			current_animation->speed = 0.0f;
 		}

@@ -40,6 +40,7 @@ public:
 	void OnCollision(Collider*, Collider*);
 	PLAYER_STATE state = IDLE;
 	bool grenade_on = false;
+	bool bthrowing;
 
 
 private:
