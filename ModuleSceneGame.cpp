@@ -10,6 +10,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 #include <string>
+#include "ModuleObjects.h"
 
 
 ModuleSceneGame::ModuleSceneGame()
@@ -40,7 +41,7 @@ bool ModuleSceneGame::Start() {
 	App->player->Enable();
 	App->enemies->Enable();
 	App->collision->Enable();
-	App->enemies->Enable();
+	App->objects->Enable();
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -78,6 +79,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->player->Disable();
 	App->collision->Disable();
 	App->enemies->Disable();
+	App->objects->Disable();
 
 	ret = App->textures->Unload(background_graphics);
 
