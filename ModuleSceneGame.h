@@ -13,7 +13,7 @@ class ModuleSceneGame :
 	public Module
 {
 private:
-	int level;
+	int level = 1;
 	iPoint level_dimensions;
 	SDL_Texture* background_graphics;
 	

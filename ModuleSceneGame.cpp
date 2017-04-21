@@ -24,6 +24,7 @@ ModuleSceneGame::~ModuleSceneGame()
 
 bool ModuleSceneGame::Start() {
 	bool ret = true;
+	level = 1;
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
 	str.append(".png");
