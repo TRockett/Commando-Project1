@@ -171,7 +171,7 @@ update_status ModuleObjects::Update() {
 
 	//Rock after bridge
 
-	App->render->Blit(sprite_graphics, 18, -708 + 17 - (-level_dimensions.y + SCREEN_HEIGHT), &rock2.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, 15, 696, &rock2.GetCurrentFrame().rect);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }

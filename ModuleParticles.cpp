@@ -25,39 +25,39 @@ bool ModuleParticles::Start()
 	graphics = App->textures->Load("images/sprites.png");
 
 	// explosion animation
-	explosion.anim.PushBack({49, 96, 7, 7});
-	explosion.anim.PushBack({60, 94, 16, 13});
-	explosion.anim.PushBack({78, 92, 16, 14});
-	explosion.anim.PushBack({95, 93, 16, 15});
-	explosion.anim.PushBack({112, 94, 16, 13});
-	explosion.anim.PushBack({130, 94, 15, 13});
+	explosion.anim.PushBack({ 49, 96, 7, 7 }, { 3, 3 });
+	explosion.anim.PushBack({ 60, 94, 16, 13 }, { 8, 6 });
+	explosion.anim.PushBack({ 78, 92, 16, 14 }, { 8, 7 });
+	explosion.anim.PushBack({ 95, 93, 16, 15 }, { 8, 7 });
+	explosion.anim.PushBack({ 112, 94, 16, 13 }, { 8, 6 });
+	explosion.anim.PushBack({ 130, 94, 15, 13 }, { 7, 6 });
 	explosion.anim.speed = 0.15f;
 	explosion.anim.loop = false;
 	
 	//bullet particles
-	bullet.anim.PushBack({ 0,100,2,2 });
+	bullet.anim.PushBack({ 0, 100, 2, 2 }, { 1, 1 });
 	bullet.anim.speed = 0.2f;
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 300;
 
 	// grenade animation
-	grenade.anim.PushBack({ 0,131,4,5 });
-	grenade.anim.PushBack({ 4,131,5,6 });
-	grenade.anim.PushBack({ 11,131,6,8 });
-	grenade.anim.PushBack({ 4,131,5,6 });
-	grenade.anim.PushBack({ 0,131,4,5 });
+	grenade.anim.PushBack({ 0, 131, 4, 5 }, { 2, 2 });
+	grenade.anim.PushBack({ 4,131,5,6 }, { 2, 3 });
+	grenade.anim.PushBack({ 11,131,6,8 }, { 3, 4 });
+	grenade.anim.PushBack({ 4,131,5,6 }, { 2, 3 });
+	grenade.anim.PushBack({ 0,131,4,5 }, { 2, 2 });
 
 	grenade.life = 1200;
 	grenade.anim.speed = 0.07f;
 	grenade.anim.loop = false;
 
 	// grenade explosion anim
-	grenade_explosion.anim.PushBack({ 18,131,30,27 });
-	grenade_explosion.anim.PushBack({ 48,131,21,23 });
-	grenade_explosion.anim.PushBack({ 70,131,27,26 });
-	grenade_explosion.anim.PushBack({ 99,131,32,32 });
+	grenade_explosion.anim.PushBack({ 18,131,30,27 }, { 15, 13 });
+	grenade_explosion.anim.PushBack({ 48,131,21,23 }, { 10, 11 });
+	grenade_explosion.anim.PushBack({ 70,131,27,26 }, { 13, 13 });
+	grenade_explosion.anim.PushBack({ 99,131,32,32 }, { 16, 16 });
 	grenade_explosion.anim.loop = false;
-	grenade_explosion.anim.speed = 0.35f;
+	grenade_explosion.anim.speed = 0.035f;
 
 	// fire
 	fire_up.anim.PushBack({ 0, 113, 5,6 });
@@ -126,13 +126,16 @@ update_status ModuleParticles::Update()
 		Sint32 ticks = SDL_GetTicks();
 		if(p->Update() == false)
 		{
+			int x = 0, y = 0;
+			x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x;
+			y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y;
 			switch (p->particletype) {
 			case GRENADE:
-				App->particles->AddParticle(grenade_explosion, p->position.x - 13, p->position.y - 13, EXPLOSION, COLLIDER_ENEMY_SHOT);
+				App->particles->AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 				App->player->grenade_on = false;
 				break;
 			case BULLET:
-				App->particles->AddParticle(explosion, p->position.x , p->position.y , EXPLOSION, COLLIDER_NONE);
+				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
 				break;
 			}
 			delete p;
@@ -185,16 +188,22 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
-			if (active[i]->onCollision)
-				active[i]->onCollision();
+			Particle* p = active[i];
+			if (p->onCollision)
+				p->onCollision();
 
-			if (active[i]->particletype == GRENADE)
+			int x = 0, y = 0;
+			if (p->particletype == GRENADE)
 			{
-				App->particles->AddParticle(grenade_explosion, active[i]->position.x, active[i]->position.y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+				x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.x;
+				y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.y;
+				App->particles->AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 			}
-			else if (active[i]->particletype == BULLET)
+			else if (p->particletype == BULLET)
 			{
-				App->particles->AddParticle(explosion, active[i]->position.x, active[i]->position.y, EXPLOSION, COLLIDER_NONE);
+				x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x - explosion.anim.frames[explosion.anim.getFrameIndex()].pivot.x;
+				y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y - explosion.anim.frames[explosion.anim.getFrameIndex()].pivot.y;
+				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
 			}
 
 
@@ -249,7 +258,7 @@ bool Particle::Update()
 	}
 
 	if(collider != nullptr)
-		collider->SetPos(position.x, position.y);
+		collider->SetPos(position.x - anim.frames[anim.getFrameIndex()].pivot.x, position.y - anim.frames[anim.getFrameIndex()].pivot.y);
 
 	return ret;
 }
