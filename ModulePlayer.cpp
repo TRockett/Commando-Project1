@@ -164,6 +164,7 @@ update_status ModulePlayer::Update()
 		checkInput();
 		processInput();
 
+
 		if (shooting) {
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
@@ -319,7 +320,7 @@ void ModulePlayer::processInput() {
 		fire = App->particles->fire_upright;
 		break;
 	case IDLE:
-		if (bthrowing == false)
+		if (!bthrowing)
 		{
 			current_animation->speed = 0.0f;
 		}
