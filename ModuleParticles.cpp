@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "ModulePlayer.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -128,6 +129,7 @@ update_status ModuleParticles::Update()
 			switch (p->particletype) {
 			case GRENADE:
 				App->particles->AddParticle(grenade_explosion, p->position.x - 13, p->position.y - 13, EXPLOSION, COLLIDER_ENEMY_SHOT);
+				App->player->grenade_on = false;
 				break;
 			case BULLET:
 				App->particles->AddParticle(explosion, p->position.x , p->position.y , EXPLOSION, COLLIDER_NONE);

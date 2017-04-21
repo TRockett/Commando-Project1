@@ -57,7 +57,7 @@ public:
 
 	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Sint32 delay = 0);
 
-	int fire_life = 30;
+	int fire_life = 100;
 private:
 
 	SDL_Texture* graphics = nullptr;
