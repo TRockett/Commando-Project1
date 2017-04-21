@@ -44,6 +44,7 @@ bool ModuleObjects::Init() {
 bool ModuleObjects::Start() {
 	bool ret = true;
 	sprite_graphics = App->textures->Load("Images/sprites.png");
+	level_dimensions = App->scene_game->level_dimensions;
 
 	// Collisions of the rock at the upper left corner at the beggining of the game
 	App->collision->AddCollider({ 20, 8 - (-level_dimensions.y + SCREEN_HEIGHT), 10, 22 }, COLLIDER_WALL);

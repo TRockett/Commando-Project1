@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "p2Point.h"
 
 
 struct SDL_Texture;

@@ -14,12 +14,12 @@ class ModuleSceneGame :
 {
 private:
 	int level = 1;
-	iPoint level_dimensions;
+
 	SDL_Texture* background_graphics;
 	
 
 public:
-	
+	iPoint level_dimensions;
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
