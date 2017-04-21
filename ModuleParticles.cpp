@@ -38,14 +38,11 @@ bool ModuleParticles::Start()
 	bullet.anim.speed = 0.2f;
 	bullet.speed.y = -PLAYER_BULLET_SPEED;
 	bullet.life = 300;
-	bullet.onCollision = [&]() {
-		AddParticle(explosion, bullet.position.x - 7, bullet.position.y - 5,EXPLOSION, COLLIDER_ENEMY_SHOT);
-	};
 
 	// grenade animation
 	grenade.anim.PushBack({ 0,131,4,5 });
 	grenade.anim.PushBack({ 4,131,5,6 });
-	grenade.anim.PushBack({ 11 ,131,6,8 });
+	grenade.anim.PushBack({ 11,131,6,8 });
 	grenade.anim.PushBack({ 4,131,5,6 });
 	grenade.anim.PushBack({ 0,131,4,5 });
 

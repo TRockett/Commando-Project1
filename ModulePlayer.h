@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleParticles.h"
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -60,6 +61,7 @@ private:
 	Mix_Chunk* shoot;
 	Collider* collider;
 
+	Particle fire;	//Fire shot particle
 
 	
 	PLAYER_STATE prev_state = IDLE;

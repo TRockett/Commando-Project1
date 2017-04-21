@@ -5,7 +5,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneGame.h"
-#include "ModuleParticles.h"
+//#include "ModuleParticles.h"
 #include <math.h>
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
@@ -131,6 +131,7 @@ bool ModulePlayer::Start()
 	player_min_y = (int)position.y;
 	prev_position = position;
 	state = IDLE;
+	fire = App->particles->fire_up;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
@@ -159,7 +160,6 @@ update_status ModulePlayer::Update()
 		current_animation->speed = 0.15f;
 		shooting = false;
 		grenade1 = false;
-		Particle fire;
 
 		checkInput();
 		processInput();
@@ -169,7 +169,7 @@ update_status ModulePlayer::Update()
 			Particle bullet = App->particles->bullet;
 
 			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180))};
-			App->particles->AddParticle(fire, position.x + shooting_position.x, position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
+			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180), EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
 			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, 50);
 		}
@@ -254,88 +254,54 @@ void ModulePlayer::checkInput() {
 }
 
 void ModulePlayer::processInput() {
-	
-
 	switch (state) {
 	case MOVING_DOWN:
 		shooting_position = { 2,16 };
 		shooting_angle = 180;
 		current_animation = &backward;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_down;
-		}
+		fire = App->particles->fire_down;
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
 		shooting_angle = 0;
 		current_animation = &forward;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_up;
-		}
+		fire = App->particles->fire_up;
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
 		shooting_angle = 90;
 		current_animation = &right;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_right;
-		}
+		fire = App->particles->fire_right;
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
 		shooting_angle = -90;
 		current_animation = &left;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_left;
-		}
+		fire = App->particles->fire_left;
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
 		shooting_angle = 135;
 		current_animation = &down_right;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_downright;
-		}
+		fire = App->particles->fire_downright;
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
 		shooting_angle = -135;
 		current_animation = &down_left;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_downleft;
-		}
+		fire = App->particles->fire_downleft;
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
 		shooting_angle = -45;
 		current_animation = &up_left;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_upleft;
-		}
+		fire = App->particles->fire_upleft;
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
 		shooting_angle = 45;
 		current_animation = &up_right;
-		if (shooting == true)
-		{
-			Particle fire;
-			fire = App->particles->fire_upright;
-		}
+		fire = App->particles->fire_upright;
 		break;
 	case IDLE:
 		current_animation->speed = 0.0f;
