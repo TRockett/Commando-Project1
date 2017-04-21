@@ -21,9 +21,6 @@ ModuleSceneGame::~ModuleSceneGame()
 {
 }
 
-bool ModuleSceneGame::Init() {
-	
-}
 
 bool ModuleSceneGame::Start() {
 	bool ret = true;

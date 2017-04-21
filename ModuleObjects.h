@@ -11,6 +11,7 @@ class ModuleObjects :
 	public Module
 {
 private:
+	iPoint level_dimensions;
 	SDL_Texture* sprite_graphics;
 	Animation tree1;
 	Animation tree2;

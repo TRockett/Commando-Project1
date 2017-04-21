@@ -24,8 +24,8 @@ ModuleObjects::~ModuleObjects()
 
 
 
-bool ModuleSceneGame::Init() {
-	level = 1;
+bool ModuleObjects::Init() {
+	
 	//Tree left
 	tree1.PushBack({ 219, 0, 31, 32 });
 	tree1.PushBack({ 251, 0, 30, 32 });
@@ -41,7 +41,7 @@ bool ModuleSceneGame::Init() {
 	return true;
 }
 
-bool ModuleSceneGame::Start() {
+bool ModuleObjects::Start() {
 	bool ret = true;
 
 	// Collisions of the rock at the upper left corner at the beggining of the game
@@ -126,7 +126,7 @@ bool ModuleSceneGame::Start() {
 
 
 
-update_status ModuleSceneGame::Update() {
+update_status ModuleObjects::Update() {
 	bool ret = true;
 
 	App->render->Blit(sprite_graphics, 208, 128 - (-level_dimensions.y + SCREEN_HEIGHT), &tree2.GetCurrentFrame().rect);
@@ -162,11 +162,11 @@ update_status ModuleSceneGame::Update() {
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
-update_status ModuleSceneGame::PostUpdate() {
+update_status ModuleObjects::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleSceneGame::CleanUp() {
+bool ModuleObjects::CleanUp() {
 	bool ret = true;
 	
 	
