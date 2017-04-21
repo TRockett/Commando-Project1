@@ -114,7 +114,7 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.PushBack({ 87,70,17,22 });
 	throw_grenade.PushBack({ 109,71,23,21 });
 	throw_grenade.PushBack({ 136,68,20,24 });
-	throw_grenade.loop = false;
+	throw_grenade.loop = 1;
 	throw_grenade.speed = 1.0f;
 }
 
@@ -185,7 +185,10 @@ update_status ModulePlayer::Update()
 				App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE);
 
 			}
+			
 		}
+		else 
+			current_animation = &throw_grenade;
 	}
 	else if (current_animation->Finished() && !App->scene_game->restart) {
 		App->scene_game->restart = true;
@@ -309,13 +312,13 @@ void ModulePlayer::processInput() {
 		fire = App->particles->fire_upright;
 		break;
 	case IDLE:
+		if (grenade_on == false)
+		{
 			current_animation->speed = 0.0f;
+		}
 		return;
 	}
-	if (grenade_on)
-	{
-		current_animation = &throw_grenade;
-	}
+
 
 	position.x += speed * sinf(shooting_angle * M_PI / 180);
 	position.y -= speed * cosf(shooting_angle * M_PI / 180);
