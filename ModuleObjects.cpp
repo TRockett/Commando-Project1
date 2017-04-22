@@ -123,7 +123,14 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 20, 192 + level_dimensions.y , 56, 7 }, COLLIDER_WALL);
 
 		//Collisions of the rocks after the bridge
-		//App->collision->AddCollider({18, });
+		App->collision->AddCollider({ 17, 710, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 65, 646, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 113, 742, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 225, 678, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 161, 613, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 17, 517, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 112, 517, 28, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 209, 517, 28, 3 }, COLLIDER_WALL);
 	}
 
 	if (sprite_graphics == nullptr)
@@ -171,15 +178,14 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
 
 		//Rock after bridge
-		int h = 10;
 		App->render->Blit(sprite_graphics, 15, 696, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 112, 738 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 224, 673 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 64, 641 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 160, 608 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 16, 513 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 111, 513 - h, &rock2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 208, 513 - h, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 112, 728, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 224, 663, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 64, 632, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 160, 600, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 16, 503, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 111, 503, &rock2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 208, 503, &rock2.GetCurrentFrame().rect);
 	}
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
