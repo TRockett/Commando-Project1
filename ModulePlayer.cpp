@@ -184,7 +184,7 @@ update_status ModulePlayer::Update()
 				bthrowing = true;
 				grenade = App->particles->grenade;
 				grenade.speed = { 0, -1 };
-				App->particles->AddParticle(grenade, position.x, position.y, GRENADE, COLLIDER_NONE, grenade_explosion);
+				App->particles->AddParticle(grenade, position.x, position.y, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
 			}
 			
 		}
@@ -343,6 +343,9 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	case COLLIDER_WATER:
 		waterCollision();
 		break;
+	case COLLIDER_ENEMY:
+	case COLLIDER_ENEMY_SHOT:
+		enemyCollision();
 	}
 }
 
@@ -352,6 +355,15 @@ void ModulePlayer::wallCollision() {
 
 void ModulePlayer::waterCollision() {
 	Drown();
+}
+
+void ModulePlayer::enemyCollision() {
+	if (state != DEAD) {
+		state = DEAD;
+		current_animation = &death;
+		if (current_animation->Finished())
+			current_animation->Reset();
+	}
 }
 
 void ModulePlayer::Drown() {

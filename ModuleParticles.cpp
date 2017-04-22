@@ -128,25 +128,13 @@ update_status ModuleParticles::Update()
 		Sint32 ticks = SDL_GetTicks();
 		if(p->Update() == false)
 		{
-			int x = 0, y = 0;
-			x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x;
-			y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y;
-			switch (p->particletype) {
-			case GRENADE:
-				App->particles->AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
-				App->player->grenade_on = false;
-				break;
-			case BULLET:
-				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
-				break;
-			}
+			addExplosionParticle(p);
 
 			if (p->onEndSound != nullptr)
 				App->sound->PlaySound(p->onEndSound, 0);
 
 			delete p;
 			active[i] = nullptr;
-
 		}
 		else if(ticks >= p->born)
 		{
@@ -177,7 +165,6 @@ update_status ModuleParticles::Update()
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
-
 			}
 			active[i] = p;
 			break;
@@ -193,26 +180,10 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		// Always destroy particles that collide
-		if(active[i] != nullptr && active[i]->collider == c1)
+		if(active[i] != nullptr && active[i]->collider == c1 && active[i]->particletype != EXPLOSION)
 		{
 			Particle* p = active[i];
-			if (p->onCollision)
-				p->onCollision();
-
-			int x = 0, y = 0;
-			if (p->particletype == GRENADE)
-			{
-				//App->sound->PlaySound()
-				x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.x;
-				y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y - explosion.anim.frames[grenade_explosion.anim.getFrameIndex()].pivot.y;
-				App->particles->AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
-			}
-			else if (p->particletype == BULLET)
-			{
-				x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x - explosion.anim.frames[explosion.anim.getFrameIndex()].pivot.x;
-				y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y - explosion.anim.frames[explosion.anim.getFrameIndex()].pivot.y;
-				App->particles->AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
-			}
+			addExplosionParticle(p);
 
 			if (p->onEndSound != nullptr)
 				App->sound->PlaySound(p->onEndSound, 0);
@@ -221,6 +192,24 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			active[i] = nullptr;
 			break;
 		}
+	}
+}
+
+void ModuleParticles::addExplosionParticle(Particle* p) {
+	int x = p->position.x + p->anim.frames[p->anim.getFrameIndex()].pivot.x;
+	int y = p->position.y + p->anim.frames[p->anim.getFrameIndex()].pivot.y;
+	switch (p->particletype) {
+	case GRENADE_PLAYER:
+		AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_PLAYER_SHOT);
+		App->player->grenade_on = false;
+		break;
+	case GRENADE_ENEMY:
+		AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
+		App->player->grenade_on = false;
+		break;
+	case BULLET:
+		AddParticle(explosion, x, y, EXPLOSION, COLLIDER_NONE);
+		break;
 	}
 }
 
@@ -240,7 +229,6 @@ fx(p.fx), born(p.born), life(p.life)
 
 Particle::~Particle()
 {
-
 	if(collider != nullptr)
 		App->collision->EraseCollider(collider);
 }

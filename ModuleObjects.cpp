@@ -143,7 +143,6 @@ bool ModuleObjects::Start() {
 
 
 update_status ModuleObjects::Update() {
-	bool ret = true;
 	if (App->scene_game->getLevel() == 1)
 	{
 		App->render->Blit(sprite_graphics, 208, 128 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
@@ -188,7 +187,7 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 208, 503, &rock2.GetCurrentFrame().rect);
 	}
 
-	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
+	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleObjects::PostUpdate() {

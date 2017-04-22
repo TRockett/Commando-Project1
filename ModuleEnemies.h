@@ -50,9 +50,9 @@ private:
 	Enemy* enemies[MAX_ENEMIES];
 	SDL_Texture* sprites;
 
-	//Basic enemy animations
 
 public:
+	//Basic enemy animations
 	//Enemy left weapon
 	Animation e1_forward;
 	Animation e1_backward;

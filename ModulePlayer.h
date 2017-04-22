@@ -79,6 +79,7 @@ private:
 	void processInput();
 	void wallCollision();
 	void waterCollision();
+	void enemyCollision();
 
 	void Drown();
 

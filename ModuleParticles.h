@@ -18,9 +18,10 @@ enum COLLIDER_TYPE;
 
 enum PARTICLE_TYPE
 {
-	BULLET = 1,
-	GRENADE = 2,
-	EXPLOSION = 3,
+	BULLET,
+	GRENADE_ENEMY,
+	GRENADE_PLAYER,
+	EXPLOSION,
 };
 
 struct Particle
@@ -40,8 +41,6 @@ struct Particle
 	Particle(const Particle& p);
 	~Particle();
 	bool Update();
-
-	std::function<void()> onCollision;
 };
 
 
@@ -58,6 +57,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Mix_Chunk* on_end_sound = nullptr, Sint32 delay = 0);
+	void addExplosionParticle(Particle* p);
 
 	int fire_life = 100;
 private:
