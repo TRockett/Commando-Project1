@@ -83,9 +83,6 @@
     <ClInclude Include="Path.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleHelicopter.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -147,9 +144,6 @@
     </ClCompile>
     <ClCompile Include="EnemyLeft.cpp">
       <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleHelicopter.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
