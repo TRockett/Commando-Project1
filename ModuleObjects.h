@@ -20,20 +20,21 @@ private:
 	Animation rock;
 	Animation rock2;
 
-
+	Animation helicopter;
 	Animation helicopter1;
 	Animation helix1;
 	Animation helix2;
-	Animation helicopter;
+	Animation helicopter2;
 	fPoint helipoint;
 	float reduction;
+
 
 	SDL_Rect objects[MAX_OBJECTS];
 
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
-	bool droping = false;
+	int droping = false;
 	bool Init();
 	bool Start();
 	

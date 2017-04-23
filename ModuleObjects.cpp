@@ -10,6 +10,7 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
+#include "SDL/include/SDL_timer.h"
 #include <string>
 
 
@@ -57,6 +58,11 @@ bool ModuleObjects::Init() {
 	helicopter.PushBack({ 799,914,48,55 });
 	helicopter.PushBack({ 713,662,56,68 });
 	helicopter.PushBack({ 710,440,64,82 });
+
+	helicopter.loop = false;
+
+
+
 	return true;
 
 
@@ -70,6 +76,7 @@ bool ModuleObjects::Start() {
 	helipoint.x = SCREEN_WIDTH / 2;
 	helipoint.y = 1908;
 	reduction = 1;
+
 	if (App->scene_game->getLevel() == 1)
 	{
 		// Collisions of the rock at the upper left corner at the beggining of the game
@@ -224,18 +231,19 @@ update_status ModuleObjects::Update() {
 				}
 				else if (helipoint.y == helipoint.y - reduction)
 				{
-					helicopter.speed = 0.05f;
+					helicopter.speed = 0.05;
 					if (helicopter.Finished() == true)
 					{
-						droping = true;
-					
+						droping = true;					
 					}
+					
 				}
 			}
 			else if (helipoint.y >= 1908 - SCREEN_HEIGHT - 82)
 			{
-				helipoint.y = helipoint.y - 1;
+				helipoint.y = helipoint.y - reduction;
 				helicopter.speed = 0;
+				reduction = reduction + 0.01f;
 			}
 			else
 			{

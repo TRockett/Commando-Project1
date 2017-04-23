@@ -114,7 +114,7 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.PushBack({ 109,71,23,21 });
 	throw_grenade.PushBack({ 136,68,20,24 });
 	throw_grenade.loop = true;
-	throw_grenade.speed = 2.0f;
+	throw_grenade.speed = 3.0f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -190,7 +190,7 @@ update_status ModulePlayer::Update()
 				bthrowing = true;
 				grenade = App->particles->grenade;
 				grenade.speed = { 0, -1 };
-				App->particles->AddParticle(grenade, position.x, position.y, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
+				App->particles->AddParticle(grenade, position.x + 7, position.y + 1, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
 			}
 			
 		}
