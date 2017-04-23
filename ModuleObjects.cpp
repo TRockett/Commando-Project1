@@ -37,6 +37,9 @@ bool ModuleObjects::Init() {
 	tree2.PushBack({ 209,46,30,32 });
 	tree2.speed = 0.0f;
 
+	//Bridge animamtion
+	bridge.PushBack({691, 79, 64, 32});
+
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
 
@@ -199,6 +202,9 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 18, -642 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 82, -706 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 
+		//Bridge sprite
+		App->render->Blit(sprite_graphics, 96, 802, &bridge.GetCurrentFrame().rect);		
+		
 		//Rocks sprites
 		App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
