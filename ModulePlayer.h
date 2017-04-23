@@ -72,7 +72,8 @@ private:
 
 	int speed;
 	int player_min_y;
-	float shooting_angle;
+	int shooting_angle;
+	int direction;
 	iPoint shooting_position;
 
 	void checkInput();
@@ -80,6 +81,7 @@ private:
 	void wallCollision();
 	void waterCollision();
 	void enemyCollision();
+	void rotateShootingAngle();
 
 	void Drown();
 

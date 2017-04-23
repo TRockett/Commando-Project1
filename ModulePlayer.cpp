@@ -126,6 +126,7 @@ bool ModulePlayer::Start()
 	position.x = SCREEN_WIDTH / 2;
 	position.y = App->scene_game->getLevelDimensions().y + 150;
 	shooting_angle = 0;
+	direction = 0;
 	shooting_position = { 9,1 };
 	player_min_y = (int)position.y;
 	prev_position = position;
@@ -160,9 +161,14 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;
 
+		if (shooting_angle < 0)
+			shooting_angle += 360;
+		else if (shooting_angle >= 360)
+			shooting_angle -= 360;
+
 		checkInput();
 		processInput();
-
+		rotateShootingAngle();
 
 		if (shooting)
 		{
@@ -238,7 +244,6 @@ void ModulePlayer::checkInput() {
 
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
-
 		state = MOVING_RIGHT | state;
 	}
 
@@ -276,49 +281,49 @@ void ModulePlayer::processInput() {
 	switch (state) {
 	case MOVING_DOWN:
 		shooting_position = { 2,16 };
-		shooting_angle = 180;
+		direction = 180;
 		current_animation = &backward;
 		fire = App->particles->fire_down;
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
-		shooting_angle = 0;
+		direction = 0;
 		current_animation = &forward;
 		fire = App->particles->fire_up;
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
-		shooting_angle = 90;
+		direction = 90;
 		current_animation = &right;
 		fire = App->particles->fire_right;
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
-		shooting_angle = -90;
+		direction = 270;
 		current_animation = &left;
 		fire = App->particles->fire_left;
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
-		shooting_angle = 135;
+		direction = 135;
 		current_animation = &down_right;
 		fire = App->particles->fire_downright;
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
-		shooting_angle = -135;
+		direction = 225;
 		current_animation = &down_left;
 		fire = App->particles->fire_downleft;
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
-		shooting_angle = -45;
+		direction = 315;
 		current_animation = &up_left;
 		fire = App->particles->fire_upleft;
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
-		shooting_angle = 45;
+		direction = 45;
 		current_animation = &up_right;
 		fire = App->particles->fire_upright;
 		break;
@@ -331,8 +336,47 @@ void ModulePlayer::processInput() {
 	}
 
 
-	position.x += speed * sinf(shooting_angle * M_PI / 180);
-	position.y -= speed * cosf(shooting_angle * M_PI / 180);
+	position.x += speed * sinf(direction * (M_PI / 180.0f));
+	position.y -= speed * cosf(direction * (M_PI / 180.0f));
+}
+
+void ModulePlayer::rotateShootingAngle() {
+	int shooting_angle_delta = 15;
+	switch (direction) {
+	case 0:
+		if (shooting_angle > 0 && shooting_angle <= 180)
+			shooting_angle -= shooting_angle_delta;
+		else if (shooting_angle > 180)
+			shooting_angle += shooting_angle_delta;
+		break;
+	case 45:
+	case 90:
+	case 135:
+	case 180:
+		if (shooting_angle > direction)
+			shooting_angle -= shooting_angle_delta;
+		else if (shooting_angle < direction)
+			shooting_angle += shooting_angle_delta;
+		break;
+	case 225:
+		if (shooting_angle > 225 || shooting_angle <= 45)
+			shooting_angle -= shooting_angle_delta;
+		else if (shooting_angle < 225)
+			shooting_angle += shooting_angle_delta;
+		break;
+	case 270:
+		if (shooting_angle > 270 || shooting_angle <= 90)
+			shooting_angle -= shooting_angle_delta;
+		else if (shooting_angle < 270)
+			shooting_angle += shooting_angle_delta;
+		break;
+	case 315:
+		if (shooting_angle > 315 || shooting_angle <= 135)
+			shooting_angle -= shooting_angle_delta;
+		else if (shooting_angle < 315)
+			shooting_angle += shooting_angle_delta;
+		break;
+	}
 }
 
 void ModulePlayer::OnCollision(Collider* self, Collider* other) {
