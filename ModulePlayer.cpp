@@ -140,8 +140,8 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	position.x = SCREEN_WIDTH / 2;
-	position.y = App->scene_game->getLevelDimensions().y + 160;
+	position.x = (SCREEN_WIDTH / 2) + 10;
+	position.y = App->scene_game->getLevelDimensions().y + 120;
 	shooting_angle = 0;
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -219,11 +219,14 @@ update_status ModulePlayer::Update()
 			}
 			else if (intro_state == 3)
 			{
-				if (position.y <= position.y + 20)
+				if (init_pos.y + 20 >= position.y)
 				{
 					position.x = position.x - 0.5f;
 					position.y = position.y + 0.6f;
+
 				}
+				else
+					intro_state = 4;
 			}			
 			
 		}
@@ -290,7 +293,7 @@ update_status ModulePlayer::Update()
 
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
-	int margin = 150; //Must be equal to the player's initial position
+	int margin = 120; //Must be equal to the player's initial position
 	player_min_y = MIN(player_min_y, (int)position.y);
 	
 	if (App->render->camera.y < 0)

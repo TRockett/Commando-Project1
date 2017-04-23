@@ -56,12 +56,16 @@ bool ModuleObjects::Init() {
 	helix1.loop = true;
 	helix1.speed = 0.25f;
 	
-	helicopter.PushBack({ 710,440,64,82 });
-	helicopter.PushBack({ 713,662,56,68 });
-	helicopter.PushBack({ 799,914,48,55 });
+	helicopter1.PushBack({ 710,440,64,82 });
+	helicopter1.PushBack({ 713,662,56,68 });
+	helicopter1.PushBack({ 799,914,48,55 });
+	helicopter1.loop = false;
 
-
-	helicopter.loop = false;
+	helicopter2.PushBack({ 799,914,48,55 });
+	helicopter2.PushBack({ 713,662,56,68 });
+	helicopter2.PushBack({ 710,440,64,82 });
+	helicopter2.speed = 0.5f;
+	helicopter2.loop = false;
 
 
 
@@ -75,9 +79,10 @@ bool ModuleObjects::Start() {
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 	level_dimensions = App->scene_game->getLevelDimensions(); //This is the lower limit of the level (y)
 
-	helipoint.x = SCREEN_WIDTH / 2;
+	helipoint.x = (SCREEN_WIDTH / 2) - 15;
 	helipoint.y = 1908;
 	reduction = 1;
+	helicopter = helicopter1;
 
 	if (App->scene_game->getLevel() == 1)
 	{
@@ -236,12 +241,13 @@ update_status ModuleObjects::Update() {
 		{
 			if (droping == false)
 			{
-				if (helipoint.y > 1750)
+				
+				if (helipoint.y > 1800)
 				{
 					helipoint.y = helipoint.y - 1;
 					helicopter.speed = 0;
 				}
-				else if (helipoint.y <= 1750 && helipoint.y != helipoint.y - reduction)
+				else if (helipoint.y <= 1800 && helipoint.y != helipoint.y - reduction)
 				{
 
 						helipoint.y = helipoint.y - reduction;
@@ -258,10 +264,11 @@ update_status ModuleObjects::Update() {
 					
 				}
 			}
-			else if (helipoint.y >= 1908 - SCREEN_HEIGHT - 82)
+			else if (helipoint.y >= 1708 - SCREEN_HEIGHT - 82)
 			{
+				helicopter = helicopter2;
 				helipoint.y = helipoint.y - reduction;
-				helicopter.speed = 0;
+				helicopter.speed = 0.5f;
 				reduction = reduction + 0.01f;
 			}
 			else

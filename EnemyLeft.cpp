@@ -16,8 +16,8 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 
-	movement.PushBack({ 0.0f, -1.0f }, 100, animation);
-	movement.PushBack({ 0.0f, 1.0f }, 100, animation);
+	movement.PushBack({ 0.0f, 0.0f }, 100, animation);
+	movement.PushBack({ 0.0f, 0.0f }, 100, animation);
 }
 
 
