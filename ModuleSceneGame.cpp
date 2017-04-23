@@ -15,6 +15,7 @@
 
 ModuleSceneGame::ModuleSceneGame()
 {
+	intro = true;
 }
 
 
@@ -52,7 +53,7 @@ bool ModuleSceneGame::Start() {
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
 
-	intro = true;
+	
 	
 	return ret;
 }
@@ -67,10 +68,7 @@ update_status ModuleSceneGame::PreUpdate() {
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
 
-	if (intro == false)
-	{
-		
-	}
+
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
