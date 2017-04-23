@@ -46,6 +46,26 @@ bool ModuleObjects::Init() {
 	//Rock after bridge 
 	rock2.PushBack({358, 0, 31, 17});
 
+	//box
+
+	box.PushBack({535, 0, 20, 16});
+	box.PushBack({536, 23, 20, 16});
+	box.speed = 0.04f;
+
+
+	//box side of the canon
+
+	box2.PushBack({471, 0, 21, 17});
+	box2.PushBack({ 494 ,0, 21, 16 });
+	box2.speed = 0.04f;
+
+	//box individual
+	box3.PushBack({ 424, 0, 11, 10 });
+	box3.PushBack({ 439 ,0, 11, 10});
+	box3.speed = 0.04f;
+
+
+
 	helix1.PushBack({ 785, 419, 96, 33 });
 	helix1.PushBack({ 875, 459, 96, 33 });
 	helix1.PushBack({ 800, 553, 79, 21 });
@@ -178,6 +198,16 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 0, 0, 87, 43 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 170, 0, 86, 43 }, COLLIDER_WALL);
 
+		//Colliders for the box
+		App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX);
+		App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX);
+		App->collision->AddCollider({ 30, 274,	 20, 16 }, COLLIDER_BOX);
+		
+		App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX);
+		App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX);
+
+		
+
 	}
 
 
@@ -236,6 +266,17 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 16, 503, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 111, 503, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 208, 503, &rock2.GetCurrentFrame().rect);
+
+
+		//Boxes
+		App->render->Blit(sprite_graphics, 148, 1336, &box.GetCurrentFrame().rect);
+		
+		App->render->Blit(sprite_graphics, 195, 900, &box2.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 140, 430, &box.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 200, 212, &box3.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);
 
 		if (App->scene_game->intro == true)
 		{

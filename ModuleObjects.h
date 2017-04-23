@@ -20,6 +20,9 @@ private:
 	Animation rock;
 	Animation bridge;
 	Animation rock2;
+	Animation box;
+	Animation box2;
+	Animation box3;
 
 	Animation helicopter;
 	Animation helicopter1;
