@@ -41,6 +41,22 @@ bool ModuleObjects::Init() {
 
 	//Rock after bridge 
 	rock2.PushBack({358, 0, 31, 17});
+
+	helix1.PushBack({ 785, 419, 96, 33 });
+	helix1.PushBack({ 875, 459, 96, 33 });
+	helix1.PushBack({ 800, 553, 79, 21 });
+	helix1.PushBack({ 857, 503, 42, 45 });
+	helix1.PushBack({ 865, 588, 26, 27 });
+	helix1.PushBack({ 877, 393, 79, 21 });
+	
+	helix1.loop = true;
+	helix1.speed = 0.25f;
+	
+	helicopter.PushBack({ 710,440,64,82 });
+	helicopter.PushBack({ 713,662,56,68 });
+	helicopter.PushBack({ 799,914,48,55 });
+	helicopter.PushBack({ 713,662,56,68 });
+	helicopter.PushBack({ 710,440,64,82 });
 	return true;
 
 
@@ -51,6 +67,9 @@ bool ModuleObjects::Start() {
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 	level_dimensions = App->scene_game->getLevelDimensions(); //This is the lower limit of the level (y)
 
+	helipoint.x = SCREEN_WIDTH / 2;
+	helipoint.y = 1908;
+	reduction = 1;
 	if (App->scene_game->getLevel() == 1)
 	{
 		// Collisions of the rock at the upper left corner at the beggining of the game
@@ -133,6 +152,7 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 209, 517, 28, 3 }, COLLIDER_WALL);
 	}
 
+
 	if (sprite_graphics == nullptr)
 		ret = false;
 
@@ -185,6 +205,48 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 16, 503, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 111, 503, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 208, 503, &rock2.GetCurrentFrame().rect);
+
+		if (App->scene_game->intro == true)
+		{
+			if (droping == false)
+			{
+				if (helipoint.y > 1750)
+				{
+					helipoint.y = helipoint.y - 1;
+					helicopter.speed = 0;
+				}
+				else if (helipoint.y <= 1750 && helipoint.y != helipoint.y - reduction)
+				{
+
+						helipoint.y = helipoint.y - reduction;
+						reduction = reduction - 0.01f;
+					
+				}
+				else if (helipoint.y == helipoint.y - reduction)
+				{
+					helicopter.speed = 0.05f;
+					if (helicopter.Finished() == true)
+					{
+						droping = true;
+					
+					}
+				}
+			}
+			else if (helipoint.y >= 1908 - SCREEN_HEIGHT - 82)
+			{
+				helipoint.y = helipoint.y - 1;
+				helicopter.speed = 0;
+			}
+			else
+			{
+				App->scene_game->intro = false;
+			}
+				
+		
+			App->render->Blit(sprite_graphics, helipoint.x, helipoint.y, &helicopter.GetCurrentFrame().rect);
+		
+		}
+
 	}
 
 	return update_status::UPDATE_CONTINUE;

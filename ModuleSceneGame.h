@@ -25,6 +25,7 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 	void onFadeInEnd();
+	bool intro = false;
 
 	iPoint getLevelDimensions() {
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };
