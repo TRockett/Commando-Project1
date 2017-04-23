@@ -40,7 +40,7 @@ bool ModuleSceneGame::Start() {
 
 
 	//Enabling modules
-	App->player->Enable();
+
 	App->enemies->Enable();
 	App->collision->Enable();
 	App->objects->Enable();
@@ -68,9 +68,12 @@ update_status ModuleSceneGame::PreUpdate() {
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
 
-
-
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
+	
+	if (App->objects->droping == true)
+	{
+		App->player->Enable();
+	}
 
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;

@@ -40,7 +40,9 @@ public:
 	PLAYER_STATE state = IDLE;
 	bool grenade_on = false;
 	bool bthrowing;
-
+	int intro_state;
+	fPoint init_pos;
+	float parabol = 0.65f;
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -56,6 +58,7 @@ private:
 	Animation death;
 	Animation drown;
 	Animation leave_heli;
+	Animation bye_anim;
 	Animation throw_grenade;
 	fPoint position;
 	fPoint prev_position;

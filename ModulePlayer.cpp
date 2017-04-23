@@ -10,6 +10,7 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "SDL/include/SDL_timer.h"
+#include "ModuleObjects.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -104,12 +105,16 @@ ModulePlayer::ModulePlayer()
 	leave_heli.PushBack({ 932, 877, 16, 20 });
 	leave_heli.PushBack({ 949, 877, 16, 21 });
 	leave_heli.PushBack({ 968, 876, 16, 22 });
-	leave_heli.PushBack({ 986, 876, 17, 22 });
-	leave_heli.PushBack({ 1007, 877, 23, 21 });
-	leave_heli.PushBack({ 1035, 873, 16, 27 });
-	leave_heli.PushBack({ 1052, 874, 16, 26 });
+	//leave_heli.PushBack({ 986, 876, 17, 22 });
+	//leave_heli.PushBack({ 1007, 877, 23, 21 });
+	
 	leave_heli.loop = false;
 	leave_heli.speed = 0.10F;
+
+	bye_anim.PushBack({ 1035, 873, 16, 27 });
+	bye_anim.PushBack({ 1052, 874, 16, 26 });
+	bye_anim.PushBack({ 1035, 873, 16, 27 });
+	bye_anim.PushBack({ 1052, 874, 16, 26 });
 
 
 	//drown animation
@@ -136,7 +141,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	position.x = SCREEN_WIDTH / 2;
-	position.y = App->scene_game->getLevelDimensions().y + 150;
+	position.y = App->scene_game->getLevelDimensions().y + 160;
 	shooting_angle = 0;
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -178,8 +183,55 @@ update_status ModulePlayer::Update()
 		else if (shooting_angle >= 360)
 			shooting_angle -= 360;
 
-		checkInput();
-		processInput();
+		if (App->scene_game->intro == true)
+		{
+			if (intro_state == false)
+			{
+				current_animation->speed = 0.05f;
+				current_animation = &leave_heli;
+				position.x = position.x + 0.3f;;
+				position.y = position.y - parabol;
+				parabol = parabol - 0.015f ;
+				if (current_animation->Finished() == true)
+				{
+					intro_state = true;
+				}
+			}
+			else if (intro_state == true)
+			{
+				current_animation = &bye_anim;
+				if (current_animation->Finished() == true)
+				{
+					intro_state = 2;
+					init_pos = position;
+				}
+
+			}
+			else if (intro_state == 2)
+			{
+				position.y = position.y + 0.5f;
+				current_animation = &backward;
+				if (init_pos.y + 20 <= position.y )
+				{
+					intro_state = 3;
+					init_pos = position;	
+				}				
+			}
+			else if (intro_state == 3)
+			{
+				if (position.y <= position.y + 20)
+				{
+					position.x = position.x - 0.5f;
+					position.y = position.y + 0.6f;
+				}
+			}			
+			
+		}
+		else
+		{
+			checkInput();
+			processInput();
+		}
 		rotateShootingAngle();
 
 		if (shooting)

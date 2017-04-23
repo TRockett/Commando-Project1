@@ -59,8 +59,7 @@ bool ModuleObjects::Init() {
 	helicopter.PushBack({ 710,440,64,82 });
 	helicopter.PushBack({ 713,662,56,68 });
 	helicopter.PushBack({ 799,914,48,55 });
-	helicopter.PushBack({ 713,662,56,68 });
-	helicopter.PushBack({ 710,440,64,82 });
+
 
 	helicopter.loop = false;
 
