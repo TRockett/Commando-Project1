@@ -159,6 +159,20 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 17, 517, 28, 3 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 112, 517, 28, 3 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 209, 517, 28, 3 }, COLLIDER_WALL);
+		
+
+		//Collisions for thetrinches after the bridge
+		App->collision->AddCollider({ 0, 418, 59, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({130, 448, 89, 6 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 100, 320, 51, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 6, 290, 83, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 197, 225, 50, 3 }, COLLIDER_WALL);
+
+
+		//Colliders for the final door
+		App->collision->AddCollider({ 0, 0, 87, 43 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 170, 0, 86, 43 }, COLLIDER_WALL);
+
 	}
 
 
