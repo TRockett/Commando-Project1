@@ -140,8 +140,8 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	position.x = (SCREEN_WIDTH / 2) + 10;
-	position.y = App->scene_game->getLevelDimensions().y + 120;
+	position.x = (SCREEN_WIDTH / 2) + 20;
+	position.y = App->scene_game->getLevelDimensions().y + 110;
 	shooting_angle = 0;
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -189,7 +189,7 @@ update_status ModulePlayer::Update()
 			{
 				current_animation->speed = 0.05f;
 				current_animation = &leave_heli;
-				position.x = position.x + 0.3f;;
+				position.x = position.x + 0.5f;;
 				position.y = position.y - parabol;
 				parabol = parabol - 0.015f ;
 				if (current_animation->Finished() == true)
@@ -213,20 +213,24 @@ update_status ModulePlayer::Update()
 				current_animation = &backward;
 				if (init_pos.y + 20 <= position.y )
 				{
-					intro_state = 3;
-					init_pos = position;	
+					intro_state = 3;	
 				}				
 			}
 			else if (intro_state == 3)
 			{
-				if (init_pos.y + 20 >= position.y)
+				if (position.x >= (SCREEN_WIDTH / 2) + 15)
 				{
-					position.x = position.x - 0.5f;
+					position.x = position.x - 0.55f;
 					position.y = position.y + 0.6f;
 
 				}
 				else
+				{
 					intro_state = 4;
+					current_animation = &forward;
+					current_animation->speed = 0;
+
+				}
 			}			
 			
 		}
@@ -235,6 +239,7 @@ update_status ModulePlayer::Update()
 			checkInput();
 			processInput();
 		}
+
 		rotateShootingAngle();
 
 		if (shooting)
@@ -293,7 +298,7 @@ update_status ModulePlayer::Update()
 
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
-	int margin = 120; //Must be equal to the player's initial position
+	int margin = 110; //Must be equal to the player's initial position
 	player_min_y = MIN(player_min_y, (int)position.y);
 	
 	if (App->render->camera.y < 0)

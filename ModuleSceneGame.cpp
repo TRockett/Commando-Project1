@@ -41,7 +41,7 @@ bool ModuleSceneGame::Start() {
 
 	//Enabling modules
 
-	App->enemies->Enable();
+	
 	App->collision->Enable();
 	App->objects->Enable();
 
@@ -73,7 +73,9 @@ update_status ModuleSceneGame::Update() {
 	if (App->objects->droping == true)
 	{
 		App->player->Enable();
+		App->enemies->Enable();
 	}
+
 
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;

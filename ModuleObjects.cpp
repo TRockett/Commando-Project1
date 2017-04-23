@@ -259,16 +259,17 @@ update_status ModuleObjects::Update() {
 					helicopter.speed = 0.05;
 					if (helicopter.Finished() == true)
 					{
-						droping = true;					
+						droping = true;	
+						helicopter = helicopter2;
 					}
 					
 				}
 			}
 			else if (helipoint.y >= 1708 - SCREEN_HEIGHT - 82)
 			{
-				helicopter = helicopter2;
+	
 				helipoint.y = helipoint.y - reduction;
-				helicopter.speed = 0.5f;
+				helicopter.speed = 0.05f;
 				reduction = reduction + 0.01f;
 			}
 			else
