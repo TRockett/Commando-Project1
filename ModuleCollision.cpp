@@ -49,6 +49,14 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_WATER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_WATER][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_WATER][COLLIDER_WATER] = false;
+
+
+	matrix[COLLIDER_BOX][COLLIDER_WALL] = false;
+	matrix[COLLIDER_BOX][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_BOX][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_BOX][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_BOX][COLLIDER_ENEMY_SHOT] = false;
+	matrix[COLLIDER_BOX][COLLIDER_WATER] = false;
 }
 
 // Destructor
@@ -150,6 +158,9 @@ void ModuleCollision::DebugDraw()
 			break;
 			case COLLIDER_WATER: // roseta
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+			case COLLIDER_BOX: //orange
+			App->render->DrawQuad(colliders[i]->rect, 255, 102, 0, alpha);
 			break;
 		}
 	}
