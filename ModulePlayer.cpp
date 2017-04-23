@@ -99,6 +99,18 @@ ModulePlayer::ModulePlayer()
 	death.loop = false;
 	death.speed = 0.15f;
 
+	//leaving helicoppter animationn
+	leave_heli.PushBack({ 917, 874, 7, 15 });
+	leave_heli.PushBack({ 932, 877, 16, 20 });
+	leave_heli.PushBack({ 949, 877, 16, 21 });
+	leave_heli.PushBack({ 968, 876, 16, 22 });
+	leave_heli.PushBack({ 986, 876, 17, 22 });
+	leave_heli.PushBack({ 1007, 877, 23, 21 });
+	leave_heli.PushBack({ 1035, 873, 16, 27 });
+	leave_heli.PushBack({ 1052, 874, 16, 26 });
+	leave_heli.loop = false;
+	leave_heli.speed = 0.10F;
+
 
 	//drown animation
 	drown.PushBack({ 270, 40, 17, 23 });

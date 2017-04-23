@@ -55,13 +55,13 @@ private:
 	Animation down_left;
 	Animation death;
 	Animation drown;
+	Animation leave_heli;
 	Animation throw_grenade;
 	fPoint position;
 	fPoint prev_position;
 	Mix_Chunk* shoot;
 	Mix_Chunk* grenade_explosion;
 	Collider* collider;
-
 	Particle fire;	//Fire shot particle
 
 	
