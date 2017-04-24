@@ -56,15 +56,13 @@ bool ModuleObjects::Init() {
 	rock2.PushBack({358, 0, 31, 17});
 
 	//box
-
 	box.PushBack({535, 0, 20, 16});
-	box.PushBack({536, 23, 20, 16});
+	box.PushBack({535, 24, 20, 16});
 	box.speed = 0.04f;
 
 
 	//box side of the canon
-
-	box2.PushBack({471, 0, 21, 17});
+	box2.PushBack({471, 0, 21, 16});
 	box2.PushBack({ 494 ,0, 21, 16 });
 	box2.speed = 0.04f;
 
