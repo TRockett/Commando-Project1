@@ -35,12 +35,10 @@ bool ModuleSceneGame::Start() {
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
-
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
 	//Enabling modules
-
 	
 	App->collision->Enable();
 	App->objects->Enable();

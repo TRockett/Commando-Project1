@@ -268,7 +268,7 @@ update_status ModulePlayer::Update()
 				grenade_on = true;
 				bthrowing = true;
 				grenade = App->particles->grenade;
-				grenade.speed = { 0, -1 };
+				grenade.speed = { 0, - grenade_speed };
 				App->particles->AddParticle(grenade, (int)position.x + 7, (int)position.y + 1, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
 			}
 			
@@ -371,50 +371,60 @@ void ModulePlayer::processInput() {
 		direction = 180;
 		current_animation = &backward;
 		fire = App->particles->fire_down;
+		grenade_speed = 1;
+
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
 		direction = 0;
 		current_animation = &forward;
 		fire = App->particles->fire_up;
+		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
 		direction = 90;
 		current_animation = &right;
 		fire = App->particles->fire_right;
+		grenade_speed = 1;
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
 		direction = 270;
 		current_animation = &left;
 		fire = App->particles->fire_left;
+		grenade_speed = 1;
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
 		direction = 135;
 		current_animation = &down_right;
 		fire = App->particles->fire_downright;
+		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
 		direction = 225;
 		current_animation = &down_left;
 		fire = App->particles->fire_downleft;
+		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
 		direction = 315;
 		current_animation = &up_left;
 		fire = App->particles->fire_upleft;
+		grenade_speed = 0.3 + speed * cosf(direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
 		direction = 45;
 		current_animation = &up_right;
 		fire = App->particles->fire_upright;
+		grenade_speed = 0.3 + speed * cosf(direction * (M_PI / 180.0f));
 		break;
 	case IDLE:
+		grenade_speed = 1;
 		if (!bthrowing)
 		{
 			current_animation->speed = 0.0f;

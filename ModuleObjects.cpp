@@ -41,7 +41,8 @@ bool ModuleObjects::Init() {
 	final_door.PushBack({860, 0, 88, 43});
 	final_door.PushBack({ 962, 0, 87, 57 });
 	final_door.PushBack({ 962, 83, 96, 59 });
-	final_door.speed = 0.10f;
+	final_door.speed = 0.01f;
+	final_door.loop = false;
 
 	
 
@@ -307,6 +308,11 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 140, 430, &box.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 200, 212, &box3.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);
+		
+		if (App->player->position.y <= 234)
+		{
+			App->render->Blit(sprite_graphics, 86, 0, &final_door.GetCurrentFrame().rect);
+		}
 
 		if (App->scene_game->intro == true)
 		{

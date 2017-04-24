@@ -47,7 +47,7 @@ public:
 	fPoint init_pos;
 	float parabol = 0.65f;
 	Mix_Chunk* grenade_explosion;
-
+	fPoint position;
 	iPoint GetPosition() {
 		return toiPoint(position);
 	}
@@ -68,13 +68,14 @@ private:
 	Animation leave_heli;
 	Animation bye_anim;
 	Animation throw_grenade;
-	fPoint position;
+
 	fPoint prev_position;
 	Mix_Chunk* shoot;
 	Collider* collider;
 	Particle fire;	//Fire shot particle
 	Animation bridge;
 	Animation bridge2;
+	float grenade_speed;
 
 	
 	PLAYER_STATE prev_state = IDLE;
