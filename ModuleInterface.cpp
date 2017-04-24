@@ -54,7 +54,6 @@
 //	bool ret = true;
 //
 //	graphics = App->textures->Load("Images/sprites.png");
->>>>>>> origin/master
 //
 //	if (graphics == nullptr)
 //		ret = false;
