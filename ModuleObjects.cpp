@@ -43,11 +43,7 @@ bool ModuleObjects::Init() {
 	final_door.PushBack({ 962, 83, 96, 59 });
 	final_door.speed = 0.10f;
 
-	//Bridge animamtion
-	bridge.PushBack({691, 79, 64, 32});
-
-	//Other part of the bridge (part below)
-	bridge2.PushBack({ 1066, 0, 66, 28 });
+	
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
@@ -289,9 +285,7 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 18, -642 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 82, -706 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 
-		//Bridge sprite
-		App->render->Blit(sprite_graphics, 96, 802, &bridge.GetCurrentFrame().rect);		
-		App->render->Blit(sprite_graphics, 96, 834, &bridge2.GetCurrentFrame().rect);
+	
 		//Rocks sprites
 		App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 15, -957, &rock.GetCurrentFrame().rect);
@@ -309,11 +303,8 @@ update_status ModuleObjects::Update() {
 
 		//Boxes
 		App->render->Blit(sprite_graphics, 148, 1336, &box.GetCurrentFrame().rect);
-		
 		App->render->Blit(sprite_graphics, 195, 900, &box2.GetCurrentFrame().rect);
-
 		App->render->Blit(sprite_graphics, 140, 430, &box.GetCurrentFrame().rect);
-
 		App->render->Blit(sprite_graphics, 200, 212, &box3.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);
 

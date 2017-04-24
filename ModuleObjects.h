@@ -18,8 +18,7 @@ private:
 	Animation tree1;
 	Animation tree2;
 	Animation rock;
-	Animation bridge;
-	Animation bridge2;
+
 	Animation rock2;
 	Animation box;
 	Animation box2;

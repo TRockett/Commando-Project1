@@ -9,7 +9,7 @@ EnemyMoto::EnemyMoto(int x, int y) : Enemy(x, y)
 
 	riding.PushBack({1088, 43, 47, 22});
 	riding.PushBack({ 1089, 75, 47, 21 });
-	riding.speed = 0.5f;
+	riding.speed = 0.05f;
 	riding.loop = true;
 
 	//throwing grenade

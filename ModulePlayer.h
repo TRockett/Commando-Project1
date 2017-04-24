@@ -73,6 +73,8 @@ private:
 	Mix_Chunk* grenade_explosion;
 	Collider* collider;
 	Particle fire;	//Fire shot particle
+	Animation bridge;
+	Animation bridge2;
 
 	
 	PLAYER_STATE prev_state = IDLE;
