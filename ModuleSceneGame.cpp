@@ -37,7 +37,7 @@ bool ModuleSceneGame::Start() {
 
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1700);
-
+	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
 	//Enabling modules
 

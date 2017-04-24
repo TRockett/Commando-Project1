@@ -11,9 +11,10 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 
 	// walk forward animation (arcade sprite sheet)
 
-	e1_forward.PushBack({ 0, 220, 15, 23 });
-	e1_forward.PushBack({ 16, 220, 15, 22 });
-	e1_forward.PushBack({ 36, 220, 15, 23 });
+	e1_forward.PushBack({ 30, 209, 15, 23 });
+	e1_forward.PushBack({ 17, 209, 13, 23 });
+	e1_forward.PushBack({ 30, 209, 15, 23 });
+	e1_forward.PushBack({ 0, 209, 14, 23 });
 	e1_forward.loop = true;
 	e1_forward.speed = 0.15f;
 
