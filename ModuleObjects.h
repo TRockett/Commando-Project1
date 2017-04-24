@@ -19,15 +19,17 @@ private:
 	Animation tree2;
 	Animation rock;
 	Animation bridge;
+	Animation bridge2;
 	Animation rock2;
 	Animation box;
 	Animation box2;
 	Animation box3;
-
+	Animation final_door;
 	Animation helicopter;
 	Animation helicopter1;
 	Animation helicopter2;
 	Animation helicopter3;
+	Animation helix;
 	Animation helix1;
 	Animation helix2;
 	Animation helix3;
@@ -42,7 +44,7 @@ private:
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
-	int droping = false;
+	bool droping = false;
 	bool Init();
 	bool Start();
 	

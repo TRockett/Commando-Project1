@@ -26,6 +26,9 @@ enum PLAYER_STATE : int {
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
 
+fPoint tofPoint(iPoint a);
+iPoint toiPoint(fPoint a);
+
 
 class ModulePlayer : public Module
 {
@@ -43,6 +46,10 @@ public:
 	int intro_state;
 	fPoint init_pos;
 	float parabol = 0.65f;
+
+	iPoint GetPosition() {
+		return toiPoint(position);
+	}
 
 private:
 	SDL_Texture* graphics = nullptr;

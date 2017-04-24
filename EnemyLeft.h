@@ -17,6 +17,9 @@ private:
 	Animation e1_up_left;
 	Animation e1_down_right;
 	Animation e1_down_left;
+
+	Animation* GetAnimationForDirection(int dir);
+
 public:
 	EnemyLeft(int x, int y);
 	virtual ~EnemyLeft();

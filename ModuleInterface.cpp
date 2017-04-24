@@ -24,7 +24,37 @@
 //bool ModuleInterface::Start() {
 //	bool ret = true;
 //
-//	/*graphics = App->textures->Load("Images/sprites.png");*/
+//	graphics = App->textures->Load("Images/sprites.png");
+//
+//	if (graphics == nullptr)
+//		ret = false;
+//	
+//	return ret;
+//}
+//
+//
+//ModuleInterface::ModuleInterface()
+//{
+//}
+//
+//
+//ModuleInterface::~ModuleInterface()
+//{
+//}
+//
+//
+//bool ModuleInterface::Init() {
+//
+//	graphics = nullptr;
+//
+//	return true;
+//}
+//
+//bool ModuleInterface::Start() {
+//	bool ret = true;
+//
+//	graphics = App->textures->Load("Images/sprites.png");
+>>>>>>> origin/master
 //
 //	if (graphics == nullptr)
 //		ret = false;
