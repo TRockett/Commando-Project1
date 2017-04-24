@@ -193,8 +193,8 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 20, -446 + level_dimensions.y , 6, 4 }, COLLIDER_WALL);
 
 		//Collisions of the bridge
-		App->collision->AddCollider({ 20, -850 + level_dimensions.y , 78, 60 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 159, -850 + level_dimensions.y , 80 ,60 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 20, -845 + level_dimensions.y , 78, 55 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 159, -845 + level_dimensions.y , 80 ,55 }, COLLIDER_WALL);
 
 		//Collisions for the lake
 		App->collision->AddCollider({ 20, -171 + level_dimensions.y , 16, 1 }, COLLIDER_WATER);
