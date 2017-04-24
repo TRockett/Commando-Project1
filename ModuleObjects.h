@@ -29,6 +29,7 @@ private:
 	Animation helicopter1;
 	Animation helicopter2;
 	Animation helicopter3;
+	Animation helix;
 	Animation helix1;
 	Animation helix2;
 	Animation helix3;
@@ -43,7 +44,7 @@ private:
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
-	int droping = false;
+	bool droping = false;
 	bool Init();
 	bool Start();
 	

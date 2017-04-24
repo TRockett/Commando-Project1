@@ -75,33 +75,29 @@ bool ModuleObjects::Init() {
 
 
 
-	helix1.PushBack({ 785, 419, 96, 33 }, {});
-	helix1.PushBack({ 875, 459, 96, 33 });
-	helix1.PushBack({ 800, 553, 79, 21 });
-	helix1.PushBack({ 857, 503, 42, 45 });
-	helix1.PushBack({ 865, 588, 26, 27 });
-	helix1.PushBack({ 877, 393, 79, 21 });
+	helix1.PushBack({ 785, 419, 96, 33 }, { 92, 0 });
+	helix1.PushBack({ 875, 459, 96, 33 }, { 2, 0 });
+	helix1.PushBack({ 800, 553, 79, 21 }, { 77,21 });
+	helix1.PushBack({ 857, 503, 42, 45 }, { 20,0 });
+	helix1.PushBack({ 865, 588, 26, 27 }, { 12, 27 });
+	helix1.PushBack({ 877, 393, 79, 21 }, { 0, 21 });
 	
 	helix1.loop = true;
 	helix1.speed = 0.25f;
-
-
 	
 	helicopter1.PushBack({ 710,440,64,82 }, { 31,0 });
-	helicopter1.loop = false;
 
-	helicopter2.PushBack({ 714,659,56,68 }, { 27,0 });
+	helicopter2.PushBack({ 714,658,56,69 }, { 27,0 });
 
 	helicopter3.PushBack({ 799,914,48,55 }, { 23,0 });
 
-
 	
-	helix2.PushBack({861, 648, 32, 33});
-	helix2.PushBack({ 868, 697, 20, 20 });
-	helix2.PushBack({ 875, 725, 65, 19 });
-	helix2.PushBack({ 798, 765, 86, 28 });
-	helix2.PushBack({ 872, 803, 86, 28 });
-	helix2.PushBack({ 814, 845, 65, 20 });
+	helix2.PushBack({ 861, 648, 32, 33 }, { 16,0 });
+	helix2.PushBack({ 868, 697, 20, 20 }, { 9,20 });
+	helix2.PushBack({ 875, 725, 65, 19 }, { 2,16 });
+	helix2.PushBack({ 798, 765, 86, 28 }, { 79,0 });
+	helix2.PushBack({ 872, 803, 86, 28 }, { 4,0 });
+	helix2.PushBack({ 814, 845, 65, 20 }, { 61,16 });
 	helix2.speed = 0.25f;
 	helix2.loop = true;
 
@@ -132,6 +128,8 @@ bool ModuleObjects::Start() {
 	helipoint.y = 1908;
 	reduction = 1;
 	helicopter = helicopter1;
+	helix = helix1;
+
 
 	if (App->scene_game->getLevel() == 1)
 	{
@@ -323,6 +321,7 @@ update_status ModuleObjects::Update() {
 
 		if (App->scene_game->intro == true)
 		{
+			helix.speed = 0.5f;
 			if (droping == false)
 			{
 				
@@ -340,6 +339,7 @@ update_status ModuleObjects::Update() {
 						if (SDL_GetTicks() - 4500 <= timer)
 						{
 							helicopter = helicopter2;
+							helix = helix2;
 							timer = SDL_GetTicks();
 							tree1.speed = 0.02f;
 							tree2.speed = 0.02f;
@@ -382,8 +382,11 @@ update_status ModuleObjects::Update() {
 				
 			}
 			AnimationFrame frame = helicopter.GetCurrentFrame();
+			AnimationFrame helixfr = helix.GetCurrentFrame();
 			iPoint pivot = frame.pivot;
+			iPoint pivot2 = helixfr.pivot;
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
+			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y  - pivot2.y, &helixfr.rect);
 		}
 					
 		
