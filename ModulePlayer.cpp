@@ -197,7 +197,7 @@ update_status ModulePlayer::Update()
 					intro_state = true;
 				}
 			}
-			else if (intro_state == true)
+			else if (intro_state == 1)
 			{
 				current_animation = &bye_anim;
 				if (current_animation->Finished() == true)
@@ -229,12 +229,13 @@ update_status ModulePlayer::Update()
 					intro_state = 4;
 					current_animation = &forward;
 					current_animation->speed = 0;
+					App->scene_game->intro = false;
 
 				}
 			}			
 			
 		}
-		else
+		else 
 		{
 			checkInput();
 			processInput();

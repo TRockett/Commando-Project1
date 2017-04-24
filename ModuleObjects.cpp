@@ -316,49 +316,63 @@ update_status ModuleObjects::Update() {
 			if (droping == false)
 			{
 				
-				if (helipoint.y > 1800)
+				if (helipoint.y > 1780)
 				{
 					helipoint.y = helipoint.y - 1;
 					helicopter.speed = 0;
+					timer = SDL_GetTicks();
 				}
-				else if (helipoint.y <= 1800 && helipoint.y != helipoint.y - reduction)
+				else if (helipoint.y <= 1780 && helipoint.y != helipoint.y - reduction)
 				{
 
 						helipoint.y = helipoint.y - reduction;
 						reduction = reduction - 0.01f;
-						helicopter = helicopter2;
-						timer = SDL_GetTicks();
+						if (SDL_GetTicks() - 5000 <= timer)
+						{
+							helicopter = helicopter2;
+							timer = SDL_GetTicks();
+
+						}
 					
 				}
-				else if (SDL_GetTicks() - 100 <= timer)
+				else if (SDL_GetTicks() - 5000 <= timer)
 				{
 
 					helicopter = helicopter3;
-					helipoint.y = helipoint.y + 1;
-					
-					droping = true;							
-					
-					
+					if (SDL_GetTicks() - 6000 <= timer)
+					{
+
+						droping = true;
+						timer = SDL_GetTicks();
+					}
+				
 				}
 			}
 			else if (helipoint.y >= 1708 - SCREEN_HEIGHT - 82)
 			{
 	
-				helipoint.y = helipoint.y - reduction;
-				helicopter.speed = 0.05f;
-				reduction = reduction + 0.01f;
-			}
-			else
-			{
-				App->scene_game->intro = false;
-			}
+				if (SDL_GetTicks() - 5000 <= timer)
+				{
+					helicopter = helicopter2;
+			
+				}
+				else if (SDL_GetTicks() - 1200 <= timer)
+				{
+					helicopter = helicopter1;
+				}
+			
+					helipoint.y = helipoint.y - reduction;
+					reduction = reduction + 0.01f;
+			
 				
-		
+			}
 			App->render->Blit(sprite_graphics, helipoint.x, helipoint.y, &helicopter.GetCurrentFrame().rect);
+		}
+					
 		
 		}
 
-	}
+	
 
 	return update_status::UPDATE_CONTINUE;
 }
