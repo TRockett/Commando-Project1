@@ -18,6 +18,7 @@ private:
 	SDL_Texture* background_graphics;
 	iPoint level_dimensions;
 	int font;
+	int timer;
 
 public:
 	bool Start();
@@ -28,6 +29,7 @@ public:
 	bool CleanUp();
 	void onFadeInEnd();
 	bool intro = false;
+	int screen_enemies;
 
 	iPoint getLevelDimensions() {
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };

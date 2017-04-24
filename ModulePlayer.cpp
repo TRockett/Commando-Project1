@@ -236,6 +236,7 @@ update_status ModulePlayer::Update()
 					current_animation = &forward;
 					current_animation->speed = 0;
 					App->scene_game->intro = false;
+					App->objects->droping = false;
 
 				}
 			}			

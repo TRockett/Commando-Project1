@@ -3,7 +3,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
-
+#include "ModuleSceneGame.h"
 
 
 EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
@@ -86,6 +86,29 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 	e1_backward.loop = true;
 	e1_backward.speed = 0.15f;
 
+	//death
+	death.PushBack({0, 459, 15, 14});
+
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.loop = false;
+	death.speed = 0.5f;
+
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 
@@ -103,13 +126,17 @@ EnemyLeft::~EnemyLeft()
 
 void EnemyLeft::Move() {
 	position = initial_position + movement.GetCurrentPosition();
-	if (movement.Finished())
+	prev_position = position;
+	if (movement.Finished()||collision == true)
 	{
 		movement.Clear();
 		movement.Reset();
 		int angle = (rand() % 8) * 45;
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
+		collision = false;
+
+		
 	}
 }
 
@@ -143,3 +170,17 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	}
 	return animation;
 }
+	void EnemyLeft::OnCollision(Collider* collider)
+	{
+		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
+		{
+			collision = true;
+			prev_position;
+		}
+		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION)
+		{
+			delete this;
+			App->scene_game->screen_enemies--;
+		}
+	}
+
