@@ -119,7 +119,7 @@ bool ModuleObjects::Start() {
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 	level_dimensions = App->scene_game->getLevelDimensions(); //This is the lower limit of the level (y)
 
-	helipoint.x = (SCREEN_WIDTH / 2);
+	helipoint.x = (SCREEN_WIDTH / 2) + 20;
 	helipoint.y = 1908;
 	reduction = 1;
 	helicopter = helicopter1;
@@ -323,7 +323,7 @@ update_status ModuleObjects::Update() {
 						}
 					
 				}
-				else if (SDL_GetTicks() - 5000 <= timer)
+				else if (SDL_GetTicks() - 1000 <= timer)
 				{
 
 					helicopter = helicopter3;
