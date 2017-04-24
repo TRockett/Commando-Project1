@@ -17,6 +17,7 @@ protected:
 
 public:
 	iPoint position;
+	iPoint prev_position;
 
 public:
 	Enemy(int x, int y);

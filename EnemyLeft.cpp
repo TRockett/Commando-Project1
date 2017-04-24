@@ -103,6 +103,7 @@ EnemyLeft::~EnemyLeft()
 
 void EnemyLeft::Move() {
 	position = initial_position + movement.GetCurrentPosition();
+	prev_position = position;
 	if (movement.Finished()||collision == true)
 	{
 		movement.Clear();
@@ -154,6 +155,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
 		{
 			collision = true;
+			prev_position;
 		}
 	}
 
