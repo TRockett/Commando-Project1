@@ -401,6 +401,8 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 111, 503, &rock2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 208, 503, &rock2.GetCurrentFrame().rect);
 
+		//Final door animation
+		App->render->Blit(sprite_graphics, 83, 0,&final_door.GetCurrentFrame().rect);
 
 		//Boxes
 		for (int i = 0; i < 10; i++) {
