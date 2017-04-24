@@ -11,6 +11,7 @@
 #include "ModuleEnemies.h"
 #include <string>
 #include "ModuleObjects.h"
+#include "SDL/include/SDL_timer.h"
 
 
 ModuleSceneGame::ModuleSceneGame()
@@ -51,7 +52,7 @@ bool ModuleSceneGame::Start() {
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
 
-	
+
 	
 	return ret;
 }
@@ -59,6 +60,7 @@ bool ModuleSceneGame::Start() {
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
 		App->fade->FadeToBlack(this, this, 0.0f);
+		screen_enemies = 0;
 	}
 	return UPDATE_CONTINUE;
 }
@@ -72,6 +74,20 @@ update_status ModuleSceneGame::Update() {
 	{
 		App->player->Enable();
 		App->enemies->Enable();
+		timer = SDL_GetTicks();
+	}
+	else if(intro == false)
+	{
+		if (screen_enemies < 4)
+		{
+			if (SDL_GetTicks()  >= timer + 200)
+			{
+				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (level_dimensions.y - SCREEN_HEIGHT));
+				timer = timer + 1000;
+				screen_enemies++;
+			}
+
+		}
 	}
 
 

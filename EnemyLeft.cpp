@@ -3,7 +3,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
-
+#include "ModuleSceneGame.h"
 
 
 EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
@@ -179,6 +179,11 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		{
 			collision = true;
 			prev_position;
+		}
+		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION)
+		{
+			delete this;
+			App->scene_game->screen_enemies--;
 		}
 	}
 

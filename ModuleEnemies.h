@@ -24,6 +24,7 @@ struct EnemyInfo
 {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	iPoint pos;
+	int angle;
 };
 
 class ModuleEnemies : public Module
