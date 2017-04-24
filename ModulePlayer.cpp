@@ -141,7 +141,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	position.x = (SCREEN_WIDTH / 2) + 20;
-	position.y = App->scene_game->getLevelDimensions().y + 110;
+	position.y = (float)App->scene_game->getLevelDimensions().y + 110;
 	shooting_angle = 0;
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -185,7 +185,7 @@ update_status ModulePlayer::Update()
 
 		if (App->scene_game->intro == true)
 		{
-			if (intro_state == false)
+			if (intro_state == 0)
 			{
 				current_animation->speed = 0.05f;
 				current_animation = &leave_heli;
@@ -248,10 +248,10 @@ update_status ModulePlayer::Update()
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
 
-			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180))};
-			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180), EXPLOSION, COLLIDER_NONE);
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
-			App->particles->AddParticle(bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
+			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180.0f)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180.0f))};
+			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180.0f), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180.0f), EXPLOSION, COLLIDER_NONE);
+			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
 		}
 
 		if (grenade_on == false)
@@ -263,7 +263,7 @@ update_status ModulePlayer::Update()
 				bthrowing = true;
 				grenade = App->particles->grenade;
 				grenade.speed = { 0, -1 };
-				App->particles->AddParticle(grenade, position.x + 7, position.y + 1, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
+				App->particles->AddParticle(grenade, (int)position.x + 7, (int)position.y + 1, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
 			}
 			
 		}
@@ -288,14 +288,14 @@ update_status ModulePlayer::Update()
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
 
-	if (position.x - frame.pivot.x < 20)
-		position.x = frame.pivot.x + 20;
-	else if (position.x - frame.pivot.x + frame.rect.w > SCREEN_WIDTH + 20)
-		position.x = SCREEN_WIDTH + 20 - frame.rect.w + frame.pivot.x;
-	if (position.y - frame.pivot.y < 0)
-		position.y = frame.pivot.y;
-	else if (position.y - frame.pivot.y + frame.rect.h > SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE))
-		position.y = SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE) - frame.rect.h + frame.pivot.y;
+	if ((int)position.x - frame.pivot.x < 20)
+		position.x = (float)frame.pivot.x + 20.0f;
+	else if ((int)position.x - frame.pivot.x + frame.rect.w > SCREEN_WIDTH + 20)
+		position.x = SCREEN_WIDTH + 20.0f - (float)frame.rect.w + (float)frame.pivot.x;
+	if ((int)position.y - frame.pivot.y < 0)
+		position.y = (float)frame.pivot.y;
+	else if ((int)position.y - frame.pivot.y + frame.rect.h > SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE))
+		position.y = SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE) - (float)frame.rect.h + (float)frame.pivot.y;
 
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
@@ -304,8 +304,9 @@ update_status ModulePlayer::Update()
 	
 	if (App->render->camera.y < 0)
 		App->render->camera.y = (-player_min_y + margin) * SCREEN_SIZE;
-	
+
 	LOG("Player position.y:: %f", position.y);
+	LOG("Player position.x:: %f", position.x);
 	LOG("Camera position.y:: %d", App->render->camera.y);
 
 	App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
@@ -495,4 +496,12 @@ void ModulePlayer::Drown() {
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
 	PLAYER_STATE ret = static_cast<PLAYER_STATE>((int)p | (int)s);
 	return ret;
+}
+
+iPoint toiPoint(fPoint a) {
+	return{ (int)a.x, (int)a.y };
+}
+
+fPoint tofPoint(iPoint a) {
+	return{ (float)a.x, (float)a.y };
 }
