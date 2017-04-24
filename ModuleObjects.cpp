@@ -75,6 +75,8 @@ bool ModuleObjects::Init() {
 	
 	helix1.loop = true;
 	helix1.speed = 0.25f;
+
+
 	
 	helicopter1.PushBack({ 710,440,64,82 });
 	helicopter1.PushBack({ 713,662,56,68 });
@@ -86,6 +88,26 @@ bool ModuleObjects::Init() {
 	helicopter2.PushBack({ 710,440,64,82 });
 	helicopter2.speed = 0.5f;
 	helicopter2.loop = false;
+	
+	helix2.PushBack({861, 648, 32, 33});
+	helix2.PushBack({ 868, 697, 20, 20 });
+	helix2.PushBack({ 875, 725, 65, 19 });
+	helix2.PushBack({ 798, 765, 86, 28 });
+	helix2.PushBack({ 872, 803, 86, 28 });
+	helix2.PushBack({ 814, 845, 65, 20 });
+	helix2.speed = 0.25f;
+	helix2.loop = true;
+
+
+	helix3.PushBack({ 870, 900, 16, 17 });
+	helix3.PushBack({ 866, 926, 24, 28 });
+	helix3.PushBack({ 876, 963, 53, 15 });
+	helix3.PushBack({ 811, 991, 71, 24 });
+	helix3.PushBack({ 873, 1020, 71, 24 });
+	helix3.PushBack({ 827, 1044, 53, 15 });
+	helix3.speed = 0.25f;
+	helix3.loop = true;
+
 
 
 
