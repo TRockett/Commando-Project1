@@ -79,15 +79,13 @@ bool ModuleObjects::Init() {
 
 	
 	helicopter1.PushBack({ 710,440,64,82 });
-	helicopter1.PushBack({ 713,662,56,68 });
-	helicopter1.PushBack({ 799,914,48,55 });
 	helicopter1.loop = false;
 
-	helicopter2.PushBack({ 799,914,48,55 });
 	helicopter2.PushBack({ 713,662,56,68 });
-	helicopter2.PushBack({ 710,440,64,82 });
-	helicopter2.speed = 0.5f;
-	helicopter2.loop = false;
+
+	helicopter3.PushBack({ 799,914,48,55 });
+
+
 	
 	helix2.PushBack({861, 648, 32, 33});
 	helix2.PushBack({ 868, 697, 20, 20 });
@@ -315,16 +313,18 @@ update_status ModuleObjects::Update() {
 
 						helipoint.y = helipoint.y - reduction;
 						reduction = reduction - 0.01f;
+						helicopter = helicopter2;
+						timer = SDL_GetTicks();
 					
 				}
-				else if (helipoint.y == helipoint.y - reduction)
+				else if (SDL_GetTicks() - 100 <= timer)
 				{
-					helicopter.speed = 0.05;
-					if (helicopter.Finished() == true)
-					{
-						droping = true;	
-						helicopter = helicopter2;
-					}
+
+					helicopter = helicopter3;
+					helipoint.y = helipoint.y + 1;
+					
+					droping = true;							
+					
 					
 				}
 			}

@@ -26,10 +26,13 @@ private:
 
 	Animation helicopter;
 	Animation helicopter1;
+	Animation helicopter2;
+	Animation helicopter3;
 	Animation helix1;
 	Animation helix2;
 	Animation helix3;
-	Animation helicopter2;
+	int timer; 
+
 	fPoint helipoint;
 	float reduction;
 
