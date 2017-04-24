@@ -19,11 +19,12 @@ private:
 	Animation tree2;
 	Animation rock;
 	Animation bridge;
+	Animation bridge2;
 	Animation rock2;
 	Animation box;
 	Animation box2;
 	Animation box3;
-
+	Animation final_door;
 	Animation helicopter;
 	Animation helicopter1;
 	Animation helicopter2;
