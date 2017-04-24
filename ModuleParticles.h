@@ -30,7 +30,7 @@ struct Particle
 	Animation anim;
 	uint fx = 0;
 	iPoint position;
-	iPoint speed;
+	fPoint speed;
 	Sint32 born = 0;
 	Sint32 life = 0;
 	bool fx_played = false;

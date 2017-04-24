@@ -89,5 +89,9 @@ bool ModuleSceneWelcome::CleanUp() {
 	ret = App->textures->Unload(background_graphics);
 	if (!App->textures->Unload(title_graphics))
 		ret = false;
+	if (!App->textures->Unload(capcom))
+		ret = false;
+	if (!App->textures->Unload(screen_welcome))
+		ret = false;
 	return ret;
 }

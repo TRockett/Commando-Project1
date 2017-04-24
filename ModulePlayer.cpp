@@ -254,7 +254,7 @@ update_status ModulePlayer::Update()
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
 
-			bullet.speed = { (int)(PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180.0f)), (int)(-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180.0f))};
+			bullet.speed = { (PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180.0f)), (-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180.0f))};
 			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180.0f), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180.0f), EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
