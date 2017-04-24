@@ -175,6 +175,7 @@ bool ModuleObjects::Start() {
 		//Collisions of the rock at the middle of the before the bridge 
 		App->collision->AddCollider({ 99, -477 + level_dimensions.y , 47, 8 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 87, -477 + level_dimensions.y , 12, 1 }, COLLIDER_WALL);
+
 		//App->collision->AddCollider({ 146, -477 + level_dimensions.y , 17, 3 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 91, -487 + level_dimensions.y , 73, 10 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 96, -492 + level_dimensions.y , 63, 5 }, COLLIDER_WALL);
@@ -193,8 +194,8 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 20, -446 + level_dimensions.y , 6, 4 }, COLLIDER_WALL);
 
 		//Collisions of the bridge
-		App->collision->AddCollider({ 20, -850 + level_dimensions.y , 78, 60 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 159, -850 + level_dimensions.y , 80 ,60 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 20, -825 + level_dimensions.y , 78, 35 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 159, -825 + level_dimensions.y , 80 ,35 }, COLLIDER_WALL);
 
 		//Collisions for the lake
 		App->collision->AddCollider({ 20, -171 + level_dimensions.y , 16, 1 }, COLLIDER_WATER);
@@ -348,6 +349,7 @@ update_status ModuleObjects::Update() {
 				{
 
 					helicopter = &helicopter3;
+					helix = &helix3;
 					tree1.speed = 0.035f;
 					tree2.speed = 0.035f;			
 				}
@@ -363,6 +365,7 @@ update_status ModuleObjects::Update() {
 				if (SDL_GetTicks() - 1000 <= timer)
 				{
 					helicopter = &helicopter2;
+					helix = &helix2;
 					tree1.speed = 0.02f;
 					tree2.speed = 0.02f;
 			
@@ -370,6 +373,7 @@ update_status ModuleObjects::Update() {
 				else if (SDL_GetTicks() - 1200 <= timer)
 				{
 					helicopter = &helicopter1;
+					helix = &helix1;
 					tree1.speed = 0;
 					tree2.speed = 0;
 				}

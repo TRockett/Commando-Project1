@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "EnemyLeft.h"
 #include <random>
+#include "EnemyMoto.h"
 
 #define SPAWN_MARGIN 50
 
@@ -213,10 +214,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			enemies[i] = new EnemyLeft(info.pos.x,info.pos.y);
 			break;
 
-			/*case ENEMY_TYPES::BROWNCOOKIE:
-			int delay = rand() % 20 - 10;
-			enemies[i] = new Enemy_BrownCookie(info.x, info.y, delay);
-			break;*/
+			case ENEMY_TYPES::MOTO_TYPE:
+				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y);
+				break;
 		}
 	}
 }
