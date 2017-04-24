@@ -107,7 +107,7 @@ void EnemyLeft::Move() {
 	{
 		movement.Clear();
 		movement.Reset();
-		int angle = (rand() % 8) * 45 /* (M_PI / 180.0f)*/;
+		int angle = (rand() % 8) * 45;
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
 	}

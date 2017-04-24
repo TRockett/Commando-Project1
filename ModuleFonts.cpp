@@ -8,14 +8,18 @@
 
 // Constructor
 ModuleFonts::ModuleFonts() : Module()
-{}
+{
+	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
+		petitions[i] = nullptr;
+	}
+}
 
 // Destructor
 ModuleFonts::~ModuleFonts()
 {}
 
 // Load new texture from file path
-int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows)
+int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows, uint margin, uint spacing)
 {
 	int id = -1;
 	const uint char_amount = strlen(characters);
@@ -47,7 +51,8 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	fonts[id].graphic = tex; // graphic: pointer to the texture
 	fonts[id].rows = rows; // rows: rows of characters in the texture
 	fonts[id].len = char_amount; // len: length of the table
-
+	fonts[id].margin = margin;
+	fonts[id].spacing = spacing;
 	// TODO 1: Finish storing font data
 
 	uint texture_width = 0, texture_height = 0;
@@ -56,8 +61,9 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	}
 	fonts[id].row_chars = fonts[id].len / fonts[id].rows;
 	App->textures->GetSize(tex, texture_width, texture_height);
-	fonts[id].char_w = texture_width / fonts[id].row_chars;
-	fonts[id].char_h = texture_height / fonts[id].rows;
+	fonts[id].char_w = (texture_width - (fonts[id].margin * 2) - (fonts[id].spacing * (fonts[id].row_chars - 1))) / fonts[id].row_chars;
+	fonts[id].char_h = (texture_height - (fonts[id].margin * 2) - (fonts[id].spacing * (fonts[id].rows - 1))) / fonts[id].rows;
+
 	// table: array of chars to have the list of characters
 	// row_chars: amount of chars per row of the texture
 	// char_w: width of each character
@@ -102,9 +108,30 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 				rect.y = (j / font->row_chars);
 				rect.x = (j - rect.y * font->row_chars);
 				rect.y *= font->char_h;
+				rect.y += font->margin + font->spacing * (rect.y / font->char_h);
 				rect.x *= font->char_w;
+				rect.x += font->margin + font->spacing * (rect.x / font->char_w);
+				break;
 			}
 		}
 		App->render->Blit(font->graphic, x + i * rect.w, y, &rect, 0.0f, false);
 	}
+}
+
+void ModuleFonts::SetTextToDraw(int x, int y, int font_bmp_id, const char* text) {
+	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
+		if (petitions[i] == nullptr)
+			petitions[i] = new DrawPetition{ font_bmp_id, x, y, text };
+	}
+}
+
+update_status ModuleFonts::PostUpdate() {
+	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
+		if (petitions[i] != nullptr) {
+			BlitText(petitions[i]->x, petitions[i]->y, petitions[i]->fontID, petitions[i]->text);
+			delete petitions[i];
+			petitions[i] = nullptr;
+		}
+	}
+	return UPDATE_CONTINUE;
 }

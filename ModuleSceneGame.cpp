@@ -11,6 +11,7 @@
 #include "ModuleEnemies.h"
 #include <string>
 #include "ModuleObjects.h"
+#include "ModuleFonts.h"
 
 
 ModuleSceneGame::ModuleSceneGame()
@@ -38,10 +39,13 @@ bool ModuleSceneGame::Start() {
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
+	font = App->fonts->Load("Images/Fuentes.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789¡      ABCDEFGHIJKLMNOPQRSTUVWXYZ./0/0   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 1, 2);
+
 	//Enabling modules
 	
 	App->collision->Enable();
 	App->objects->Enable();
+	App->fonts->Enable();
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -80,6 +84,7 @@ update_status ModuleSceneGame::Update() {
 }
 
 update_status ModuleSceneGame::PostUpdate() {
+	App->fonts->SetTextToDraw(0, 0, font, "SCORE");
 	return UPDATE_CONTINUE;
 }
 
@@ -90,6 +95,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->collision->Disable();
 	App->enemies->Disable();
 	App->objects->Disable();
+	App->fonts->Disable();
 
 	ret = App->textures->Unload(background_graphics);
 
