@@ -125,5 +125,6 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	case 270:
 		break;
 	case 315:
+		return 0;
 	}
 }
