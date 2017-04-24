@@ -1,36 +1,36 @@
-#include "ModuleInterface.h"
-#include "Application.h"
-#include "ModuleRender.h"
-#include "ModuleTextures.h"
-
-
-ModuleInterface::ModuleInterface()
-{
-}
-
-
-ModuleInterface::~ModuleInterface()
-{
-}
-
-
-bool ModuleInterface::Init() {
-
-	graphics = nullptr;
-
-	return true;
-}
-
-bool ModuleInterface::Start() {
-	bool ret = true;
-
-	graphics = App->textures->Load("Images/sprites.png");
-
-	if (graphics == nullptr)
-		ret = false;
-	
-	return ret;
-}
+//#include "ModuleInterface.h"
+//#include "Application.h"
+//#include "ModuleRender.h"
+//#include "ModuleTextures.h"
+//
+//
+//ModuleInterface::ModuleInterface()
+//{
+//}
+//
+//
+//ModuleInterface::~ModuleInterface()
+//{
+//}
+//
+//
+//bool ModuleInterface::Init() {
+//
+//	graphics = nullptr;
+//
+//	return true;
+//}
+//
+//bool ModuleInterface::Start() {
+//	bool ret = true;
+//
+//	graphics = App->textures->Load("Images/sprites.png");
+//
+//	if (graphics == nullptr)
+//		ret = false;
+//	
+//	return ret;
+//}
 //
 //update_status ModuleInterface::PreUpdate() {
 //	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
