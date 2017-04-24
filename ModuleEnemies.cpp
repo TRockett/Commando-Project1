@@ -10,6 +10,7 @@
 #include <time.h>
 #include "EnemyMoto.h"
 #include "EnemyJump.h"
+#include "ModuleSceneGame.h"
 
 #define SPAWN_MARGIN 50
 
@@ -141,6 +142,7 @@ update_status ModuleEnemies::Update()
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		if(enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -236,9 +238,16 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if(enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
-			/*delete enemies[i];
-			enemies[i] = nullptr;*/
+			
+			if (c2->type == COLLIDER_PLAYER_SHOT || c2->type == EXPLOSION)
+			{
+				App->scene_game->screen_enemies--;
+				delete enemies[i];
+				enemies[i] = nullptr;
+			}
 			break;
 		}
+		
+		
 	}
 }

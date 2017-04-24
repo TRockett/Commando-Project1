@@ -177,9 +177,6 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 			collision = true;
 			prev_position;
 		}
-		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION)
-		{
-			App->scene_game->screen_enemies--;
-		}
+		
 	}
 
