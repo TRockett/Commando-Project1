@@ -40,6 +40,7 @@ bool ModuleObjects::Init() {
 	//Final door animation
 	final_door.PushBack({860, 0, 88, 43});
 	final_door.PushBack({ 962, 0, 87, 57 });
+	final_door.PushBack({ 962, 83, 96, 59 });
 	final_door.speed = 0.10f;
 
 	//Bridge animamtion
