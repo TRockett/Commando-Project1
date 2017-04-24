@@ -18,6 +18,7 @@ EnemyMoto::EnemyMoto(int x, int y) : Enemy(x, y)
 	throwing_grenade.PushBack({ 1086, 169, 46, 26 });
 	throwing_grenade.PushBack({ 1086, 200, 46, 26 });
 	throwing_grenade.PushBack({ 1086, 232, 46, 26 });
+	throwing_grenade.speed = 0.2f;
 	throwing_grenade.loop = false;	
 
 	movement.PushBack({ -2.5f, 0.0f }, 10, &riding);
@@ -45,6 +46,7 @@ void EnemyMoto::Move() {
 			else if (animation->Finished()) {
 				int deltaX = - position.x + player_pos.x;
 				int deltaY = - position.y + player_pos.y;
+				App->particles->grenade.speed = { (float)(0.02f * /*acosf*/(deltaX)), (float)(0.02f * /*asinf*/(deltaY)) };
 				App->particles->AddParticle(App->particles->grenade, position.x, position.y, GRENADE_ENEMY, COLLIDER_NONE, App->player->grenade_explosion);
 				animation->Reset();
 			}
