@@ -348,6 +348,7 @@ update_status ModuleObjects::Update() {
 				{
 
 					helicopter = helicopter3;
+					helix = helix3;
 					tree1.speed = 0.035f;
 					tree2.speed = 0.035f;			
 				}
@@ -363,6 +364,7 @@ update_status ModuleObjects::Update() {
 				if (SDL_GetTicks() - 1000 <= timer)
 				{
 					helicopter = helicopter2;
+					helix = helix2;
 					tree1.speed = 0.02f;
 					tree2.speed = 0.02f;
 			
@@ -370,6 +372,7 @@ update_status ModuleObjects::Update() {
 				else if (SDL_GetTicks() - 1200 <= timer)
 				{
 					helicopter = helicopter1;
+					helix = helix1;
 					tree1.speed = 0;
 					tree2.speed = 0;
 				}
