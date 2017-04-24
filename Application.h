@@ -21,7 +21,6 @@ class ModuleEnemies;
 class ModuleFonts;
 class Module;
 class ModuleObjects;
-//class ModuleHelicopter;
 
 class Application
 {
@@ -43,7 +42,7 @@ public:
 	ModuleEnemies* enemies;
 	ModuleFonts* fonts;
 	ModuleObjects* objects;
-	//ModuleHelicopter* helicopter;
+
 
 public:
 

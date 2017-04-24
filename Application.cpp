@@ -14,7 +14,7 @@
 #include "Moduleenemies.h"
 #include "ModuleFonts.h"
 #include "ModuleObjects.h"
-
+#include "ModuleInterface.h"
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
