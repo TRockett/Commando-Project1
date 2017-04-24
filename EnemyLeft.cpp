@@ -103,13 +103,19 @@ EnemyLeft::~EnemyLeft()
 
 void EnemyLeft::Move() {
 	position = initial_position + movement.GetCurrentPosition();
-	if (movement.Finished())
+	if (movement.Finished()||collision == true)
 	{
 		movement.Clear();
 		movement.Reset();
-		int angle = (rand() % 8) * 45 /* (M_PI / 180.0f)*/;
+		
+			angle = (rand() % 8) * 45 /* (M_PI / 180.0f)*/;
+		
+
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
+		collision = false;
+
+		
 	}
 }
 
@@ -143,3 +149,11 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	}
 	return animation;
 }
+	void EnemyLeft::OnCollision(Collider* collider)
+	{
+		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
+		{
+			collision = true;
+		}
+	}
+

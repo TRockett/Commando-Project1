@@ -19,10 +19,13 @@ private:
 	Animation e1_down_left;
 
 	Animation* GetAnimationForDirection(int dir);
+	int angle;
+	int collision = false;
 
 public:
 	EnemyLeft(int x, int y);
 	virtual ~EnemyLeft();
 	virtual void Move();
+	virtual void OnCollision(Collider* collider);
 };
 

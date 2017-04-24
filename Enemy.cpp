@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "EnemyLeft.h"
 #include "ModuleRender.h"
 
 Enemy::Enemy(int x, int y) : position(x, y), initial_position(x, y)
@@ -33,5 +34,9 @@ void Enemy::Draw(SDL_Texture* sprites)
 
 void Enemy::OnCollision(Collider* collider)
 {
+	if (collider->type == COLLIDER_WALL)
+	{
+		
+	}
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y, EXPLOSION,COLLIDER_ENEMY);
 }
