@@ -25,11 +25,11 @@ private:
 	Animation box2;
 	Animation box3;
 	Animation final_door;
-	Animation helicopter;
+	Animation* helicopter;
 	Animation helicopter1;
 	Animation helicopter2;
 	Animation helicopter3;
-	Animation helix;
+	Animation* helix;
 	Animation helix1;
 	Animation helix2;
 	Animation helix3;

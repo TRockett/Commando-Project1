@@ -125,8 +125,8 @@ bool ModuleObjects::Start() {
 	helipoint.x = (SCREEN_WIDTH / 2) + 20;
 	helipoint.y = 1908;
 	reduction = 1;
-	helicopter = helicopter1;
-	helix = helix1;
+	helicopter = &helicopter1;
+	helix = &helix1;
 
 
 	if (App->scene_game->getLevel() == 1)
@@ -319,14 +319,14 @@ update_status ModuleObjects::Update() {
 
 		if (App->scene_game->intro == true)
 		{
-			helix.speed = 0.5f;
+			helix->speed = 0.5f;
 			if (droping == false)
 			{
 				
 				if (helipoint.y > 1780)
 				{
 					helipoint.y = helipoint.y - 1;
-					helicopter.speed = 0;
+					helicopter->speed = 0;
 					timer = SDL_GetTicks();
 				}
 				else if (helipoint.y <= 1780 && helipoint.y != helipoint.y - reduction)
@@ -336,8 +336,8 @@ update_status ModuleObjects::Update() {
 						reduction = reduction - 0.01f;
 						if (SDL_GetTicks() - 4500 <= timer)
 						{
-							helicopter = helicopter2;
-							helix = helix2;
+							helicopter = &helicopter2;
+							helix = &helix2;
 							timer = SDL_GetTicks();
 							tree1.speed = 0.02f;
 							tree2.speed = 0.02f;
@@ -347,7 +347,7 @@ update_status ModuleObjects::Update() {
 				else if (SDL_GetTicks() - 1000 <= timer)
 				{
 
-					helicopter = helicopter3;
+					helicopter = &helicopter3;
 					tree1.speed = 0.035f;
 					tree2.speed = 0.035f;			
 				}
@@ -362,14 +362,14 @@ update_status ModuleObjects::Update() {
 	
 				if (SDL_GetTicks() - 1000 <= timer)
 				{
-					helicopter = helicopter2;
+					helicopter = &helicopter2;
 					tree1.speed = 0.02f;
 					tree2.speed = 0.02f;
 			
 				}
 				else if (SDL_GetTicks() - 1200 <= timer)
 				{
-					helicopter = helicopter1;
+					helicopter = &helicopter1;
 					tree1.speed = 0;
 					tree2.speed = 0;
 				}
@@ -379,8 +379,8 @@ update_status ModuleObjects::Update() {
 			
 				
 			}
-			AnimationFrame frame = helicopter.GetCurrentFrame();
-			AnimationFrame helixfr = helix.GetCurrentFrame();
+			AnimationFrame frame = helicopter->GetCurrentFrame();
+			AnimationFrame helixfr = helix->GetCurrentFrame();
 			iPoint pivot = frame.pivot;
 			iPoint pivot2 = helixfr.pivot;
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);

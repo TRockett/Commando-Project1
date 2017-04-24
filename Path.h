@@ -73,7 +73,7 @@ public:
 
 	void Clear() {
 		last_step = 0;
-		loop = true;
+		loop = false;
 		for (int i = 0; i < MAX_STEPS; i++) {
 			steps[i].animation = nullptr;
 			steps[i].frames = 1;

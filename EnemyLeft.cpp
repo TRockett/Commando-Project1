@@ -104,7 +104,7 @@ void EnemyLeft::Move() {
 		movement.Clear();
 		movement.Reset();
 		int random = (rand() % 8) * 45 * (M_PI / 180.0f);
-		movement.PushBack({ sinf((float)random), cosf((float)random) }, 1000);
+		movement.PushBack({ sinf((float)random), cosf((float)random) }, 100);
 	}
 }
 
