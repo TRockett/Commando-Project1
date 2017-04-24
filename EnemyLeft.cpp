@@ -86,6 +86,29 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 	e1_backward.loop = true;
 	e1_backward.speed = 0.15f;
 
+	//death
+	death.PushBack({0, 459, 15, 14});
+
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 17, 449, 23, 26 });
+
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.PushBack({ 43, 449, 23, 26 });
+	death.PushBack({ 0, 459, 15, 14 });
+	death.loop = false;
+	death.speed = 0.5f;
+
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 
