@@ -17,6 +17,7 @@ private:
 	Animation e1_up_left;
 	Animation e1_down_right;
 	Animation e1_down_left;
+	Animation death;
 
 	Animation* GetAnimationForDirection(int dir);
 	int angle;
