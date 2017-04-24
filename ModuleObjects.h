@@ -28,6 +28,7 @@ private:
 	Animation helicopter1;
 	Animation helix1;
 	Animation helix2;
+	Animation helix3;
 	Animation helicopter2;
 	fPoint helipoint;
 	float reduction;

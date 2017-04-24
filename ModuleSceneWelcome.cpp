@@ -27,6 +27,11 @@ bool ModuleSceneWelcome::Init() {
 	welcome_anim.PushBack({ 20,1800,216,256 });
 	welcome_anim.PushBack({ 20,0,216,256 });
 
+	screen_welcome = nullptr;
+	screen_1.speed = 0.05f;
+	screen_1.PushBack({ 0, 0, 224, 182 });
+	screen_1.PushBack({ 252, 0, 224, 182 });
+	screen_1.PushBack({ 0, 203, 224, 182 });
 
 	return true;
 }
@@ -36,11 +41,14 @@ bool ModuleSceneWelcome::Start() {
 
 	background_graphics = App->textures->Load("Images/Mapa4.png");
 	title_graphics = App->textures->Load("Images/title.png");
+	screen_welcome = App->textures->Load("Images/screen1.png");
+
 	if (background_graphics == nullptr)
 		ret = false;
 	if (title_graphics == nullptr)
 		ret = false;
-
+	if (screen_welcome == nullptr)
+		ret = false;
 	return ret;
 }
 
@@ -54,6 +62,11 @@ update_status ModuleSceneWelcome::Update() {
 	bool ret = false;
 	AnimationFrame frame = welcome_anim.GetCurrentFrame();
 	ret = App->render->Blit(background_graphics, 0 + frame.pivot.x, 0 + frame.pivot.y, &frame.rect, 0.0f);
+	if (welcome_anim.getFrameIndex() == 0) 
+	{
+		App->render->Blit(screen_welcome, 0, 70, &screen_1.GetCurrentFrame().rect);
+
+	}
 	if (welcome_anim.getFrameIndex() != 0)
 		App->render->Blit(title_graphics, 10, 56, nullptr, 0);
 

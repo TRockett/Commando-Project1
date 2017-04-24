@@ -13,8 +13,9 @@ class ModuleSceneWelcome :
 private:
 	SDL_Texture* background_graphics;
 	SDL_Texture* title_graphics;
+	SDL_Texture* screen_welcome;
 	Animation welcome_anim;
-
+	Animation screen_1;
 public:
 	bool Init();
 	bool Start();

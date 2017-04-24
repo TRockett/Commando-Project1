@@ -66,7 +66,7 @@ bool ModuleObjects::Init() {
 
 
 
-	helix1.PushBack({ 785, 419, 96, 33 });
+	helix1.PushBack({ 785, 419, 96, 33 }, {});
 	helix1.PushBack({ 875, 459, 96, 33 });
 	helix1.PushBack({ 800, 553, 79, 21 });
 	helix1.PushBack({ 857, 503, 42, 45 });
