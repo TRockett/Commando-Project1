@@ -234,16 +234,13 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 0, 0, 87, 25 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 170, 0, 86, 25 }, COLLIDER_WALL);
 
-		//Colliders for the box
+		//Colliders for the boxes
 		App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX);
 		App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX);
 		App->collision->AddCollider({ 30, 274,	 20, 16 }, COLLIDER_BOX);
 		
 		App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX);
 		App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX);
-
-		
-
 	}
 
 

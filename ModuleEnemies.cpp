@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "EnemyLeft.h"
 #include <random>
+#include <time.h>
 #include "EnemyMoto.h"
 #include "EnemyJump.h"
 
@@ -14,6 +15,8 @@
 
 ModuleEnemies::ModuleEnemies()
 {
+	srand(time(nullptr));
+
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 
@@ -233,8 +236,8 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if(enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
-			delete enemies[i];
-			enemies[i] = nullptr;
+			/*delete enemies[i];
+			enemies[i] = nullptr;*/
 			break;
 		}
 	}
