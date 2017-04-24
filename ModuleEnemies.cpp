@@ -8,6 +8,7 @@
 #include "EnemyLeft.h"
 #include <random>
 #include "EnemyMoto.h"
+#include "EnemyJump.h"
 
 #define SPAWN_MARGIN 50
 
@@ -216,6 +217,10 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 
 			case ENEMY_TYPES::MOTO_TYPE:
 				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y);
+				break;
+			
+			case ENEMY_TYPES::JUMPING_ENEMY:
+				enemies[i] = new EnemyJump(info.pos.x, info.pos.y);
 				break;
 		}
 	}

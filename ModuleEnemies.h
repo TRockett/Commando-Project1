@@ -15,6 +15,7 @@ enum ENEMY_TYPES
 	LEFT_WEAPON,
 	RIGHT_WEAPON,
 	MOTO_TYPE,
+	JUMPING_ENEMY,
 };
 
 class Enemy;
