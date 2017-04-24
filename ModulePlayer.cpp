@@ -194,7 +194,7 @@ update_status ModulePlayer::Update()
 				parabol = parabol - 0.015f ;
 				if (current_animation->Finished() == true)
 				{
-					intro_state = true;
+					intro_state = 1;
 				}
 			}
 			else if (intro_state == 1)
@@ -286,7 +286,7 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-
+	SDL_Rect* camera = &App->render->camera;
 
 	if ((int)position.x - frame.pivot.x < 20)
 		position.x = (float)frame.pivot.x + 20.0f;
@@ -294,20 +294,24 @@ update_status ModulePlayer::Update()
 		position.x = SCREEN_WIDTH + 20.0f - (float)frame.rect.w + (float)frame.pivot.x;
 	if ((int)position.y - frame.pivot.y < 0)
 		position.y = (float)frame.pivot.y;
-	else if ((int)position.y - frame.pivot.y + frame.rect.h > SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE))
-		position.y = SCREEN_HEIGHT + (-App->render->camera.y / SCREEN_SIZE) - (float)frame.rect.h + (float)frame.pivot.y;
+	else if ((int)position.y - frame.pivot.y + frame.rect.h > SCREEN_HEIGHT + (-camera->y / SCREEN_SIZE))
+		position.y = SCREEN_HEIGHT + (-camera->y / SCREEN_SIZE) - (float)frame.rect.h + (float)frame.pivot.y;
 
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
 	int margin = 110; //Must be equal to the player's initial position
-	player_min_y = MIN(player_min_y, (int)position.y);
-	
-	if (App->render->camera.y < 0)
-		App->render->camera.y = (-player_min_y + margin) * SCREEN_SIZE;
+	if (camera->y < 0 && !App->scene_game->intro) {
+		player_min_y = MIN(player_min_y, (int)position.y);
+		camera->y =(-player_min_y + margin) * SCREEN_SIZE;
+		int level_y = (App->scene_game->getLevelDimensions().y) * SCREEN_SIZE;
+		if (camera->y < -level_y)
+			camera->y = -level_y;
+		
+	}
 
 	LOG("Player position.y:: %f", position.y);
 	LOG("Player position.x:: %f", position.x);
-	LOG("Camera position.y:: %d", App->render->camera.y);
+	LOG("Camera position.y:: %d", camera->y);
 
 	App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 
