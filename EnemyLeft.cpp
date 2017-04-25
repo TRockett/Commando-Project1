@@ -125,7 +125,7 @@ EnemyLeft::~EnemyLeft()
 void EnemyLeft::Move() {
 	position = initial_position + movement.GetCurrentPosition();
 	prev_position = position;
-	if (movement.Finished()||collision == true)
+	if ((movement.Finished()||collision == true) && dead == false&& dying == false)
 	{
 		movement.Clear();
 		movement.Reset();
@@ -149,7 +149,9 @@ void EnemyLeft::Move() {
 	else if (dying == true)
 	{
 		animation = &death;
-		this->collider->type = COLLIDER_NONE;
+		App->collision->EraseCollider(this->collider);
+		this->collider = nullptr;
+		movement.Clear();
 
 		if (animation->Finished() == true)
 		{
