@@ -52,7 +52,7 @@ private:
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
 	SDL_Texture* sprites;
-
+	
 
 public:
 	//Basic enemy animations
@@ -75,6 +75,8 @@ public:
 	Animation e2_up_left;
 	Animation e2_down_right;
 	Animation e2_down_left;
+
+	bool dead;
 };
 
 #endif // __ModuleEnemies_H__

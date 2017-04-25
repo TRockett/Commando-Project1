@@ -18,6 +18,7 @@ protected:
 public:
 	iPoint position;
 	iPoint prev_position;
+	bool dead = false;
 
 public:
 	Enemy(int x, int y);

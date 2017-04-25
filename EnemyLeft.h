@@ -22,9 +22,11 @@ private:
 	Animation* GetAnimationForDirection(int dir);
 	int angle;
 	int collision = false;
+	bool dying = false;
 
 public:
 	EnemyLeft(int x, int y);
+
 	virtual ~EnemyLeft();
 	virtual void Move();
 	virtual void OnCollision(Collider* collider);

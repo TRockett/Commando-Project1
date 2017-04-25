@@ -136,11 +136,14 @@ update_status ModuleEnemies::PreUpdate()
 // Called before render is available
 update_status ModuleEnemies::Update()
 {
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
-		if(enemies[i] != nullptr) enemies[i]->Move();
+	
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr) enemies[i]->Move();
 
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
-		if(enemies[i] != nullptr) enemies[i]->Draw(sprites);
+		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+
+	}
 
 	
 	return UPDATE_CONTINUE;
@@ -239,12 +242,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		{
 			enemies[i]->OnCollision(c2);
 			
-			if (c2->type == COLLIDER_PLAYER_SHOT || c2->type == EXPLOSION)
-			{
-				App->scene_game->screen_enemies--;
-				delete enemies[i];
-				enemies[i] = nullptr;
-			}
+			
 			break;
 		}
 		
