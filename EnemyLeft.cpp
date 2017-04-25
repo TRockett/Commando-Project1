@@ -156,6 +156,7 @@ void EnemyLeft::Move() {
 		if (animation->Finished() == true)
 		{
 			dead = true;
+			App->scene_game->screen_enemies--;
 			App->enemies->EraseEnemy(this);
 		}
 	}
@@ -200,7 +201,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		}
 		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
 		{
-			App->scene_game->screen_enemies--;
+
 			dying = true;
 		}
 		
