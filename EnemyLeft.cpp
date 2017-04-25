@@ -150,7 +150,6 @@ void EnemyLeft::Move() {
 	{
 		animation = &death;
 		App->collision->EraseCollider(this->collider);
-		this->collider = nullptr;
 		movement.Clear();
 		movement.Reset();
 

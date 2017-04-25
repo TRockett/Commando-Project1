@@ -98,14 +98,14 @@ update_status ModuleCollision::Update()
 			continue;
 
 		c1 = colliders[i];
-		if (c1->active == false)
+		if (c1->active == false || c1->to_delete == true)
 			continue;
 
 		// avoid checking collisions already checked
 		for(uint k = i+1; k < MAX_COLLIDERS; ++k)
 		{
 			// skip empty colliders
-			if(colliders[k] == nullptr)
+			if(colliders[k] == nullptr || colliders[i]->to_delete == true)
 				continue;
 
 			c2 = colliders[k];
@@ -140,7 +140,7 @@ void ModuleCollision::DebugDraw()
 		if(colliders[i] == nullptr)
 			continue;
 
-		if (colliders[i]->active == false)
+		if (colliders[i]->active == false || colliders[i]->to_delete == true)
 			continue;
 		
 		switch(colliders[i]->type)
@@ -210,10 +210,9 @@ bool ModuleCollision::EraseCollider(Collider* collider)
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] == collider)
+		if(colliders[i] == collider && colliders[i] != nullptr)
 		{
-			delete colliders[i];
-			colliders[i] = nullptr;
+			colliders[i]->to_delete = true;
 			return true;
 		}
 	}

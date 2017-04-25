@@ -40,7 +40,7 @@ bool ModuleSceneGame::Start() {
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
-	font = App->fonts->Load("Images/Fuentes.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789¡      ABCDEFGHIJKLMNOPQRSTUVWXYZ./0/0   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 1, 2);
+	font = App->fonts->Load("Images/Fuentes_small.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
 
 	//Enabling modules
 	
@@ -90,7 +90,7 @@ update_status ModuleSceneGame::Update() {
 		}
 	}
 
-	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, font, "score");
+	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2 - 50, 0, font, "score");
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
