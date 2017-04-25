@@ -11,8 +11,8 @@
 #include "ModuleEnemies.h"
 #include <string>
 #include "ModuleObjects.h"
-#include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
+
 
 ModuleSceneGame::ModuleSceneGame()
 {
@@ -41,11 +41,11 @@ bool ModuleSceneGame::Start() {
 
 	font = App->fonts->Load("Images/Fuentes.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789¡      ABCDEFGHIJKLMNOPQRSTUVWXYZ./0/0   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 1, 2);
 	font = App->fonts->Load("Images/rtype_font3.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
+
 	//Enabling modules
 	
 	App->collision->Enable();
 	App->objects->Enable();
-	App->fonts->Enable();
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -81,7 +81,7 @@ update_status ModuleSceneGame::Update() {
 		{
 			if (SDL_GetTicks()  >= timer + 200)
 			{
-				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (level_dimensions.y - SCREEN_HEIGHT));
+				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) - 20));
 				timer = timer + 1000;
 				screen_enemies++;
 			}
@@ -103,7 +103,6 @@ bool ModuleSceneGame::CleanUp() {
 	App->collision->Disable();
 	App->enemies->Disable();
 	App->objects->Disable();
-	App->fonts->Disable();
 
 	App->fonts->UnLoad(font);
 	ret = App->textures->Unload(background_graphics);
