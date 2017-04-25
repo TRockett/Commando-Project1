@@ -11,7 +11,7 @@
 #include "EnemyMoto.h"
 #include "EnemyJump.h"
 #include "ModuleSceneGame.h"
-
+#include "EnemyGrenade.h"
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -21,80 +21,6 @@ ModuleEnemies::ModuleEnemies()
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 
-	//ENEMY WITH WEAPON (LEFT)
-
-	// walk forward animation (arcade sprite sheet)
-
-	e1_forward.PushBack({ 30, 209, 13, 23 });
-	e1_forward.PushBack({ 0, 209, 13, 23 });
-	e1_forward.PushBack({ 30, 209, 13, 23 });
-	e1_forward.PushBack({ 17, 209, 13, 23 });
-	
-	e1_forward.loop = true;
-	e1_forward.speed = 0.15f;
-
-	//walk diagonal down-left
-
-	e1_down_left.PushBack({ 18,258,13,23 });
-	e1_down_left.PushBack({ 0,257,15,22 });
-	e1_down_left.PushBack({ 18,258,13,23 });
-	e1_down_left.PushBack({ 32,258,15,23 });
-	e1_down_left.speed = 0.15f;
-
-	//walk diagonal down-right
-
-	e1_down_right.PushBack({ 66,259,13,23 });
-	e1_down_right.PushBack({ 49,258,15,22 });
-	e1_down_right.PushBack({ 66,259,13,23 });
-	e1_down_right.PushBack({ 81,258,15,23 });
-	e1_down_right.speed = 0.15f;
-
-	//walk diagonal up-right enemy
-
-	e1_up_right.PushBack({ 0,282,15,23 });
-	e1_up_right.PushBack({ 16,282,16,23 });
-	e1_up_right.PushBack({ 0,282,15,23 });
-	e1_up_right.PushBack({ 32,282,16,22 });
-	e1_up_right.speed = 0.15f;
-
-	//walk diagonal up-left
-
-	e1_up_left.PushBack({ 81,281,15,23 });
-	e1_up_left.PushBack({ 65,282,16,23 });
-	e1_up_left.PushBack({ 81,281,15,23 });
-	e1_up_left.PushBack({ 49,282,16,22});
-	e1_up_left.speed = 0.15f;
-
-	//walk right animation enemyy
-
-
-	e1_left.PushBack({ 0,306,16,24 });
-	e1_left.PushBack({ 17,306,18,22 }, { 2,0 });
-	e1_left.PushBack({ 0,306,16,24 });
-	e1_right.PushBack({ 36,306,16,22 }, { 2,0 });
-	
-	e1_right.loop = true;
-	e1_right.speed = 0.15f;
-
-
-	//walk left annimation enemy
-
-	
-	e1_left.PushBack({ 88,306,16,24 }, { 7,0 });
-	e1_left.PushBack({ 69,306,18,22 }, { 7,0 });
-	e1_left.PushBack({ 88,306,16,24 }, { 7,0 });
-	e1_left.PushBack({ 53,306,15,22}, { 7,0 });
-	e1_left.loop = true;
-	e1_left.speed = 0.15f;
-
-	//walk backward animation emey
-
-	e1_backward.PushBack({ 12, 331, 13, 22 });
-	e1_backward.PushBack({ 0, 331, 12, 22 });
-	e1_backward.PushBack({ 12, 331, 13, 22 });
-	e1_backward.PushBack({ 15, 331, 13, 22 });
-	e1_backward.loop = true;
-	e1_backward.speed = 0.15f;
 }
 
 
@@ -226,6 +152,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			
 			case ENEMY_TYPES::JUMPING_ENEMY:
 				enemies[i] = new EnemyJump(info.pos.x, info.pos.y);
+				break;
+			case ENEMY_TYPES::GRENADE_ENEMY:
+				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y);
 				break;
 		}
 	}
