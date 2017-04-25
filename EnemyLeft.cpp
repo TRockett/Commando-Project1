@@ -117,6 +117,7 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 	movement.loop = false;
 
 	animation = &e1_forward;
+	angle = (rand() % 8) * 45;
 }
 
 
@@ -147,8 +148,16 @@ void EnemyLeft::Move() {
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
 		collision = false;
+	}
+	else if (dying == true)
+	{
+		animation = &death;
+		this->collider->type = COLLIDER_NONE;
 
-		
+		if (animation->Finished() == true)
+		{
+			dead = true;
+		}
 	}
 }
 
@@ -187,7 +196,12 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
 		{
 			collision = true;
-			prev_position;
+			prev_position = position;
+		}
+		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
+		{
+			App->scene_game->screen_enemies--;
+			dying = true;
 		}
 		
 	}
