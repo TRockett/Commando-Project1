@@ -4,6 +4,8 @@
 #include "ModuleParticles.h"
 #include "EnemyLeft.h"
 #include "ModuleRender.h"
+#include "ModuleSceneGame.h"
+#include <math.h>
 
 Enemy::Enemy(int x, int y) : position(x, y), initial_position(x, y)
 {}
@@ -39,4 +41,37 @@ void Enemy::OnCollision(Collider* collider)
 		
 	}
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y, EXPLOSION,COLLIDER_ENEMY);
+}
+int Enemy::Collisionangle(Collider* c1, Collider* c2)
+{
+	iPoint dimensions = App->scene_game->getLevelDimensions();
+	iPoint diference;
+	diference.y = (dimensions.y - c2->rect.y) - (dimensions.y - c1->rect.y);
+	diference.x = (dimensions.x - c2->rect.x) - (dimensions.x - c1->rect.x);
+
+	int angle = 0;
+	if (diference.y == 0)
+	{
+		if (diference.x > 0)
+		{
+			angle = 90;
+		}
+		else
+			angle = -90;
+	}
+	else if (diference.x == 0)
+	{
+		if (diference.x > 0)
+		{
+			angle = 180;
+		}
+		else
+			angle = -180;
+
+	}
+	else 
+		angle = asin(diference.y / diference.x)* 180.0 / M_PI;
+
+	return angle;
+	
 }

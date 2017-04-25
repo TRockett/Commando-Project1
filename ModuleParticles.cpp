@@ -42,6 +42,7 @@ bool ModuleParticles::Start()
 	bullet.speed.y = PLAYER_BULLET_SPEED;
 	bullet.life = 300;
 
+
 	// grenade animation
 	grenade.anim.PushBack({ 0, 131, 4, 5 }, { 2, 2 });
 	grenade.anim.PushBack({ 4,131,5,6 }, { 2, 3 });

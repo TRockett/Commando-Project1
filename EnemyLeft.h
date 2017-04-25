@@ -23,6 +23,7 @@ private:
 	int angle;
 	int collision = false;
 	bool dying = false;
+	int timer;
 
 public:
 	EnemyLeft(int x, int y);

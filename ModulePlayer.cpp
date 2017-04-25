@@ -361,7 +361,11 @@ void ModulePlayer::checkInput() {
 	}
 	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
 	{
-		collider->type = COLLIDER_NONE;
+		if (collider->type != COLLIDER_NONE)
+			collider->type = COLLIDER_NONE;
+
+		else
+			collider->type = COLLIDER_PLAYER;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)

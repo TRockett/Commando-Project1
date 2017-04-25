@@ -4,7 +4,8 @@
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneGame.h"
-
+#include "SDL/include/SDL_timer.h"
+#include "ModulePlayer.h"
 
 EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 {
@@ -115,6 +116,7 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 
 	animation = &e1_forward;
 	angle = (rand() % 8) * 45;
+	timer = SDL_GetTicks();
 }
 
 
@@ -125,6 +127,19 @@ EnemyLeft::~EnemyLeft()
 void EnemyLeft::Move() {
 	position = initial_position + movement.GetCurrentPosition();
 	prev_position = position;
+	iPoint player_pos = App->player->GetPosition();
+
+	if (SDL_GetTicks() >= timer + 1000)
+	{
+		float deltaX = -position.x + player_pos.x;
+		float deltaY = -position.y + player_pos.y;
+		float angle = atan2f(deltaY, deltaX);
+
+		App->particles->bullet.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
+		App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+		timer = SDL_GetTicks();
+	}
+
 	if ((movement.Finished()||collision == true) && dead == false&& dying == false)
 	{
 		movement.Clear();
@@ -133,15 +148,7 @@ void EnemyLeft::Move() {
 		{
 			int angle = (rand() % 8) * 45;
 		}
-		else
-		{
-			if (angle <= 90)
-			{
-				angle += 90;
-			}
-			else
-			angle -= 90;
-		}
+		
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
 		collision = false;
@@ -197,6 +204,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
 		{
 			collision = true;
+			angle = - Collisionangle(this->collider, collider);
 			prev_position = position;
 		}
 		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
