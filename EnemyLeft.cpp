@@ -131,7 +131,19 @@ void EnemyLeft::Move() {
 	{
 		movement.Clear();
 		movement.Reset();
-		int angle = (rand() % 8) * 45;
+		if (collision != true)
+		{
+			int angle = (rand() % 8) * 45;
+		}
+		else
+		{
+			if (angle <= 90)
+			{
+				angle += 90;
+			}
+			else
+			angle -= 90;
+		}
 		animation = GetAnimationForDirection(angle);
 		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
 		collision = false;
