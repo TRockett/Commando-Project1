@@ -359,6 +359,10 @@ void ModulePlayer::checkInput() {
 		grenade1 = true;
 	
 	}
+	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
+	{
+		collider->type = COLLIDER_NONE;
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
 		speed = 10;
