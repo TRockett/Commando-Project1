@@ -120,14 +120,17 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 
 void ModuleFonts::SetTextToDraw(int x, int y, int font_bmp_id, const char* text) {
 	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		if (petitions[i] == nullptr)
+		if (petitions[i] == nullptr) {
 			petitions[i] = new DrawPetition{ font_bmp_id, x, y, text };
+			break;
+		}
 	}
 }
 
 update_status ModuleFonts::PostUpdate() {
 	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
 		if (petitions[i] != nullptr) {
+			LOG("Printed fonts at y:: %d", petitions[i]->y);
 			BlitText(petitions[i]->x, petitions[i]->y, petitions[i]->fontID, petitions[i]->text);
 			delete petitions[i];
 			petitions[i] = nullptr;

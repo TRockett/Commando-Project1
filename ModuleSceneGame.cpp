@@ -40,7 +40,7 @@ bool ModuleSceneGame::Start() {
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
 	font = App->fonts->Load("Images/Fuentes.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789¡      ABCDEFGHIJKLMNOPQRSTUVWXYZ./0/0   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 1, 2);
-
+	font = App->fonts->Load("Images/rtype_font3.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
 	//Enabling modules
 	
 	App->collision->Enable();
@@ -49,14 +49,10 @@ bool ModuleSceneGame::Start() {
 
 	if (background_graphics == nullptr)
 		ret = false;
-	
-	
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
 
-
-	
 	return ret;
 }
 
@@ -89,17 +85,14 @@ update_status ModuleSceneGame::Update() {
 				timer = timer + 1000;
 				screen_enemies++;
 			}
-
 		}
 	}
-
-
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	App->fonts->SetTextToDraw(0, 0, font, "SCORE");
+	App->fonts->BlitText(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, font, "SCORE");
 	return UPDATE_CONTINUE;
 }
 
@@ -112,6 +105,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->objects->Disable();
 	App->fonts->Disable();
 
+	App->fonts->UnLoad(font);
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;
