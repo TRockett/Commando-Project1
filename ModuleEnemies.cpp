@@ -143,7 +143,6 @@ update_status ModuleEnemies::Update()
 
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
-
 	}
 
 	
