@@ -11,6 +11,7 @@
 #include "ModuleEnemies.h"
 #include <string>
 #include "ModuleObjects.h"
+#include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
 
 
@@ -40,7 +41,6 @@ bool ModuleSceneGame::Start() {
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
 	font = App->fonts->Load("Images/Fuentes.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789¡      ABCDEFGHIJKLMNOPQRSTUVWXYZ./0/0   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 1, 2);
-	font = App->fonts->Load("Images/rtype_font3.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
 
 	//Enabling modules
 	
@@ -90,11 +90,12 @@ update_status ModuleSceneGame::Update() {
 		}
 	}
 
+	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, font, "score");
+
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	App->fonts->BlitText(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, font, "SCORE");
 	return UPDATE_CONTINUE;
 }
 

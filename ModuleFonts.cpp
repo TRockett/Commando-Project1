@@ -127,7 +127,7 @@ void ModuleFonts::SetTextToDraw(int x, int y, int font_bmp_id, const char* text)
 	}
 }
 
-update_status ModuleFonts::PostUpdate() {
+update_status ModuleFonts::Update() {
 	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
 		if (petitions[i] != nullptr) {
 			LOG("Printed fonts at y:: %d", petitions[i]->y);

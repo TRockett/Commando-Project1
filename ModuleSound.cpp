@@ -99,8 +99,9 @@ void ModuleSound::StopMusic(bool pause) {
 bool ModuleSound::PlaySound(Mix_Chunk* sound, int loops) {
 	bool ret = true;
 
-	if (Mix_PlayChannel(-1, sound, loops) < 0)
-		ret = false;
+	if (IsEnabled())
+		if (Mix_PlayChannel(-1, sound, loops) < 0)
+			ret = false;
 
 	return ret;
 }

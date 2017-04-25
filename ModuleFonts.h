@@ -38,7 +38,7 @@ public:
 
 	// Create a surface from text
 	void BlitText(int x, int y, int bmp_font_id, const char* text) const;
-	update_status PostUpdate();
+	update_status Update();
 
 private:
 	DrawPetition* petitions[MAX_DRAW_PETITIONS];

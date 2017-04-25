@@ -140,12 +140,9 @@ update_status ModuleEnemies::Update()
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr) enemies[i]->Move();
-
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
-
 	}
 
-	
 	return UPDATE_CONTINUE;
 }
 
@@ -220,8 +217,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch(info.type)
 		{
 			case ENEMY_TYPES::LEFT_WEAPON:
-			enemies[i] = new EnemyLeft(info.pos.x,info.pos.y);
-			break;
+				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y);
+				break;
 
 			case ENEMY_TYPES::MOTO_TYPE:
 				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y);
@@ -241,11 +238,18 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if(enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
-			
-			
 			break;
 		}
-		
-		
 	}
+}
+
+bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
+	for (int i = 0; i < MAX_ENEMIES; i++) {
+		if (enemies[i] == enemy) {
+			delete enemies[i];
+			enemies[i] = nullptr;
+			return true;
+		}
+	}
+	return false;
 }
