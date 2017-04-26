@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "Animation.h"
+#include "Path.h"
 
 class EnemyJump :
 	public Enemy
@@ -35,5 +36,5 @@ public:
 	virtual void Move();
 	virtual void OnCollision(Collider* collider);
 };
-};
+
 
