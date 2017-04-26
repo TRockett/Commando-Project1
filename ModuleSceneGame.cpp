@@ -47,6 +47,8 @@ bool ModuleSceneGame::Start() {
 	
 	App->collision->Enable();
 	App->objects->Enable();
+	App->particles->Enable();
+
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -125,6 +127,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->collision->Disable();
 	App->enemies->Disable();
 	App->objects->Disable();
+	App->particles->Disable();
 
 	//App->fonts->UnLoad(font);
 	App->player->lives = 3;

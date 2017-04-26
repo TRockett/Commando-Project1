@@ -35,6 +35,7 @@ ModulePlayer::ModulePlayer()
 	down_left.PushBack({120,24,15,22});
 	down_left.PushBack({105,24,15,22});
 	down_left.PushBack({137,24,15,22});
+	down_left.loop = true;
 	down_left.speed = 0.15f;
 
 	//walk diagonal down-right
@@ -43,6 +44,7 @@ ModulePlayer::ModulePlayer()
 	down_right.PushBack({56,23,15,22});
 	down_right.PushBack({88,23,15,22});
 	down_right.PushBack({73,23,15,22});
+	down_right.loop = true;
 	down_right.speed = 0.15f;
 
 	//walk diagonal up-right
@@ -51,6 +53,7 @@ ModulePlayer::ModulePlayer()
 	up_right.PushBack({ 38,47,18,21 }, { 2,0 });
 	up_right.PushBack({0,47,15,22 });
 	up_right.PushBack({16,47,21,21}, { 7,0 });
+	up_right.loop = true;
 	up_right.speed = 0.15f;
 
 	//walk diagonal down-left
@@ -59,6 +62,7 @@ ModulePlayer::ModulePlayer()
 	up_left.PushBack({56,47,18,21});
 	up_left.PushBack({ 97,47,15,22 });
 	up_left.PushBack({75,47,21,21});
+	up_left.loop = true;
 	up_left.speed = 0.15f;
 
 	//walk right animation
@@ -259,6 +263,7 @@ update_status ModulePlayer::Update()
 			Particle bullet = App->particles->bullet;
 
 			bullet.speed = { (PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180.0f)), (-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180.0f))};
+			bullet.life = 300;
 			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180.0f), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180.0f), EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);

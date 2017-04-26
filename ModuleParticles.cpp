@@ -230,7 +230,7 @@ fx(p.fx), born(p.born), life(p.life)
 
 Particle::~Particle()
 {
-	if(collider != nullptr)
+	if (collider != nullptr)
 		App->collision->EraseCollider(collider);
 }
 
@@ -243,7 +243,6 @@ bool Particle::Update()
 	{
 		if ((ticks - born) > life)
 			ret = false;
-	
 	}
 	else
 		if(anim.Finished())

@@ -300,11 +300,6 @@ update_status ModuleObjects::Update() {
 				App->render->Blit(sprite_graphics, boxes[i]->rect.x, boxes[i]->rect.y, &box.GetCurrentFrame().rect);
 			}
 		}
-		/*App->render->Blit(sprite_graphics, 148, 1336, &box.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 195, 900, &box2.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 140, 430, &box.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 200, 212, &box3.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);*/
 		
 		if (App->player->position.y <= 234)
 		{
@@ -325,7 +320,6 @@ update_status ModuleObjects::Update() {
 				}
 				else if (helipoint.y <= 1780 && helipoint.y != helipoint.y - reduction)
 				{
-
 						helipoint.y = helipoint.y - reduction;
 						reduction = reduction - 0.01f;
 						if (SDL_GetTicks() - 4500 <= timer)
@@ -395,14 +389,11 @@ update_status ModuleObjects::PostUpdate() {
 
 bool ModuleObjects::CleanUp() {
 	bool ret = true;
-	
-	
+
 	App->collision->Disable();
 	App->enemies->Disable();
 
 	ret = App->textures->Unload(sprite_graphics);
-
-	
 
 	return ret;
 }
