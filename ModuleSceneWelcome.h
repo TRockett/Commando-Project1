@@ -19,8 +19,6 @@ private:
 	Animation welcome_anim;
 	Animation screen_1;
 public:
-	char score_text[100];
-	uint score = 0;
 	bool Init();
 	bool Start();
 	update_status PreUpdate();

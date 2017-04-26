@@ -83,7 +83,6 @@ update_status ModuleSceneWelcome::Update() {
 update_status ModuleSceneWelcome::PostUpdate() {
 	App->fonts->BlitText(15, 0, font, "1up");
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 30, 0, font, "top score");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 103, 8, font, score_text);
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 15, 8, font, "50000");
 	return UPDATE_CONTINUE;
 }
