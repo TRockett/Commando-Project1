@@ -51,9 +51,19 @@ bool ModuleSceneGame::Start() {
 	if (background_graphics == nullptr)
 		ret = false;
 
+	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
+	newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");
+
+	if (intro)
+		App->sound->PlaySound(intro_music, 0);
+	else {
+		App->sound->PlaySound(newstart, 0);
+	}
+	
+
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
-
+	
 	return ret;
 }
 
@@ -89,6 +99,11 @@ update_status ModuleSceneGame::Update() {
 				screen_enemies++;
 			}
 		}
+
+		if (!App->sound->isPlaying()) {
+			App->sound->PlayMusic();
+		}
+
 	}
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
@@ -118,6 +133,5 @@ bool ModuleSceneGame::CleanUp() {
 }
 
 void ModuleSceneGame::onFadeInEnd() {
-	App->sound->PlayMusic();
 	restart = false;
 }

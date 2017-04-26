@@ -7,7 +7,7 @@
 
 #define MAX_LEVEL 2
 struct SDL_Texture;
-
+struct Mix_Chunk;
 
 class ModuleSceneGame :
 	public Module
@@ -31,6 +31,9 @@ public:
 	bool intro = false;
 	int screen_enemies;
 	Module* next;
+	
+	Mix_Chunk* intro_music;
+	Mix_Chunk* newstart;
 
 	iPoint getLevelDimensions() {
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };
