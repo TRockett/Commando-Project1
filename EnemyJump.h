@@ -21,7 +21,8 @@ private:
 	Animation death;
 	Animation walk;
 	Animation jump;
-
+	
+	bool jump_int = true;
 
 	Animation* GetAnimationForDirection(int dir);
 	int angle;

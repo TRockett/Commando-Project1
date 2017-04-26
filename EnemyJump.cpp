@@ -149,46 +149,56 @@ EnemyJump::~EnemyJump()
 
 
 void EnemyJump::Move() {
-	position = initial_position + movement.GetCurrentPosition();
-	prev_position = position;
-	iPoint player_pos = App->player->GetPosition();
+	
 
-	if (SDL_GetTicks() >= timer + 1000)
+
+	if (jump_int == true)
 	{
-		float deltaX = -position.x + player_pos.x;
-		float deltaY = -position.y + player_pos.y;
-		float angle = atan2f(deltaY, deltaX);
 
-		App->particles->bullet.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
-		App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
-		timer = SDL_GetTicks();
 	}
+	else
+	{		
+		position = initial_position + movement.GetCurrentPosition();
+		prev_position = position;
+		iPoint player_pos = App->player->GetPosition();
 
-	if ((movement.Finished() || collision == true) && dead == false && dying == false)
-	{
-		movement.Clear();
-		movement.Reset();
-		if (collision != true)
+		if (SDL_GetTicks() >= timer + 1000)
 		{
-			int angle = (rand() % 8) * 45;
+			float deltaX = -position.x + player_pos.x;
+			float deltaY = -position.y + player_pos.y;
+			float angle = atan2f(deltaY, deltaX);
+
+			App->particles->bullet.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
+			App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+			timer = SDL_GetTicks();
 		}
 
-		animation = GetAnimationForDirection(angle);
-		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
-		collision = false;
-	}
-	else if (dying == true)
-	{
-		animation = &death;
-		App->collision->EraseCollider(this->collider);
-		movement.Clear();
-		movement.Reset();
-
-		if (animation->Finished() == true)
+		if ((movement.Finished() || collision == true) && dead == false && dying == false)
 		{
-			dead = true;
-			App->scene_game->screen_enemies--;
-			App->enemies->EraseEnemy(this);
+			movement.Clear();
+			movement.Reset();
+			if (collision != true)
+			{
+				int angle = (rand() % 8) * 45;
+			}
+
+			animation = GetAnimationForDirection(angle);
+			movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
+			collision = false;
+		}
+		else if (dying == true)
+		{
+			animation = &death;
+			App->collision->EraseCollider(this->collider);
+			movement.Clear();
+			movement.Reset();
+
+			if (animation->Finished() == true)
+			{
+				dead = true;
+				App->scene_game->screen_enemies--;
+				App->enemies->EraseEnemy(this);
+			}
 		}
 	}
 }

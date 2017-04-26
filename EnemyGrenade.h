@@ -18,5 +18,6 @@ private:
 public:
 	EnemyGrenade(int x, int y);
 	virtual ~EnemyGrenade();
+
 };
 

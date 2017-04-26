@@ -105,3 +105,4 @@ EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y)
 EnemyGrenade::~EnemyGrenade()
 {
 }
+
