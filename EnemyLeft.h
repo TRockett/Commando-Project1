@@ -23,6 +23,7 @@ private:
 	int angle;
 	bool collision = false;
 	bool dying = false;
+	bool disappear = false;
 	int timer;
 
 public:

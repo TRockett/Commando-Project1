@@ -141,7 +141,7 @@ void EnemyLeft::Move() {
 	}
 	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH) + 30)
 	{
-		this->dying = true;
+		this->disappear = true;
 	}
 
 	if ((movement.Finished()||collision == true) && dead == false && dying == false)
@@ -174,6 +174,21 @@ void EnemyLeft::Move() {
 		{
 			dead = true;
 			App->scene_game->score = App->scene_game->score + 200;
+			App->scene_game->screen_enemies--;
+			App->enemies->EraseEnemy(this);
+		}
+	}
+	//E creat un nou bolea per diferenciar el fet de desapareixer mab el fet de morir, aixi kuan desapareguin no sumin punts al score
+	else if (disappear == true)
+	{
+		animation = &death;
+		collider->active = false;
+		movement.Clear();
+		movement.Reset();
+
+		if (animation->Finished() == true)
+		{
+			dead = true;
 			App->scene_game->screen_enemies--;
 			App->enemies->EraseEnemy(this);
 		}
