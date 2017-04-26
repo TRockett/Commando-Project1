@@ -13,7 +13,7 @@
 EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 {
 	//walking before jump
-
+	
 	walk.PushBack({703, 558, 16, 23});
 	walk.PushBack({ 724, 558, 18, 21 });
 	walk.PushBack({ 703, 556, 16, 23 });
@@ -139,7 +139,7 @@ EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 	angle = (rand() % 8) * 45;
 	timer = SDL_GetTicks();
 
-	if (position.x < SCREEN_WIDTH / 2)
+	if (position.x > SCREEN_WIDTH / 2)
 	{
 		dir = 1;
 	}
@@ -147,6 +147,7 @@ EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 	{
 		dir = -1;
 	}
+		
 
 };
 
@@ -163,8 +164,7 @@ void EnemyJump::Move() {
 	position = initial_position + movement.GetCurrentPosition();
 	prev_position = position;
 	iPoint player_pos = App->player->GetPosition();
-	if (App->player->position.y - SCREEN_HEIGHT / 2 <= position.y)
-	{
+
 		if (jump_int == true)
 		{
 			animation = &walk;
@@ -196,7 +196,7 @@ void EnemyJump::Move() {
 				}
 			}
 		}
-	}
+
 
 	else
 	{		
