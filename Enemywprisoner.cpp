@@ -74,7 +74,7 @@ void Enemywprisoner::Move() {
 		{
 			movement.Clear();
 			movement.Reset();
-	
+
 		}
 		else if (dying == true)
 		{
@@ -90,4 +90,5 @@ void Enemywprisoner::Move() {
 				App->enemies->EraseEnemy(this);
 			}
 		}
+	}
 }

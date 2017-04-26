@@ -175,32 +175,30 @@ void EnemyLeft::Move() {
 
 Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	Animation* animation = nullptr;
-	switch (dir) {
-	case 0:
+	if (dir < 22 || dir > 338)
 		animation = &e1_forward;
-		break;
-	case 45:
+	
+	if (dir >= 22 && dir <  67 )
 		animation = &e1_up_left;
-		break;
-	case 90:
+
+	if (dir >= 67 && dir < 112)
 		animation = &e1_right;
-		break;
-	case 135:
+		
+	if (dir >= 112 && dir < 157)
 		animation = &e1_down_left;
-		break;
-	case 180:
+	
+	if (dir >= 157 && dir < 202)
 		animation = &e1_backward;
-		break;
-	case 225:
+		
+	if (dir >= 202 && dir < 247)
 		animation = &e1_down_right;
-		break;
-	case 270:
+	
+	if (dir >= 247 &&  dir < 292)
 		animation = &e1_left;
-		break;
-	case 315:
+	
+	if (dir >= 292 && dir < 338 )
 		animation = &e1_up_right;
-		break;
-	}
+		
 	return animation;
 }
 	void EnemyLeft::OnCollision(Collider* collider)
