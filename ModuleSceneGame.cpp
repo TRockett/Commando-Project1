@@ -124,11 +124,13 @@ update_status ModuleSceneGame::Update() {
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "score");
+	App->fonts->BlitText(15, 0, font, "1up");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -30, 0, font, "top score");
 	std::string grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -20, 0, font, score_text);
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -103, 8, font, score_text);
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -15, 8, font,"50000");
 	
 	return UPDATE_CONTINUE;
 }

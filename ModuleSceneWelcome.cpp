@@ -8,7 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneGame.h"
 #include "ModuleSound.h"
-
+#include "ModuleFonts.h"
 
 ModuleSceneWelcome::ModuleSceneWelcome()
 {
@@ -44,7 +44,7 @@ bool ModuleSceneWelcome::Start() {
 	title_graphics = App->textures->Load("Images/title.png");
 	screen_welcome = App->textures->Load("Images/screen1.png");
 	capcom = App->textures->Load("Images/capcom.png");
-
+	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
 	if (background_graphics == nullptr)
 		ret = false;
 	if (title_graphics == nullptr)
@@ -77,9 +77,14 @@ update_status ModuleSceneWelcome::Update() {
 		App->render->Blit(capcom, 29, SCREEN_HEIGHT- 36, nullptr, 0);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
+	
 }
 
 update_status ModuleSceneWelcome::PostUpdate() {
+	App->fonts->BlitText(15, 0, font, "1up");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 30, 0, font, "top score");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 103, 8, font, score_text);
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 15, 8, font, "50000");
 	return UPDATE_CONTINUE;
 }
 
