@@ -57,14 +57,14 @@ bool ModuleSceneGame::Start() {
 		ret = false;
 
 	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
-	newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");
+	/*newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");*/
 
 	if (intro)
 		App->sound->PlaySound(intro_music, 0);
-	else {
-		App->sound->PlaySound(newstart, 0);
-	}
-	
+	//else {
+	//	App->sound->PlaySound(newstart, 0);
+	//}
+	//
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
