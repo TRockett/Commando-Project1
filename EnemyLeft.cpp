@@ -140,9 +140,9 @@ void EnemyLeft::Move() {
 		timer = SDL_GetTicks();
 	}
 
-	if ((movement.Finished()||collision == true) && dead == false&& dying == false)
+	if ((movement.Finished()||collision == true) && dead == false && dying == false)
 	{
-		movement.Clear();
+		movement.Clear();	
 		movement.Reset();
 		if (collision != true)
 		{
