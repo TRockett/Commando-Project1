@@ -43,7 +43,6 @@ bool ModuleSceneGame::Start() {
 	if (App->player->position.y - SCREEN_HEIGHT / 2 <= 1510)
 	{
 		App->enemies->AddEnemy(JUMPING_ENEMY, 230, 1480);
-		App->enemies->AddEnemy(JUMPING_ENEMY, 250, 1480);
 	}
 
 	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);

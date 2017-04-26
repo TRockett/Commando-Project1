@@ -139,6 +139,15 @@ EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 	angle = (rand() % 8) * 45;
 	timer = SDL_GetTicks();
 
+	if (position.x < SCREEN_WIDTH / 2)
+	{
+		dir = 1;
+	}
+	else
+	{
+		dir = -1;
+	}
+
 };
 
 
@@ -168,7 +177,7 @@ void EnemyJump::Move() {
 		}
 		else if (jump_state == 1)
 		{
-			movement.PushBack({ -0.3f,0 }, 150);
+			movement.PushBack({ dir * 0.3f,0 }, 150);
 			if (movement.Finished() == true)
 			{
 				jump_state = 2;
@@ -177,7 +186,7 @@ void EnemyJump::Move() {
 		else if (jump_state == 2)
 		{
 			animation = &jump;
-			movement.PushBack({ -0.5f, jump_speed }, 200);
+			movement.PushBack({ dir * 0.5f, jump_speed }, 200);
 			jump_speed += 0.2f;
 			if (movement.Finished() == true)
 			{

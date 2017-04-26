@@ -336,8 +336,8 @@ update_status ModuleObjects::Update() {
 				{
 
 					helicopter = &helicopter3;
-					tree1.speed = 0.035f;
-					tree2.speed = 0.035f;			
+					tree1.speed = 0.03f;
+					tree2.speed = 0.03f;			
 				}
 				else if (SDL_GetTicks() - 6000 <= timer)
 				{
@@ -358,8 +358,8 @@ update_status ModuleObjects::Update() {
 				else if (SDL_GetTicks() - 1200 <= timer)
 				{
 					helicopter = &helicopter1;
-					tree1.speed = 0;
-					tree2.speed = 0;
+					tree1.speed = 0.02f;
+					tree2.speed = 0.02f;
 				}
 
 				helipoint.y = helipoint.y - reduction;
@@ -371,6 +371,8 @@ update_status ModuleObjects::Update() {
 			iPoint pivot2 = helixfr.pivot;
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
 			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y  - pivot2.y, &helixfr.rect);
+			tree1.speed = 0;
+			tree2.speed = 0;
 		}
 	}
 	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };
