@@ -362,7 +362,7 @@ void ModulePlayer::checkInput() {
 	{
 		shooting = true;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0)
+	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0 && current_animation != &throw_grenade)
 	{
 		grenade1 = true;
 		if (grenade_on == false)
@@ -380,8 +380,8 @@ void ModulePlayer::checkInput() {
 	}
 	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 	{
-		lives = 1;
-		enemyCollision();
+		/*lives = 1;
+		enemyCollision();*/
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
