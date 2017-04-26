@@ -8,6 +8,7 @@
 #include "ModuleSceneWelcome.h"
 #include "ModuleSound.h"
 #include "ModuleFonts.h"
+#include "ModuleSceneGame.h"
 
 ModuleSceneCongrats::ModuleSceneCongrats()
 {
@@ -25,7 +26,7 @@ bool ModuleSceneCongrats::Init() {
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
 	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
-
+	App->scene_game->score_text;
 	App->player->lives = 3;
 	background_graphics = App->textures->Load("Images/Mapa1.png");
 
@@ -47,11 +48,14 @@ update_status ModuleSceneCongrats::PreUpdate() {
 update_status ModuleSceneCongrats::Update() {
 	SDL_Rect target = { 20, 465, 216, 256 };
 	App->render->Blit(background_graphics, 0, 0, &target, 0.0f);
+	sprintf_s(App->scene_game->score_text, 10, "%7d", App->scene_game->top_score);
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleSceneCongrats::PostUpdate() {
-	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2), font, "CONGRATULATIONS");
+	App->fonts->BlitText(60, (SCREEN_HEIGHT / 2 -30), font, "congratulations");
+	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2 ), font, "your best score");
+	App->fonts->BlitText(130, (SCREEN_HEIGHT / 2  ), font, App->scene_game->score_text);
 	return update_status::UPDATE_CONTINUE;
 }
 
