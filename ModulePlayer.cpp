@@ -16,6 +16,7 @@
 ModulePlayer::ModulePlayer()
 {
 	lives = 3;
+	grenades = 6;
 	graphics = NULL;
 	current_animation = NULL;
 
@@ -212,7 +213,6 @@ update_status ModulePlayer::Update()
 					intro_state = 2;
 					init_pos = position;
 				}
-
 			}
 			else if (intro_state == 2)
 			{
@@ -220,8 +220,8 @@ update_status ModulePlayer::Update()
 				current_animation = &backward;
 				if (init_pos.y + 20 <= position.y )
 				{
-					intro_state = 3;	
-				}				
+					intro_state = 3;
+				}
 			}
 			else if (intro_state == 3)
 			{
@@ -240,8 +240,7 @@ update_status ModulePlayer::Update()
 					App->objects->droping = false;
 
 				}
-			}			
-			
+			}
 		}
 		else 
 		{
@@ -273,7 +272,6 @@ update_status ModulePlayer::Update()
 				grenade.speed = { 0, - grenade_speed };
 				App->particles->AddParticle(grenade, (int)position.x + 7, (int)position.y + 1, GRENADE_PLAYER, COLLIDER_NONE, grenade_explosion);
 			}
-			
 		}
 		else if  (bthrowing == true)
 		{
@@ -355,10 +353,10 @@ void ModulePlayer::checkInput() {
 	{
 		shooting = true;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0)
 	{
 		grenade1 = true;
-	
+		grenades--;
 	}
 	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
 	{
@@ -511,6 +509,11 @@ void ModulePlayer::waterCollision() {
 void ModulePlayer::enemyCollision() {
 	if (state != DEAD) {
 		state = DEAD;
+		lives--;
+		if (lives == 0)
+			App->scene_game->next = (Module*)App->scene_welcome;
+		else App->scene_game->next = (Module*)App->scene_game;
+
 		current_animation = &death;
 		if (current_animation->Finished())
 			current_animation->Reset();
@@ -520,6 +523,10 @@ void ModulePlayer::enemyCollision() {
 void ModulePlayer::Drown() {
 	if (state != DEAD) {
 		state = DEAD;
+		if (lives == 0)
+			App->scene_game->next = (Module*)App->scene_welcome;
+		else App->scene_game->next = (Module*)App->scene_game;
+
 		current_animation = &drown;
 		if (current_animation->Finished())
 			current_animation->Reset();

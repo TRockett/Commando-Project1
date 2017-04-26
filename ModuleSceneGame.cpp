@@ -58,7 +58,7 @@ bool ModuleSceneGame::Start() {
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
-		App->fade->FadeToBlack(this, this, 0.0f);
+		App->fade->FadeToBlack(this, next, 0.0f);
 		screen_enemies = 0;
 	}
 	return UPDATE_CONTINUE;
@@ -90,12 +90,14 @@ update_status ModuleSceneGame::Update() {
 		}
 	}
 
-	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2 - 50, 0, font, "score");
-	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2-13, SCREEN_HEIGHT - 15, font, " = 6" );
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "SCORE");
+	std::string grenade_str = "= ";
+	grenade_str.append(std::to_string(App->player->grenades));
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
 	return UPDATE_CONTINUE;
 }
 

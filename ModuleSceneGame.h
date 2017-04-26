@@ -30,6 +30,7 @@ public:
 	void onFadeInEnd();
 	bool intro = false;
 	int screen_enemies;
+	Module* next;
 
 	iPoint getLevelDimensions() {
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };

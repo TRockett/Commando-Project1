@@ -18,7 +18,6 @@
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
-	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = sound = new ModuleSound();
@@ -30,7 +29,8 @@ Application::Application()
 	modules[10] = objects = new ModuleObjects();
 	modules[11] = particles = new ModuleParticles();
 	modules[12] = collision = new ModuleCollision();
-	modules[13] = fonts = new ModuleFonts();
+	modules[1] = fonts = new ModuleFonts();
+	modules[13] = render = new ModuleRender();
 	modules[14] = fade = new ModuleFadeToBlack();
 }	
 
