@@ -29,6 +29,7 @@ bool ModuleSceneCongrats::Start() {
 	App->scene_game->score_text;
 	App->player->lives = 3;
 	App->player->grenades = 6;
+	App->scene_game->score = 0;
 	background_graphics = App->textures->Load("Images/Mapa1.png");
 
 	if (background_graphics == nullptr)
