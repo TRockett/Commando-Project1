@@ -32,6 +32,7 @@ public:
 	bool intro = false;
 	int screen_enemies;
 	Module* next;
+	int top_score;
 	
 	Mix_Chunk* intro_music;
 	Mix_Chunk* newstart;

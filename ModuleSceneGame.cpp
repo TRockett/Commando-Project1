@@ -31,6 +31,8 @@ bool ModuleSceneGame::Start() {
 	bool ret = true;
 	restart = false;
 	level = 1;
+	score = 0;
+	
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
 	str.append(".png");
@@ -127,6 +129,11 @@ update_status ModuleSceneGame::Update() {
 }
 
 update_status ModuleSceneGame::PostUpdate() {
+
+	if (score > top_score)
+	{
+		top_score = score;
+	}
 	App->fonts->BlitText(15, 0, font, "1up");
 	App->fonts->BlitText(SCREEN_WIDTH / 2 -30, 0, font, "top score");
 	std::string grenade_str = "= ";
