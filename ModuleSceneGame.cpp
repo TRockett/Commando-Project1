@@ -19,6 +19,7 @@ ModuleSceneGame::ModuleSceneGame()
 {
 	intro = true;
 	next = this;
+	score = 0;
 }
 
 
@@ -31,7 +32,7 @@ bool ModuleSceneGame::Start() {
 	bool ret = true;
 	restart = false;
 	level = 1;
-	score = 0;
+
 	
 	
 	std::string str = "Images/Mapa";
