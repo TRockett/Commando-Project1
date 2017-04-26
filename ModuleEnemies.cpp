@@ -12,6 +12,7 @@
 #include "EnemyJump.h"
 #include "ModuleSceneGame.h"
 #include "EnemyGrenade.h"
+#include"ModulePlayer.h"
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -67,7 +68,11 @@ update_status ModuleEnemies::Update()
 	{
 		if (enemies[i] != nullptr) enemies[i]->Move();
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+
+		
 	}
+
+
 
 	return UPDATE_CONTINUE;
 }

@@ -139,10 +139,14 @@ void EnemyLeft::Move() {
 		App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 		timer = SDL_GetTicks();
 	}
-
-	if ((movement.Finished()||collision == true) && dead == false&& dying == false)
+	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH) + 30)
 	{
-		movement.Clear();
+		this->dying = true;
+	}
+
+	if ((movement.Finished()||collision == true) && dead == false && dying == false)
+	{
+		movement.Clear();	
 		movement.Reset();
 		if (collision != true)
 		{
