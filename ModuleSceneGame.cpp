@@ -19,7 +19,7 @@ ModuleSceneGame::ModuleSceneGame()
 {
 	intro = true;
 	next = this;
-	score = 0;
+	
 }
 
 
@@ -43,6 +43,13 @@ bool ModuleSceneGame::Start() {
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
+
+	App->enemies->AddEnemy(LEFT_WEAPON, 190, 200);
+	App->enemies->AddEnemy(LEFT_WEAPON, 40, 260);
+	App->enemies->AddEnemy(LEFT_WEAPON, 160, 420);
+	App->enemies->AddEnemy(LEFT_WEAPON, 70, 550);
+	App->enemies->AddEnemy(LEFT_WEAPON, 200, 630);
+	
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
 
 	App->enemies->AddEnemy(JUMPING_ENEMY, 230, 1480);
