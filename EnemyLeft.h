@@ -21,7 +21,7 @@ private:
 
 	Animation* GetAnimationForDirection(int dir);
 	int angle;
-	int collision = false;
+	bool collision = false;
 	bool dying = false;
 	int timer;
 
