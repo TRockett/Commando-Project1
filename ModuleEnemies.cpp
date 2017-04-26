@@ -153,7 +153,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			case ENEMY_TYPES::JUMPING_ENEMY:
 				enemies[i] = new EnemyJump(info.pos.x, info.pos.y);
 				break;
-			case ENEMY_TYPES::GRENADE_ENEMY:
+			case ENEMY_TYPES::ENEMY_GRENADE:
 				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y);
 				break;
 		}
