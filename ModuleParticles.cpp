@@ -14,16 +14,6 @@ ModuleParticles::ModuleParticles()
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
-}
-
-ModuleParticles::~ModuleParticles()
-{}
-
-// Load assets
-bool ModuleParticles::Start()
-{
-	LOG("Loading particles");
-	graphics = App->textures->Load("images/sprites.png");
 
 
 	// explosion animation
@@ -35,7 +25,7 @@ bool ModuleParticles::Start()
 	explosion.anim.PushBack({ 130, 94, 15, 13 }, { 7, 6 });
 	explosion.anim.speed = 0.15f;
 	explosion.anim.loop = false;
-	
+
 	//bullet particles
 	bullet.anim.PushBack({ 0, 100, 2, 2 }, { 1, 1 });
 	bullet.anim.speed = 0.2f;
@@ -94,6 +84,16 @@ bool ModuleParticles::Start()
 	fire_downright.anim.PushBack({ 24,121,6,6 });
 	fire_downright.anim.loop = false;
 	fire_downright.life = fire_life;
+}
+
+ModuleParticles::~ModuleParticles()
+{}
+
+// Load assets
+bool ModuleParticles::Start()
+{
+	LOG("Loading particles");
+	graphics = App->textures->Load("images/sprites.png");
 
 	return true;
 }
