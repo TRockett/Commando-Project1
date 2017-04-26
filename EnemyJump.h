@@ -36,5 +36,3 @@ public:
 	virtual void Move();
 	virtual void OnCollision(Collider* collider);
 };
-
-

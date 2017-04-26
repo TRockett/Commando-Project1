@@ -144,9 +144,9 @@ void EnemyLeft::Move() {
 		this->dying = true;
 	}
 
-	if ((movement.Finished()||collision == true) && dead == false&& dying == false)
+	if ((movement.Finished()||collision == true) && dead == false && dying == false)
 	{
-		movement.Clear();
+		movement.Clear();	
 		movement.Reset();
 		if (collision != true)
 		{
