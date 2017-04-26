@@ -158,43 +158,46 @@ EnemyJump::~EnemyJump()
 
 
 void EnemyJump::Move() {
-	
+
 
 	position = initial_position + movement.GetCurrentPosition();
 	prev_position = position;
 	iPoint player_pos = App->player->GetPosition();
-	if (jump_int == true)
+	if (App->player->position.y - SCREEN_HEIGHT / 2 <= position.y)
 	{
-		animation = &walk;
+		if (jump_int == true)
+		{
+			animation = &walk;
 
-		if (jump_state == 0)
-		{
-			movement.PushBack({ 0,0 }, 200);
-			if (movement.Finished() == true)
+			if (jump_state == 0)
 			{
-				jump_state = 1;
+				movement.PushBack({ 0,0 }, 200);
+				if (movement.Finished() == true)
+				{
+					jump_state = 1;
+				}
+			}
+			else if (jump_state == 1)
+			{
+				movement.PushBack({ dir * 0.3f,0 }, 150);
+				if (movement.Finished() == true)
+				{
+					jump_state = 2;
+				}
+			}
+			else if (jump_state == 2)
+			{
+				animation = &jump;
+				movement.PushBack({ dir * 0.5f, jump_speed }, 200);
+				jump_speed += 0.2f;
+				if (movement.Finished() == true)
+				{
+					jump_int = false;
+				}
 			}
 		}
-		else if (jump_state == 1)
-		{
-			movement.PushBack({ dir * 0.3f,0 }, 150);
-			if (movement.Finished() == true)
-			{
-				jump_state = 2;
-			}
-		}
-		else if (jump_state == 2)
-		{
-			animation = &jump;
-			movement.PushBack({ dir * 0.5f, jump_speed }, 200);
-			jump_speed += 0.2f;
-			if (movement.Finished() == true)
-			{
-				jump_int = false;
-			}
-		}
-	
 	}
+
 	else
 	{		
 
