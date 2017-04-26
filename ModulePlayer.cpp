@@ -515,12 +515,14 @@ void ModulePlayer::enemyCollision() {
 	if (state != DEAD) {
 		state = DEAD;
 		lives--;
-		if (lives == 0)
+		if (lives == 0) {
 			App->scene_game->next = (Module*)App->scene_welcome;
+			lives = 3;
+		}
 		else App->scene_game->next = (Module*)App->scene_game;
 
 		current_animation = &death;
-		//if (current_animation->Finished())
+		if (current_animation->Finished())
 			current_animation->Reset();
 	}
 }
@@ -528,12 +530,15 @@ void ModulePlayer::enemyCollision() {
 void ModulePlayer::Drown() {
 	if (state != DEAD) {
 		state = DEAD;
-		if (lives == 0)
+		lives--;
+		if (lives == 0) {
+			lives = 3;
 			App->scene_game->next = (Module*)App->scene_welcome;
+		}
 		else App->scene_game->next = (Module*)App->scene_game;
 
 		current_animation = &drown;
-		//if (current_animation->Finished())
+		if (current_animation->Finished())
 			current_animation->Reset();
 	}
 }

@@ -59,8 +59,7 @@ bool ModuleSceneGame::Start() {
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
-		restart = false;
-		App->fade->FadeToBlack(this, next, 0.0f);
+		App->fade->FadeToBlack(this, this, 0.0f);
 		screen_enemies = 0;
 	}
 	return UPDATE_CONTINUE;
@@ -105,6 +104,7 @@ update_status ModuleSceneGame::PostUpdate() {
 
 bool ModuleSceneGame::CleanUp() {
 	bool ret = true;
+	restart = false;
 	App->sound->StopAll();
 	App->player->Disable();
 	App->collision->Disable();
