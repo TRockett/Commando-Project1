@@ -47,7 +47,7 @@ bool ModuleSceneGame::Start() {
 	}
 
 	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
-
+	
 	//Enabling modules
 	
 	App->collision->Enable();
@@ -64,6 +64,7 @@ bool ModuleSceneGame::Start() {
 	else {
 		App->sound->PlaySound(newstart, 0);
 	}
+	
 	
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
@@ -110,15 +111,17 @@ update_status ModuleSceneGame::Update() {
 		}
 
 	}
-
+	sprintf_s(score_text, 10, "%7d", score);
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "SCORE");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "score");
 	std::string grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
+	App->fonts->BlitText(SCREEN_WIDTH / 2 , 0, font, score_text);
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -130,7 +133,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->collision->Disable();
 	App->enemies->Disable();
 	App->objects->Disable();
-
+	
 	//App->fonts->UnLoad(font);
 	App->player->lives = 3;
 	ret = App->textures->Unload(background_graphics);

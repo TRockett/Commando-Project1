@@ -22,7 +22,8 @@ private:
 
 public:
 	bool Start();
-
+	char score_text[100];
+	uint score = 0;
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
