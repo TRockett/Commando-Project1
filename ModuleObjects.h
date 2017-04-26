@@ -37,6 +37,7 @@ private:
 	fPoint helipoint;
 	float reduction;
 
+	Collider* boxes[10];
 
 	SDL_Rect objects[MAX_OBJECTS];
 

@@ -231,12 +231,12 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 170, 0, 86, 25 }, COLLIDER_WALL);
 
 		//Colliders for the boxes
-		App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX);
-		App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX);
-		App->collision->AddCollider({ 30, 274,	 20, 16 }, COLLIDER_BOX);
+		boxes[0] = App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX);
+		boxes[1] = App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX);
+		boxes[2] = App->collision->AddCollider({ 30, 274,	 20, 16 }, COLLIDER_BOX);
 		
-		App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX);
-		App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX);
+		boxes[3] = App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX);
+		boxes[4] = App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX);
 	}
 
 
@@ -296,11 +296,16 @@ update_status ModuleObjects::Update() {
 
 
 		//Boxes
-		App->render->Blit(sprite_graphics, 148, 1336, &box.GetCurrentFrame().rect);
+		for (int i = 0; i < 10; i++) {
+			if (boxes[i] != nullptr) {
+				App->render->Blit(sprite_graphics, boxes[i]->rect.x, boxes[i]->rect.y, &box.GetCurrentFrame().rect);
+			}
+		}
+		/*App->render->Blit(sprite_graphics, 148, 1336, &box.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 195, 900, &box2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 140, 430, &box.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 200, 212, &box3.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 30, 274, &box.GetCurrentFrame().rect);*/
 		
 		if (App->player->position.y <= 234)
 		{

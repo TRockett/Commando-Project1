@@ -495,6 +495,11 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	case COLLIDER_ENEMY:
 	case COLLIDER_ENEMY_SHOT:
 		enemyCollision();
+		break;
+	case COLLIDER_BOX:
+		boxCollision(other);
+		break;
+
 	}
 }
 
@@ -531,6 +536,10 @@ void ModulePlayer::Drown() {
 		if (current_animation->Finished())
 			current_animation->Reset();
 	}
+}
+void ModulePlayer::boxCollision(Collider* other) 
+{
+	other->to_delete = true;
 }
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {

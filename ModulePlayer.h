@@ -97,6 +97,7 @@ private:
 	void waterCollision();
 	void enemyCollision();
 	void rotateShootingAngle();
+	void boxCollision(Collider* other);
 
 	void Drown();
 
