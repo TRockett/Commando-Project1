@@ -68,8 +68,6 @@ update_status ModuleEnemies::Update()
 	{
 		if (enemies[i] != nullptr) enemies[i]->Move();
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
-
-		
 	}
 
 
@@ -90,8 +88,7 @@ update_status ModuleEnemies::PostUpdate()
 				|| enemies[i]->position.y > (abs(App->render->camera.y / SCREEN_SIZE) + SCREEN_HEIGHT) + SPAWN_MARGIN)
 			{
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
-				delete enemies[i];
-				enemies[i] = nullptr;
+				EraseEnemy(enemies[i]);
 			}
 		}
 	}
@@ -180,6 +177,10 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
 	for (int i = 0; i < MAX_ENEMIES; i++) {
 		if (enemies[i] == enemy) {
+			Collider* temp = enemies[i]->GetCollider();
+			if (temp != nullptr) {
+				temp->to_delete = true;
+			}
 			delete enemies[i];
 			enemies[i] = nullptr;
 			return true;

@@ -109,9 +109,6 @@ EnemyLeft::EnemyLeft(int x, int y) : Enemy(x, y)
 
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
-
-	/*movement.PushBack({ 0.0f, 0.1f }, 100, animation);
-	movement.PushBack({ 0.0f, -0.1f }, 100, animation);*/
 	movement.loop = false;
 
 	animation = &e1_forward;
@@ -160,7 +157,7 @@ void EnemyLeft::Move() {
 	else if (dying == true)
 	{
 		animation = &death;
-		App->collision->EraseCollider(this->collider);
+		collider->active = false;
 		movement.Clear();
 		movement.Reset();
 
@@ -209,7 +206,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 			angle = - Collisionangle(this->collider, collider);
 			prev_position = position;
 		}
-		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
+		if (collider->type == COLLIDER_PLAYER_SHOT)
 		{
 			dying = true;
 		}

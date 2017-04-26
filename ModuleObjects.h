@@ -11,7 +11,6 @@ struct SDL_Texture;
 
 class ModuleObjects :
 	public Module
-	
 {
 private:
 	iPoint level_dimensions;
@@ -52,6 +51,7 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
+	void OnCollision(Collider*, Collider*);
 
 };
 

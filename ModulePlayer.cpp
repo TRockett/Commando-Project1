@@ -157,7 +157,10 @@ bool ModulePlayer::Start()
 	prev_position = position;
 	state = IDLE;
 	fire = App->particles->fire_up;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
+	//if (collider == nullptr)
+		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
+	/*else if (!collider->active)
+		collider->active = true;*/
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
 
@@ -366,6 +369,11 @@ void ModulePlayer::checkInput() {
 		else
 			collider->type = COLLIDER_PLAYER;
 	}
+	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
+	{
+		lives = 1;
+		enemyCollision();
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
 		speed = 10;
@@ -496,10 +504,6 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	case COLLIDER_ENEMY_SHOT:
 		enemyCollision();
 		break;
-	case COLLIDER_BOX:
-		boxCollision(other);
-		break;
-
 	}
 }
 
@@ -515,14 +519,13 @@ void ModulePlayer::enemyCollision() {
 	if (state != DEAD) {
 		state = DEAD;
 		lives--;
-		if (lives == 0) {
+		if (lives <= 0) {
 			App->scene_game->next = (Module*)App->scene_welcome;
-			lives = 3;
 		}
 		else App->scene_game->next = (Module*)App->scene_game;
-
+		collider->active = false;
 		current_animation = &death;
-		if (current_animation->Finished())
+		//if (current_animation->Finished())
 			current_animation->Reset();
 	}
 }
@@ -531,20 +534,15 @@ void ModulePlayer::Drown() {
 	if (state != DEAD) {
 		state = DEAD;
 		lives--;
-		if (lives == 0) {
-			lives = 3;
+		if (lives <= 0) {
 			App->scene_game->next = (Module*)App->scene_welcome;
 		}
 		else App->scene_game->next = (Module*)App->scene_game;
-
+		collider->active = false;
 		current_animation = &drown;
-		if (current_animation->Finished())
+		//if (current_animation->Finished())
 			current_animation->Reset();
 	}
-}
-void ModulePlayer::boxCollision(Collider* other) 
-{
-	other->to_delete = true;
 }
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {

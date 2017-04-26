@@ -12,11 +12,9 @@ Enemy::Enemy(int x, int y) : position(x, y), initial_position(x, y)
 
 Enemy::~Enemy()
 {
-	if (collider != nullptr)
-		collider->to_delete = true;
 }
 
-const Collider* Enemy::GetCollider() const
+Collider* Enemy::GetCollider() const
 {
 	return collider;
 }

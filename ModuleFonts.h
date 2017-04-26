@@ -16,6 +16,7 @@ struct Font
 	SDL_Texture* graphic = nullptr;
 	uint rows, len, char_w, char_h, row_chars;
 	uint spacing, margin;
+	const char* path;
 };
 
 struct DrawPetition {

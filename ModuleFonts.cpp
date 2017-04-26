@@ -29,6 +29,10 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 		return id;
 	}
 
+	for (int i = 0; i < MAX_FONTS; i++)
+		if (fonts->path == texture_path)
+			return i;
+
 	SDL_Texture* tex = App->textures->Load(texture_path);
 
 	if(tex == nullptr || char_amount >= MAX_FONT_CHARS)
@@ -48,6 +52,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 		return id;
 	}
 
+	fonts[id].path = texture_path;
 	fonts[id].graphic = tex; // graphic: pointer to the texture
 	fonts[id].rows = rows; // rows: rows of characters in the texture
 	fonts[id].len = char_amount; // len: length of the table

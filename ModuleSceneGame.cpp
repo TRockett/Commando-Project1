@@ -69,7 +69,7 @@ bool ModuleSceneGame::Start() {
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
-		App->fade->FadeToBlack(this, this, 0.0f);
+		App->fade->FadeToBlack(this, next, 0.0f);
 		screen_enemies = 0;
 	}
 	return UPDATE_CONTINUE;
@@ -126,7 +126,8 @@ bool ModuleSceneGame::CleanUp() {
 	App->enemies->Disable();
 	App->objects->Disable();
 
-	App->fonts->UnLoad(font);
+	//App->fonts->UnLoad(font);
+	App->player->lives = 3;
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;

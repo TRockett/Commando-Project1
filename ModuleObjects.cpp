@@ -231,12 +231,11 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 170, 0, 86, 25 }, COLLIDER_WALL);
 
 		//Colliders for the boxes
-		boxes[0] = App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX);
-		boxes[1] = App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX);
-		boxes[2] = App->collision->AddCollider({ 30, 274,	 20, 16 }, COLLIDER_BOX);
-		
-		boxes[3] = App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX);
-		boxes[4] = App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX);
+		boxes[0] = App->collision->AddCollider({ 148, 1336, 20, 16 }, COLLIDER_BOX, this);
+		boxes[1] = App->collision->AddCollider({ 140, 430, 20, 16 }, COLLIDER_BOX, this);
+		boxes[2] = App->collision->AddCollider({ 30, 274, 20, 16 }, COLLIDER_BOX, this);
+		boxes[3] = App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX, this);
+		boxes[4] = App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX, this);
 	}
 
 
@@ -383,7 +382,7 @@ update_status ModuleObjects::Update() {
 	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };
 	App->render->Blit(sprite_graphics, SCREEN_WIDTH /3 + 15, SCREEN_HEIGHT-18, &player_grenade_num, 0.0f, false);
 	SDL_Rect player_lives_spr = { 22,496,11,16 };
-	for (int i = 0; i < App->player->lives - 1; i++) {
+	for (int i = 0; i < ((int)App->player->lives - 1); i++) {
 		App->render->Blit(sprite_graphics, 3 + i * 13, SCREEN_HEIGHT - 18, &player_lives_spr, 0.0f, false);
 	}
 
@@ -408,3 +407,12 @@ bool ModuleObjects::CleanUp() {
 	return ret;
 }
 
+void ModuleObjects::OnCollision(Collider* self, Collider* other) {
+	for (int i = 0; i < 10; i++) {
+		if (boxes[i] == self) {
+			App->collision->EraseCollider(self);
+			boxes[i] = nullptr;
+		}
+	}
+	if (App->player->grenades < 6) App->player->grenades++;
+}
