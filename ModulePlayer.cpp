@@ -520,7 +520,7 @@ void ModulePlayer::enemyCollision() {
 		else App->scene_game->next = (Module*)App->scene_game;
 
 		current_animation = &death;
-		if (current_animation->Finished())
+		//if (current_animation->Finished())
 			current_animation->Reset();
 	}
 }
@@ -533,7 +533,7 @@ void ModulePlayer::Drown() {
 		else App->scene_game->next = (Module*)App->scene_game;
 
 		current_animation = &drown;
-		if (current_animation->Finished())
+		//if (current_animation->Finished())
 			current_animation->Reset();
 	}
 }

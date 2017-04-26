@@ -178,25 +178,25 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	if (dir < 22 || dir > 338)
 		animation = &e1_forward;
 	
-	if (dir >= 22 && dir <  67 )
+	else if (dir >= 22 && dir <  67 )
 		animation = &e1_up_left;
 
-	if (dir >= 67 && dir < 112)
+	else if (dir >= 67 && dir < 112)
 		animation = &e1_right;
 		
-	if (dir >= 112 && dir < 157)
+	else if (dir >= 112 && dir < 157)
 		animation = &e1_down_left;
 	
-	if (dir >= 157 && dir < 202)
+	else if (dir >= 157 && dir < 202)
 		animation = &e1_backward;
 		
-	if (dir >= 202 && dir < 247)
+	else if (dir >= 202 && dir < 247)
 		animation = &e1_down_right;
 	
-	if (dir >= 247 &&  dir < 292)
+	else if (dir >= 247 &&  dir < 292)
 		animation = &e1_left;
 	
-	if (dir >= 292 && dir < 338 )
+	else if (dir >= 292 && dir < 338 )
 		animation = &e1_up_right;
 		
 	return animation;
@@ -211,7 +211,6 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		}
 		if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
 		{
-
 			dying = true;
 		}
 		

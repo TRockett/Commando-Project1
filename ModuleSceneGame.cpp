@@ -18,6 +18,7 @@
 ModuleSceneGame::ModuleSceneGame()
 {
 	intro = true;
+	next = this;
 }
 
 
@@ -28,7 +29,7 @@ ModuleSceneGame::~ModuleSceneGame()
 
 bool ModuleSceneGame::Start() {
 	bool ret = true;
-
+	restart = false;
 	level = 1;
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
@@ -58,6 +59,7 @@ bool ModuleSceneGame::Start() {
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
+		restart = false;
 		App->fade->FadeToBlack(this, next, 0.0f);
 		screen_enemies = 0;
 	}
