@@ -26,7 +26,8 @@ ModuleObjects::~ModuleObjects()
 
 
 bool ModuleObjects::Init() {
-	
+
+
 	//Tree left
 	tree1.PushBack({ 219, 0, 31, 32 });
 	tree1.PushBack({ 251, 0, 30, 32 });
@@ -374,7 +375,8 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y  - pivot2.y, &helixfr.rect);
 		}
 	}
-
+	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };
+	App->render->Blit(sprite_graphics, SCREEN_WIDTH /3 + 15, SCREEN_HEIGHT-18, &player_grenade_num, 0.0f, false);
 	SDL_Rect player_lives_spr = { 22,496,11,16 };
 	for (int i = 0; i < App->player->lives - 1; i++) {
 		App->render->Blit(sprite_graphics, 3 + i * 13, SCREEN_HEIGHT - 18, &player_lives_spr, 0.0f, false);

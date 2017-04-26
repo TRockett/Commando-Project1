@@ -54,6 +54,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	uint grenade_num;
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 

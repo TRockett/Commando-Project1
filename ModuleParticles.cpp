@@ -22,6 +22,8 @@ ModuleParticles::~ModuleParticles()
 // Load assets
 bool ModuleParticles::Start()
 {
+	grenade_num = 6;
+
 	LOG("Loading particles");
 	graphics = App->textures->Load("images/sprites.png");
 

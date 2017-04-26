@@ -91,7 +91,7 @@ update_status ModuleSceneGame::Update() {
 	}
 
 	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2 - 50, 0, font, "score");
-
+	App->fonts->SetTextToDraw(SCREEN_WIDTH / 2-13, SCREEN_HEIGHT - 15, font, " = 6" );
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 

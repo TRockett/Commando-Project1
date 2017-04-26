@@ -11,6 +11,7 @@ struct SDL_Texture;
 
 class ModuleObjects :
 	public Module
+	
 {
 private:
 	iPoint level_dimensions;
@@ -42,6 +43,7 @@ private:
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
+	
 	bool droping = false;
 	bool Init();
 	bool Start();
