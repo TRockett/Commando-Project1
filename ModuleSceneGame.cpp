@@ -33,6 +33,7 @@ bool ModuleSceneGame::Start() {
 	level = 1;
 	score = 0;
 	
+	
 	std::string str = "Images/Mapa";
 	str.append(std::to_string(level));
 	str.append(".png");

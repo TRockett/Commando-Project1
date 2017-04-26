@@ -364,7 +364,10 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0)
 	{
 		grenade1 = true;
-		grenades--;
+		if (grenade_on == true)
+		{
+			grenades--;
+		}
 	}
 	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
 	{
