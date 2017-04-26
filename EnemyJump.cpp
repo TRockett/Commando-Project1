@@ -151,16 +151,44 @@ EnemyJump::~EnemyJump()
 void EnemyJump::Move() {
 	
 
-
+	position = initial_position + movement.GetCurrentPosition();
+	prev_position = position;
+	iPoint player_pos = App->player->GetPosition();
 	if (jump_int == true)
 	{
+		animation = &walk;
 
+		if (jump_state == 0)
+		{
+			movement.PushBack({ 0,0 }, 200);
+			if (movement.Finished() == true)
+			{
+				jump_state = 1;
+			}
+		}
+		else if (jump_state == 1)
+		{
+			movement.PushBack({ -1  ,0 }, 10);
+			if (movement.Finished() == true)
+			{
+				jump_state = 2;
+			}
+		}
+		else if (jump_state == 2)
+		{
+			animation = &jump;
+			movement.PushBack({ -1, jump_speed }, 300);
+			jump_speed -= 0.1f;
+			if (movement.Finished() == true)
+			{
+				jump_int = true;
+				collider->type = COLLIDER_ENEMY;
+			}
+		}
+	
 	}
 	else
 	{		
-		position = initial_position + movement.GetCurrentPosition();
-		prev_position = position;
-		iPoint player_pos = App->player->GetPosition();
 
 		if (SDL_GetTicks() >= timer + 1000)
 		{
