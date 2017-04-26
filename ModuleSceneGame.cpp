@@ -129,7 +129,7 @@ update_status ModuleSceneGame::PostUpdate() {
 	std::string grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
-	App->fonts->BlitText(SCREEN_WIDTH / 2 , 0, font, score_text);
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -20, 0, font, score_text);
 	
 	return UPDATE_CONTINUE;
 }
