@@ -532,7 +532,7 @@ void ModulePlayer::enemyCollision() {
 			App->scene_game->next = (Module*)App->scene_congrats;
 		}
 		else App->scene_game->next = (Module*)App->scene_game;
-		App->scene_game->score = 0;
+
 		collider->active = false;
 		current_animation = &death;
 		//if (current_animation->Finished())
