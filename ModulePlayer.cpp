@@ -15,6 +15,7 @@
 
 ModulePlayer::ModulePlayer()
 {
+	lives = 3;
 	graphics = NULL;
 	current_animation = NULL;
 

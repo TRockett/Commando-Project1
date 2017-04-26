@@ -51,6 +51,7 @@ public:
 	iPoint GetPosition() {
 		return toiPoint(position);
 	}
+	uint lives;
 
 private:
 	SDL_Texture* graphics = nullptr;

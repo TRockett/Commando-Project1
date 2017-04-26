@@ -106,12 +106,7 @@ bool ModuleObjects::Init() {
 	helix3.speed = 0.25f;
 	helix3.loop = true;
 
-
-
-
 	return true;
-
-
 }
 
 bool ModuleObjects::Start() {
@@ -367,11 +362,9 @@ update_status ModuleObjects::Update() {
 					tree1.speed = 0;
 					tree2.speed = 0;
 				}
-			
-					helipoint.y = helipoint.y - reduction;
-					reduction = reduction + 0.01f;
-			
-				
+
+				helipoint.y = helipoint.y - reduction;
+				reduction = reduction + 0.01f;
 			}
 			AnimationFrame frame = helicopter->GetCurrentFrame();
 			AnimationFrame helixfr = helix->GetCurrentFrame();
@@ -380,11 +373,12 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
 			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y  - pivot2.y, &helixfr.rect);
 		}
-					
-		
-		}
+	}
 
-	
+	SDL_Rect player_lives_spr = { 22,496,11,16 };
+	for (int i = 0; i < App->player->lives - 1; i++) {
+		App->render->Blit(sprite_graphics, 3 + i * 13, SCREEN_HEIGHT - 18, &player_lives_spr, 0.0f, false);
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }
