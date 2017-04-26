@@ -28,8 +28,8 @@ EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 	jump.PushBack({ 768, 583, 23, 23 });
 	jump.PushBack({ 705, 583, 16, 19 });
 
-	jump.loop = true;
-	jump.speed = 0.2f;
+	jump.loop = false;
+	jump.speed = 0.1f;
 
 	// walk forward animation (arcade sprite sheet)
 
@@ -151,16 +151,43 @@ EnemyJump::~EnemyJump()
 void EnemyJump::Move() {
 	
 
-
+	position = initial_position + movement.GetCurrentPosition();
+	prev_position = position;
+	iPoint player_pos = App->player->GetPosition();
 	if (jump_int == true)
 	{
+		animation = &walk;
 
+		if (jump_state == 0)
+		{
+			movement.PushBack({ 0,0 }, 200);
+			if (movement.Finished() == true)
+			{
+				jump_state = 1;
+			}
+		}
+		else if (jump_state == 1)
+		{
+			movement.PushBack({ -0.3f,0 }, 150);
+			if (movement.Finished() == true)
+			{
+				jump_state = 2;
+			}
+		}
+		else if (jump_state == 2)
+		{
+			animation = &jump;
+			movement.PushBack({ -0.5f, jump_speed }, 200);
+			jump_speed += 0.2f;
+			if (movement.Finished() == true)
+			{
+				jump_int = false;
+			}
+		}
+	
 	}
 	else
 	{		
-		position = initial_position + movement.GetCurrentPosition();
-		prev_position = position;
-		iPoint player_pos = App->player->GetPosition();
 
 		if (SDL_GetTicks() >= timer + 1000)
 		{
@@ -243,7 +270,6 @@ void EnemyJump::OnCollision(Collider* collider)
 	}
 	if (collider->type == COLLIDER_PLAYER_SHOT || collider->type == EXPLOSION || collider->type == COLLIDER_MAX)
 	{
-
 		dying = true;
 	}
 

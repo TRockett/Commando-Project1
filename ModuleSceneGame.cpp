@@ -40,9 +40,14 @@ bool ModuleSceneGame::Start() {
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
+	if (App->player->position.y - SCREEN_HEIGHT / 2 <= 1510)
+	{
+		App->enemies->AddEnemy(JUMPING_ENEMY, 230, 1480);
+		App->enemies->AddEnemy(JUMPING_ENEMY, 250, 1480);
+	}
 
 	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
-
+	
 	//Enabling modules
 	
 	App->collision->Enable();
@@ -54,14 +59,22 @@ bool ModuleSceneGame::Start() {
 		ret = false;
 
 	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
-	newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");
+	/*newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");*/
 
 	if (intro)
 		App->sound->PlaySound(intro_music, 0);
+
 	else {
 		App->sound->PlaySound(newstart, 0);
 	}
 	
+	
+
+	//else {
+	//	App->sound->PlaySound(newstart, 0);
+	//}
+	//
+
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
@@ -107,15 +120,17 @@ update_status ModuleSceneGame::Update() {
 		}
 
 	}
-
+	sprintf_s(score_text, 10, "%7d", score);
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "SCORE");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 50, 0, font, "score");
 	std::string grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
+	App->fonts->BlitText(SCREEN_WIDTH / 2 , 0, font, score_text);
+	
 	return UPDATE_CONTINUE;
 }
 

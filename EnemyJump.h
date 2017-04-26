@@ -23,6 +23,8 @@ private:
 	Animation jump;
 	
 	bool jump_int = true;
+	float jump_speed = -3;
+	int jump_state = 0;
 
 	Animation* GetAnimationForDirection(int dir);
 	int angle;
