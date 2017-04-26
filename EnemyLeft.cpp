@@ -134,7 +134,7 @@ void EnemyLeft::Move() {
 		float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
 		fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
-		App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f /** cosf(angle)*/), (float)(normalised_v.y * 1.0f /** sinf(angle)*/) };
+		App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
 		App->particles->bullet.life = 1800;
 		App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 		timer = SDL_GetTicks();

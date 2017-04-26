@@ -51,7 +51,7 @@ public:
 	iPoint GetPosition() {
 		return toiPoint(position);
 	}
-	uint lives;
+	int lives;
 	uint grenades;
 
 private:

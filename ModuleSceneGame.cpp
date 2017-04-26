@@ -145,7 +145,6 @@ bool ModuleSceneGame::CleanUp() {
 	App->particles->Disable();
 
 	//App->fonts->UnLoad(font);
-	App->player->lives = 3;
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;

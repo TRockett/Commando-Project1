@@ -25,6 +25,7 @@ bool ModuleSceneCongrats::Init() {
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
 
+	App->player->lives = 3;
 	background_graphics = App->textures->Load("Images/Mapa1.png");
 
 	if (background_graphics == nullptr)
@@ -37,7 +38,7 @@ bool ModuleSceneCongrats::Start() {
 }
 
 update_status ModuleSceneCongrats::PreUpdate() {
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
 		App->fade->FadeToBlack(this, App->scene_welcome, 1.0f);
 	return update_status::UPDATE_CONTINUE;
 }

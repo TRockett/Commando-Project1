@@ -376,7 +376,7 @@ update_status ModuleObjects::Update() {
 	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };
 	App->render->Blit(sprite_graphics, SCREEN_WIDTH /3 + 15, SCREEN_HEIGHT-18, &player_grenade_num, 0.0f, false);
 	SDL_Rect player_lives_spr = { 22,496,11,16 };
-	for (int i = 0; i < ((int)App->player->lives - 1); i++) {
+	for (int i = 0; i < (App->player->lives - 1); i++) {
 		App->render->Blit(sprite_graphics, 3 + i * 13, SCREEN_HEIGHT - 18, &player_lives_spr, 0.0f, false);
 	}
 

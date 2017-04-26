@@ -525,7 +525,7 @@ void ModulePlayer::enemyCollision() {
 		state = DEAD;
 		lives--;
 		if (lives <= 0) {
-			App->scene_game->next = (Module*)App->scene_welcome;
+			App->scene_game->next = (Module*)App->scene_congrats;
 		}
 		else App->scene_game->next = (Module*)App->scene_game;
 		collider->active = false;
@@ -540,7 +540,7 @@ void ModulePlayer::Drown() {
 		state = DEAD;
 		lives--;
 		if (lives <= 0) {
-			App->scene_game->next = (Module*)App->scene_welcome;
+			App->scene_game->next = (Module*)App->scene_congrats;
 		}
 		else App->scene_game->next = (Module*)App->scene_game;
 		collider->active = false;
