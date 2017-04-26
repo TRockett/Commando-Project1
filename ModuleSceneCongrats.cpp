@@ -7,7 +7,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneWelcome.h"
 #include "ModuleSound.h"
-
+#include "ModuleFonts.h"
 
 ModuleSceneCongrats::ModuleSceneCongrats()
 {
@@ -24,6 +24,7 @@ bool ModuleSceneCongrats::Init() {
 
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
+	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
 
 	App->player->lives = 3;
 	background_graphics = App->textures->Load("Images/Mapa1.png");
@@ -50,6 +51,7 @@ update_status ModuleSceneCongrats::Update() {
 }
 
 update_status ModuleSceneCongrats::PostUpdate() {
+	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2), font, "CONGRATULATIONS");
 	return update_status::UPDATE_CONTINUE;
 }
 
