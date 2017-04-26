@@ -152,6 +152,7 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+
 	position.x = (SCREEN_WIDTH / 2) + 20;
 	position.y = (float)App->scene_game->getLevelDimensions().y + 110;
 	shooting_angle = 0;
@@ -364,7 +365,7 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0)
 	{
 		grenade1 = true;
-		if (grenade_on == true)
+		if (grenade_on == false)
 		{
 			grenades--;
 		}

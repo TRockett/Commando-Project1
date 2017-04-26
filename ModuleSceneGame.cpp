@@ -45,6 +45,7 @@ bool ModuleSceneGame::Start() {
 	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 190, 200);
+	App->enemies->AddEnemy(LEFT_WEAPON, 90, 200);
 	App->enemies->AddEnemy(LEFT_WEAPON, 40, 260);
 	App->enemies->AddEnemy(LEFT_WEAPON, 160, 420);
 	App->enemies->AddEnemy(LEFT_WEAPON, 70, 550);

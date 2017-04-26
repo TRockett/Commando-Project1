@@ -28,6 +28,7 @@ bool ModuleSceneCongrats::Start() {
 	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
 	App->scene_game->score_text;
 	App->player->lives = 3;
+	App->player->grenades = 6;
 	background_graphics = App->textures->Load("Images/Mapa1.png");
 
 	if (background_graphics == nullptr)
