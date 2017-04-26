@@ -147,11 +147,17 @@ void EnemyLeft::Move() {
 		movement.Reset();
 		if (collision != true)
 		{
-			int angle = (rand() % 8) * 45;
+			angle = (rand() % 8) * 45;
+		}
+		else
+		{
+			position = prev_position;
+			angle = -Collisionangle(this->collider, collider);
+			
 		}
 		
 		animation = GetAnimationForDirection(angle);
-		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 100);
+		movement.PushBack({ sinf((float)angle), cosf((float)angle) }, 50);
 		collision = false;
 	}
 	else if (dying == true)
@@ -203,8 +209,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
 		{
 			collision = true;
-			angle = - Collisionangle(this->collider, collider);
-			prev_position = position;
+	
 		}
 		if (collider->type == COLLIDER_PLAYER_SHOT)
 		{
