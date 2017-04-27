@@ -15,7 +15,7 @@ private:
 	SDL_Texture* title_graphics;
 	SDL_Texture* screen_welcome;
 	SDL_Texture* capcom;
-	int font;
+	int font_red, font_white;
 	Animation welcome_anim;
 	Animation screen_1;
 public:

@@ -25,7 +25,8 @@ bool ModuleSceneCongrats::Init() {
 
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
-	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
+	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	App->scene_game->score_text;
 	App->player->lives = 3;
 	App->player->grenades = 6;
@@ -55,9 +56,9 @@ update_status ModuleSceneCongrats::Update() {
 }
 
 update_status ModuleSceneCongrats::PostUpdate() {
-	App->fonts->BlitText(60, (SCREEN_HEIGHT / 2 -30), font, "congratulations");
-	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2 ), font, "your best score");
-	App->fonts->BlitText(130, (SCREEN_HEIGHT / 2  ), font, App->scene_game->score_text);
+	App->fonts->BlitText(60, (SCREEN_HEIGHT / 2 -30), font_red, "congratulations");
+	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2 ), font_red, "your best score");
+	App->fonts->BlitText(130, (SCREEN_HEIGHT / 2  ), font_white, App->scene_game->score_text);
 	return update_status::UPDATE_CONTINUE;
 }
 

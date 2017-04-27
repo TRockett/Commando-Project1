@@ -30,8 +30,8 @@ Application::Application()
 	modules[11] = particles = new ModuleParticles();
 	modules[12] = collision = new ModuleCollision();
 	modules[1] = fonts = new ModuleFonts();
-	modules[13] = render = new ModuleRender();
-	modules[14] = fade = new ModuleFadeToBlack();
+	modules[14] = render = new ModuleRender();
+	modules[13] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()

@@ -57,8 +57,9 @@ bool ModuleSceneGame::Start() {
 
 	App->enemies->AddEnemy(JUMPING_ENEMY, 20, 1210);
 	
-	font = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 2);
-	
+	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+
 	//Enabling modules
 	
 	App->collision->Enable();
@@ -144,13 +145,13 @@ update_status ModuleSceneGame::PostUpdate() {
 	{
 		top_score = score;
 	}
-	App->fonts->BlitText(15, 0, font, "1up");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -30, 0, font, "top score");
+	App->fonts->BlitText(15, 0, font_red, "1up");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -30, 0, font_red, "top score");
 	std::string grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font, grenade_str.c_str());
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -103, 8, font, score_text);
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -15, 8, font,"50000");
+	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font_white, grenade_str.c_str());
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -103, 8, font_white, score_text);
+	App->fonts->BlitText(SCREEN_WIDTH / 2 -15, 8, font_white,"50000");
 	
 	return UPDATE_CONTINUE;
 }

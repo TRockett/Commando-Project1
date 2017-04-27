@@ -11,7 +11,7 @@ class ModuleSceneCongrats :
 {
 private:
 	SDL_Texture* background_graphics;
-	int font;
+	int font_red, font_white;
 public:
 	bool Init();
 	bool Start();

@@ -17,7 +17,7 @@ private:
 
 	SDL_Texture* background_graphics;
 	iPoint level_dimensions;
-	int font;
+	int font_red, font_white;
 	int timer;
 
 public:
