@@ -136,7 +136,7 @@ void EnemyLeft::Move() {
 
 		App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
 		App->particles->bullet.life = 1800;
-		App->particles->AddParticle(App->particles->bullet, position.x, position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+		App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y+ shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 		timer = SDL_GetTicks();
 	}
 	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH) + 30)
@@ -178,7 +178,7 @@ void EnemyLeft::Move() {
 			App->enemies->EraseEnemy(this);
 		}
 	}
-	//E creat un nou bolea per diferenciar el fet de desapareixer mab el fet de morir, aixi kuan desapareguin no sumin punts al score
+
 	else if (disappear == true)
 	{
 		animation = &death;
@@ -197,29 +197,51 @@ void EnemyLeft::Move() {
 
 Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	Animation* animation = nullptr;
-	if (dir < 22 || dir > 338)
+	if (dir < 22 || dir > 338) 
+	{
+		shooting_position = { 3,14 };
 		animation = &e1_forward;
+	}
 	
-	else if (dir >= 22 && dir <  67 )
+	else if (dir >= 22 && dir < 67)
+	{
+		shooting_position = { 0,6 };
 		animation = &e1_up_left;
-
+	}
 	else if (dir >= 67 && dir < 112)
+	{
+		shooting_position = { 15,12 };
 		animation = &e1_right;
-		
+	}
 	else if (dir >= 112 && dir < 157)
+	{
+		shooting_position = { 9,15 };
 		animation = &e1_down_left;
+	}
 	
 	else if (dir >= 157 && dir < 202)
+	{
+		shooting_position = { 11,4 };
 		animation = &e1_backward;
+	}
 		
 	else if (dir >= 202 && dir < 247)
+	{
+		shooting_position = { 7,15 };
 		animation = &e1_down_right;
+	}
 	
-	else if (dir >= 247 &&  dir < 292)
+	else if (dir >= 247 && dir < 292)
+	{
+		shooting_position = { 2,12 };
 		animation = &e1_left;
+	}
 	
-	else if (dir >= 292 && dir < 338 )
+	else if (dir >= 292 && dir < 338)
+	{
+		shooting_position = { 15,6 };
 		animation = &e1_up_right;
+	}
 		
 	return animation;
 }

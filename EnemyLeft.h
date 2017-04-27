@@ -25,6 +25,7 @@ private:
 	bool dying = false;
 	bool disappear = false;
 	int timer;
+	iPoint shooting_position;
 
 public:
 	EnemyLeft(int x, int y);
