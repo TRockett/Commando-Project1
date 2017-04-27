@@ -56,7 +56,7 @@ update_status ModuleSceneCongrats::Update() {
 }
 
 update_status ModuleSceneCongrats::PostUpdate() {
-	App->fonts->BlitText(60, (SCREEN_HEIGHT / 2 -30), font_red, "congratulations");
+	App->fonts->BlitText(60, (SCREEN_HEIGHT / 2 -50), font_red, "congratulations");
 	App->fonts->BlitText(30, (SCREEN_HEIGHT / 2 ), font_red, "your best score");
 	App->fonts->BlitText(130, (SCREEN_HEIGHT / 2  ), font_white, App->scene_game->score_text);
 	return update_status::UPDATE_CONTINUE;
