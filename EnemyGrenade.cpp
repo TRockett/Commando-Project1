@@ -1,6 +1,6 @@
 #include "EnemyGrenade.h"
-
-
+#include "ModulePlayer.h"
+#include "Application.h"
 
 EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y) 
 {// walk forward animation (arcade sprite sheet)
@@ -105,4 +105,25 @@ EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y)
 EnemyGrenade::~EnemyGrenade()
 {
 }
+
+//void EnemyGrenade::Move()
+//{
+//	iPoint player_pos = App->player->GetPosition();
+//	if (player_pos.y > position.y + 50)
+//	{
+//		if (animation != &throwing_grenade) {
+//			movement.Clear();
+//			movement.Reset();
+//			movement.PushBack({ 0.0f, 0.0f }, 10, &throwing_grenade);
+//		}
+//		else if (animation->Finished()) {
+//			float deltaX = -position.x + player_pos.x;
+//			float deltaY = -position.y + player_pos.y;
+//			float angle = atan2f(deltaY, deltaX);
+//
+//			App->particles->grenade.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
+//			App->particles->AddParticle(App->particles->grenade, position.x, position.y, GRENADE_ENEMY, COLLIDER_NONE);
+//			animation->Reset();
+//		}
+//}
 
