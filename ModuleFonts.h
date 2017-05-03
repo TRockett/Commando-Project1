@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define MAX_FONTS 50
+#define MAX_FONTS 60
 #define MAX_FONT_CHARS 256
 #define MAX_DRAW_PETITIONS 128
 
