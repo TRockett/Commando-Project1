@@ -88,9 +88,9 @@ private:
 
 	int speed;
 	int player_min_y;
-	int shooting_angle;
 	int direction;
 	iPoint shooting_position;
+	fPoint shooting_angle;
 
 	void checkInput();
 	void processInput();
