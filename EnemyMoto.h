@@ -13,7 +13,7 @@ private:
 	Animation throwing_grenade;
 public:
 	
-	EnemyMoto(int x, int y);
+	EnemyMoto(int x, int y, int angle, int sub_type);
 	void Move();
 	virtual ~EnemyMoto();
 };

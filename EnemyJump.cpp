@@ -10,7 +10,7 @@
 
 
 
-EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
+EnemyJump::EnemyJump(int x, int y, int angle, int sub_type) : Enemy(x,y,angle , sub_type)
 {
 	//walking before jump
 	
@@ -139,7 +139,7 @@ EnemyJump::EnemyJump(int x, int y) : Enemy(x,y)
 	angle = (rand() % 8) * 45;
 	timer = SDL_GetTicks();
 
-	if (position.x > SCREEN_WIDTH / 2)
+	if (position.x < SCREEN_WIDTH / 2)
 	{
 		dir = 1;
 	}

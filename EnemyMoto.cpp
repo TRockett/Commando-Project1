@@ -3,7 +3,7 @@
 #include "Application.h"
 
 
-EnemyMoto::EnemyMoto(int x, int y) : Enemy(x, y)
+EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
 {
 	//riding
 

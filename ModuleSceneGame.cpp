@@ -42,20 +42,11 @@ bool ModuleSceneGame::Start() {
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
-	App->enemies->AddEnemy(LEFT_WEAPON, 150, 1500);
+	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802, 270 , 1);
 
-	App->enemies->AddEnemy(LEFT_WEAPON, 190, 200);
-	App->enemies->AddEnemy(LEFT_WEAPON, 90, 200);
-	App->enemies->AddEnemy(LEFT_WEAPON, 40, 260);
-	App->enemies->AddEnemy(LEFT_WEAPON, 160, 420);
-	App->enemies->AddEnemy(LEFT_WEAPON, 70, 550);
-	App->enemies->AddEnemy(LEFT_WEAPON, 200, 630);
-	
-	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802);
+	App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 90, 2);
 
-	App->enemies->AddEnemy(JUMPING_ENEMY, 230, 1480);
-
-	App->enemies->AddEnemy(JUMPING_ENEMY, 20, 1210);
+	App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 90, 2);
 	
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
@@ -124,7 +115,7 @@ update_status ModuleSceneGame::Update() {
 		{
 			if (SDL_GetTicks()  >= timer + 200)
 			{
-				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) - 20));
+				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) - 20), 0, 1);
 				timer = timer + 1000;
 				screen_enemies++;
 			}

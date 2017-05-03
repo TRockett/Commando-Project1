@@ -16,7 +16,7 @@ private:
 	Animation e1_down_left;
 	Animation death;
 public:
-	EnemyGrenade(int x, int y);
+	EnemyGrenade(int x, int y, int angle, int sub_type);
 	virtual ~EnemyGrenade();
 	/*void EnemyGrenade::Move();*/
 

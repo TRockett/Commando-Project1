@@ -35,7 +35,7 @@ private:
 	int timer;
 
 public:
-	EnemyJump(int x, int y);
+	EnemyJump(int x, int y, int angle, int sub_type);
 	virtual ~EnemyJump();
 
 	virtual void Move();

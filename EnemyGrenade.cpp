@@ -2,7 +2,7 @@
 #include "ModulePlayer.h"
 #include "Application.h"
 
-EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y) 
+EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y, angle, sub_type)
 {// walk forward animation (arcade sprite sheet)
 
 	e1_forward.PushBack({ 0 + 151, 209, 13, 23 });

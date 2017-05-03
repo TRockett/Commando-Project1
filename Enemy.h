@@ -18,10 +18,12 @@ protected:
 public:
 	iPoint position;
 	iPoint prev_position;
+	int initial_angle;
+	int sub_type;
 	bool dead = false;
 
 public:
-	Enemy(int x, int y);
+	Enemy(int x, int y, int angle, int sub_type);
 	virtual ~Enemy();
 
 	Collider* GetCollider() const;

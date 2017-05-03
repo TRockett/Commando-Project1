@@ -18,17 +18,23 @@ private:
 	Animation e1_down_right;
 	Animation e1_down_left;
 	Animation death;
+	Animation jump;
+	Animation walk;
 
 	Animation* GetAnimationForDirection(int dir);
-	int angle;
+	int current_angle;
 	bool collision = false;
 	bool dying = false;
 	bool disappear = false;
 	int timer;
+	bool jumping = false;
+	float jump_speed = -3;
+	int jump_state = 0;
+	int direction;
 	iPoint shooting_position;
 
 public:
-	EnemyLeft(int x, int y);
+	EnemyLeft(int x, int y, int angle, int sub_type);
 
 	virtual ~EnemyLeft();
 	virtual void Move();
