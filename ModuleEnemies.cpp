@@ -154,9 +154,6 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			
-			case ENEMY_TYPES::JUMPING_ENEMY:
-				enemies[i] = new EnemyJump(info.pos.x, info.pos.y, info.angle, info.sub_type);
-				break;
 			case ENEMY_TYPES::ENEMY_GRENADE:
 				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
