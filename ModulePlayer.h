@@ -56,6 +56,7 @@ public:
 
 private:
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* godmode = nullptr;
 	Animation* current_animation = nullptr;
 	Animation forward;
 	Animation backward;
@@ -78,7 +79,7 @@ private:
 	Animation bridge;
 	Animation bridge2;
 	float grenade_speed;
-
+	bool b_godmode;
 	
 	PLAYER_STATE prev_state = IDLE;
 	bool shooting;

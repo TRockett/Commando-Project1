@@ -168,7 +168,7 @@ bool ModulePlayer::Start()
 		collider->active = true;*/
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
-
+	godmode = App->textures->Load("Images/godmode.png");
 	current_animation= &forward;
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
@@ -180,6 +180,7 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp() {
 	LOG("Unloading player");
 	App->textures->Unload(graphics);
+	App->textures->Unload(godmode);
 	return true;
 }
 
@@ -328,7 +329,10 @@ update_status ModulePlayer::Update()
 	LOG("Player position.x:: %f", position.x);
 	LOG("Camera position.y:: %d", camera->y);
 
+	if(b_godmode == false)
 	App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
+	else 
+		App->render->Blit(godmode, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 
 	//Bridge sprite
 	App->render->Blit(graphics, 96, 802, &bridge.GetCurrentFrame().rect);
@@ -372,6 +376,8 @@ void ModulePlayer::checkInput() {
 	}
 	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
 	{
+		b_godmode = !b_godmode;
+
 		if (collider->type != COLLIDER_NONE)
 			collider->type = COLLIDER_NONE;
 
