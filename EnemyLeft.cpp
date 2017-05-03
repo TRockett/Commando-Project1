@@ -191,6 +191,7 @@ void EnemyLeft::Move() {
 			if (movement.Finished() == true)
 			{
 				jumping = false;
+				current_angle = (rand() % 8) * 45;
 			}
 		}
 	}
@@ -268,7 +269,7 @@ else
 	}
 }
 
-Animation* EnemyLeft::GetAnimationForDirection(int dir) {
+/*Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	Animation* animation = nullptr;
 	if (dir < 22 || dir > 338) 
 	{
@@ -317,7 +318,7 @@ Animation* EnemyLeft::GetAnimationForDirection(int dir) {
 	}
 		
 	return animation;
-}
+}*/
 	void EnemyLeft::OnCollision(Collider* collider)
 	{
 		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)

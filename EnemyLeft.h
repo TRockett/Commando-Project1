@@ -21,7 +21,7 @@ private:
 	Animation jump;
 	Animation walk;
 
-	Animation* GetAnimationForDirection(int dir);
+
 	int current_angle;
 	bool collision = false;
 	bool dying = false;
