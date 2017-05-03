@@ -65,6 +65,9 @@ update_status ModuleSceneCongrats::PostUpdate() {
 bool ModuleSceneCongrats::CleanUp() {
 	bool ret = true;
 	App->sound->StopAll();
+	App->fonts->Disable();
+	App->textures->Disable();
+
 	return ret;
 }
 
