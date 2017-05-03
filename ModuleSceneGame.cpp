@@ -166,7 +166,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->objects->Disable();
 	App->particles->Disable();
 
-	//App->fonts->UnLoad(font);
+	App->fonts->Disable();
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;
