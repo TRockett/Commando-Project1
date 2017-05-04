@@ -34,9 +34,14 @@ void Enemy::Draw(SDL_Texture* sprites)
 
 void Enemy::OnCollision(Collider* collider)
 {
-	if (collider->type == COLLIDER_WALL)
+	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_WATER)
 	{
-		
+		collision = true;
+
+	}
+	if (collider->type == COLLIDER_PLAYER_SHOT)
+	{
+		dying = true;
 	}
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y, EXPLOSION,COLLIDER_ENEMY);
 }
