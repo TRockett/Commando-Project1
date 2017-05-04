@@ -164,10 +164,12 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	if (position.x < SCREEN_WIDTH / 2)
 	{
 		direction = 1;
+		animation = &walk_l;
 	}
 	else
 	{
 		direction = -1;
+		animation = &walk;
 	}
 }
 
@@ -183,14 +185,6 @@ void EnemyLeft::Move() {
 	
 		if (jumping == true)
 		{
-			if (direction = -1)
-			{
-				animation = &walk;
-			}
-			else if (direction = 1)
-			{
-				animation = &walk_l;
-			}
 
 			if (jump_state == 0)
 			{
@@ -210,20 +204,23 @@ void EnemyLeft::Move() {
 			}
 			else if (jump_state == 2)
 			{
-				if (direction = -1)
+				if (direction == -1)
 				{
 					animation = &jump;
 				}
-				else if (direction = 1)
+				else if (direction == 1)
 				{
 					animation = &jump_l;
 				}
 
 
 
-				if (jump_state == 0)
+				if (jump_state == 2)
+				{
 					movement.PushBack({ direction * 0.5f, jump_speed }, 200);
-				jump_speed += 0.2f;
+					jump_speed = jump_speed + 0.2f;
+				}
+
 				if (movement.Finished() == true)
 				{
 					jumping = false;
