@@ -91,6 +91,7 @@ private:
 	int direction;
 	iPoint shooting_position;
 	fPoint shooting_angle;
+	fPoint shooting_angle_delta = { 0.15f, 0.15f };
 
 	void checkInput();
 	void processInput();

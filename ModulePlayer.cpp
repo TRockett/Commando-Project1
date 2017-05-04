@@ -340,29 +340,28 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::checkInput() {
 
-	float shooting_angle_delta = 0.15f;
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_RIGHT | state;
-		shooting_angle.x += shooting_angle_delta;
+		shooting_angle_delta.x = 0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_LEFT | state;
-		shooting_angle.x -= shooting_angle_delta;
+		shooting_angle_delta.x = -0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_UP | state;
-		shooting_angle.y += shooting_angle_delta;
+		shooting_angle_delta.y = 0.15f;
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_DOWN | state;
-		shooting_angle.y -= shooting_angle_delta;
+		shooting_angle_delta.y = -0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
@@ -398,6 +397,7 @@ void ModulePlayer::checkInput() {
 }
 
 void ModulePlayer::processInput() {
+
 	switch (state) {
 	case MOVING_DOWN:
 		shooting_position = { 2,16 };
