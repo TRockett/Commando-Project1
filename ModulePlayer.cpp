@@ -258,7 +258,10 @@ update_status ModulePlayer::Update()
 		{
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
-
+			shooting_angle.x = fmaxf(-1.0f, shooting_angle.x);
+			shooting_angle.x = fminf(1.0f, shooting_angle.x);
+			shooting_angle.y = fmaxf(-1.0f, shooting_angle.y);
+			shooting_angle.y = fminf(1.0f, shooting_angle.y);
 			bullet.speed = { PLAYER_BULLET_SPEED * shooting_angle.x, PLAYER_BULLET_SPEED * shooting_angle.y };
 			bullet.life = 300;
 			App->particles->AddParticle(fire, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
@@ -341,28 +344,24 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_RIGHT | state;
-		shooting_angle.x = fmaxf(shooting_angle.x, 0.0f);
 		shooting_angle.x += shooting_angle_delta;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_LEFT | state;
-		shooting_angle.x = fminf(shooting_angle.x, 0.0f);
 		shooting_angle.x -= shooting_angle_delta;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_UP | state;
-		shooting_angle.y = fmaxf(shooting_angle.y, 0.0f);
 		shooting_angle.y += shooting_angle_delta;
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_DOWN | state;
-		shooting_angle.y = fminf(shooting_angle.y, 0.0f);
 		shooting_angle.y -= shooting_angle_delta;
 	}
 
@@ -463,7 +462,6 @@ void ModulePlayer::processInput() {
 		}
 		return;
 	}
-
 
 	position.x += speed * sinf(direction * (M_PI / 180.0f));
 	position.y -= speed * cosf(direction * (M_PI / 180.0f));
