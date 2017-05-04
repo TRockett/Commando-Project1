@@ -11,6 +11,8 @@ private:
 
 	Animation jump;
 	Animation walk;
+	Animation jump_l;
+	Animation walk_l;
 
 
 	int current_angle;

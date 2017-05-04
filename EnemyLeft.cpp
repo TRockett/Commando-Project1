@@ -107,7 +107,7 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	death.loop = false;
 	death.speed = 0.5f;
 
-
+	//walk right 
 	walk.PushBack({ 703, 558, 16, 23 });
 	walk.PushBack({ 724, 558, 18, 21 });
 	walk.PushBack({ 703, 556, 16, 23 });
@@ -115,7 +115,7 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	walk.loop = true;
 	walk.speed = 0.2f;
 
-	//jump animation
+	//jump right animation
 	jump.PushBack({ 705, 583, 16, 19 });
 	jump.PushBack({ 725, 583, 16, 22 });
 	jump.PushBack({ 744, 583, 22, 21 });
@@ -123,6 +123,24 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	jump.PushBack({ 705, 583, 16, 19 });
 	jump.loop = false;
 	jump.speed = 0.1f;
+
+
+	//walk left
+	walk_l.PushBack({ 681, 558, 16, 23 });
+	walk_l.PushBack({ 659, 558, 18, 21 });
+	walk_l.PushBack({ 681, 556, 16, 23 });
+	walk_l.PushBack({ 638, 556, 16, 22 });
+	walk_l.loop = true;
+	walk_l.speed = 0.2f;
+
+	//jump left animation
+	jump_l.PushBack({ 680, 583, 16, 19 });
+	jump_l.PushBack({ 660, 583, 16, 22 });
+	jump_l.PushBack({ 634, 583, 22, 21 });
+	jump_l.PushBack({ 609, 583, 23, 23 });
+	jump_l.PushBack({ 680, 583, 16, 19 });
+	jump_l.loop = false;
+	jump_l.speed = 0.1f;
 
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
@@ -194,6 +212,39 @@ void EnemyLeft::Move() {
 				current_angle = (rand() % 8) * 45;
 			}
 		}
+
+		//left
+		if (jumping == true)
+		{
+			animation = &walk_l;
+
+			if (jump_state == 0)
+			{
+				movement.PushBack({ 0,0 }, 200);
+				if (movement.Finished() == true)
+				{
+					jump_state = 1;
+				}
+			}
+			else if (jump_state == 1)
+			{
+				movement.PushBack({ direction * 0.3f,0 }, 150);
+				if (movement.Finished() == true)
+				{
+					jump_state = 2;
+				}
+			}
+			else if (jump_state == 2)
+			{
+				animation = &jump_l;
+				movement.PushBack({ direction * 0.5f, jump_speed }, 200);
+				jump_speed += 0.2f;
+				if (movement.Finished() == true)
+				{
+					jumping = false;
+					current_angle = (rand() % 8) * 45;
+				}
+			}
 	}
 	
 else
