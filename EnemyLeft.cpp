@@ -181,42 +181,16 @@ void EnemyLeft::Move() {
 	prev_position = position;
 	iPoint player_pos = App->player->GetPosition();
 	
-	if (jumping == true)
-	{
-		animation = &walk;
-
-		if (jump_state == 0)
-		{
-			movement.PushBack({ 0,0 }, 200);
-			if (movement.Finished() == true)
-			{
-				jump_state = 1;
-			}
-		}
-		else if (jump_state == 1)
-		{
-			movement.PushBack({ direction * 0.3f,0 }, 150);
-			if (movement.Finished() == true)
-			{
-				jump_state = 2;
-			}
-		}
-		else if (jump_state == 2)
-		{
-			animation = &jump;
-			movement.PushBack({ direction * 0.5f, jump_speed }, 200);
-			jump_speed += 0.2f;
-			if (movement.Finished() == true)
-			{
-				jumping = false;
-				current_angle = (rand() % 8) * 45;
-			}
-		}
-
-		//left
 		if (jumping == true)
 		{
-			animation = &walk_l;
+			if (direction = -1)
+			{
+				animation = &walk;
+			}
+			else if (direction = 1)
+			{
+				animation = &walk_l;
+			}
 
 			if (jump_state == 0)
 			{
@@ -236,8 +210,19 @@ void EnemyLeft::Move() {
 			}
 			else if (jump_state == 2)
 			{
-				animation = &jump_l;
-				movement.PushBack({ direction * 0.5f, jump_speed }, 200);
+				if (direction = -1)
+				{
+					animation = &jump;
+				}
+				else if (direction = 1)
+				{
+					animation = &jump_l;
+				}
+
+
+
+				if (jump_state == 0)
+					movement.PushBack({ direction * 0.5f, jump_speed }, 200);
 				jump_speed += 0.2f;
 				if (movement.Finished() == true)
 				{
@@ -245,7 +230,9 @@ void EnemyLeft::Move() {
 					current_angle = (rand() % 8) * 45;
 				}
 			}
-	}
+		}
+
+	
 	
 else
 	{
