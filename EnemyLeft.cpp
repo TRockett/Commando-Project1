@@ -319,17 +319,4 @@ else
 		
 	return animation;
 }*/
-	void EnemyLeft::OnCollision(Collider* collider)
-	{
-		if (collider->type == COLLIDER_WALL ||  collider->type == COLLIDER_WATER)
-		{
-			collision = true;
-	
-		}
-		if (collider->type == COLLIDER_PLAYER_SHOT)
-		{
-			dying = true;
-		}
-		
-	}
 

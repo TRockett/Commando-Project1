@@ -14,8 +14,7 @@ private:
 
 
 	int current_angle;
-	bool collision = false;
-	bool dying = false;
+
 	bool disappear = false;
 	int timer;
 	bool jumping = false;
@@ -29,6 +28,6 @@ public:
 
 	virtual ~EnemyLeft();
 	virtual void Move();
-	virtual void OnCollision(Collider* collider);
+
 };
 

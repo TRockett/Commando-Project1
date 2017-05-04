@@ -32,7 +32,8 @@ public:
 	int initial_angle;
 	int sub_type;
 	bool dead = false;
-
+	bool collision = false;
+	bool dying = false;
 	int direction;
 	iPoint shooting_position;
 
