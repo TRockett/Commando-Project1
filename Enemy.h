@@ -24,6 +24,7 @@ protected:
 	Animation death;
 	Animation jump;
 	Animation walk;
+	Animation throwing;
 	iPoint initial_position;
 
 public:
@@ -48,6 +49,7 @@ public:
 	virtual void OnCollision(Collider* collider);
 	virtual int Enemy::Collisionangle(Collider* collider, Collider* c2);
 	Animation* GetAnimationForDirection(int dir);
+
 };
 
 #endif // __ENEMY_H__

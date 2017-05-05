@@ -10,21 +10,20 @@ private:
 	Path movement;
 
 	int current_angle;
-	bool collision = false;
-	bool dying = false;
 	bool disappear = false;
 	int timer;
 	int direction;
 	iPoint shooting_position;
-
+	bool throwi;
+	float grenadeac;
 public:
 	EnemyGrenade(int x, int y, int angle, int sub_type);
 	virtual ~EnemyGrenade();
 
 	virtual void Move();
-	virtual void OnCollision(Collider* collider);
 
-	/*void EnemyGrenade::Move();*/
+
+
 
 };
 
