@@ -49,20 +49,20 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 
 	//walk diagonal up-right
 
-	e1_up_right.PushBack({ 49 + 151,282,16,22 });
-	e1_up_right.PushBack({ 82 + 151,282,15,23 });
-	e1_up_right.PushBack({ 65 + 151,282,16,23 });
-	e1_up_right.PushBack({ 82 + 151,282,15,23 });
+	e1_up_right.PushBack({ 49 + 151,282,16,24 });
+	e1_up_right.PushBack({ 82 + 151,282,18,22 });
+	e1_up_right.PushBack({ 65 + 151,282,16,24 });
+	e1_up_right.PushBack({ 82 + 151,282,16,22 });
 	e1_up_right.speed = 0.15f;
 	e1_up_right.loop = true;
 
 	//walk right animation enemyy
 
 
-	e1_right.PushBack({ 0 + 151,306,16,24 });
-	e1_right.PushBack({ 17 + 151,306,18,22 }, { 2,0 });
-	e1_right.PushBack({ 0 + 151,306,16,24 });
-	e1_right.PushBack({ 36 + 151,306,16,22 }, { 2,0 });
+	e1_right.PushBack({ 148,306,16,24 });
+	e1_right.PushBack({ 164,306,18,22 }, { 2,0 });
+	e1_right.PushBack({ 148,306,16,24 });
+	e1_right.PushBack({ 183,306,16,22 }, { 2,0 });
 
 	e1_right.loop = true;
 	e1_right.speed = 0.15f;
