@@ -31,111 +31,59 @@ ModuleSceneGame::~ModuleSceneGame()
 bool ModuleSceneGame::Start() {
 	bool ret = true;
 	restart = false;
+	level = 1;
+
+	
+	
+	std::string str = "Images/Mapa";
+	str.append(std::to_string(level));
+	str.append(".png");
+	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
+	App->render->camera.x = -20 * SCREEN_SIZE;
+	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
+
+	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802, 270 , 1);
+
+	App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 90, 2);
+
+	App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 90, 2);
+	
+	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+
+	//Enabling modules
+	
+	App->collision->Enable();
+	App->objects->Enable();
+	App->particles->Enable();
 
 
-	if (level = 1)
-	{
-		std::string str = "Images/Mapa";
-		str.append(std::to_string(level));
-		str.append(".png");
-		background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
-		App->render->camera.x = -20 * SCREEN_SIZE;
-		App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
+	if (background_graphics == nullptr)
+		ret = false;
 
-		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802, 270, 1);
+	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
+	/*newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");*/
 
-		App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 90, 2);
+	if (intro)
+		App->sound->PlaySound(intro_music, 0);
 
-		App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 90, 2);
-
-		font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-		font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-
-		//Enabling modules
-
-		App->collision->Enable();
-		App->objects->Enable();
-		App->particles->Enable();
-
-
-		if (background_graphics == nullptr)
-			ret = false;
-
-		intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
-		/*newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");*/
-
-		if (intro)
-			App->sound->PlaySound(intro_music, 0);
-
-		else {
-			App->sound->PlaySound(newstart, 0);
-		}
-
-
-
-		//else {
-		//	App->sound->PlaySound(newstart, 0);
-		//}
-		//
-
-
-		if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-			ret = false;
-
-		return ret;
-
-	}
-
-	else if (level = 2)
-	{
-		std::string str = "Images/Mapa";
-		str.append(std::to_string(level));
-		str.append(".png");
-		background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
-		App->render->camera.x = -20 * SCREEN_SIZE;
-		App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
-
-		//ADD ENEMIES
-
-		font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-		font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-
-		//Enabling modules
-
-		App->collision->Enable();
-		App->objects->Enable();
-		App->particles->Enable();
-
-
-		if (background_graphics == nullptr)
-			ret = false;
-
-		intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
-		/*newstart = App->sound->LoadSound("Soundtrack/4. Neustart.wav");*/
-
-		if (intro)
-			App->sound->PlaySound(intro_music, 0);
-
-		else {
-			App->sound->PlaySound(newstart, 0);
-		}
-
-
-
-		//else {
-		//	App->sound->PlaySound(newstart, 0);
-		//}
-		//
-
-
-		if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-			ret = false;
-
-		return ret;
+	else {
+		App->sound->PlaySound(newstart, 0);
 	}
 	
 	
-};
+
+	//else {
+	//	App->sound->PlaySound(newstart, 0);
+	//}
+	//
+
+
+	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
+		ret = false;
+	
+	return ret;
+}
 
 update_status ModuleSceneGame::PreUpdate() {
 	if (restart) {
@@ -147,6 +95,8 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
+
+
 
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
@@ -161,20 +111,15 @@ update_status ModuleSceneGame::Update() {
 	{
 		App->player->Enable();
 		App->enemies->Enable();
-
-		if (level = 1) {
-			if (screen_enemies < 4)
+		if (screen_enemies < 4)
+		{
+			if (SDL_GetTicks()  >= timer + 200)
 			{
-				if (SDL_GetTicks() >= timer + 200)
-				{
-					App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT / 2) - 20), 0, 1);
-					timer = timer + 1000;
-					screen_enemies++;
-				}
+				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) - 20), 0, 1);
+				timer = timer + 1000;
+				screen_enemies++;
 			}
 		}
-
-		//else if (level = 2){}
 
 		if (!App->sound->isPlaying()) {
 			App->sound->PlayMusic();
@@ -182,13 +127,11 @@ update_status ModuleSceneGame::Update() {
 
 	}
 	sprintf_s(score_text, 10, "%7d", score);
-
-
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
 update_status ModuleSceneGame::PostUpdate() {
-	
+
 	if (score > top_score)
 	{
 		top_score = score;
