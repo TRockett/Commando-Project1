@@ -48,9 +48,11 @@ bool ModuleSceneGame::Start() {
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 90, 2);
 	
+
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 
+	
 	//Enabling modules
 	
 	App->collision->Enable();
@@ -109,16 +111,19 @@ update_status ModuleSceneGame::Update() {
 	}
 	else if(intro == false)
 	{
+	
+
 		App->player->Enable();
 		App->enemies->Enable();
 		if (screen_enemies < 4)
 		{
 			if (SDL_GetTicks()  >= timer + 200)
 			{
-				App->enemies->AddEnemy(LEFT_WEAPON, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) - 20), 0, 1);
+				App->enemies->AddEnemy(ENEMY_GRENADE, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) + 20), 90, 1);
 				timer = timer + 1000;
 				screen_enemies++;
 			}
+	
 		}
 
 		if (!App->sound->isPlaying()) {
