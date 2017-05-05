@@ -16,15 +16,15 @@ private:
 	int timer;
 	int direction;
 	iPoint shooting_position;
+	bool throwi;
 
 public:
 	EnemyGrenade(int x, int y, int angle, int sub_type);
 	virtual ~EnemyGrenade();
 
 	virtual void Move();
-	virtual void OnCollision(Collider* collider);
 
-	/*void EnemyGrenade::Move();*/
+
 
 };
 

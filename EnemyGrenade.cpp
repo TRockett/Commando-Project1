@@ -108,10 +108,13 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	death.loop = false;
 	death.speed = 0.5f;
 
+	
+
 
 
 	animation = &e1_forward;
 	current_angle = angle;
+	throwi = false;
 
 };
 
@@ -122,43 +125,47 @@ EnemyGrenade::~EnemyGrenade()
 
 void EnemyGrenade::Move()
 {
+	position = initial_position + movement.GetCurrentPosition();
 	iPoint player_pos = App->player->GetPosition();
-	if (SDL_GetTicks() >= timer + 1000)
-	{
-		float deltaX = -position.x + player_pos.x;
-		float deltaY = -position.y + player_pos.y;
-		float angle = atan2f(deltaY, deltaX);
-		float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
-		fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+	prev_position = position;
+	
 
-		App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
-		App->particles->bullet.life = 1800;
-		App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
-		timer = SDL_GetTicks();
-	}
 	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH)+30)
 	{
 		this->disappear = true;
 	}
 
-	if ((collision == true)&& dead == false && dying == false)
+	if ((movement.Finished() || collision == true) && dead == false && dying == false)
 	{
 		movement.Clear();
 		movement.Reset();
-		if (collision != true)
+		if (collision == true)
+		{	
+			position = prev_position;
+			current_angle = -Collisionangle(this->collider, collider);
+		}
+
+		if (throwi == false)
 		{
-			current_angle = (rand() % 8) * 45;
+			animation = GetAnimationForDirection(current_angle);
+			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
 		}
 		else
 		{
-			position = prev_position;
-			current_angle = -Collisionangle(this->collider, collider);
+			movement.PushBack({ 0 , 0 }, 50);
+			float deltaX = -position.x + player_pos.x;
+			float deltaY = -position.y + player_pos.y;
+			float angle = atan2f(deltaY, deltaX);
+			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
+			App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
+			App->particles->grenade.life = 800;
+			App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT);
 		}
-
-		animation = GetAnimationForDirection(current_angle);
-		movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
 		collision = false;
+		throwi = !throwi;
+
 	}
 	else if (dying == true)
 	{
@@ -192,17 +199,5 @@ void EnemyGrenade::Move()
 	}
 }
 		
-void EnemyGrenade::OnCollision(Collider* collider)
-{
-	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_WATER)
-	{
-		collision = true;
 
-	}
-	if (collider->type == COLLIDER_PLAYER_SHOT)
-	{
-		dying = true;
-	}
-
-}
 
