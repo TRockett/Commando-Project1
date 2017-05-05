@@ -85,6 +85,13 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	e1_backward.loop = true;
 	e1_backward.speed = 0.15f;
 
+	//grenade throwing
+	throwing.PushBack({ 200,330,20,24 });
+	throwing.PushBack({ 223,331,15,24 });
+	throwing.PushBack({ 241,332,15,22 });
+	throwing.loop = false;
+	throwing.speed = 0.1f;
+
 	//death
 	death.PushBack({ 0, 459, 15, 14 });
 
@@ -154,11 +161,13 @@ void EnemyGrenade::Move()
 			{
 				animation = GetAnimationForDirection(current_angle);
 				movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+				throwing.Reset();
 			}
 			else
 			{
+				animation = &throwing;
 				grenadeac = -1.0f;
-				movement.PushBack({ 0 , 0 }, 50);
+				movement.PushBack({ 0 , 0 }, 30);
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
 				float angle = atan2f(deltaY, deltaX);
@@ -169,8 +178,27 @@ void EnemyGrenade::Move()
 				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT);
 
 			}
+			
 			collision = false;
 			throwi = !throwi;
+
+		}
+		else if (sub_type == 2)
+		{
+
+			if (collision != true)
+			{
+				current_angle = (rand() % 8) * 45;
+			}
+			else
+			{
+				position = prev_position;
+				current_angle = -Collisionangle(this->collider, collider);
+
+			}
+
+			animation = GetAnimationForDirection(current_angle);
+			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
 		}
 		
 
