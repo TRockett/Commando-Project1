@@ -40,7 +40,7 @@ bool ModuleSceneWelcome::Init() {
 bool ModuleSceneWelcome::Start() {
 	bool ret = true;
 	App->fonts->Enable();
-	background_graphics = App->textures->Load("Images/Mapa4.png");
+	background_graphics = App->textures->Load("Images/Mapa3.png");
 	title_graphics = App->textures->Load("Images/title.png");
 	screen_welcome = App->textures->Load("Images/screen1.png");
 	capcom = App->textures->Load("Images/capcom.png");
