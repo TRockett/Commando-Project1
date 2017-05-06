@@ -13,15 +13,33 @@ protected:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	AnimationFrame current_frame;
+	Animation e1_forward;
+	Animation e1_backward;
+	Animation e1_left;
+	Animation e1_right;
+	Animation e1_up_right;
+	Animation e1_up_left;
+	Animation e1_down_right;
+	Animation e1_down_left;
+	Animation death;
+	Animation jump;
+	Animation walk;
+	Animation throwing;
 	iPoint initial_position;
 
 public:
 	iPoint position;
 	iPoint prev_position;
+	int initial_angle;
+	int sub_type;
 	bool dead = false;
+	bool collision = false;
+	bool dying = false;
+	int direction;
+	iPoint shooting_position;
 
 public:
-	Enemy(int x, int y);
+	Enemy(int x, int y, int angle, int sub_type);
 	virtual ~Enemy();
 
 	Collider* GetCollider() const;
@@ -30,6 +48,8 @@ public:
 	virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider);
 	virtual int Enemy::Collisionangle(Collider* collider, Collider* c2);
+	Animation* GetAnimationForDirection(int dir);
+
 };
 
 #endif // __ENEMY_H__

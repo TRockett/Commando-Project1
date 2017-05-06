@@ -115,7 +115,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int num)
 {
 	bool ret = false;
 
@@ -126,6 +126,8 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 			queue[i].type = type;
 			queue[i].pos.x = x;
 			queue[i].pos.y = y;
+			queue[i].angle = angle;
+			queue[i].sub_type = num;
 			ret = true;
 			break;
 		}
@@ -145,18 +147,15 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch(info.type)
 		{
 			case ENEMY_TYPES::LEFT_WEAPON:
-				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y);
+				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y, info.angle, info.sub_type);
 				break;
 
 			case ENEMY_TYPES::MOTO_TYPE:
-				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y);
+				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			
-			case ENEMY_TYPES::JUMPING_ENEMY:
-				enemies[i] = new EnemyJump(info.pos.x, info.pos.y);
-				break;
 			case ENEMY_TYPES::ENEMY_GRENADE:
-				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y);
+				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 		}
 	}

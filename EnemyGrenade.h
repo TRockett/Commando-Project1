@@ -1,24 +1,29 @@
 #pragma once
 #include "Enemy.h"
 #include "Animation.h"
+#include "Path.h"
 
 class EnemyGrenade :
 	public Enemy
 {
 private:
-	Animation e1_forward;
-	Animation e1_backward;
-	Animation e1_left;
-	Animation e1_right;
-	Animation e1_up_right;
-	Animation e1_up_left;
-	Animation e1_down_right;
-	Animation e1_down_left;
-	Animation death;
+	Path movement;
+
+	int current_angle;
+	bool disappear = false;
+	int timer;
+	int direction;
+	iPoint shooting_position;
+	bool throwi;
+	float grenadeac;
 public:
-	EnemyGrenade(int x, int y);
+	EnemyGrenade(int x, int y, int angle, int sub_type);
 	virtual ~EnemyGrenade();
-	/*void EnemyGrenade::Move();*/
+
+	virtual void Move();
+
+
+
 
 };
 

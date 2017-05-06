@@ -230,31 +230,9 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
-	if (r.x <= rect.x + rect.w && r.x >= rect.x)
-		if (r.y <= rect.y + rect.h && r.y >= rect.y)
-			return true;
-	if (r.x + r.w <= rect.x + rect.w && r.x + r.w >= rect.x)
-		if (r.y <= rect.y + rect.h && r.y >= rect.y)
-			return true;
-	if (r.x <= rect.x + rect.w && r.x >= rect.x)
-		if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y)
-			return true;
-	if (r.x + r.w <= rect.x + rect.w && r.x + r.w >= rect.x)
-		if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y)
-			return true;
-
-	if (rect.x <= r.x + r.w && rect.x >= r.x)
-		if (rect.y <= r.y + r.h && rect.y >= r.y)
-			return true;
-	if (rect.x + rect.w <= r.x + r.w && rect.x + rect.w >= r.x)
-		if (rect.y <= r.y + r.h && rect.y >= r.y)
-			return true;
-	if (rect.x <= r.x + r.w && rect.x >= r.x)
-		if (rect.y + rect.h <= r.y + r.h && rect.y + rect.h >= r.y)
-			return true;
-	if (rect.x + rect.w <= r.x + r.w && rect.x + rect.w >= r.x)
-		if (rect.y + rect.h <= r.y + r.h && rect.y + rect.h >= r.y)
-			return true;
-
+	if (r.x <= rect.x + rect.w && r.x >= rect.x && r.y <= rect.y + rect.h && r.y >= rect.y)
+		return true;
+	if (rect.x <= r.x + r.w && rect.x >= r.x && rect.y <= r.y + r.h && rect.y >= r.y)
+		return true;
 	return false;
 }

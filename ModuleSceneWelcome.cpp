@@ -39,7 +39,7 @@ bool ModuleSceneWelcome::Init() {
 
 bool ModuleSceneWelcome::Start() {
 	bool ret = true;
-
+	App->fonts->Enable();
 	background_graphics = App->textures->Load("Images/Mapa4.png");
 	title_graphics = App->textures->Load("Images/title.png");
 	screen_welcome = App->textures->Load("Images/screen1.png");
@@ -60,6 +60,10 @@ bool ModuleSceneWelcome::Start() {
 update_status ModuleSceneWelcome::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
 		App->fade->FadeToBlack(this, App->scene_game, 3.0f);
+
+	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
+		App->scene_game->intro = false;
+		
 	return UPDATE_CONTINUE;
 }
 
@@ -90,13 +94,15 @@ update_status ModuleSceneWelcome::PostUpdate() {
 
 bool ModuleSceneWelcome::CleanUp() {
 	bool ret = true;
-	
+	App->fonts->Disable();
 	ret = App->textures->Unload(background_graphics);
+
 	if (!App->textures->Unload(title_graphics))
 		ret = false;
 	if (!App->textures->Unload(capcom))
 		ret = false;
 	if (!App->textures->Unload(screen_welcome))
 		ret = false;
+
 	return ret;
 }

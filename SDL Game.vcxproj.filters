@@ -95,9 +95,6 @@
     <ClInclude Include="EnemyMoto.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyJump.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Enemywprisoner.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
@@ -170,9 +167,6 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="EnemyMoto.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyJump.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Enemywprisoner.cpp">

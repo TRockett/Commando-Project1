@@ -1,8 +1,16 @@
 #include "EnemyGrenade.h"
 #include "ModulePlayer.h"
 #include "Application.h"
+#include "SDL/include/SDL_timer.h"
+#include <math.h>
+#include "Application.h"
+#include "ModuleEnemies.h"
+#include "ModuleCollision.h"
+#include "ModuleSceneGame.h"
 
-EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y) 
+
+
+EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y, angle, sub_type)
 {// walk forward animation (arcade sprite sheet)
 
 	e1_forward.PushBack({ 0 + 151, 209, 13, 23 });
@@ -41,20 +49,20 @@ EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y)
 
 	//walk diagonal up-right
 
-	e1_up_right.PushBack({ 49 + 151,282,16,22 });
-	e1_up_right.PushBack({ 82 + 151,282,15,23 });
-	e1_up_right.PushBack({ 65 + 151,282,16,23 });
-	e1_up_right.PushBack({ 82 + 151,282,15,23 });
+	e1_up_right.PushBack({ 49 + 151,282,16,24 });
+	e1_up_right.PushBack({ 82 + 151,282,18,22 });
+	e1_up_right.PushBack({ 65 + 151,282,16,24 });
+	e1_up_right.PushBack({ 82 + 151,282,16,22 });
 	e1_up_right.speed = 0.15f;
 	e1_up_right.loop = true;
 
 	//walk right animation enemyy
 
 
-	e1_right.PushBack({ 0 + 151,306,16,24 });
-	e1_right.PushBack({ 17 + 151,306,18,22 }, { 2,0 });
-	e1_right.PushBack({ 0 + 151,306,16,24 });
-	e1_right.PushBack({ 36 + 151,306,16,22 }, { 2,0 });
+	e1_right.PushBack({ 148,306,16,24 });
+	e1_right.PushBack({ 164,306,18,22 }, { 2,0 });
+	e1_right.PushBack({ 148,306,16,24 });
+	e1_right.PushBack({ 183,306,16,22 }, { 2,0 });
 
 	e1_right.loop = true;
 	e1_right.speed = 0.15f;
@@ -99,6 +107,18 @@ EnemyGrenade::EnemyGrenade(int x, int y) : Enemy (x,y)
 	death.PushBack({ 0, 459, 15, 14 });
 	death.loop = false;
 	death.speed = 0.5f;
+
+	current_angle = angle;
+
+	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
+
+	movement.loop = false;
+	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
+
+	animation = &e1_forward;
+	
+	throwi = false;
+
 };
 
 
@@ -106,24 +126,87 @@ EnemyGrenade::~EnemyGrenade()
 {
 }
 
-//void EnemyGrenade::Move()
-//{
-//	iPoint player_pos = App->player->GetPosition();
-//	if (player_pos.y > position.y + 50)
-//	{
-//		if (animation != &throwing_grenade) {
-//			movement.Clear();
-//			movement.Reset();
-//			movement.PushBack({ 0.0f, 0.0f }, 10, &throwing_grenade);
-//		}
-//		else if (animation->Finished()) {
-//			float deltaX = -position.x + player_pos.x;
-//			float deltaY = -position.y + player_pos.y;
-//			float angle = atan2f(deltaY, deltaX);
-//
-//			App->particles->grenade.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
-//			App->particles->AddParticle(App->particles->grenade, position.x, position.y, GRENADE_ENEMY, COLLIDER_NONE);
-//			animation->Reset();
-//		}
-//}
+void EnemyGrenade::Move()
+{
+	position = initial_position + movement.GetCurrentPosition();
+	iPoint player_pos = App->player->GetPosition();
+	prev_position = position;
+	grenadeac = grenadeac + 1;
+
+	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH)+30)
+	{
+		this->disappear = true;
+	}
+
+	if ((movement.Finished() || collision == true) && dead == false && dying == false)
+	{
+		movement.Clear();
+		movement.Reset();
+
+		if (sub_type == 1)
+		{
+			if (collision == true)
+			{
+				position = prev_position;
+				current_angle = -Collisionangle(this->collider, collider);
+			}
+			else if (throwi == false)
+			{
+				animation = GetAnimationForDirection(current_angle);
+				movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+			}
+			else
+			{
+				grenadeac = -1.0f;
+				movement.PushBack({ 0 , 0 }, 50);
+				float deltaX = -position.x + player_pos.x;
+				float deltaY = -position.y + player_pos.y;
+				float angle = atan2f(deltaY, deltaX);
+				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+
+				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f) + grenadeac) };
+				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT);
+
+			}
+			collision = false;
+			throwi = !throwi;
+		}
+		
+
+	}
+	else if (dying == true)
+	{
+		animation = &death;
+		collider->active = false;
+		movement.Clear();
+		movement.Reset();
+
+		if (animation->Finished() == true)
+		{
+			dead = true;
+			App->scene_game->score = App->scene_game->score + 200;
+			App->scene_game->screen_enemies--;
+			App->enemies->EraseEnemy(this);
+		}
+	}
+
+	else if (disappear == true)
+	{
+		animation = &death;
+		collider->active = false;
+		movement.Clear();
+		movement.Reset();
+
+		if (animation->Finished() == true)
+		{
+			dead = true;
+			App->scene_game->screen_enemies--;
+			App->enemies->EraseEnemy(this);
+		}
+	}
+}
+
+
+
 

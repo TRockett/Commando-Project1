@@ -15,7 +15,6 @@ enum ENEMY_TYPES
 	LEFT_WEAPON,
 	RIGHT_WEAPON,
 	MOTO_TYPE,
-	JUMPING_ENEMY,
 	ENEMY_GRENADE,
 };
 
@@ -26,6 +25,7 @@ struct EnemyInfo
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	iPoint pos;
 	int angle;
+	int sub_type;
 };
 
 class ModuleEnemies : public Module
@@ -42,7 +42,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int num);
 	bool EraseEnemy(Enemy* enemy);
 
 private:
