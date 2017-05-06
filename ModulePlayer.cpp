@@ -258,10 +258,6 @@ update_status ModulePlayer::Update()
 		{
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
-			shooting_angle.x = fmaxf(-1.0f, shooting_angle.x);
-			shooting_angle.x = fminf(1.0f, shooting_angle.x);
-			shooting_angle.y = fmaxf(-1.0f, shooting_angle.y);
-			shooting_angle.y = fminf(1.0f, shooting_angle.y);
 			bullet.speed = { PLAYER_BULLET_SPEED * shooting_angle.x, PLAYER_BULLET_SPEED * shooting_angle.y };
 			bullet.life = 300;
 			App->particles->AddParticle(fire, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
@@ -355,13 +351,13 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_UP | state;
-		shooting_angle_delta.y = 0.15f;
+		shooting_angle_delta.y = -0.15f;
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_DOWN | state;
-		shooting_angle_delta.y = -0.15f;
+		shooting_angle_delta.y = 0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
@@ -405,6 +401,8 @@ void ModulePlayer::processInput() {
 		current_animation = &backward;
 		fire = App->particles->fire_down;
 		grenade_speed = 1;
+		shooting_angle.y = fmaxf(shooting_angle.y, 0.0f);
+		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
@@ -412,6 +410,8 @@ void ModulePlayer::processInput() {
 		current_animation = &forward;
 		fire = App->particles->fire_up;
 		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
+		shooting_angle.y = fminf(shooting_angle.y, 0.0f);
+		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
@@ -419,6 +419,8 @@ void ModulePlayer::processInput() {
 		current_animation = &right;
 		fire = App->particles->fire_right;
 		grenade_speed = 1;
+		shooting_angle.x = fmaxf(shooting_angle.x, 0.0f);
+		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
@@ -426,6 +428,8 @@ void ModulePlayer::processInput() {
 		current_animation = &left;
 		fire = App->particles->fire_left;
 		grenade_speed = 1;
+		shooting_angle.x = fminf(shooting_angle.x, 0.0f);
+		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
@@ -460,15 +464,23 @@ void ModulePlayer::processInput() {
 		if (!bthrowing) {
 			current_animation->speed = 0.0f;
 		}
-		return;
+		break;
 	}
 
-	position.x += speed * sinf(direction * (M_PI / 180.0f));
-	position.y -= speed * cosf(direction * (M_PI / 180.0f));
+	/*shooting_angle.x = fmaxf(-1.0f, shooting_angle.x);
+	shooting_angle.x = fminf(1.0f, shooting_angle.x);
+	shooting_angle.y = fmaxf(-1.0f, shooting_angle.y);
+	shooting_angle.y = fminf(1.0f, shooting_angle.y);*/
+
+	if (state != IDLE) {
+		position.x += speed * sinf(direction * (M_PI / 180.0f));
+		position.y -= speed * cosf(direction * (M_PI / 180.0f));
+	}
 }
 
 void ModulePlayer::rotateShootingAngle() {
-	float module = shooting_angle.x * shooting_angle.x + shooting_angle.y * shooting_angle.y;
+	shooting_angle += shooting_angle_delta;
+	float module = sqrtf(shooting_angle.x * shooting_angle.x + shooting_angle.y * shooting_angle.y);
 	shooting_angle.x /= module;
 	shooting_angle.y /= module;
 }
