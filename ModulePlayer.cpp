@@ -155,7 +155,7 @@ bool ModulePlayer::Start()
 
 	position.x = (SCREEN_WIDTH / 2) + 20;
 	position.y = (float)App->scene_game->getLevelDimensions().y + 110;
-	shooting_angle = 0;
+	shooting_angle = { 0.0f, 0.0f };
 	direction = 0;
 	shooting_position = { 9,1 };
 	player_min_y = (int)position.y;
@@ -194,11 +194,6 @@ update_status ModulePlayer::Update()
 		current_animation->speed = 0.15f;
 		shooting = false;
 		grenade1 = false;
-
-		if (shooting_angle < 0)
-			shooting_angle += 360;
-		else if (shooting_angle >= 360)
-			shooting_angle -= 360;
 
 		if (App->scene_game->intro == true)
 		{
@@ -263,10 +258,9 @@ update_status ModulePlayer::Update()
 		{
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
-
-			bullet.speed = { (PLAYER_BULLET_SPEED * sinf(shooting_angle * M_PI / 180.0f)), (-PLAYER_BULLET_SPEED * cosf(shooting_angle * M_PI / 180.0f))};
+			bullet.speed = { PLAYER_BULLET_SPEED * shooting_angle.x, PLAYER_BULLET_SPEED * shooting_angle.y };
 			bullet.life = 300;
-			App->particles->AddParticle(fire, (int)position.x + shooting_position.x + 5 * sinf(shooting_angle * M_PI / 180.0f), (int)position.y + shooting_position.y + 5 * cosf(shooting_angle * M_PI / 180.0f), EXPLOSION, COLLIDER_NONE);
+			App->particles->AddParticle(fire, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
 		}
@@ -345,21 +339,25 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_RIGHT | state;
+		shooting_angle_delta.x = 0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_LEFT | state;
+		shooting_angle_delta.x = -0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_UP | state;
+		shooting_angle_delta.y = -0.15f;
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
 	{
 		state = MOVING_DOWN | state;
+		shooting_angle_delta.y = 0.15f;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
@@ -369,8 +367,7 @@ void ModulePlayer::checkInput() {
 	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0 && current_animation != &throw_grenade)
 	{
 		grenade1 = true;
-		if (grenade_on == false)
-		{
+		if (grenade_on == false) {
 			grenades--;
 		}
 	}
@@ -396,6 +393,7 @@ void ModulePlayer::checkInput() {
 }
 
 void ModulePlayer::processInput() {
+
 	switch (state) {
 	case MOVING_DOWN:
 		shooting_position = { 2,16 };
@@ -403,7 +401,8 @@ void ModulePlayer::processInput() {
 		current_animation = &backward;
 		fire = App->particles->fire_down;
 		grenade_speed = 1;
-
+		shooting_angle.y = fmaxf(shooting_angle.y, 0.0f);
+		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_UP:
 		shooting_position = { 10,2 };
@@ -411,6 +410,8 @@ void ModulePlayer::processInput() {
 		current_animation = &forward;
 		fire = App->particles->fire_up;
 		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
+		shooting_angle.y = fminf(shooting_angle.y, 0.0f);
+		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_RIGHT:
 		shooting_position = { 20,8 };
@@ -418,6 +419,8 @@ void ModulePlayer::processInput() {
 		current_animation = &right;
 		fire = App->particles->fire_right;
 		grenade_speed = 1;
+		shooting_angle.x = fmaxf(shooting_angle.x, 0.0f);
+		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_LEFT:
 		shooting_position = { 0,8 };
@@ -425,6 +428,8 @@ void ModulePlayer::processInput() {
 		current_animation = &left;
 		fire = App->particles->fire_left;
 		grenade_speed = 1;
+		shooting_angle.x = fminf(shooting_angle.x, 0.0f);
+		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
 	case MOVING_DOWN_RIGHT:
 		shooting_position = { 15,17 };
@@ -456,55 +461,28 @@ void ModulePlayer::processInput() {
 		break;
 	case IDLE:
 		grenade_speed = 1;
-		if (!bthrowing)
-		{
+		if (!bthrowing) {
 			current_animation->speed = 0.0f;
 		}
-		return;
+		break;
 	}
 
+	/*shooting_angle.x = fmaxf(-1.0f, shooting_angle.x);
+	shooting_angle.x = fminf(1.0f, shooting_angle.x);
+	shooting_angle.y = fmaxf(-1.0f, shooting_angle.y);
+	shooting_angle.y = fminf(1.0f, shooting_angle.y);*/
 
-	position.x += speed * sinf(direction * (M_PI / 180.0f));
-	position.y -= speed * cosf(direction * (M_PI / 180.0f));
+	if (state != IDLE) {
+		position.x += speed * sinf(direction * (M_PI / 180.0f));
+		position.y -= speed * cosf(direction * (M_PI / 180.0f));
+	}
 }
 
 void ModulePlayer::rotateShootingAngle() {
-	int shooting_angle_delta = 15;
-	switch (direction) {
-	case 0:
-		if (shooting_angle > 0 && shooting_angle <= 180)
-			shooting_angle -= shooting_angle_delta;
-		else if (shooting_angle > 180)
-			shooting_angle += shooting_angle_delta;
-		break;
-	case 45:
-	case 90:
-	case 135:
-	case 180:
-		if (shooting_angle > direction)
-			shooting_angle -= shooting_angle_delta;
-		else if (shooting_angle < direction)
-			shooting_angle += shooting_angle_delta;
-		break;
-	case 225:
-		if (shooting_angle > 225 || shooting_angle <= 45)
-			shooting_angle -= shooting_angle_delta;
-		else if (shooting_angle < 225)
-			shooting_angle += shooting_angle_delta;
-		break;
-	case 270:
-		if (shooting_angle > 270 || shooting_angle <= 90)
-			shooting_angle -= shooting_angle_delta;
-		else if (shooting_angle < 270)
-			shooting_angle += shooting_angle_delta;
-		break;
-	case 315:
-		if (shooting_angle > 315 || shooting_angle <= 135)
-			shooting_angle -= shooting_angle_delta;
-		else if (shooting_angle < 315)
-			shooting_angle += shooting_angle_delta;
-		break;
-	}
+	shooting_angle += shooting_angle_delta;
+	float module = sqrtf(shooting_angle.x * shooting_angle.x + shooting_angle.y * shooting_angle.y);
+	shooting_angle.x /= module;
+	shooting_angle.y /= module;
 }
 
 void ModulePlayer::OnCollision(Collider* self, Collider* other) {
