@@ -45,7 +45,27 @@ bool ModuleObjects::Init() {
 	final_door.speed = 0.1f;
 	final_door.loop =false ;
 
-	
+	//Door of the bunkers of level 3 animation
+	door_bunker.PushBack({630,196,12, 23});
+	door_bunker.PushBack({ 646,196,12, 22 });
+	door_bunker.PushBack({ 662,196,12, 20 });
+	door_bunker.PushBack({ 678,196,12, 18 });
+	door_bunker.PushBack({ 694,196,12, 16 });
+	door_bunker.PushBack({ 710,196,12, 14 });
+	door_bunker.PushBack({ 726,196,12, 12 });
+	door_bunker.PushBack({ 742,196,12, 10 });
+	door_bunker.PushBack({ 758,196,12, 8 });
+	door_bunker.PushBack({ 773,196,12, 6 });
+	door_bunker.PushBack({ 758,196,12, 8 });
+	door_bunker.PushBack({ 742,196,12, 10 });
+	door_bunker.PushBack({ 726,196,12, 12 });
+	door_bunker.PushBack({ 710,196,12, 14 });
+	door_bunker.PushBack({ 694,196,12, 16 });
+	door_bunker.PushBack({ 678,196,12, 18 });
+	door_bunker.PushBack({ 662,196,12, 20 });
+	door_bunker.PushBack({ 646,196,12, 22 });
+	door_bunker.PushBack({ 630,196,12, 23 });
+	door_bunker.speed = 0.5f;
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
@@ -263,6 +283,9 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 130, -49 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 160, -49 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 146, -65 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
+
+		//To see if the animation of the bunkers doors of the third level work well
+		App->render->Blit(sprite_graphics, 50, -340 + level_dimensions.y, &door_bunker.GetCurrentFrame().rect);
 
 		//Group of three palms
 		App->render->Blit(sprite_graphics, 1, -240 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
