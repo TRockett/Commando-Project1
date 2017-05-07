@@ -167,7 +167,6 @@ void EnemyGrenade::Move()
 			}
 			else
 			{
-				grenadeac = -2.0f;
 				animation = &throwing;
 				movement.PushBack({ 0 , 0 }, 30);
 				float deltaX = -position.x + player_pos.x;
@@ -176,8 +175,8 @@ void EnemyGrenade::Move()
 				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
 				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
-				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f) + grenadeac) };
-				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT);
+				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
+				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT,nullptr,0,true);
 
 			}
 			

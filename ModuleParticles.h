@@ -32,12 +32,14 @@ struct Particle
 	uint fx = 0;
 	fPoint position;
 	fPoint speed;
+	float parabol;
 	Sint32 born = 0;
 	Sint32 life = 0;
 	bool fx_played = false;
 	PARTICLE_TYPE particletype;
 	Mix_Chunk* onEndSound = nullptr;
-
+	float acceleration;
+	fPoint init_speed;
 	Particle();
 	Particle(const Particle& p);
 	~Particle();
@@ -57,7 +59,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Mix_Chunk* on_end_sound = nullptr, Sint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type = COLLIDER_NONE, Mix_Chunk* on_end_sound = nullptr, Sint32 delay = 0, bool parabol = 0);
 	void addExplosionParticle(Particle* p);
 
 	int fire_life = 100;
@@ -65,6 +67,7 @@ private:
 
 	SDL_Texture* graphics = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
+	
 
 public:
 

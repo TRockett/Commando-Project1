@@ -151,7 +151,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
- void ModuleParticles::AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type, Mix_Chunk* on_end_sound, Sint32 delay)
+ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, PARTICLE_TYPE particle_type, COLLIDER_TYPE collider_type, Mix_Chunk* on_end_sound, Sint32 delay, bool parabol)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -163,6 +163,7 @@ update_status ModuleParticles::Update()
 			p->position.y = y;
 			p->particletype = particle_type;
 			p->onEndSound = on_end_sound;
+			p->parabol = parabol;
 			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame().rect, collider_type, this);
 				p->collider->active = false;
@@ -225,8 +226,11 @@ Particle::Particle()
 
 Particle::Particle(const Particle& p) : 
 anim(p.anim), position(p.position), speed(p.speed),
-fx(p.fx), born(p.born), life(p.life)
-{}
+fx(p.fx), born(p.born), life(p.life),acceleration(p.acceleration)
+{
+	acceleration = -0.3f;
+	init_speed = p.speed;
+}
 
 Particle::~Particle()
 {
@@ -239,6 +243,15 @@ bool Particle::Update()
 	bool ret = true;
 
 	Sint32 ticks = SDL_GetTicks();
+
+	if (parabol == true)
+	{
+		if (init_speed.y + 1 >= (speed.y + acceleration))
+		{
+			speed.y = speed.y + acceleration;
+			acceleration = acceleration + 0.05f;
+		}
+	}
 	if(life > 0)
 	{
 		if ((ticks - born) > life)
