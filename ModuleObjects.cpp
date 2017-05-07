@@ -306,6 +306,7 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, 81, 0, &final_door.GetCurrentFrame().rect);
 		}
 
+
 		if (App->scene_game->intro == true)
 		{
 			helix->speed = 0.5f;
@@ -371,6 +372,10 @@ update_status ModuleObjects::Update() {
 			iPoint pivot2 = helixfr.pivot;
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
 			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y  - pivot2.y, &helixfr.rect);
+
+		}
+		else
+		{
 			tree1.speed = 0;
 			tree2.speed = 0;
 		}

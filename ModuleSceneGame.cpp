@@ -111,7 +111,7 @@ update_status ModuleSceneGame::Update() {
 	}
 	else if(intro == false)
 	{
-	
+		
 
 		App->player->Enable();
 		App->enemies->Enable();
