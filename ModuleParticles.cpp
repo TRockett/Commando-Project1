@@ -246,7 +246,7 @@ bool Particle::Update()
 
 	if (parabol == true)
 	{
-		if (init_speed.y + 1 >= (speed.y + acceleration))
+		if (init_speed.y + 0.5 >= (speed.y + acceleration))
 		{
 			speed.y = speed.y + acceleration;
 			acceleration = acceleration + 0.05f;
