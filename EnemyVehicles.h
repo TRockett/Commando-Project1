@@ -14,8 +14,6 @@ private:
 		Animation moto_ltor;
 		Animation vertical_truck;
 
-		bool riding = false;
-
 	public:
 		EnemyVehicles(int x, int y, int angle, int sub_type);
 		void Move();
