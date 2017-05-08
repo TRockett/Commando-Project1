@@ -12,6 +12,7 @@
 #include "ModuleEnemies.h"
 #include "SDL/include/SDL_timer.h"
 #include <string>
+#include "ModuleLevel3.h"
 
 
 ModuleObjects::ModuleObjects()
@@ -127,6 +128,7 @@ bool ModuleObjects::Init() {
 	helix3.speed = 0.25f;
 	helix3.loop = true;
 
+	
 	return true;
 }
 
@@ -142,7 +144,7 @@ bool ModuleObjects::Start() {
 	helix = &helix1;
 
 
-	if (App->scene_game->getLevel() == 1)
+	if (App->level == 1)
 	{
 		// Collisions of the rock at the upper left corner at the beggining of the game
 		App->collision->AddCollider({ 20, 10 + level_dimensions.y, 10, 17 }, COLLIDER_WALL);
@@ -257,7 +259,15 @@ bool ModuleObjects::Start() {
 		boxes[3] = App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX, this);
 		boxes[4] = App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX, this);
 	}
+	else if (App->level = 3)
+	{
+		//colliders for bunkers
+		App->collision->AddCollider({67, 1950, 47, 14}, COLLIDER_WALL);
+		App->collision->AddCollider({80, 1940, 26, 17}, COLLIDER_WALL);
 
+		App->collision->AddCollider({ 237, 1944, 19, 25 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 1940, 245, 20, 26 }, COLLIDER_WALL);
+	}
 
 	if (sprite_graphics == nullptr)
 		ret = false;
@@ -269,7 +279,7 @@ bool ModuleObjects::Start() {
 
 
 update_status ModuleObjects::Update() {
-	if (App->scene_game->getLevel() == 1)
+	if (App->level == 1)
 	{
 		App->render->Blit(sprite_graphics, 208, 128 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 19, 128 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
@@ -403,6 +413,21 @@ update_status ModuleObjects::Update() {
 			tree2.speed = 0;
 		}
 	}
+
+	else if (App->level == 3)
+	{
+
+	}
+
+
+
+
+
+
+
+
+
+
 	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };
 	App->render->Blit(sprite_graphics, SCREEN_WIDTH /3 + 15, SCREEN_HEIGHT-18, &player_grenade_num, 0.0f, false);
 	SDL_Rect player_lives_spr = { 22,496,11,16 };

@@ -13,6 +13,7 @@
 #include "ModuleObjects.h"
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
+#include "ModuleLevel3.h"
 
 
 ModuleSceneGame::ModuleSceneGame()
@@ -31,14 +32,11 @@ ModuleSceneGame::~ModuleSceneGame()
 bool ModuleSceneGame::Start() {
 	bool ret = true;
 	restart = false;
-	level = 1;
+	App->level = 1;
 
 	
 	
-	std::string str = "Images/Mapa";
-	str.append(std::to_string(level));
-	str.append(".png");
-	background_graphics = App->textures->Load(str.c_str(), &level_dimensions);
+	background_graphics = App->textures->Load("Images/Mapa1.png", &level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
@@ -88,7 +86,11 @@ bool ModuleSceneGame::Start() {
 }
 
 update_status ModuleSceneGame::PreUpdate() {
-	if (restart) {
+
+	if (App->input->keyboard[SDL_SCANCODE_3] == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->level_3, 3.0f);
+
+	else if (restart) {
 		App->fade->FadeToBlack(this, next, 0.0f);
 		screen_enemies = 0;
 	}
@@ -153,6 +155,8 @@ update_status ModuleSceneGame::PostUpdate() {
 }
 
 bool ModuleSceneGame::CleanUp() {
+	App->level = 3;
+	
 	bool ret = true;
 	restart = false;
 	App->sound->StopAll();
@@ -163,6 +167,7 @@ bool ModuleSceneGame::CleanUp() {
 	App->particles->Disable();
 
 	App->fonts->Disable();
+	
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;

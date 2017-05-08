@@ -32,6 +32,15 @@ private:
 	Animation helix1;
 	Animation helix2;
 	Animation helix3;
+
+	//level 3
+
+	Animation bunker_1;
+	Animation bunker_2;
+	Animation bunker_3;
+	Animation bunker_4;
+
+	Animation stones;
 	int timer; 
 
 	fPoint helipoint;

@@ -1,19 +1,18 @@
-#ifndef __ModuleSceneGame_H__
-#define __ModuleSceneGame_H__
+#ifndef __ModuleLevel3_H__
+#define __ModuleLevel3_H__
+
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
 
-#define MAX_LEVEL 2
 struct SDL_Texture;
 struct Mix_Chunk;
-
-class ModuleSceneGame :
+class ModuleLevel3 :
 	public Module
 {
 private:
-	
+
 
 	SDL_Texture* background_graphics;
 	iPoint level_dimensions;
@@ -33,7 +32,7 @@ public:
 	int screen_enemies;
 	Module* next;
 	int top_score;
-	
+
 	Mix_Chunk* intro_music;
 	Mix_Chunk* newstart;
 
@@ -42,10 +41,11 @@ public:
 	}
 
 
+
 	bool restart = false;
 
-	ModuleSceneGame();
-	virtual ~ModuleSceneGame();
+	ModuleLevel3();
+	virtual ~ModuleLevel3();
 };
 
 #endif

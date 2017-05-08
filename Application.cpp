@@ -15,6 +15,7 @@
 #include "ModuleFonts.h"
 #include "ModuleObjects.h"
 #include "ModuleInterface.h"
+#include "ModuleLevel3.h"
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
@@ -24,14 +25,15 @@ Application::Application()
 	modules[5] = scene_congrats = new ModuleSceneCongrats();
 	modules[6] = scene_welcome = new ModuleSceneWelcome();
 	modules[7] = scene_game = new ModuleSceneGame();
-	modules[8] = player = new ModulePlayer();
-	modules[9] = enemies = new ModuleEnemies();
-	modules[10] = objects = new ModuleObjects();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
+	modules[8] = level_3 = new ModuleLevel3();
+	modules[9] = player = new ModulePlayer();
+	modules[10] = enemies = new ModuleEnemies();
+	modules[11] = objects = new ModuleObjects();
+	modules[12] = particles = new ModuleParticles();
+	modules[13] = collision = new ModuleCollision();
 	modules[1] = fonts = new ModuleFonts();
-	modules[14] = render = new ModuleRender();
-	modules[13] = fade = new ModuleFadeToBlack();
+	modules[15] = render = new ModuleRender();
+	modules[14] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -48,6 +50,7 @@ bool Application::Init()
 	player->Disable();
 
 	// Disable the map that you do not start with
+	level_3->Disable();
 	scene_game->Disable();
 	scene_congrats->Disable();
 	scene_welcome->Enable();

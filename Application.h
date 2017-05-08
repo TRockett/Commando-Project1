@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 15
+#define NUM_MODULES 16
 
 class ModuleWindow;
 class ModuleInput;
@@ -21,6 +21,7 @@ class ModuleEnemies;
 class ModuleFonts;
 class Module;
 class ModuleObjects;
+class ModuleLevel3;
 
 class Application
 {
@@ -42,6 +43,7 @@ public:
 	ModuleEnemies* enemies;
 	ModuleFonts* fonts;
 	ModuleObjects* objects;
+	ModuleLevel3 *level_3;
 
 
 public:
@@ -52,6 +54,7 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+	int level = 1;
 
 };
 
