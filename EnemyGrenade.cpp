@@ -13,10 +13,10 @@
 EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y, angle, sub_type)
 {// walk forward animation (arcade sprite sheet)
 
-	e1_forward.PushBack({ 0 + 151, 209, 13, 23 });
-	e1_forward.PushBack({ 31 + 151, 210, 13, 23 });
-	e1_forward.PushBack({ 17 + 151, 209, 13, 23 });
-	e1_forward.PushBack({ 31 + 151, 210, 13, 23 });
+	e1_forward.PushBack({ 0 + 148, 209, 13, 23 });
+	e1_forward.PushBack({ 31 + 148, 210, 13, 23 });
+	e1_forward.PushBack({ 17 + 148, 209, 13, 23 });
+	e1_forward.PushBack({ 31 + 148, 210, 13, 23 });
 	e1_forward.loop = true;
 	e1_forward.speed = 0.15f;
 
