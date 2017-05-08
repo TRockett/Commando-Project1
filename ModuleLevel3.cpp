@@ -32,6 +32,7 @@ ModuleLevel3::~ModuleLevel3()
 
 
 bool ModuleLevel3::Start() {
+	screen_enemies = 0;
 	bool ret = true;
 	restart = false;
 	App->level = 3;
@@ -42,9 +43,14 @@ bool ModuleLevel3::Start() {
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
 	//ADD ENEMIES
-	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
+	if (App->level == 3) 
+	{
+		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
 
-	App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 740, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 740, 270, 1);
+
+	}
+	
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);

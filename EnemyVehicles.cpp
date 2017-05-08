@@ -8,18 +8,19 @@
 EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
 {
 	//truck
-	truck_riding.PushBack({129,68,255,250});
+	truck_riding.PushBack({1045,295,64,31});
 
 	//moto from right to left
-	moto_rtol.PushBack({3, 212, 46, 22});
+	moto_rtol.PushBack({973, 357, 45, 22});
 
 	//moto from left to right
-	moto_rtol.PushBack({ 0, 175, 46, 22 });
+	moto_rtol.PushBack({ 976, 374, 46, 22 });
 
 	//vertical truck
-	vertical_truck.PushBack({213, 51, 32, 46});
-	vertical_truck.PushBack({ 213, 102, 32, 46 });
-	vertical_truck.PushBack({ 213, 152, 32, 46 });
+	vertical_truck.PushBack({1129, 278, 32, 46});
+	vertical_truck.PushBack({ 1129, 329, 32, 46 });
+	vertical_truck.PushBack({ 1129, 379, 32, 46 });
+
 
 	vertical_truck.loop = true;
 	vertical_truck.speed = 0.015f;

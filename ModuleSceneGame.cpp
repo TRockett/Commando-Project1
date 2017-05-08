@@ -40,12 +40,14 @@ bool ModuleSceneGame::Start() {
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
-	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802, 270 , 1);
+	if (App->level == 1) 
+	{
+		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 802, 270, 1);
 
-	App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 0, 2);
+		App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 0, 2);
 
-	App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 0, 2);
-	
+		App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 0, 2);
+	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
