@@ -176,7 +176,7 @@ void EnemyGrenade::Move()
 				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
 				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT,nullptr,0,true);
+				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_NONE,nullptr,0,true);
 
 			}
 			

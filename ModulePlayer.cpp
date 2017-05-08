@@ -190,7 +190,6 @@ update_status ModulePlayer::Update()
 	if (state != DEAD && !App->scene_game->restart)
 	{
 		prev_position = position;
-		state = IDLE;
 		current_animation->speed = 0.15f;
 		shooting = false;
 		grenade1 = false;
@@ -248,6 +247,9 @@ update_status ModulePlayer::Update()
 		}
 		else 
 		{
+			if (state != IDLE)
+				prev_state = state;
+			state = IDLE;
 			checkInput();
 			processInput();
 		}
@@ -472,6 +474,27 @@ void ModulePlayer::processInput() {
 		grenade_speed = 1;
 		if (!bthrowing) {
 			current_animation->speed = 0.0f;
+		}
+		switch (prev_state)
+		{
+		case MOVING_UP:
+			shooting_angle.y = fminf(shooting_angle.y, 0.0f);
+			shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
+			break;
+		case MOVING_DOWN:
+			shooting_angle.y = fmaxf(shooting_angle.y, 0.0f);
+			shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
+			break;
+		case MOVING_RIGHT:
+			shooting_angle.x = fmaxf(shooting_angle.x, 0.0f);
+			shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
+			break;
+		case MOVING_LEFT:
+			shooting_angle.x = fminf(shooting_angle.x, 0.0f);
+			shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
+			break;
+		default:
+			break;
 		}
 		break;
 	}
