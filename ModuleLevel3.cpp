@@ -47,7 +47,7 @@ bool ModuleLevel3::Start() {
 	{
 		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 740, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0, 740, 270, 1);
 
 	}
 	
