@@ -34,6 +34,7 @@ EnemyVehicles::~EnemyVehicles()
 
 void EnemyVehicles::Move() {
 	position = initial_position + movement.GetCurrentPosition(&animation);
+	animation = &moto_ltor;
 
 	if (position.x <= SCREEN_WIDTH) {
 		iPoint player_pos = App->player->GetPosition();

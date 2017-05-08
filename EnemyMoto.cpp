@@ -49,7 +49,7 @@ void EnemyMoto::Move() {
 				float angle = atan2f(deltaY, deltaX);
 				
 				App->particles->grenade.speed = { (float)(deltaX * 0.015f /** cosf(angle)*/), (float)(deltaY * 0.015f /** sinf(angle)*/) };
-				App->particles->AddParticle(App->particles->grenade, position.x, position.y, GRENADE_ENEMY, COLLIDER_NONE);
+				App->particles->AddParticle(App->particles->grenade, position.x, position.y, GRENADE_ENEMY, COLLIDER_NONE,nullptr,0,1);
 				animation->Reset();
 			}
 		}
