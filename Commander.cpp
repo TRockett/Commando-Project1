@@ -16,7 +16,7 @@ Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 	movement.loop = false;
-	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
+	movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 0);
 
 	e1_left.PushBack({ 219,357,15,23 });
 	e1_left.PushBack({ 202,357,16,21 });
@@ -67,7 +67,7 @@ void Commander::Move() {
 			}
 
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 500);
+			movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 200);
 			collision = false;
 		}
 		else if (dying == true)
