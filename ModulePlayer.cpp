@@ -346,61 +346,85 @@ update_status ModulePlayer::Update()
 }
 
 void ModulePlayer::checkInput() {
-
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
-	{
-		state = MOVING_RIGHT | state;
-		shooting_angle_delta.x = 0.15f;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
-	{
-		state = MOVING_LEFT | state;
-		shooting_angle_delta.x = -0.15f;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
-	{
-		state = MOVING_UP | state;
-		shooting_angle_delta.y = -0.15f;
-	}
-	
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
-	{
-		state = MOVING_DOWN | state;
-		shooting_angle_delta.y = 0.15f;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
-	{
-		shooting = true;
-	}
-	if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0 && current_animation != &throw_grenade)
-	{
-		grenade1 = true;
-		if (grenade_on == false) {
-			grenades--;
+	if (App->input->controller_connected) {
+		GamePad p = App->input->controller_1;
+		if (p.left_axis.x - 0.15f > 0) //0.15f is the controller threshold
+			state = MOVING_RIGHT | state;
+		if (p.left_axis.x + 0.15f < 0)
+			state = MOVING_LEFT | state;
+		if (p.left_axis.y - 0.15f > 0)
+			state = MOVING_DOWN | state;
+		if (p.left_axis.y + 0.15f < 0)
+			state = MOVING_UP | state;
+		if (p.left_trigger && grenades > 0 && current_animation != &throw_grenade) {
+			grenade1 = true;
+			if (grenade_on == false) {
+				grenades--;
+			}
 		}
+		if (p.right_trigger)
+			shooting = true;
+		if (p.left_bumper)
+			speed = 10;
+		else speed = 1;
+		shooting_angle_delta = { (p.left_axis.x / abs(p.left_axis.x)) * 0.15f, (p.left_axis.y / abs(p.left_axis.y)) * 0.15f };
 	}
-	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
-	{
-		b_godmode = !b_godmode;
+	else {
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+		{
+			state = MOVING_RIGHT | state;
+			shooting_angle_delta.x = 0.15f;
+		}
 
-		if (collider->type != COLLIDER_NONE)
-			collider->type = COLLIDER_NONE;
+		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+		{
+			state = MOVING_LEFT | state;
+			shooting_angle_delta.x = -0.15f;
+		}
 
-		else
-			collider->type = COLLIDER_PLAYER;
+		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+		{
+			state = MOVING_UP | state;
+			shooting_angle_delta.y = -0.15f;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+		{
+			state = MOVING_DOWN | state;
+			shooting_angle_delta.y = 0.15f;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
+		{
+			shooting = true;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN && grenades > 0 && current_animation != &throw_grenade)
+		{
+			grenade1 = true;
+			if (grenade_on == false) {
+				grenades--;
+			}
+		}
+		if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN)
+		{
+			b_godmode = !b_godmode;
+
+			if (collider->type != COLLIDER_NONE)
+				collider->type = COLLIDER_NONE;
+
+			else
+				collider->type = COLLIDER_PLAYER;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
+		{
+			/*lives = 1;
+			enemyCollision();*/
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
+			speed = 10;
+		else speed = 1;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
-	{
-		/*lives = 1;
-		enemyCollision();*/
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
-		speed = 10;
-	else speed = 1;
 }
 
 void ModulePlayer::processInput() {
