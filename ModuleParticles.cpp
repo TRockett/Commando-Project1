@@ -84,6 +84,10 @@ ModuleParticles::ModuleParticles()
 	fire_downright.anim.PushBack({ 24,121,6,6 });
 	fire_downright.anim.loop = false;
 	fire_downright.life = fire_life;
+
+	molotov.anim.PushBack({ 1441,428,10,4 });
+	molotov.life = 600;
+	molotov.anim.loop = false;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -206,6 +210,7 @@ void ModuleParticles::addExplosionParticle(Particle* p) {
 		App->player->grenade_on = false;
 		break;
 	case GRENADE_ENEMY:
+	case MOLOTOV:
 		AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 		App->player->grenade_on = false;
 		break;

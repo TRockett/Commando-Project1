@@ -22,6 +22,7 @@ enum PARTICLE_TYPE
 	BULLET_ENEMY,
 	GRENADE_ENEMY,
 	GRENADE_PLAYER,
+	MOLOTOV,
 	EXPLOSION,
 };
 
@@ -83,6 +84,7 @@ public:
 	Particle fire_downright;
 	Particle fire_right;
 	Particle fire_upright;
+	Particle molotov;
 };
 
 #endif // __MODULEPARTICLES_H__
