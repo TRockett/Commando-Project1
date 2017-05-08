@@ -183,57 +183,44 @@ void EnemyLeft::Move() {
 	prev_position = position;
 	iPoint player_pos = App->player->GetPosition();
 	
-		if (jumping == true)
+	if (jumping == true)
+	{
+		if (jump_state == 0)
 		{
-
-			if (jump_state == 0)
+			movement.PushBack({ 0,0 }, 200);
+			if (movement.Finished() == true)
 			{
-				movement.PushBack({ 0,0 }, 200);
-				if (movement.Finished() == true)
-				{
-					jump_state = 1;
-				}
-			}
-			else if (jump_state == 1)
-			{
-				movement.PushBack({ direction * 0.3f,0 }, 150);
-				if (movement.Finished() == true)
-				{
-					jump_state = 2;
-				}
-			}
-			else if (jump_state == 2)
-			{
-				if (direction == -1)
-				{
-					animation = &jump;
-				}
-				else if (direction == 1)
-				{
-					animation = &jump_l;
-				}
-
-
-
-				if (jump_state == 2)
-				{
-					movement.PushBack({ direction * 0.5f, jump_speed }, 200);
-					jump_speed = jump_speed + 0.2f;
-				}
-
-				if (movement.Finished() == true)
-				{
-					jumping = false;
-					current_angle = (rand() % 8) * 45;
-				}
+				jump_state = 1;
 			}
 		}
+		else if (jump_state == 1)
+		{
+			movement.PushBack({ direction * 0.3f,0 }, 150);
+			if (movement.Finished() == true)
+			{
+				jump_state = 2;
+			}
+		}
+		else if (jump_state == 2)
+		{
+			if (direction == -1)
+			{
+				animation = &jump;
+			}
+			else if (direction == 1)
+			{
+				animation = &jump_l;
+			}
 
-	
-	
-else
-	{
-
+			movement.PushBack({ direction * 0.5f, jump_speed }, 200);
+			jump_speed = jump_speed + 0.2f;
+			if (movement.Finished() == true)
+			{
+				jumping = false;
+				current_angle = (rand() % 8) * 45;
+			}
+		}
+	}else{
 		if (SDL_GetTicks() >= timer + 1000)
 		{
 			float deltaX = -position.x + player_pos.x;
@@ -303,5 +290,3 @@ else
 		}
 	}
 }
-
-
