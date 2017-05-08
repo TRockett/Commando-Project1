@@ -32,8 +32,8 @@ Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	e1_right.loop = true;
 	e1_right.speed = 0.15f;
 
-	death.PushBack({ 68,49925 ,11 });
-	death.speed = 0.1f;
+	death.PushBack({ 68 ,489, 25 ,11 });
+	death.speed = 0.02f;
 
 	animation = &e1_left;
 }

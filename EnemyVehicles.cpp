@@ -50,6 +50,7 @@ EnemyVehicles::~EnemyVehicles()
 
 void EnemyVehicles::Move() {
 	position = initial_position + movement.GetCurrentPosition(&animation);
+
 	if (riding == true) {
 		if (position.x <= SCREEN_WIDTH) {
 			iPoint player_pos = App->player->GetPosition();
@@ -64,6 +65,7 @@ void EnemyVehicles::Move() {
 			}
 		}
 		else if (movement.Finished()) {
+
 			movement.Reset();
 		}
 	}
