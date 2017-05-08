@@ -26,9 +26,9 @@ Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	e1_left.speed = 0.15f;
 
 	e1_right.PushBack({ 169,357,15,23 });
-	e1_right.PushBack({ 148,357,16,21 });
+	e1_right.PushBack({ 148,357,20,22 });
 	e1_right.PushBack({ 169,357,15,23 });
-	e1_right.PushBack({ 185,357,20,22 });
+	e1_right.PushBack({ 185,357,16,21 });
 	e1_right.loop = true;
 	e1_right.speed = 0.15f;
 
