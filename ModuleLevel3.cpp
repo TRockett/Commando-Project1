@@ -73,10 +73,6 @@ bool ModuleLevel3::Start() {
 
 	
 	App->sound->PlaySound(newstart, 0);
-	
-
-	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-		ret = false;
 
 	return ret;
 }

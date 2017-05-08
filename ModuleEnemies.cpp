@@ -105,6 +105,11 @@ bool ModuleEnemies::CleanUp()
 
 	App->textures->Unload(sprites);
 
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		queue[i].type = NO_TYPE;
+	}
+
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if(enemies[i] != nullptr)
