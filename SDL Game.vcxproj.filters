@@ -104,6 +104,9 @@
     <ClInclude Include="ModuleLevel3.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyVehicles.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="ModuleLevel3.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyVehicles.cpp">
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

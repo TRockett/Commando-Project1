@@ -75,6 +75,7 @@
     <ClInclude Include="EnemyGrenade.h" />
     <ClInclude Include="EnemyLeft.h" />
     <ClInclude Include="EnemyMoto.h" />
+    <ClInclude Include="EnemyVehicles.h" />
     <ClInclude Include="Enemywprisoner.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="EnemyGrenade.cpp" />
     <ClCompile Include="EnemyLeft.cpp" />
     <ClCompile Include="EnemyMoto.cpp" />
+    <ClCompile Include="EnemyVehicles.cpp" />
     <ClCompile Include="Enemywprisoner.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />

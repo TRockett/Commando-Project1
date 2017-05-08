@@ -14,6 +14,7 @@
 #include "ModuleObjects.h"
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
+#include "EnemyVehicles.h"
 
 
 
@@ -42,6 +43,8 @@ bool ModuleLevel3::Start() {
 
 	//ADD ENEMIES
 	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
+
+	App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 740, 270, 1);
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
