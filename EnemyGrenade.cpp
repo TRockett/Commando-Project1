@@ -120,7 +120,7 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 	movement.loop = false;
-	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
+	movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 0);
 
 	animation = &e1_forward;
 	

@@ -158,7 +158,7 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	}
 	else
 	{
-		movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 100);
+		movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 100);
 	}
 
 	if (position.x < SCREEN_WIDTH / 2)

@@ -1,0 +1,90 @@
+#include "Commander.h"
+#include "ModulePlayer.h"
+#include "Application.h"
+#include "SDL/include/SDL_timer.h"
+#include <math.h>
+#include "Application.h"
+#include "ModuleEnemies.h"
+#include "ModuleCollision.h"
+#include "ModuleSceneGame.h"
+
+
+Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+{
+	current_angle = angle;
+
+	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
+
+	movement.loop = false;
+	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
+
+	animation = &e1_forward;
+}
+
+
+Commander::~Commander()
+{
+}
+
+void Commander::Move() {
+	position = initial_position + movement.GetCurrentPosition();
+	prev_position = position;
+	iPoint player_pos = App->player->GetPosition();
+
+
+		if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH)+30)
+		{
+			this->disappear = true;
+		}
+
+		if ((movement.Finished() || collision == true) && dead == false && dying == false)
+		{
+			movement.Clear();
+			movement.Reset();
+			if (collision != true)
+			{
+				current_angle = (rand() % 8) * 45;
+			}
+			else
+			{
+				position = prev_position;
+				current_angle = -Collisionangle(this->collider, collider);
+
+			}
+
+			animation = GetAnimationForDirection(current_angle);
+			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 500);
+			collision = false;
+		}
+		else if (dying == true)
+		{
+			animation = &death;
+			collider->active = false;
+			movement.Clear();
+			movement.Reset();
+
+			if (animation->Finished() == true)
+			{
+				dead = true;
+				App->scene_game->score = App->scene_game->score + 200;
+				App->scene_game->screen_enemies--;
+				App->enemies->EraseEnemy(this);
+			}
+		}
+
+		else if (disappear == true)
+		{
+			animation = &death;
+			collider->active = false;
+			movement.Clear();
+			movement.Reset();
+
+			if (animation->Finished() == true)
+			{
+				dead = true;
+				App->scene_game->screen_enemies--;
+				App->enemies->EraseEnemy(this);
+			}
+		}
+	
+}
