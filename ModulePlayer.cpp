@@ -329,8 +329,17 @@ update_status ModulePlayer::Update()
 		App->render->Blit(godmode, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 
 	//Bridge sprite
-	App->render->Blit(graphics, 96, 802, &bridge.GetCurrentFrame().rect);
-	App->render->Blit(graphics, 96, 834, &bridge2.GetCurrentFrame().rect);
+	if (App->level == 1)
+	{
+		App->render->Blit(graphics, 96, 802, &bridge.GetCurrentFrame().rect);
+		App->render->Blit(graphics, 96, 834, &bridge2.GetCurrentFrame().rect);
+	}
+	else if (App->level == 3) 
+	{
+		App->render->Blit(graphics, 96, 942, &bridge.GetCurrentFrame().rect);
+		App->render->Blit(graphics, 96, 975, &bridge2.GetCurrentFrame().rect);
+
+	}
 	return UPDATE_CONTINUE;
 }
 
