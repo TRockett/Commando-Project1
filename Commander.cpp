@@ -18,7 +18,21 @@ Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	movement.loop = false;
 	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
 
-	animation = &e1_forward;
+	e1_left.PushBack({ 219,357,15,23 });
+	e1_left.PushBack({ 202,357,16,21 });
+	e1_left.PushBack({ 219,357,15,23 });
+	e1_left.PushBack({ 235,357,20,22 });
+	e1_left.loop = true;
+	e1_left.speed = 0.15f;
+
+	e1_right.PushBack({ 169,357,15,23 });
+	e1_right.PushBack({ 148,357,16,21 });
+	e1_right.PushBack({ 169,357,15,23 });
+	e1_right.PushBack({ 185,357,20,22 });
+	e1_right.loop = true;
+	e1_right.speed = 0.15f;
+
+	animation = &e1_left;
 }
 
 

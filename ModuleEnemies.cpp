@@ -14,6 +14,7 @@
 #include "EnemyGrenade.h"
 #include"ModulePlayer.h"
 #include "EnemyVehicles.h"
+#include "Commander.h"
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -162,6 +163,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			case ENEMY_TYPES::MOTOLEVEL3:
 				enemies[i] = new EnemyVehicles(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
+			case ENEMY_TYPES::COMMANDER:
+				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
 
 		}
 	}

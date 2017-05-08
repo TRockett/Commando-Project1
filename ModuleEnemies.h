@@ -17,6 +17,7 @@ enum ENEMY_TYPES
 	ENEMY_GRENADE,
 	ENEMY_BAZOOKA,
 	MOTOLEVEL3,
+	COMMANDER,
 };
 
 class Enemy;
@@ -69,15 +70,6 @@ public:
 	Animation e1_down_right;
 	Animation e1_down_left;
 
-		//Enemy right weapon
-	Animation e2_forward;
-	Animation e2_backward;
-	Animation e2_left;
-	Animation e2_right;
-	Animation e2_up_right;
-	Animation e2_up_left;
-	Animation e2_down_right;
-	Animation e2_down_left;
 
 	bool dead;
 };
