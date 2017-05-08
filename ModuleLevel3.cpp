@@ -41,6 +41,7 @@ bool ModuleLevel3::Start() {
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
 	//ADD ENEMIES
+	App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
@@ -50,6 +51,7 @@ bool ModuleLevel3::Start() {
 	App->collision->Enable();
 	App->objects->Enable();
 	App->particles->Enable();
+	App->enemies->Enable();
 
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
@@ -85,18 +87,6 @@ update_status ModuleLevel3::Update() {
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 		
-		App->player->Enable();
-		App->enemies->Enable();
-		if (screen_enemies < 4)
-		{
-			if (SDL_GetTicks() >= timer + 200)
-			{
-				App->enemies->AddEnemy(ENEMY_GRENADE, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT / 2) + 20), 90, 1);
-				timer = timer;
-				screen_enemies++;
-			}
-
-		}
 
 		if (!App->sound->isPlaying()) {
 			App->sound->PlayMusic();

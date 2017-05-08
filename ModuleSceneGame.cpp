@@ -117,7 +117,7 @@ update_status ModuleSceneGame::Update() {
 
 		App->player->Enable();
 		App->enemies->Enable();
-		if (screen_enemies < 4)
+		if (screen_enemies < 4 && App->level == 1)
 		{
 			if (SDL_GetTicks()  >= timer + 200)
 			{
