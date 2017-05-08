@@ -22,37 +22,37 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 
 	//walk diagonal down-right
 
-	e1_down_right.PushBack({ 49 + 151,258,15,23 });
-	e1_down_right.PushBack({ 66 + 151,259,15,23 });
-	e1_down_right.PushBack({ 82 + 151,257,15,22 });
-	e1_down_right.PushBack({ 66 + 151,259,15,23 });
+	e1_down_right.PushBack({ 49 + 148,258,15,23 });
+	e1_down_right.PushBack({ 66 + 148,259,15,23 });
+	e1_down_right.PushBack({ 82 + 148,257,15,22 });
+	e1_down_right.PushBack({ 66 + 148,259,15,23 });
 	e1_down_right.speed = 0.15f;
 	e1_down_right.loop = true;
 
 	//walk diagonal down-left
 
-	e1_down_left.PushBack({ 0 + 151,257,15,22 });
-	e1_down_left.PushBack({ 16 + 151,258,15,23 });
-	e1_down_left.PushBack({ 33 + 151,257,15,23 });
-	e1_down_left.PushBack({ 16 + 151,258,15,23 });
+	e1_down_left.PushBack({ 0 + 148,257,15,22 });
+	e1_down_left.PushBack({ 16 + 148,258,15,23 });
+	e1_down_left.PushBack({ 33 + 148,257,15,23 });
+	e1_down_left.PushBack({ 16 + 148,258,15,23 });
 	e1_down_left.speed = 0.15f;
 	e1_down_left.loop = true;
 
 	//walk diagonal up-left enemy
 
-	e1_up_left.PushBack({ 16 + 151,282,16,23 });
-	e1_up_left.PushBack({ 0 + 151,282,15,23 });
-	e1_up_left.PushBack({ 32 + 151,282,16,22 });
-	e1_up_left.PushBack({ 0 + 151,282,15,23 });
+	e1_up_left.PushBack({ 16 + 148,282,16,23 });
+	e1_up_left.PushBack({ 0 + 148,282,15,23 });
+	e1_up_left.PushBack({ 32 + 148,282,16,22 });
+	e1_up_left.PushBack({ 0 + 148,282,15,23 });
 	e1_up_left.speed = 0.15f;
 	e1_up_left.loop = true;
 
 	//walk diagonal up-right
 
-	e1_up_right.PushBack({ 49 + 151,282,16,24 });
-	e1_up_right.PushBack({ 82 + 151,282,18,22 });
-	e1_up_right.PushBack({ 65 + 151,282,16,24 });
-	e1_up_right.PushBack({ 82 + 151,282,16,22 });
+	e1_up_right.PushBack({ 49 + 148,282,16,24 });
+	e1_up_right.PushBack({ 82 + 148,282,18,22 });
+	e1_up_right.PushBack({ 65 + 148,282,16,24 });
+	e1_up_right.PushBack({ 82 + 148,282,16,22 });
 	e1_up_right.speed = 0.15f;
 	e1_up_right.loop = true;
 
@@ -70,18 +70,18 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 
 	//walk left annimation enemy
 
-	e1_left.PushBack({ 53 + 151,306,15,22 }, { 7,0 });
-	e1_left.PushBack({ 88 + 151,306,16,24 }, { 7,0 });
-	e1_left.PushBack({ 69 + 151,306,18,22 }, { 7,0 });
-	e1_left.PushBack({ 88 + 151,306,16,24 }, { 7,0 });
+	e1_left.PushBack({ 53 + 148,306,15,22 }, { 7,0 });
+	e1_left.PushBack({ 88 + 148,306,16,24 }, { 7,0 });
+	e1_left.PushBack({ 69 + 148,306,18,22 }, { 7,0 });
+	e1_left.PushBack({ 88 + 148,306,16,24 }, { 7,0 });
 	e1_left.loop = true;
 	e1_left.speed = 0.15f;
 
 	//walk backward animation emey
-	e1_backward.PushBack({ 0 + 151, 331, 12, 22 });
-	e1_backward.PushBack({ 12 + 151, 331, 13, 22 });
-	e1_backward.PushBack({ 25 + 151, 331, 13, 22 });
-	e1_backward.PushBack({ 12 + 151, 331, 13, 22 });
+	e1_backward.PushBack({ 0 + 148, 331, 12, 22 });
+	e1_backward.PushBack({ 12 + 148, 331, 13, 22 });
+	e1_backward.PushBack({ 25 + 148, 331, 13, 22 });
+	e1_backward.PushBack({ 12 + 148, 331, 13, 22 });
 	e1_backward.loop = true;
 	e1_backward.speed = 0.15f;
 

@@ -32,6 +32,9 @@ Commander::Commander(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	e1_right.loop = true;
 	e1_right.speed = 0.15f;
 
+	death.PushBack({ 68,49925 ,11 });
+	death.speed = 0.1f;
+
 	animation = &e1_left;
 }
 
@@ -63,7 +66,6 @@ void Commander::Move() {
 			{
 				position = prev_position;
 				current_angle = -Collisionangle(this->collider, collider);
-
 			}
 
 			animation = GetAnimationForDirection(current_angle);
@@ -80,7 +82,7 @@ void Commander::Move() {
 			if (animation->Finished() == true)
 			{
 				dead = true;
-				App->scene_game->score = App->scene_game->score + 200;
+				App->scene_game->score = App->scene_game->score + 2000;
 				App->scene_game->screen_enemies--;
 				App->enemies->EraseEnemy(this);
 			}
