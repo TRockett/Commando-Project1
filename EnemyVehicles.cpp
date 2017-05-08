@@ -25,10 +25,10 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	vertical_truck.loop = true;
 	vertical_truck.speed = 0.015f;
 
-	if (sub_type == 2)
-	{
+	/*if (sub_type == 2)
+	{*/
 		riding = true;
-	}
+	//}
 
 	if (position.x < SCREEN_WIDTH / 2)
 	{
@@ -52,20 +52,17 @@ void EnemyVehicles::Move() {
 	position = initial_position + movement.GetCurrentPosition(&animation);
 
 	if (riding == true) {
-		if (position.x <= SCREEN_WIDTH) {
+		if ((position.x <= SCREEN_WIDTH && animation == &moto_ltor) || (position.x >= 0 && animation == &moto_rtol)) {
 			iPoint player_pos = App->player->GetPosition();
 			if (player_pos.y > position.y + 25)
-
 			{
 				movement.Clear();
 				movement.Reset();
-				animation = &moto_ltor;
-				movement.PushBack({ 1.5f, 0.0f }, 15, &moto_ltor);
+				movement.PushBack({ 1.5f * direction, 0.0f }, 15, animation);
 				movement.loop = true;
 			}
 		}
 		else if (movement.Finished()) {
-
 			movement.Reset();
 		}
 	}

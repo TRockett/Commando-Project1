@@ -122,7 +122,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int num)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int s_type)
 {
 	bool ret = false;
 
@@ -134,7 +134,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int num)
 			queue[i].pos.x = x;
 			queue[i].pos.y = y;
 			queue[i].angle = angle;
-			queue[i].sub_type = num;
+			queue[i].sub_type = s_type;
 			ret = true;
 			break;
 		}
