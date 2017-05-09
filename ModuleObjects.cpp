@@ -46,6 +46,29 @@ bool ModuleObjects::Init() {
 	final_door.speed = 0.1f;
 	final_door.loop =false ;
 
+	//Door of the bunkers of level 3 animation but left side
+	door_bunker_left.PushBack({ 596,196,12, 23 });
+	door_bunker_left.PushBack({ 580,196,12, 22 });
+	door_bunker_left.PushBack({ 564,196,12, 20 });
+	door_bunker_left.PushBack({ 548,196,12, 18 });
+	door_bunker_left.PushBack({ 532,196,12, 16 });
+	door_bunker_left.PushBack({ 516,196,12, 14 });
+	door_bunker_left.PushBack({ 500,196,12, 12 });
+	door_bunker_left.PushBack({ 484,196,12, 10 });
+	door_bunker_left.PushBack({ 468,196,12, 8 });
+	door_bunker_left.PushBack({ 453,196,12, 6 });
+	door_bunker_left.PushBack({ 468,196,12, 8 });
+	door_bunker_left.PushBack({ 484,196,12, 10 });
+	door_bunker_left.PushBack({ 500,196,12, 12 });
+	door_bunker_left.PushBack({ 516,196,12, 14 });
+	door_bunker_left.PushBack({ 532,196,12, 16 });
+	door_bunker_left.PushBack({ 548,196,12, 18 });
+	door_bunker_left.PushBack({ 564,196,12, 20 });
+	door_bunker_left.PushBack({ 580,196,12, 22 });
+	door_bunker_left.PushBack({ 596,196,12, 23 });
+	door_bunker_left.loop = false;
+	door_bunker_left.speed = 0.2f;
+
 	//Door of the bunkers of level 3 animation
 	door_bunker.PushBack({630,196,12, 23});
 	door_bunker.PushBack({ 646,196,12, 22 });
@@ -66,7 +89,8 @@ bool ModuleObjects::Init() {
 	door_bunker.PushBack({ 662,196,12, 20 });
 	door_bunker.PushBack({ 646,196,12, 22 });
 	door_bunker.PushBack({ 630,196,12, 23 });
-	door_bunker.speed = 0.5f;
+	door_bunker.loop = false;
+	door_bunker.speed = 0.1f;
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
@@ -273,31 +297,63 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 170, 0, 86, 25 }, COLLIDER_WALL);
 
 
-		//Colliders of the 2 walls at the final part of the level
+		//Colliders of the  walls at the part after the bridge
 		App->collision->AddCollider({ 28, 85, 23, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 51, 77, 12, 5 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 205, 85, 23, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 193, 77, 12, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 96, 838, 27, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 84, 844, 12, 9 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 79,853, 5, 1 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 71,858, 8, 1 }, COLLIDER_WALL);
 
+		//Colliders of the "fosses"
+		App->collision->AddCollider({ 139, 1439, 73, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 11, 1248, 73, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 172, 1185, 38, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 44, 1121, 38, 4 }, COLLIDER_WALL);
 
 		//colliders for bunkers
-		/*App->collision->AddCollider({67, 1950, 47, 14}, COLLIDER_WALL);
-		App->collision->AddCollider({80, 1940, 26, 17}, COLLIDER_WALL);
+		App->collision->AddCollider({ 68, 1953, 47, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 73, 1942, 37, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 81, 1938, 22, 4 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 237, 1944, 19, 25 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 1940, 245, 20, 26 }, COLLIDER_WALL);*/
+		App->collision->AddCollider({ 132, 1631, 47, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 137, 1620, 37, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 145, 1618, 22, 4 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 196, 1504, 47, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 201, 1493, 37, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 209, 1489, 22, 4 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 236, 1944, 19, 25 }, COLLIDER_WALL);
+
+
+		if (sprite_graphics == nullptr)
+			ret = false;
+
 	}
-
-	if (sprite_graphics == nullptr)
-		ret = false;
-
-
 	return ret;
 }
 
 
 
 update_status ModuleObjects::Update() {
+	if (App->level == 3)
+	{
+		//Animations of the door of the bunkers
+		App->render->Blit(sprite_graphics, 170, 1893, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 42, 1829, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1572, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 42, 1444, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1188, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 170, 1252, &door_bunker.GetCurrentFrame().rect);
+
+		//Animations of the door of the bunkers but left side
+		App->render->Blit(sprite_graphics, 42, 1700, &door_bunker_left.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left.GetCurrentFrame().rect);
+	}
 	if (App->level == 1)
 	{
 		App->render->Blit(sprite_graphics, 208, 128 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
@@ -314,7 +370,7 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 146, -65 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 
 		//To see if the animation of the bunkers doors of the third level work well
-		App->render->Blit(sprite_graphics, 50, -340 + level_dimensions.y, &door_bunker.GetCurrentFrame().rect);
+		//App->render->Blit(sprite_graphics, 50, -340 + level_dimensions.y, &door_bunker.GetCurrentFrame().rect);
 
 		//Group of three palms
 		App->render->Blit(sprite_graphics, 1, -240 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
