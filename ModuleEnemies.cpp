@@ -15,6 +15,8 @@
 #include"ModulePlayer.h"
 #include "EnemyVehicles.h"
 #include "Commander.h"
+#include "EnemyBazooka.h"
+
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -170,6 +172,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				break;
 			case ENEMY_TYPES::COMMANDER:
 				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
+
+			case ENEMY_TYPES::ENEMY_BAZOOKA:
+				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
 
 		}
 	}
