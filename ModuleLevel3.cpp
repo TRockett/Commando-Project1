@@ -47,24 +47,24 @@ bool ModuleLevel3::Start() {
 	{
 		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 740, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0-46, 740, 270, 1);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 640, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 640, 270, 1);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 540, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 -46, 540, 270, 1);
 		
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 519, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 519, 270, 1);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 440, 270, 2);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 440, 270, 2);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 770, 270, 3);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 770, 270, 3);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 670, 270, 3);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 670, 270, 3);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 615, 270, 4);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 47, 615, 270, 4);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 495, 270, 5);
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 410, 270, 5);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 495, 270, 5);
+		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 410, 270, 5);
 	}
 	
 

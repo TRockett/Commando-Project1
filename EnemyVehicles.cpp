@@ -75,18 +75,35 @@ EnemyVehicles::~EnemyVehicles()
 void EnemyVehicles::Move() {
 	position = initial_position + movement.GetCurrentPosition(&animation);
 
-	if ((position.x <= SCREEN_WIDTH && animation == &moto_ltor) || (position.x >= 0 && animation == &moto_rtol || (position.x >= 0 && animation == &truck_riding)|| position.x <= SCREEN_WIDTH && animation == &car_enemies_ltor)|| (position.x >= 0 && animation == &car_enemies_rtol))
+	if ((position.x <= SCREEN_WIDTH && animation == &moto_ltor) || (position.x >= 0 && animation == &moto_rtol || (position.x >= 0 && animation == &truck_riding) || position.x <= SCREEN_WIDTH && animation == &car_enemies_ltor) || (position.x >= 0 && animation == &car_enemies_rtol))
 	{
 		iPoint player_pos = App->player->GetPosition();
-		if (player_pos.y <= position.y +8)
+		if (player_pos.y <= position.y + 8)
 		{
 			movement.Clear();
 			movement.Reset();
 			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
 			movement.loop = true;
+
 		}
+
 	}
+
 	else if (movement.Finished()) {
 		movement.Reset();
+		if (sub_type == 3)
+		{
+			if (position.x = position.x + SCREEN_WIDTH*0.25) {
+
+				movement.Clear();
+				movement.Reset();
+				movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+				movement.loop = true;
+			}
+			else {
+				movement.PushBack({ 0 , 0 }, 100);
+			}
+			
+		}
 	}
 }
