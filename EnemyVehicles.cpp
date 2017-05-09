@@ -96,7 +96,15 @@ void EnemyVehicles::Move() {
 	iPoint player_pos = App->player->GetPosition();
 	if (sub_type == 6)
 	{
-		if (player_pos.y <= position.y + 60)
+		if (player_pos.y <= position.y + 80)
+		{
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+
+	}
+	else if (sub_type == 5) 
+	{
+		if (player_pos.y == 689)
 		{
 			position = initial_position + movement.GetCurrentPosition(&animation);
 		}
