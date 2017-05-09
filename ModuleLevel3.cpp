@@ -53,7 +53,7 @@ bool ModuleLevel3::Start() {
 
 		App->enemies->AddEnemy(MOTOLEVEL3, 0, 540, 270, 1);
 		
-		App->enemies->AddEnemy(MOTOLEVEL3, 0, 500, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0, 519, 270, 1);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH, 440, 270, 2);
 
