@@ -41,6 +41,10 @@ public:
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };
 	}
 
+	void setLevelDimensions(iPoint p) {
+		level_dimensions = p;
+	}
+
 
 	bool restart = false;
 

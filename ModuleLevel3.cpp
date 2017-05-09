@@ -39,6 +39,7 @@ bool ModuleLevel3::Start() {
 
 	
 	background_graphics = App->textures->Load("Images/Mapa3.png", &level_dimensions);
+	App->scene_game->setLevelDimensions(level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
@@ -52,7 +53,7 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 640, 270, 1);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 -46, 540, 270, 1);
-		
+
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 519, 270, 1);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 440, 270, 2);
@@ -64,6 +65,7 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 47, 615, 270, 4);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 495, 270, 5);
+
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 410, 270, 5);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
@@ -79,7 +81,7 @@ bool ModuleLevel3::Start() {
 	App->objects->Enable();
 	App->particles->Enable();
 	App->enemies->Enable();
-
+	App->fonts->Enable();
 
 	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;
@@ -89,6 +91,9 @@ bool ModuleLevel3::Start() {
 	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
 
 
+	if (!App->sound->isPlaying()) {
+		App->sound->PlayMusic();
+	}
 	
 	App->sound->PlaySound(newstart, 0);
 
@@ -109,12 +114,6 @@ update_status ModuleLevel3::Update() {
 	bool ret = true;
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
-		
-
-		if (!App->sound->isPlaying()) {
-			App->sound->PlayMusic();
-		}
-
 	
 	sprintf_s(score_text, 10, "%7d", score);
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
@@ -146,7 +145,6 @@ bool ModuleLevel3::CleanUp() {
 	App->enemies->Disable();
 	App->objects->Disable();
 	App->particles->Disable();
-	App->scene_congrats->Enable();
 	App->fonts->Disable();
 	ret = App->textures->Unload(background_graphics);
 

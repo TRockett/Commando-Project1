@@ -162,10 +162,7 @@ bool ModulePlayer::Start()
 	prev_position = position;
 	state = IDLE;
 	fire = App->particles->fire_up;
-	//if (collider == nullptr)
-		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
-	/*else if (!collider->active)
-		collider->active = true;*/
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
 	godmode = App->textures->Load("Images/godmode.png");
@@ -326,7 +323,7 @@ update_status ModulePlayer::Update()
 	LOG("Camera position.y:: %d", camera->y);
 
 	if(b_godmode == false)
-	App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
+		App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 	else 
 		App->render->Blit(godmode, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 
@@ -340,7 +337,6 @@ update_status ModulePlayer::Update()
 	{
 		App->render->Blit(graphics, 96, 942, &bridge.GetCurrentFrame().rect);
 		App->render->Blit(graphics, 96, 975, &bridge2.GetCurrentFrame().rect);
-
 	}
 	return UPDATE_CONTINUE;
 }

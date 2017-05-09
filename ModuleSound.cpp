@@ -1,7 +1,5 @@
 #include "ModuleSound.h"
 #include "SDL_mixer/include/SDL_mixer.h"
-//#include "Application.h"
-
 
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
@@ -18,7 +16,6 @@ ModuleSound::~ModuleSound()
 }
 
 bool ModuleSound::Init() {
-	//int flags = MIX_INIT_OGG;
 	int init = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 	bool ret = true;
 	if (init < 0)
