@@ -320,7 +320,7 @@ bool ModuleObjects::Start() {
 
 		App->collision->AddCollider({ 132, 1631, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 137, 1620, 37, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 145, 1618, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 145, 1616, 22, 4 }, COLLIDER_WALL);
 
 		App->collision->AddCollider({ 196, 1504, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 201, 1493, 37, 4 }, COLLIDER_WALL);
@@ -328,6 +328,35 @@ bool ModuleObjects::Start() {
 
 		App->collision->AddCollider({ 236, 1944, 19, 25 }, COLLIDER_WALL);
 
+		App->collision->AddCollider({ 186, 1885, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 156, 1894, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 143, 1881	, 39,12 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 151, 1875, 23, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 58, 1821, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 1830, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 12, 1819	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 23, 1811, 23, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 186, 1244, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 156, 1253, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 143, 1240	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 151, 1234, 23, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 122, 1564, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 92, 1573, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 76, 1560	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 87, 1554, 23, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 58, 1436, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 1445, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 12, 1434	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 23, 1426, 23, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 122, 1180, 2, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 92, 1189, 9, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 76, 1176	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 87, 1170, 23, 5 }, COLLIDER_WALL);
 
 		if (sprite_graphics == nullptr)
 			ret = false;
