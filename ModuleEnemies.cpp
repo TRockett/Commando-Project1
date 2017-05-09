@@ -172,9 +172,11 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				break;
 			case ENEMY_TYPES::COMMANDER:
 				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				break;
 
 			case ENEMY_TYPES::ENEMY_BAZOOKA:
 				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				break;
 
 		}
 	}
