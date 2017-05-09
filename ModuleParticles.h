@@ -34,7 +34,7 @@ struct Particle
 	uint fx = 0;
 	fPoint position;
 	fPoint speed;
-	float parabol;
+	bool parabol;
 	Sint32 born = 0;
 	Sint32 life = 0;
 	bool fx_played = false;

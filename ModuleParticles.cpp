@@ -187,9 +187,9 @@ update_status ModuleParticles::Update()
 		if(active[i] == nullptr)
 		{
 			Particle* p = new Particle(particle);
-			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
+			p->born = SDL_GetTicks() + delay;
 			p->particletype = particle_type;
 			p->onEndSound = on_end_sound;
 			p->parabol = parabol;
