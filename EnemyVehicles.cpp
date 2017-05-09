@@ -71,7 +71,18 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
 			movement.loop = true;
 		}
-		
+		else if (sub_type == 6)
+		{
+			animation = &vertical_truck;
+			movement.PushBack({ 0.0f, -1.0f }, 300, animation);
+			movement.PushBack({ 0.0f, 0.0f }, 50, animation);
+			movement.loop = true;
+
+			if (App->player->position.y == 400) 
+			{
+				movement.PushBack({ 0.0f, -50.0f }, 500, animation);
+			}
+		}
 	}
 
 }
@@ -83,7 +94,15 @@ EnemyVehicles::~EnemyVehicles()
 
 void EnemyVehicles::Move() {
 	iPoint player_pos = App->player->GetPosition();
-	if (player_pos.y <= position.y + 8) 
+	if (sub_type == 6)
+	{
+		if (player_pos.y <= position.y + 60)
+		{
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+
+	}
+	else if (player_pos.y <= position.y + 8) 
 	{
 		position = initial_position + movement.GetCurrentPosition(&animation);
 	}
