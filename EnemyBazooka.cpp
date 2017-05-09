@@ -18,21 +18,21 @@ EnemyBazooka::EnemyBazooka(int x, int y, int angle, int sub_type) : Enemy(x, y, 
 	movement.loop = false;
 	movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 0);
 
-	e1_forward.PushBack({ 210,130,16,26 });
-	e1_forward.PushBack({ 227,130,16,26 });
+	e1_forward.PushBack({ 207,129,16,26 });
+	e1_forward.PushBack({ 223,129,16,26 });
 	e1_forward.speed = 0.15f;
 	e1_forward.loop = true;
 
-	e1_backward.PushBack({ 244,130,16,22 });
-	e1_backward.PushBack({ 264,130,15,22 });
+	e1_backward.PushBack({ 241,129,16,22 });
+	e1_backward.PushBack({ 260,129,15,22 });
 	e1_backward.speed = 0.15f;
 	e1_backward.loop = false;
 
-	e1_down_left.PushBack({ 280,131,15,21 });
+	e1_down_left.PushBack({ 278,129,15,21 });
 	e1_down_left.speed = 0.15f;
 	e1_down_left.loop = false;
 
-	e1_down_right.PushBack({ 299,131,15,21 });
+	e1_down_right.PushBack({ 294,131,15,20 });
 	e1_down_right.speed = 0.15f;
 	e1_down_right.loop = false;
 
@@ -97,7 +97,6 @@ void EnemyBazooka::Move()
 			}
 			else
 			{
-				animation = &e1_backward;
 				movement.PushBack({ 0 , 0 }, 30);
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
@@ -108,6 +107,10 @@ void EnemyBazooka::Move()
 				if (position.x > player_pos.x)
 				{
 					animation = &e1_down_left;
+				}
+				else
+				{
+					animation = &e1_down_right;
 				}
 				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
 				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
