@@ -36,8 +36,8 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 
 		direction = 1;
 		animation = &moto_ltor;
-
-
+		movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+		movement.loop = true;
 	}
 	else
 	{
@@ -45,22 +45,31 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 		{
 			direction = -1;
 			animation = &truck_riding;
+			movement.PushBack({ 1.0f * direction, 0.0f }, 50, animation);
+			movement.PushBack({ 0.0f, 0.0f }, 40, animation);
+			movement.loop = true;
 		}
 		else if (sub_type == 2)
 		{
 			direction = -1;
 			animation = &moto_rtol;
+			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+			movement.loop = true;
 		}
 
 		else if (sub_type == 4)
 		{
 			direction = 1;
 			animation = &car_enemies_ltor;
+			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+			movement.loop = true;
 		}
 		else if (sub_type == 5)
 		{
 			direction = -1;
 			animation = &car_enemies_rtol;
+			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+			movement.loop = true;
 		}
 		
 	}
@@ -73,37 +82,10 @@ EnemyVehicles::~EnemyVehicles()
 }
 
 void EnemyVehicles::Move() {
-	position = initial_position + movement.GetCurrentPosition(&animation);
-
-	if ((position.x <= SCREEN_WIDTH && animation == &moto_ltor) || (position.x >= 0 && animation == &moto_rtol || (position.x >= 0 && animation == &truck_riding) || position.x <= SCREEN_WIDTH && animation == &car_enemies_ltor) || (position.x >= 0 && animation == &car_enemies_rtol))
+	iPoint player_pos = App->player->GetPosition();
+	if (player_pos.y <= position.y + 8) 
 	{
-		iPoint player_pos = App->player->GetPosition();
-		if (player_pos.y <= position.y + 8)
-		{
-			movement.Clear();
-			movement.Reset();
-			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
-			movement.loop = true;
-
-		}
-
+		position = initial_position + movement.GetCurrentPosition(&animation);
 	}
-
-	else if (movement.Finished()) {
-		movement.Reset();
-		if (sub_type == 3)
-		{
-			if (position.x = position.x + SCREEN_WIDTH*0.25) {
-
-				movement.Clear();
-				movement.Reset();
-				movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
-				movement.loop = true;
-			}
-			else {
-				movement.PushBack({ 0 , 0 }, 100);
-			}
-			
-		}
-	}
+	
 }
