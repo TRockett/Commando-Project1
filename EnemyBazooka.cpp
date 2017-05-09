@@ -104,17 +104,25 @@ void EnemyBazooka::Move()
 				float angle = atan2f(deltaY, deltaX);
 				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
 				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };			
-				if (position.x > player_pos.x)
+				if (position.x > player_pos.x - 20)
 				{
 					animation = &e1_down_left;
+					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
+					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
+				}
+				else if (position.x < player_pos.x + 20)
+				{
+					animation = &e1_down_right;
+					App->particles->Missile_downright.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
+					App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
 				}
 				else
 				{
-					animation = &e1_down_right;
+					App->particles->Missile_down.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
+					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
 				}
 				
-				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_ENEMY_SHOT, nullptr, 0, true);		
+				
 			}
 
 			collision = false;
