@@ -64,16 +64,21 @@ int Enemy::Collisionangle(Collider* c1, Collider* c2)
 	}
 	else if (diference.x == 0)
 	{
-		if (diference.x > 0)
+		if (diference.y > 0)
 		{
-			angle = 180;
+			angle = -180;
 		}
 		else
-			angle = -180;
+			angle = 180;
 
 	}
 	else 
 		angle = asin(diference.y / diference.x)* 180.0 / M_PI;
+	
+	if (angle < 0)
+	{
+		angle += 450;
+	}
 
 	return angle;
 	

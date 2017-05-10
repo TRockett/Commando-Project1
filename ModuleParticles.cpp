@@ -91,27 +91,33 @@ ModuleParticles::ModuleParticles()
 
 	Bluefire_down.anim.PushBack({ 56,113,7,11 });
 	Bluefire_down.life = fire_life;
+	Bluefire_down.anim.speed = 0.2f;
 	Bluefire_down.anim.loop = false;
 
 	Bluefire_downleft.anim.PushBack({ 46,113,9,9 });
 	Bluefire_downleft.life = fire_life;
+	Bluefire_downleft.anim.speed = 0.2f;
 	Bluefire_downleft.anim.loop = false;
 
 	Bluefire_downright.anim.PushBack({ 36,113,9,9 });
 	Bluefire_downright.life = fire_life;
+	Bluefire_downright.anim.speed = 0.2f;
 	Bluefire_downright.anim.loop = false;
 
 	Missile_down.anim.PushBack({ 89,113,5,10 });
-	Missile_down.life = 600;
+	Missile_down.life = 6000;
+	Missile_down.anim.speed = 0.2f;
 	Missile_down.anim.loop = false;
 
 	Missile_downright.anim.PushBack({ 96,113,7,9 });
-	Missile_downright.life = 600;
+	Missile_downright.life = 6000;
+	Missile_downright.anim.speed = 0.2f;
 	Missile_downright.anim.loop = false;
 
-	Missile_downright.anim.PushBack({ 114,113,7,9 });
-	Missile_downright.life = 600;
-	Missile_downright.anim.loop = false;
+	Missile_downleft.anim.PushBack({ 113,113,7,9 });
+	Missile_downleft.life = 6000;
+	Missile_downleft.anim.speed = 0.2f;
+	Missile_downleft.anim.loop = false;
 
 }
 

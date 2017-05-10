@@ -36,6 +36,11 @@ EnemyBazooka::EnemyBazooka(int x, int y, int angle, int sub_type) : Enemy(x, y, 
 	e1_down_right.speed = 0.15f;
 	e1_down_right.loop = false;
 
+	e1_backward.PushBack({ 241,129,16,22 });
+	e1_backward.PushBack({ 260,129,15,22 });
+	e1_backward.speed = 0.15f;
+	e1_backward.loop = false;
+
 	death.PushBack({ 0, 459, 15, 14 });
 	death.PushBack({ 17, 449, 23, 26 });
 	death.PushBack({ 0, 459, 15, 14 });
@@ -85,8 +90,10 @@ void EnemyBazooka::Move()
 	
 			if (collision == true)
 			{
+		
 				position = prev_position;
-				current_angle = -Collisionangle(this->collider, collider);
+			
+				current_angle = Collisionangle(this->collider, collider);
 			}
 			else if (shoot == false)
 			{
@@ -107,19 +114,23 @@ void EnemyBazooka::Move()
 				if (position.x > player_pos.x - 20)
 				{
 					animation = &e1_down_left;
-					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
+					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
 				}
 				else if (position.x < player_pos.x + 20)
 				{
 					animation = &e1_down_right;
-					App->particles->Missile_downright.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-					App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
+					App->particles->Missile_downright.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
 				}
 				else
 				{
-					App->particles->Missile_down.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, true);
+					animation = &e1_backward;
+					App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
 				}
 				
 				

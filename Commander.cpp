@@ -64,7 +64,11 @@ void Commander::Move() {
 			movement.Reset();
 			if (collision != true)
 			{
-				current_angle = (rand() % 8) * 45;
+				current_angle = ((rand() % 4) * 45) - 90;
+				if (current_angle < 0)
+				{
+					current_angle += 450;
+				}
 			}
 			else
 			{
