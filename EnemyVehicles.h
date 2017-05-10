@@ -16,7 +16,7 @@ private:
 		Animation car_enemies_ltor;
 		Animation car_enemies_rtol;
 
-
+		int timer;
 
 	public:
 		EnemyVehicles(int x, int y, int angle, int sub_type);

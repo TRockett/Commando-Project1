@@ -1,7 +1,7 @@
 #include "EnemyVehicles.h"
 #include "ModulePlayer.h"
 #include "Application.h"
-
+#include "SDL/include/SDL_timer.h"
 
 
 
@@ -30,6 +30,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 
 	//car with enemies right to left
 	car_enemies_rtol.PushBack({ 1049, 371, 47, 25 });
+
 	
 	if (sub_type == 1)
 	{
@@ -63,6 +64,8 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 			animation = &car_enemies_ltor;
 			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
 			movement.loop = true;
+			timer = SDL_GetTicks();
+			
 		}
 		else if (sub_type == 5)
 		{
@@ -94,6 +97,51 @@ EnemyVehicles::~EnemyVehicles()
 
 void EnemyVehicles::Move() {
 	iPoint player_pos = App->player->GetPosition();
+
+	if (sub_type == 4)
+	{
+		if (player_pos.y > position.y)
+		{
+			if (SDL_GetTicks() >= timer + 200)
+			{
+				float deltaX = -position.x + player_pos.x;
+				float deltaY = -position.y + player_pos.y;
+				float angle = atan2f(deltaY, deltaX);
+				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+
+				App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
+				App->particles->bullet.life = 1800;
+				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+				timer = SDL_GetTicks();
+			}
+		}
+	}
+
+	else if (sub_type == 5)
+	{
+		if (player_pos.y == 689)
+		{
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+
+		if (player_pos.y > position.y)
+		{
+			if (SDL_GetTicks() >= timer + 200)
+			{
+				float deltaX = -position.x + player_pos.x;
+				float deltaY = -position.y + player_pos.y;
+				float angle = atan2f(deltaY, deltaX);
+				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+
+				App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
+				App->particles->bullet.life = 1800;
+				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+				timer = SDL_GetTicks();
+			}
+		}
+	}
 	if (sub_type == 6)
 	{
 		if (player_pos.y <= position.y + 80)
@@ -102,14 +150,7 @@ void EnemyVehicles::Move() {
 		}
 
 	}
-	else if (sub_type == 5) 
-	{
-		if (player_pos.y == 689)
-		{
-			position = initial_position + movement.GetCurrentPosition(&animation);
-		}
 
-	}
 	else if (player_pos.y <= position.y + 8) 
 	{
 		position = initial_position + movement.GetCurrentPosition(&animation);

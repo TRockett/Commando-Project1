@@ -220,7 +220,9 @@ void EnemyLeft::Move() {
 				current_angle = (rand() % 8) * 45;
 			}
 		}
-	}else{
+	}
+	else
+	{
 		if (SDL_GetTicks() >= timer + 1000)
 		{
 			float deltaX = -position.x + player_pos.x;
