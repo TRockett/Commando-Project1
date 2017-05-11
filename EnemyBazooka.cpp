@@ -97,6 +97,7 @@ void EnemyBazooka::Move()
 				animation = &e1_forward;
 				movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
 				throwing.Reset();
+				shoot = true;
 			}
 			else
 			{
@@ -108,31 +109,51 @@ void EnemyBazooka::Move()
 				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 				if (position.x > player_pos.x - 20)
 				{
+					shooting_position.x = 0;
+					shooting_position.y = 18;
 					animation = &e1_down_left;
-					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-					App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					if (animation->Finished() == true)
+					{
+						App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+						App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						animation->Reset();
+						shoot = false;
+					}
 				}
 				else if (position.x < player_pos.x + 20)
 				{
+					shooting_position.x = 19;
+					shooting_position.y = 18;
 					animation = &e1_down_right;
-					App->particles->Missile_downright.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-					App->particles->AddParticle(App->particles->Bluefire_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					if (animation->Finished() == true)
+					{
+						App->particles->Missile_downright.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+						App->particles->AddParticle(App->particles->Bluefire_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						animation->Reset();
+						shoot = false;
+					}
 				}
 				else
 				{
+					shooting_position.x = 4;
+					shooting_position.y = 19;
 					animation = &e1_backward;
-					App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					if (animation->Finished() == true)
+					{
+						App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+						App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						animation->Reset();
+						shoot = false;
+					}
 				}
+
+				collision = false;
+
+
 			}
-
-			collision = false;
-			shoot = !shoot;
-
-			animation->Reset();
 
 
 	}
