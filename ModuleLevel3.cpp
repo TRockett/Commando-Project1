@@ -19,7 +19,7 @@
 
 
 
-ModuleLevel3::ModuleLevel3()
+ModuleLevel3::ModuleLevel3() : ModuleSceneGame()
 {
 	intro = true;
 	next = this;
@@ -36,10 +36,11 @@ bool ModuleLevel3::Start() {
 	bool ret = true;
 	restart = false;
 	App->level = 3;
-
+	App->current_scene = this;
+	intro = false;
 	
 	background_graphics = App->textures->Load("Images/Mapa3.png", &level_dimensions);
-	App->scene_game->setLevelDimensions(level_dimensions);
+	//App->scene_game->setLevelDimensions(level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 

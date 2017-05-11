@@ -154,7 +154,7 @@ bool ModulePlayer::Start()
 {
 
 	position.x = (SCREEN_WIDTH / 2) + 20;
-	position.y = (float)App->scene_game->getLevelDimensions().y + 110;
+	position.y = (float)((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y + 110;
 	shooting_angle = { 0.0f, 0.0f };
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -184,14 +184,14 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	if (state != DEAD && !App->scene_game->restart)
+	if (state != DEAD && !((ModuleSceneGame*)App->current_scene)->restart)
 	{
 		prev_position = position;
 		current_animation->speed = 0.15f;
 		shooting = false;
 		grenade1 = false;
 
-		if (App->scene_game->intro == true)
+		if (((ModuleSceneGame*)App->current_scene)->intro == true)
 		{
 			if (intro_state == 0)
 			{
@@ -261,7 +261,7 @@ update_status ModulePlayer::Update()
 			bullet.life = 300;
 			//App->particles->AddParticle(fire, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, EXPLOSION, COLLIDER_NONE);
 			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT);
-			//App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
+			App->particles->AddParticle(bullet, (int)position.x + shooting_position.x, (int)position.y + shooting_position.y, BULLET, COLLIDER_PLAYER_SHOT, nullptr, 50);
 		}
 
 		if (grenade_on == false)
@@ -287,8 +287,8 @@ update_status ModulePlayer::Update()
 			}
 		}
 	}
-	else if (current_animation->Finished() && !App->scene_game->restart) {
-		App->scene_game->restart = true;
+	else if (current_animation->Finished() && !((ModuleSceneGame*)App->current_scene)->restart) {
+		((ModuleSceneGame*)App->current_scene)->restart = true;
 		state = IDLE;
 	}
 
@@ -309,10 +309,10 @@ update_status ModulePlayer::Update()
 	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
 
 	int margin = 110; //Must be equal to the player's initial position
-	if (camera->y < 0 && !App->scene_game->intro) {
+	if (camera->y < 0 && !((ModuleSceneGame*)App->current_scene)->intro) {
 		player_min_y = MIN(player_min_y, (int)position.y);
 		camera->y =(-player_min_y + margin) * SCREEN_SIZE;
-		int level_y = (App->scene_game->getLevelDimensions().y) * SCREEN_SIZE;
+		int level_y = (((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y) * SCREEN_SIZE;
 		if (camera->y < -level_y)
 			camera->y = -level_y;
 		
@@ -566,9 +566,9 @@ void ModulePlayer::enemyCollision() {
 		state = DEAD;
 		lives--;
 		if (lives <= 0) {
-			App->scene_game->next = (Module*)App->scene_congrats;
+			((ModuleSceneGame*)App->current_scene)->next = (Module*)App->scene_congrats;
 		}
-		else App->scene_game->next = (Module*)App->scene_game;
+		else ((ModuleSceneGame*)App->current_scene)->next = App->current_scene;
 
 		collider->active = false;
 		current_animation = &death;
@@ -582,9 +582,9 @@ void ModulePlayer::Drown() {
 		state = DEAD;
 		lives--;
 		if (lives <= 0) {
-			App->scene_game->next = (Module*)App->scene_congrats;
+			((ModuleSceneGame*)App->current_scene)->next = (Module*)App->scene_congrats;
 		}
-		else App->scene_game->next = (Module*)App->scene_game;
+		else ((ModuleSceneGame*)App->current_scene)->next = App->current_scene;
 		collider->active = false;
 		current_animation = &drown;
 		//if (current_animation->Finished())

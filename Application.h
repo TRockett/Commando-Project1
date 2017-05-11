@@ -44,6 +44,7 @@ public:
 	ModuleFonts* fonts;
 	ModuleObjects* objects;
 	ModuleLevel3 *level_3;
+	Module* current_scene;
 
 
 public:

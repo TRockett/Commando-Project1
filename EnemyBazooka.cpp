@@ -87,12 +87,9 @@ void EnemyBazooka::Move()
 		movement.Clear();
 		movement.Reset();
 
-	
 			if (collision == true)
 			{
-		
 				position = prev_position;
-			
 				current_angle = Collisionangle(this->collider, collider);
 			}
 			else if (shoot == false)
@@ -100,17 +97,15 @@ void EnemyBazooka::Move()
 				animation = &e1_forward;
 				movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
 				throwing.Reset();
-
 			}
 			else
 			{
-				
 				movement.PushBack({ 0 , 0 }, 30);
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
 				float angle = atan2f(deltaY, deltaX);
 				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
-				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };			
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 				if (position.x > player_pos.x - 20)
 				{
 					animation = &e1_down_left;
@@ -132,8 +127,6 @@ void EnemyBazooka::Move()
 					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
 					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
 				}
-				
-				
 			}
 
 			collision = false;

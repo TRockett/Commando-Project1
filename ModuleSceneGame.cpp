@@ -33,9 +33,8 @@ bool ModuleSceneGame::Start() {
 	bool ret = true;
 	restart = false;
 	App->level = 1;
+	App->current_scene = this;
 
-	
-	
 	background_graphics = App->textures->Load("Images/Mapa1.png", &level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
@@ -117,7 +116,6 @@ update_status ModuleSceneGame::Update() {
 				timer = timer + 1000;
 				screen_enemies++;
 			}
-	
 		}
 
 		if (!App->sound->isPlaying()) {

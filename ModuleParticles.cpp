@@ -114,7 +114,7 @@ ModuleParticles::ModuleParticles()
 	Missile_downright.anim.speed = 0.2f;
 	Missile_downright.anim.loop = false;
 
-	Missile_downleft.anim.PushBack({ 113,113,7,9 });
+	Missile_downleft.anim.PushBack({ 104,113,7,9 });
 	Missile_downleft.life = 6000;
 	Missile_downleft.anim.speed = 0.2f;
 	Missile_downleft.anim.loop = false;

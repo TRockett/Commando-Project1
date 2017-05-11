@@ -12,9 +12,7 @@ struct Mix_Chunk;
 class ModuleSceneGame :
 	public Module
 {
-private:
-	
-
+protected:
 	SDL_Texture* background_graphics;
 	iPoint level_dimensions;
 	int font_red, font_white;
