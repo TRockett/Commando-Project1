@@ -45,41 +45,13 @@ void Enemy::OnCollision(Collider* collider)
 	}
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y, EXPLOSION,COLLIDER_ENEMY);
 }
-int Enemy::Collisionangle(Collider* c1, Collider* c2)
+int Enemy::Collisionangle(int angle)
 {
-	iPoint dimensions = App->scene_game->getLevelDimensions();
-	iPoint diference;
-	diference.y = (c2->rect.y) - (c1->rect.y);
-	diference.x = (c2->rect.x) - (c1->rect.x);
-
-	int angle = 0;
-	if (diference.y == 0)
+	angle += 180;
+	if (angle > 360)
 	{
-		if (diference.x > 0)
-		{
-			angle = 90;
-		}
-		else
-			angle = -90;
+		angle -= 360;
 	}
-	else if (diference.x == 0)
-	{
-		if (diference.y > 0)
-		{
-			angle = -180;
-		}
-		else
-			angle = 180;
-
-	}
-	else 
-		angle = asin(diference.y / diference.x)* 180.0 / M_PI;
-	
-	if (angle < 0)
-	{
-		angle += 450;
-	}
-
 	return angle;
 	
 }

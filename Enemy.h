@@ -47,7 +47,7 @@ public:
 	virtual void Move() {};
 	virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider);
-	virtual int Enemy::Collisionangle(Collider* collider, Collider* c2);
+	virtual int Enemy::Collisionangle(int angle);
 	Animation* GetAnimationForDirection(int dir);
 
 };

@@ -156,7 +156,7 @@ void EnemyGrenade::Move()
 			if (collision == true)
 			{
 				position = prev_position;
-				current_angle = Collisionangle(this->collider, collider);
+				current_angle = Collisionangle(current_angle);
 			}
 			else if (throwi == false)
 			{
@@ -207,7 +207,7 @@ void EnemyGrenade::Move()
 			else
 			{
 				position = prev_position;
-				current_angle = -Collisionangle(this->collider, collider);
+				current_angle = -Collisionangle(current_angle);
 
 			}
 

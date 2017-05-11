@@ -73,7 +73,7 @@ void Commander::Move() {
 			else
 			{
 				position = prev_position;
-				current_angle = -Collisionangle(this->collider, collider);
+				current_angle = Collisionangle(current_angle);
 			}
 
 			animation = GetAnimationForDirection(current_angle);
