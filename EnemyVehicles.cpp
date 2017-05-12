@@ -145,8 +145,8 @@ void EnemyVehicles::Move() {
 	}
 	if (sub_type == 6)
 	{
-		if (position.y > 350) {
-			if (player_pos.y <= position.y + 145)
+		/*if (position.y > 350) {*/
+			if (player_pos.y <= position.y + 151)
 			{
 				if (SDL_GetTicks() >= timer + 100)
 				{
@@ -155,7 +155,7 @@ void EnemyVehicles::Move() {
 				}
 
 
-			}
+		/*	}*/
 
 
 
@@ -165,11 +165,11 @@ void EnemyVehicles::Move() {
 			}
 		}
 		
-		else 
-		{
-			//increase speed until the end of the map
+		//else 
+		//{
+		//	//increase speed until the end of the map
 
-		}
+		//}
 	
 	}
 
