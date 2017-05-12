@@ -12,10 +12,11 @@
 #include "EnemyJump.h"
 #include "ModuleSceneGame.h"
 #include "EnemyGrenade.h"
-#include"ModulePlayer.h"
+#include "ModulePlayer.h"
 #include "EnemyVehicles.h"
 #include "Commander.h"
 #include "EnemyBazooka.h"
+#include "SDL\include\SDL.h"
 
 #define SPAWN_MARGIN 50
 
@@ -47,7 +48,7 @@ update_status ModuleEnemies::PreUpdate()
 	// check camera position to decide what to spawn
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if(queue[i].type != ENEMY_TYPES::NO_TYPE)
+		if(queue[i].type != ENEMY_TYPE::NO_TYPE)
 		{
 			if(!(queue[i].pos.x < (App->render->camera.x / SCREEN_SIZE) - SPAWN_MARGIN
 				|| queue[i].pos.x >((App->render->camera.x / SCREEN_SIZE) + SCREEN_WIDTH) + SPAWN_MARGIN
@@ -55,27 +56,38 @@ update_status ModuleEnemies::PreUpdate()
 				|| queue[i].pos.y >(abs(App->render->camera.y / SCREEN_SIZE) + SCREEN_HEIGHT) + SPAWN_MARGIN))
 			{
 				SpawnEnemy(queue[i]);
-				queue[i].type = ENEMY_TYPES::NO_TYPE;
+				queue[i].type = ENEMY_TYPE::NO_TYPE;
 				LOG("Spawning enemy at %d", queue[i].pos.x * SCREEN_SIZE);
 			}
 		}
 	}
 
+	for (int i = 0; i < MAX_SPAWNERS; i++) {
+		if (spawners[i] != nullptr){
+			if (!(spawners[i]->pos.x < (App->render->camera.x / SCREEN_SIZE) - SPAWN_MARGIN
+				|| spawners[i]->pos.x >((App->render->camera.x / SCREEN_SIZE) + SCREEN_WIDTH) + SPAWN_MARGIN
+				|| spawners[i]->pos.y < abs(App->render->camera.y / SCREEN_SIZE) - SPAWN_MARGIN
+				|| spawners[i]->pos.y >(abs(App->render->camera.y / SCREEN_SIZE) + SCREEN_HEIGHT) + SPAWN_MARGIN))
+			{
+				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
+					SpawnEnemy(spawners[i]->info);
+					spawners[i]->frames_since_prev_spawn = 0;
+					LOG("Spawning enemy at %d", queue[i].pos.x * SCREEN_SIZE);
+				} else spawners[i]->frames_since_prev_spawn++;
+			}
+		}
+	}
 	return UPDATE_CONTINUE;
 }
 
 // Called before render is available
 update_status ModuleEnemies::Update()
 {
-	
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr) enemies[i]->Move();
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 	}
-
-
-
 	return UPDATE_CONTINUE;
 }
 
@@ -124,13 +136,13 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int s_type)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int s_type)
 {
 	bool ret = false;
 
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if(queue[i].type == ENEMY_TYPES::NO_TYPE)
+		if(queue[i].type == ENEMY_TYPE::NO_TYPE)
 		{
 			queue[i].type = type;
 			queue[i].pos.x = x;
@@ -155,26 +167,26 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 	{
 		switch(info.type)
 		{
-			case ENEMY_TYPES::LEFT_WEAPON:
+			case ENEMY_TYPE::LEFT_WEAPON:
 				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y, info.angle, info.sub_type);
 				break;
 
-			case ENEMY_TYPES::MOTO_TYPE:
+			case ENEMY_TYPE::MOTO_TYPE:
 				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			
-			case ENEMY_TYPES::ENEMY_GRENADE:
+			case ENEMY_TYPE::ENEMY_GRENADE:
 				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 
-			case ENEMY_TYPES::MOTOLEVEL3:
+			case ENEMY_TYPE::MOTOLEVEL3:
 				enemies[i] = new EnemyVehicles(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
-			case ENEMY_TYPES::COMMANDER:
+			case ENEMY_TYPE::COMMANDER:
 				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 
-			case ENEMY_TYPES::ENEMY_BAZOOKA:
+			case ENEMY_TYPE::ENEMY_BAZOOKA:
 				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 
@@ -207,4 +219,20 @@ bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
 		}
 	}
 	return false;
+}
+
+bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay) {
+	bool ret = false;
+
+	for (uint i = 0; i < MAX_SPAWNERS; ++i)
+	{
+		if (spawners[i] != nullptr)
+		{
+			spawners[i] = new EnemySpawner{ { type, { x, y }, angle, sub_type }, { x, y }, { 0, 0 }, delay };
+			ret = true;
+			break;
+		}
+	}
+
+	return ret;
 }

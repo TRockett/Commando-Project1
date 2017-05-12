@@ -49,8 +49,8 @@ int Enemy::Collisionangle(Collider* c1, Collider* c2)
 {
 	iPoint dimensions = App->scene_game->getLevelDimensions();
 	iPoint diference;
-	diference.y = (c2->rect.y) - (c1->rect.y);
-	diference.x = (c2->rect.x) - (c1->rect.x);
+	diference.y = abs(c2->rect.y - c1->rect.y);
+	diference.x = abs(c2->rect.x - c1->rect.x);
 
 	int angle = 0;
 	if (diference.y == 0)

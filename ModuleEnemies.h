@@ -6,9 +6,10 @@
 #include "Animation.h"
 
 #define MAX_ENEMIES 30
+#define MAX_SPAWNERS 15
 
 
-enum ENEMY_TYPES
+enum ENEMY_TYPE
 {
 	
 	NO_TYPE,
@@ -24,10 +25,18 @@ class Enemy;
 
 struct EnemyInfo
 {
-	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
+	ENEMY_TYPE type = ENEMY_TYPE::NO_TYPE;
 	iPoint pos;
 	int angle;
 	int sub_type;
+};
+
+struct EnemySpawner {
+	EnemyInfo info;
+	iPoint pos;
+	iPoint absolute_deviation;
+	int delay_frames;
+	int frames_since_prev_spawn = 0;
 };
 
 class ModuleEnemies : public Module
@@ -44,7 +53,8 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y, int angle, int num);
+	bool AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int sub_type);
+	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay);
 	bool EraseEnemy(Enemy* enemy);
 
 private:
@@ -55,6 +65,7 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
+	EnemySpawner* spawners[MAX_SPAWNERS];
 	SDL_Texture* sprites;
 	
 
@@ -69,7 +80,6 @@ public:
 	Animation e1_up_left;
 	Animation e1_down_right;
 	Animation e1_down_left;
-
 
 	bool dead;
 };
