@@ -79,6 +79,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 			animation = &vertical_truck;
 			movement.PushBack({ 0.0f, -1.0f }, 300, animation);
 			movement.PushBack({ 0.0f, 0.0f }, 50, animation);
+			
 			movement.loop = true;
 
 			if (App->player->position.y == 400) 
@@ -144,16 +145,35 @@ void EnemyVehicles::Move() {
 	}
 	if (sub_type == 6)
 	{
-		if (player_pos.y <= position.y + 80)
-		{
-			position = initial_position + movement.GetCurrentPosition(&animation);
+		if (position.y > 350) {
+			if (player_pos.y <= position.y + 145)
+			{
+				if (SDL_GetTicks() >= timer + 100)
+				{
+					position = initial_position + movement.GetCurrentPosition(&animation);
+
+				}
+
+
+			}
+
+
+
+			else if (player_pos.y <= position.y + 8)
+			{
+				position = initial_position + movement.GetCurrentPosition(&animation);
+			}
 		}
+		
+		else 
+		{
+			//increase speed until the end of the map
 
+		}
+	
 	}
 
-	else if (player_pos.y <= position.y + 8) 
-	{
-		position = initial_position + movement.GetCurrentPosition(&animation);
-	}
+
+	
 	
 }
