@@ -90,9 +90,11 @@ void EnemyBazooka::Move()
 			if (collision == true)
 			{
 				position = prev_position;
-				current_angle = Collisionangle(this->collider, collider);
+				current_angle = Collisionangle(current_angle);
+				shoot = false;
 			}
-			else if (shoot == false)
+
+			if (shoot == false)
 			{
 				animation = &e1_forward;
 				movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
@@ -150,10 +152,8 @@ void EnemyBazooka::Move()
 					}
 				}
 
-				collision = false;
-
-
 			}
+			collision = false;
 
 
 	}

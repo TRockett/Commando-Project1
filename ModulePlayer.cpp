@@ -124,7 +124,7 @@ ModulePlayer::ModulePlayer()
 
 
 	//drown animation
-	drown.PushBack({ 270, 40, 17, 23 }, { 6,13 });
+	drown.PushBack({ 270, 40, 17, 23 }, { 6, 13 });
 	drown.PushBack({ 296, 40, 25, 14 }, { 12,5 });
 	drown.PushBack({ 334, 40, 15, 12 }, { 4,1 });
 	drown.PushBack({ 357, 40, 14, 12 }, { 5,1 });
@@ -162,7 +162,14 @@ bool ModulePlayer::Start()
 	prev_position = position;
 	state = IDLE;
 	fire = App->particles->fire_up;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
+	if (b_godmode == false)
+	{
+		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
+	}
+	else
+	{
+		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_NONE, this);
+	}
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
 	godmode = App->textures->Load("Images/godmode.png");
@@ -176,7 +183,6 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::CleanUp() {
 	LOG("Unloading player");
-	godmode = false;
 	App->textures->Unload(graphics);
 	App->textures->Unload(godmode);
 	return true;
