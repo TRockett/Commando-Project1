@@ -69,6 +69,8 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH , 410, 270, 5);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
+
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 0, 180, true);
 	}
 	
 

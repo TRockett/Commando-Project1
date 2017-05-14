@@ -68,6 +68,7 @@ update_status ModuleEnemies::PreUpdate()
 			if (spawners[i]->global) {
 				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
 					spawners[i]->info.pos = { (int)(rand() % SCREEN_WIDTH), (int)(App->player->position.y - (SCREEN_HEIGHT / 2) + 20) };
+					spawners[i]->info.angle = rand() % 360;
 					SpawnerSpawn(*spawners[i]);
 				}
 				else spawners[i]->frames_since_prev_spawn++;
