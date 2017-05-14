@@ -228,7 +228,14 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub
 	{
 		if (spawners[i] != nullptr)
 		{
-			spawners[i] = new EnemySpawner{ { type, { x, y }, angle, sub_type }, { x, y }, { 0, 0 }, delay };
+			spawners[i] = new EnemySpawner();
+			spawners[i]->info.type = type;
+			spawners[i]->info.pos = { x, y };
+			spawners[i]->info.angle = angle;
+			spawners[i]->info.sub_type = sub_type;
+			spawners[i]->pos = { x, y };
+			spawners[i]->delay_frames = delay;
+			spawners[i]->absolute_deviation = { 0, 0 };
 			ret = true;
 			break;
 		}
