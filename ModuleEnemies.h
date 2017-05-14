@@ -36,6 +36,7 @@ struct EnemySpawner {
 	iPoint pos;
 	iPoint absolute_deviation;
 	int delay_frames;
+	bool global = false;
 	int frames_since_prev_spawn = 0;
 };
 
@@ -54,12 +55,13 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int sub_type);
-	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay);
+	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay, bool global);
 	bool EraseEnemy(Enemy* enemy);
 
 private:
 
 	void SpawnEnemy(const EnemyInfo& info);
+	void SpawnerSpawn(EnemySpawner& spawner);
 
 private:
 

@@ -64,15 +64,22 @@ update_status ModuleEnemies::PreUpdate()
 
 	for (int i = 0; i < MAX_SPAWNERS; i++) {
 		if (spawners[i] != nullptr){
-			if (!(spawners[i]->pos.x < (App->render->camera.x / SCREEN_SIZE) - SPAWN_MARGIN
+			if (spawners[i]->global) {
+				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
+					spawners[i]->info.pos = { (int)(rand() % SCREEN_WIDTH), (int)(App->player->position.y - (SCREEN_HEIGHT / 2) + 20) };
+					SpawnerSpawn(*spawners[i]);
+				}
+				else spawners[i]->frames_since_prev_spawn++;
+			}
+			else if (!(spawners[i]->pos.x < (App->render->camera.x / SCREEN_SIZE) - SPAWN_MARGIN
 				|| spawners[i]->pos.x >((App->render->camera.x / SCREEN_SIZE) + SCREEN_WIDTH) + SPAWN_MARGIN
 				|| spawners[i]->pos.y < abs(App->render->camera.y / SCREEN_SIZE) - SPAWN_MARGIN
 				|| spawners[i]->pos.y >(abs(App->render->camera.y / SCREEN_SIZE) + SCREEN_HEIGHT) + SPAWN_MARGIN))
 			{
 				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
-					SpawnEnemy(spawners[i]->info);
-					spawners[i]->frames_since_prev_spawn = 0;
-					LOG("Spawning enemy at %d", queue[i].pos.x * SCREEN_SIZE);
+					iPoint deviation = { (int)(rand() * spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)), (int)(rand() *  spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)) };
+					spawners[i]->info.pos = spawners[i]->pos + deviation;
+					SpawnerSpawn(*spawners[i]);
 				} else spawners[i]->frames_since_prev_spawn++;
 			}
 		}
@@ -124,12 +131,19 @@ bool ModuleEnemies::CleanUp()
 		queue[i].type = NO_TYPE;
 	}
 
-	for(uint i = 0; i < MAX_ENEMIES; ++i)
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if(enemies[i] != nullptr)
 		{
 			delete enemies[i];
 			enemies[i] = nullptr;
+		}
+	}
+
+	for (uint i = 0; i < MAX_SPAWNERS; i++) {
+		if (spawners[i] != nullptr) {
+			delete spawners[i];
+			spawners[i] = nullptr;
 		}
 	}
 
@@ -221,12 +235,12 @@ bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
 	return false;
 }
 
-bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay) {
+bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay, bool global) {
 	bool ret = false;
 
 	for (uint i = 0; i < MAX_SPAWNERS; ++i)
 	{
-		if (spawners[i] != nullptr)
+		if (spawners[i] == nullptr)
 		{
 			spawners[i] = new EnemySpawner();
 			spawners[i]->info.type = type;
@@ -235,11 +249,18 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub
 			spawners[i]->info.sub_type = sub_type;
 			spawners[i]->pos = { x, y };
 			spawners[i]->delay_frames = delay;
-			spawners[i]->absolute_deviation = { 0, 0 };
+			spawners[i]->absolute_deviation = { 10, 10 };
+			spawners[i]->global = global;
 			ret = true;
 			break;
 		}
 	}
 
 	return ret;
+}
+
+void ModuleEnemies::SpawnerSpawn(EnemySpawner& spawner) {
+	SpawnEnemy(spawner.info);
+	spawner.frames_since_prev_spawn = 0;
+	LOG("Spawning enemy at %d", spawner.info.pos.x * SCREEN_SIZE);
 }

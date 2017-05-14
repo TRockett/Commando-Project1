@@ -46,6 +46,8 @@ bool ModuleSceneGame::Start() {
 		App->enemies->AddEnemy(LEFT_WEAPON, 230, 1480, 0, 2);
 
 		App->enemies->AddEnemy(LEFT_WEAPON, 20, 1210, 0, 2);
+
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 180, 0, 60, true);
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
@@ -108,15 +110,6 @@ update_status ModuleSceneGame::Update() {
 
 		App->player->Enable();
 		App->enemies->Enable();
-		if (screen_enemies < 4 && App->level == 1)
-		{
-			if (SDL_GetTicks()  >= timer + 200)
-			{
-				App->enemies->AddEnemy(ENEMY_BAZOOKA, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) + 20), 80, 1);
-				timer = timer + 1000;
-				screen_enemies++;
-			}
-		}
 
 		if (!App->sound->isPlaying()) {
 			App->sound->PlayMusic();
