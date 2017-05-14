@@ -60,7 +60,7 @@ bool ModuleSceneWelcome::Start() {
 
 update_status ModuleSceneWelcome::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
-		App->fade->FadeToBlack(this, App->scene_game, 3.0f);
+		App->fade->FadeToBlack(this, App->level_3, 3.0f);
 
 	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
 		App->scene_game->intro = false;

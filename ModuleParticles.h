@@ -25,6 +25,7 @@ enum PARTICLE_TYPE
 	GRENADE_PLAYER,
 	MOLOTOV,
 	EXPLOSION,
+	MORTAR_BOMB,
 };
 
 struct Particle
@@ -92,6 +93,7 @@ public:
 	Particle Missile_down;
 	Particle Missile_downleft;
 	Particle Missile_downright;
+	Particle Mortar_bomb;
 };
 
 #endif // __MODULEPARTICLES_H__
