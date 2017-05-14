@@ -16,6 +16,7 @@
 #include "EnemyVehicles.h"
 #include "Commander.h"
 #include "EnemyBazooka.h"
+#include "EnemyMortar.h"
 #include "SDL\include\SDL.h"
 
 #define SPAWN_MARGIN 50
@@ -189,6 +190,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			case ENEMY_TYPE::ENEMY_BAZOOKA:
 				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
+			case ENEMY_TYPE::ENEMY_MORTAR:
+				enemies[i]= new EnemyMortar(info.pos.x, info.pos.y, info.angle, info.sub_type);
 
 		}
 	}

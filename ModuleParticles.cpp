@@ -119,6 +119,11 @@ ModuleParticles::ModuleParticles()
 	Missile_downleft.anim.speed = 0.2f;
 	Missile_downleft.anim.loop = false;
 
+	Mortar_bomb.anim.PushBack({ 121,113,6,5 });
+	Mortar_bomb.anim.PushBack({ 112,113,8,7 });
+	Mortar_bomb.life = 3000;
+	Mortar_bomb.anim.speed = 0.2f;
+	Mortar_bomb.anim.loop = false;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -242,6 +247,7 @@ void ModuleParticles::addExplosionParticle(Particle* p) {
 		break;
 	case GRENADE_ENEMY:
 	case MOLOTOV:
+	case MORTAR_BOMB:
 		AddParticle(grenade_explosion, x, y, EXPLOSION, COLLIDER_ENEMY_SHOT);
 		App->player->grenade_on = false;
 		break;

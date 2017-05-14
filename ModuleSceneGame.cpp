@@ -112,7 +112,7 @@ update_status ModuleSceneGame::Update() {
 		{
 			if (SDL_GetTicks()  >= timer + 200)
 			{
-				App->enemies->AddEnemy(ENEMY_BAZOOKA, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) + 20), 80, 1);
+				App->enemies->AddEnemy(ENEMY_MORTAR, rand() % (SCREEN_WIDTH), (App->player->position.y - (SCREEN_HEIGHT/2) + 20), 80, 1);
 				timer = timer + 1000;
 				screen_enemies++;
 			}
