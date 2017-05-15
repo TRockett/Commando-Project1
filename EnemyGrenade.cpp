@@ -136,10 +136,10 @@ EnemyGrenade::~EnemyGrenade()
 
 void EnemyGrenade::Move()
 {
+	prev_position = position;
 	position = initial_position + movement.GetCurrentPosition();
 	iPoint player_pos = App->player->GetPosition();
-	prev_position = position;
-	grenadeac = grenadeac + 0.1f;
+	
 
 	if (this->position.y >= App->player->position.y + (SCREEN_HEIGHT / 2) + 30 || this->position.x <= 0 - 30 || this->position.x >= (SCREEN_WIDTH)+30)
 	{
@@ -157,11 +157,12 @@ void EnemyGrenade::Move()
 			{
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 			}
 			else if (throwi == false)
 			{
 				animation = GetAnimationForDirection(current_angle);
-				movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 				throwing.Reset();
 				
 			}

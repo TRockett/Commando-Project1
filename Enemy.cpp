@@ -47,12 +47,14 @@ void Enemy::OnCollision(Collider* collider)
 }
 int Enemy::Collisionangle(int angle)
 {
-	angle += 180;
-	if (angle > 360)
+	int a = angle;
+	a += 180;
+	if (a > 360)
 	{
-		angle -= 360;
+		a -= 360;
 	}
-	return angle;
+
+	return a;
 	
 }
 
