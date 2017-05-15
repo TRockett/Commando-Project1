@@ -324,11 +324,7 @@ update_status ModulePlayer::Update()
 			camera->y = -level_y;
 		
 	}
-
-	LOG("Player position.y:: %f", position.y);
-	LOG("Player position.x:: %f", position.x);
-	LOG("Camera position.y:: %d", camera->y);
-
+	
 	if(b_godmode == false)
 		App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 	else 
