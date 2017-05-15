@@ -46,7 +46,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 		{
 			direction = -1;
 			animation = &truck_riding;
-			movement.PushBack({ 1.0f * direction, 0.0f }, 50, animation);
+			movement.PushBack({ 0.8f * direction, 0.0f }, 35, animation);
 			movement.PushBack({ 0.0f, 0.0f }, 40, animation);
 			movement.loop = true;
 		}
@@ -62,7 +62,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 		{
 			direction = 1;
 			animation = &car_enemies_ltor;
-			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+			movement.PushBack({ 1.0f * direction, 0.0f }, 15, animation);
 			movement.loop = true;
 			timer = SDL_GetTicks();
 			
@@ -71,7 +71,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 		{
 			direction = -1;
 			animation = &car_enemies_rtol;
-			movement.PushBack({ 2.0f * direction, 0.0f }, 15, animation);
+			movement.PushBack({ 1.0f * direction, 0.0f }, 15, animation);
 			movement.loop = true;
 		}
 		else if (sub_type == 6)
@@ -99,12 +99,40 @@ EnemyVehicles::~EnemyVehicles()
 void EnemyVehicles::Move() {
 	iPoint player_pos = App->player->GetPosition();
 
+	
+	if (sub_type == 3)
+	{
+		if (player_pos.y >= 688)
+		{
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+	}
+
+	if (sub_type == 1)
+	{
+		if (player_pos.y <= position.y +10) {
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+
+	}
+	if (sub_type == 2)
+	{
+		if (player_pos.y <= position.y + 10) {
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
+
+	}
 	if (sub_type == 4)
 	{
+		if (player_pos.y <= position.y + 15)
+		{
+			position = initial_position + movement.GetCurrentPosition(&animation);
+		}
 		if (player_pos.y > position.y)
 		{
 			if (SDL_GetTicks() >= timer + 200)
 			{
+
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
 				float angle = atan2f(deltaY, deltaX);
@@ -121,7 +149,7 @@ void EnemyVehicles::Move() {
 
 	else if (sub_type == 5)
 	{
-		if (player_pos.y == 689)
+		if (player_pos.y <= position.y + 15)
 		{
 			position = initial_position + movement.GetCurrentPosition(&animation);
 		}
@@ -146,9 +174,9 @@ void EnemyVehicles::Move() {
 	if (sub_type == 6)
 	{
 		/*if (position.y > 350) {*/
-			if (player_pos.y <= position.y + 151)
+			if (player_pos.y == position.y + 100)
 			{
-				if (SDL_GetTicks() >= timer + 100)
+				if (SDL_GetTicks() >= timer + 10)
 				{
 					position = initial_position + movement.GetCurrentPosition(&animation);
 
