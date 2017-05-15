@@ -17,7 +17,7 @@ EnemyMortar::EnemyMortar(int x, int y, int angle, int sub_type) : Enemy(x, y, an
 
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
-
+	
 	animation = &mortar;
 	current_angle = angle;
 
@@ -32,6 +32,7 @@ void EnemyMortar::Move()
 {
 
 	iPoint player_pos = App->player->GetPosition();
+
 
 	if(SDL_GetTicks() >= timer + 2000)
 	{
