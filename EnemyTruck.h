@@ -24,7 +24,7 @@ private:
 	bool disappear = false;
 	int timer;
 	bool jumping = false;
-	float jump_speed = -3;
+	float jump_speed = -0.5f;
 	int jump_state = 0;
 	int direction;
 	iPoint shooting_position;
