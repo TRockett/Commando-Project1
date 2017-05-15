@@ -348,13 +348,13 @@ update_status ModulePlayer::Update()
 void ModulePlayer::checkInput() {
 	if (App->input->controller_connected) {
 		GamePad p = App->input->controller_1;
-		if (p.left_axis.x - 0.25f > 0) //0.25f is the controller dead zone
+		if (p.left_joystick.x - 0.25f > 0) //0.25f is the controller dead zone
 			state = MOVING_RIGHT | state;
-		if (p.left_axis.x + 0.25f < 0)
+		if (p.left_joystick.x + 0.25f < 0)
 			state = MOVING_LEFT | state;
-		if (p.left_axis.y - 0.25f > 0)
+		if (p.left_joystick.y - 0.25f > 0)
 			state = MOVING_DOWN | state;
-		if (p.left_axis.y + 0.25f < 0)
+		if (p.left_joystick.y + 0.25f < 0)
 			state = MOVING_UP | state;
 		if (p.left_trigger && grenades > 0 && current_animation != &throw_grenade) {
 			grenade1 = true;
@@ -367,8 +367,8 @@ void ModulePlayer::checkInput() {
 		if (p.left_bumper)
 			speed = 10;
 		else speed = 1;
-		if (abs(p.left_axis.x) > 0.25f || abs(p.left_axis.y) > 0.25f)
-			shooting_angle_delta = { (p.left_axis.x / abs(p.left_axis.x)) * 0.15f, (p.left_axis.y / abs(p.left_axis.y)) * 0.15f };
+		if (abs(p.left_joystick.x) > 0.25f || abs(p.left_joystick.y) > 0.25f)
+			shooting_angle_delta = { (p.left_joystick.x / abs(p.left_joystick.x)) * 0.15f, (p.left_joystick.y / abs(p.left_joystick.y)) * 0.15f };
 	}
 	else {
 		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)

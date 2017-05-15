@@ -18,8 +18,8 @@ enum KEY_STATE
 };
 
 struct GamePad {
-	p2Point<float> left_axis;
-	p2Point<float> right_axis;
+	p2Point<float> left_joystick;
+	p2Point<float> right_joystick;
 	bool left_trigger;
 	bool right_trigger;
 	bool left_bumper;
