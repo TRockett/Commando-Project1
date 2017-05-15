@@ -19,7 +19,7 @@
 #include "EnemyMortar.h"
 #include "SDL\include\SDL.h"
 
-#define SPAWN_MARGIN 50
+#define SPAWN_MARGIN 64
 
 ModuleEnemies::ModuleEnemies()
 {
