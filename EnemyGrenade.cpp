@@ -166,7 +166,7 @@ void EnemyGrenade::Move()
 				throwing.Reset();
 				
 			}
-			else
+			else if (this->disappear == false)
 			{
 				animation = &throwing;
 				movement.PushBack({ 0 , 0 }, 30);

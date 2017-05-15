@@ -69,6 +69,8 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 47, 410, 270, 5);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
+
+		App->enemies->AddSpawner(ENEMY_TRUCK, 0, 0, 0, 180, 1, false);
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);

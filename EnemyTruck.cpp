@@ -145,8 +145,8 @@ void EnemyTruck::Move() {
 	if (jumping == true)
 	{
 		animation = &jump;
-		movement.PushBack({ 1 * 0.5f, jump_speed }, 200);
-		jump_speed = jump_speed + 0.2f;
+		movement.PushBack({ 0.5, jump_speed }, 50);
+		jump_speed = jump_speed + 0.1f;
 		if (movement.Finished() == true)
 		{
 			jumping = false;

@@ -41,6 +41,17 @@ private:
 	Animation bunker_3;
 	Animation bunker_4;
 
+
+	Animation mortar_left1;
+	Animation mortar_left2;
+	Animation mortar_left3;
+	Animation mortar_left4;
+
+	Animation mortar_right1;
+	Animation mortar_right2;
+	Animation mortar_right3;
+	Animation mortar_right4;
+
 	Animation stones;
 	int timer; 
 

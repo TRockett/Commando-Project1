@@ -152,15 +152,36 @@ bool ModuleObjects::Init() {
 	helix3.speed = 0.25f;
 	helix3.loop = true;
 
-	
+	mortar_right1.PushBack({ 77,392,14,15 });
+
+	mortar_right2.PushBack({ 92,392,14,16 });
+
+	mortar_right3.PushBack({ 107,392,14,16 });
+
+	mortar_right4.PushBack({ 121,392,14,16 });
+
+	mortar_left1.PushBack({ 137,392,14,16 });
+
+	mortar_left2.PushBack({ 152,392,14,16 });
+
+	mortar_left3.PushBack({ 167,392,14,16 });
+
+	mortar_left4.PushBack({ 182,392,14,15 });
+
 	return true;
 }
 
 bool ModuleObjects::Start() {
 	bool ret = true;
 	sprite_graphics = App->textures->Load("Images/sprites.png");
-	level_dimensions = App->scene_game->getLevelDimensions(); //This is the lower limit of the level (y)
-
+	if (App->level == 1)
+	{
+		level_dimensions = App->scene_game->getLevelDimensions(); //This is the lower limit of the level (y)
+	}
+	else
+	{
+		level_dimensions = App->level_3->getLevelDimensions();
+	}
 	helipoint.x = (SCREEN_WIDTH / 2) + 20;
 	helipoint.y = 1908;
 	reduction = 1;
@@ -416,6 +437,28 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 42, 1700, &door_bunker_left.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left.GetCurrentFrame().rect);
+
+		//Mortars
+		if (App->player->position.x < level_dimensions.x / 4)
+		{
+			App->render->Blit(sprite_graphics, 210, 70, &mortar_left1.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 30, 70, &mortar_right1.GetCurrentFrame().rect);
+		}
+		else if (App->player->position.x >= level_dimensions.x / 4 && App->player->position.x < ((level_dimensions.x / 4) * 2))
+		{
+			App->render->Blit(sprite_graphics, 210, 70, &mortar_left2.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 30, 70, &mortar_right2.GetCurrentFrame().rect);
+		}
+		else if (App->player->position.x >= ((level_dimensions.x / 4) * 2) / 4 && App->player->position.x < ((level_dimensions.x / 4) * 3))
+		{
+			App->render->Blit(sprite_graphics, 210, 70, &mortar_left3.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 30, 70, &mortar_right3.GetCurrentFrame().rect);
+		}
+		else if (App->player->position.x >= ((level_dimensions.x  / 4) * 3) / 4 && App->player->position.x < level_dimensions.x)
+		{
+			App->render->Blit(sprite_graphics, 210, 70, &mortar_left4.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 30, 70, &mortar_right4.GetCurrentFrame().rect);
+		}
 	}
 	if (App->level == 1)
 	{
@@ -467,6 +510,8 @@ update_status ModuleObjects::Update() {
 		//Final door animation
 		App->render->Blit(sprite_graphics, 83, 0,&final_door.GetCurrentFrame().rect);
 
+
+	
 		//Boxes
 		for (int i = 0; i < 10; i++) {
 			if (boxes[i] != nullptr) {
@@ -553,19 +598,6 @@ update_status ModuleObjects::Update() {
 			tree2.speed = 0;
 		}
 	}
-
-	else if (App->level == 3)
-	{
-
-	}
-
-
-
-
-
-
-
-
 
 
 	SDL_Rect player_grenade_num = { 42, 496, 10, 13 };

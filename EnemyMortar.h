@@ -11,6 +11,7 @@ public:
 private:
 
 	Animation mortar;
+
 	int current_angle;
 
 	bool disappear = false;
