@@ -48,7 +48,7 @@ void EnemyMortar::Move()
 	if (dying == true)
 	{
 		animation = &death;
-		collider->active = false;
+		collider->to_delete = true;
 
 		if (animation->Finished() == true)
 		{
@@ -62,7 +62,7 @@ void EnemyMortar::Move()
 	else if (disappear == true)
 	{
 		animation = &death;
-		collider->active = false;
+		collider->to_delete = true;
 
 		if (animation->Finished() == true)
 		{

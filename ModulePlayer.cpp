@@ -260,8 +260,9 @@ update_status ModulePlayer::Update()
 
 		rotateShootingAngle();
 
-		if (shooting)
+		if (frames_since_last_shot++ > shot_delay_frames && shooting)
 		{
+			frames_since_last_shot = 0;
 			App->sound->PlaySound(shoot, 0);
 			Particle bullet = App->particles->bullet;
 			bullet.speed = { PLAYER_BULLET_SPEED * shooting_angle.x, PLAYER_BULLET_SPEED * shooting_angle.y };
@@ -347,7 +348,7 @@ update_status ModulePlayer::Update()
 void ModulePlayer::checkInput() {
 	if (App->input->controller_connected) {
 		GamePad p = App->input->controller_1;
-		if (p.left_axis.x - 0.25f > 0) //0.15f is the controller threshold
+		if (p.left_axis.x - 0.25f > 0) //0.25f is the controller dead zone
 			state = MOVING_RIGHT | state;
 		if (p.left_axis.x + 0.25f < 0)
 			state = MOVING_LEFT | state;

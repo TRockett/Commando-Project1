@@ -92,6 +92,7 @@ private:
 	iPoint shooting_position;
 	fPoint shooting_angle;
 	fPoint shooting_angle_delta = { 0.15f, 0.15f };
+	int shot_delay_frames = 10, frames_since_last_shot = 0;
 
 	void checkInput();
 	void processInput();
