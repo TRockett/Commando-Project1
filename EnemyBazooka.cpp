@@ -87,75 +87,73 @@ void EnemyBazooka::Move()
 		movement.Clear();
 		movement.Reset();
 
-			if (collision == true)
-			{
-				position = prev_position;
-				current_angle = Collisionangle(current_angle);
-				shoot = false;
-			}
+		if (collision == true)
+		{
+			position = prev_position;
+			current_angle = Collisionangle(current_angle);
+			shoot = false;
+		}
 
-			if (shoot == false)
+		if (shoot == false)
+		{
+			animation = &e1_forward;
+			movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
+			throwing.Reset();
+			shoot = true;
+		}
+		else
+		{
+			movement.PushBack({ 0 , 0 }, 30);
+			float deltaX = -position.x + player_pos.x;
+			float deltaY = -position.y + player_pos.y;
+			float angle = atan2f(deltaY, deltaX);
+			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+			if (position.x > player_pos.x - 20)
 			{
-				animation = &e1_forward;
-				movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
-				throwing.Reset();
-				shoot = true;
+				shooting_position.x = 0;
+				shooting_position.y = 18;
+				animation = &e1_down_left;
+				if (animation->Finished() == true)
+				{
+					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					animation->Reset();
+					shoot = false;
+				}
+			}
+			else if (position.x < player_pos.x + 20)
+			{
+				shooting_position.x = 19;
+				shooting_position.y = 18;
+				animation = &e1_down_right;
+				if (animation->Finished() == true)
+				{
+					App->particles->Missile_downright.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					animation->Reset();
+					shoot = false;
+				}
 			}
 			else
 			{
-				movement.PushBack({ 0 , 0 }, 30);
-				float deltaX = -position.x + player_pos.x;
-				float deltaY = -position.y + player_pos.y;
-				float angle = atan2f(deltaY, deltaX);
-				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
-				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
-				if (position.x > player_pos.x - 20)
+				shooting_position.x = 4;
+				shooting_position.y = 19;
+				animation = &e1_backward;
+				if (animation->Finished() == true)
 				{
-					shooting_position.x = 0;
-					shooting_position.y = 18;
-					animation = &e1_down_left;
-					if (animation->Finished() == true)
-					{
-						App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-						App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						animation->Reset();
-						shoot = false;
-					}
+					App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					animation->Reset();
+					shoot = false;
 				}
-				else if (position.x < player_pos.x + 20)
-				{
-					shooting_position.x = 19;
-					shooting_position.y = 18;
-					animation = &e1_down_right;
-					if (animation->Finished() == true)
-					{
-						App->particles->Missile_downright.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-						App->particles->AddParticle(App->particles->Bluefire_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						App->particles->AddParticle(App->particles->Missile_downright, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						animation->Reset();
-						shoot = false;
-					}
-				}
-				else
-				{
-					shooting_position.x = 4;
-					shooting_position.y = 19;
-					animation = &e1_backward;
-					if (animation->Finished() == true)
-					{
-						App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-						App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-						animation->Reset();
-						shoot = false;
-					}
-				}
-
 			}
-			collision = false;
 
-
+		}
+		collision = false;
 	}
 	else if (dying == true)
 	{
