@@ -80,6 +80,10 @@ update_status ModuleEnemies::PreUpdate()
 				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
 					iPoint deviation = { (int)(rand() * spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)), (int)(rand() *  spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)) };
 					spawners[i]->info.pos = spawners[i]->pos + deviation;
+					Animation* anim = spawners[i]->anim_triggered;
+					if (anim != nullptr) {
+						anim->Reset();
+					}
 					SpawnerSpawn(*spawners[i]);
 				} else spawners[i]->frames_since_prev_spawn++;
 			}
@@ -185,22 +189,18 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			case ENEMY_TYPE::LEFT_WEAPON:
 				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y, info.angle, info.sub_type);
 				break;
-
 			case ENEMY_TYPE::MOTO_TYPE:
 				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
-			
 			case ENEMY_TYPE::ENEMY_GRENADE:
 				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
-
 			case ENEMY_TYPE::MOTOLEVEL3:
 				enemies[i] = new EnemyVehicles(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			case ENEMY_TYPE::COMMANDER:
 				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
-
 			case ENEMY_TYPE::ENEMY_BAZOOKA:
 				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
@@ -242,7 +242,7 @@ bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
 	return false;
 }
 
-bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay, bool global) {
+bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type, bool global, Animation* anim_triggered) {
 	bool ret = false;
 
 	for (uint i = 0; i < MAX_SPAWNERS; ++i)
@@ -258,6 +258,7 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub
 			spawners[i]->delay_frames = delay;
 			spawners[i]->absolute_deviation = { 10, 10 };
 			spawners[i]->global = global;
+			spawners[i]->anim_triggered = anim_triggered;
 			ret = true;
 			break;
 		}

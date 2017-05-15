@@ -69,10 +69,7 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 47, 410, 270, 5);
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
-
-		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 1, 180, true);
 	}
-	
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
@@ -89,8 +86,6 @@ bool ModuleLevel3::Start() {
 		ret = false;
 	if (background_graphics == nullptr)
 		ret = false;
-
-	intro_music = App->sound->LoadSound("Soundtrack/2.Start-Demo.wav");
 
 
 	if (!App->sound->isPlaying()) {

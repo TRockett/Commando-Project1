@@ -287,6 +287,9 @@ bool ModuleObjects::Start() {
 	}
 	else if (App->level == 3)
 	{
+
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1893, 90, 180, 1, false, &door_bunker);
+
 		//Colliders of the bridge
 		App->collision->AddCollider({ 20, 942, 78, 60 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 159, 942, 80 ,60 }, COLLIDER_WALL);
@@ -373,9 +376,6 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 92, 1189, 9, 10 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 76, 1176	,39,10 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 87, 1170, 23, 5 }, COLLIDER_WALL);
-
-
-
 
 		App->collision->AddCollider({ 165, 1691, 2, 10 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 187, 1701, 9, 10 }, COLLIDER_WALL);

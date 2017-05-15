@@ -41,6 +41,7 @@ struct EnemySpawner {
 	int delay_frames;
 	bool global = false;
 	int frames_since_prev_spawn = 0;
+	Animation* anim_triggered;
 };
 
 class ModuleEnemies : public Module
@@ -58,7 +59,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int sub_type);
-	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int sub_type, int delay, bool global);
+	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type = 0, bool global = false, Animation* anim_triggered = nullptr);
 	bool EraseEnemy(Enemy* enemy);
 
 private:
