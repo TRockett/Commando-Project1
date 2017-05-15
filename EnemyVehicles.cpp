@@ -102,7 +102,7 @@ void EnemyVehicles::Move() {
 	
 	if (sub_type == 3)
 	{
-		if (player_pos.y >= 688)
+		if (player_pos.y >= 692)
 		{
 			position = initial_position + movement.GetCurrentPosition(&animation);
 		}

@@ -7,7 +7,7 @@
 
 #define MAX_ENEMIES 30
 #define MAX_SPAWNERS 15
-#define SPAWN_MARGIN 64
+#define SPAWN_MARGIN 100
 
 
 enum ENEMY_TYPE
