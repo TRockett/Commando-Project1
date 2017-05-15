@@ -21,6 +21,7 @@ enum ENEMY_TYPE
 	MOTOLEVEL3,
 	COMMANDER,
 	ENEMY_MORTAR,
+	ENEMY_TRUCK,
 };
 
 class Enemy;
