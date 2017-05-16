@@ -86,7 +86,6 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 
 	//death
 	death.PushBack({0, 459, 15, 14});
-
 	death.PushBack({ 17, 449, 23, 26 });
 	death.PushBack({ 0, 459, 15, 14 });
 	death.PushBack({ 17, 449, 23, 26 });
@@ -94,7 +93,6 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	death.PushBack({ 17, 449, 23, 26 });
 	death.PushBack({ 0, 459, 15, 14 });
 	death.PushBack({ 17, 449, 23, 26 });
-
 	death.PushBack({ 0, 459, 15, 14 });
 	death.PushBack({ 43, 449, 23, 26 });
 	death.PushBack({ 0, 459, 15, 14 });
