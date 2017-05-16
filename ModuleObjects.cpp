@@ -291,7 +291,7 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({130, 462, 89, 2 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 100, 334, 51, 2 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 6, 302, 86, 2 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 197, 235, 53, 2 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 197, 237, 53, 2 }, COLLIDER_WALL);
 
 
 		//Colliders for the final door
