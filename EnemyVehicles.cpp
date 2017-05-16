@@ -31,7 +31,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	//car with enemies right to left
 	car_enemies_rtol.PushBack({ 1049, 371, 47, 25 });
 
-	
+	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY_SHOT, nullptr);
 	if (sub_type == 1)
 	{
 

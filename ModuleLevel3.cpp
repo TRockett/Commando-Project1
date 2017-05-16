@@ -70,7 +70,9 @@ bool ModuleLevel3::Start() {
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
 
-		App->enemies->AddSpawner(ENEMY_TRUCK, 0, 0, 0, 180, 1, false);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 500, 1, true);
+
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 500, 2, true);
 
 		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 62, 0, 0);
 
