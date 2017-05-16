@@ -90,17 +90,17 @@ bool ModuleLevel3::Start() {
 	App->enemies->Enable();
 	App->fonts->Enable();
 
-	if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-		ret = false;
+	/*if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
+		ret = false;*/
 	if (background_graphics == nullptr)
 		ret = false;
 
 
-	if (!App->sound->isPlaying()) {
+	/*if (!App->sound->isPlaying()) {
 		App->sound->PlayMusic();
-	}
+	}*/
 	
-	App->sound->PlaySound(newstart, 0);
+	/*App->sound->PlaySound(newstart, 0);*/
 
 	return ret;
 }
