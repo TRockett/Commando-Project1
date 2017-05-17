@@ -121,7 +121,7 @@ ModuleParticles::ModuleParticles()
 
 	Mortar_bomb.anim.PushBack({ 121,113,6,5 });
 	Mortar_bomb.anim.PushBack({ 112,113,8,7 });
-	Mortar_bomb.life = 1000;
+	Mortar_bomb.life = 1500;
 	Mortar_bomb.anim.speed = 0.2f;
 	Mortar_bomb.anim.loop = false;
 }

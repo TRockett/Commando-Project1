@@ -13,7 +13,8 @@ EnemyMortar::EnemyMortar(int x, int y, int angle, int sub_type) : Enemy(x, y, an
 	mortar.PushBack({ 0,354,15,20 });
 	mortar.PushBack({ 17,354,15,20 });
 	mortar.PushBack({ 34,355,25,19 });
-	mortar.speed = 0.1f;
+	mortar.loop = false;
+	mortar.speed = 0.05f;
 
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
@@ -34,8 +35,9 @@ void EnemyMortar::Move()
 	iPoint player_pos = App->player->GetPosition();
 
 
-	if(SDL_GetTicks() >= timer + 2000)
+	if(animation->Finished() == true && dying == false)
 	{
+		animation->Reset();
 		float deltaX = -position.x + player_pos.x;
 		float deltaY = -position.y + player_pos.y;
 		float angle = atan2f(deltaY, deltaX);

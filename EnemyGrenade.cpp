@@ -215,6 +215,37 @@ void EnemyGrenade::Move()
 			animation = GetAnimationForDirection(current_angle);
 			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
 		}
+		else if (sub_type == 3)
+		{
+			if (SDL_GetTicks() >= timer + 1000)
+			{
+				float deltaX = -position.x + player_pos.x;
+				float deltaY = -position.y + player_pos.y;
+				float angle = atan2f(deltaY, deltaX);
+				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+
+				App->particles->bullet.speed = { (float)(normalised_v.x * 1.0f), (float)(normalised_v.y * 1.0f) };
+				App->particles->bullet.life = 1800;
+				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+				timer = SDL_GetTicks();
+			}
+
+			if (collision != true)
+			{
+				current_angle = (rand() % 8) * 45;
+			}
+			else
+			{
+				position = prev_position;
+				current_angle = -Collisionangle(current_angle);
+
+			}
+
+			animation = GetAnimationForDirection(current_angle);
+			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+		}
+
 		
 
 	}

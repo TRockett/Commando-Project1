@@ -91,6 +91,15 @@ bool ModuleObjects::Init() {
 	door_bunker.PushBack({ 630,196,12, 23 });
 	door_bunker.loop = false;
 	door_bunker.speed = 0.1f;
+	door_bunker1 = door_bunker;
+	door_bunker2 = door_bunker;
+	door_bunker3 = door_bunker;
+	door_bunker4 = door_bunker;
+	door_bunker5 = door_bunker;
+	door_bunker6 = door_bunker;
+	door_bunker_left1 = door_bunker_left;
+	door_bunker_left2 = door_bunker_left;
+	door_bunker_left3 = door_bunker_left;
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
@@ -153,19 +162,13 @@ bool ModuleObjects::Init() {
 	helix3.loop = true;
 
 	mortar_right1.PushBack({ 77,392,14,15 });
-
 	mortar_right2.PushBack({ 92,392,14,16 });
-
 	mortar_right3.PushBack({ 107,392,14,16 });
-
 	mortar_right4.PushBack({ 121,392,14,16 });
 
 	mortar_left1.PushBack({ 137,392,14,16 });
-
 	mortar_left2.PushBack({ 152,392,14,16 });
-
 	mortar_left3.PushBack({ 167,392,14,16 });
-
 	mortar_left4.PushBack({ 182,392,14,15 });
 
 	return true;
@@ -308,7 +311,13 @@ bool ModuleObjects::Start() {
 	else if (App->level == 3)
 	{
 
-		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1893, 90, 180, 1, false, &door_bunker);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1893, 90, 300, 2, false, &door_bunker1);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1829, 90, 200, 2, false, &door_bunker2);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1572, 90, 400, 2, false, &door_bunker3);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1444, 90, 330, 2, false, &door_bunker4);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1188, 90, 350, 2, false, &door_bunker5);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1252, 90, 280, 2, false, &door_bunker6);
+
 
 		//Colliders of the bridge
 		App->collision->AddCollider({ 20, 942, 78, 60 }, COLLIDER_WALL);
@@ -425,17 +434,17 @@ update_status ModuleObjects::Update() {
 	if (App->level == 3)
 	{
 		//Animations of the door of the bunkers
-		App->render->Blit(sprite_graphics, 170, 1893, &door_bunker.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 42, 1829, &door_bunker.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 106, 1572, &door_bunker.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 42, 1444, &door_bunker.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 106, 1188, &door_bunker.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 170, 1252, &door_bunker.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 170, 1893, &door_bunker1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 42, 1829, &door_bunker2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1572, &door_bunker3.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 42, 1444, &door_bunker4.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1188, &door_bunker5.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 170, 1252, &door_bunker6.GetCurrentFrame().rect);
 
 		//Animations of the door of the bunkers but left side
-		App->render->Blit(sprite_graphics, 42, 1700, &door_bunker_left.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left.GetCurrentFrame().rect);
-		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 42, 1700, &door_bunker_left1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left3.GetCurrentFrame().rect);
 
 		//Mortars
 		if (App->player->position.x < level_dimensions.x / 4)

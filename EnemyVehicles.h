@@ -17,6 +17,7 @@ private:
 		Animation car_enemies_rtol;
 
 		int timer;
+		bool move;
 
 	public:
 		EnemyVehicles(int x, int y, int angle, int sub_type);

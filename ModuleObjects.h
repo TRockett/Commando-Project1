@@ -23,7 +23,16 @@ private:
 	Animation box2;
 	Animation box3;
 	Animation door_bunker;
+	Animation door_bunker1;
+	Animation door_bunker2;
+	Animation door_bunker3;
+	Animation door_bunker4;
+	Animation door_bunker5;
+	Animation door_bunker6;
 	Animation door_bunker_left;
+	Animation door_bunker_left1;
+	Animation door_bunker_left2;
+	Animation door_bunker_left3;
 	Animation final_door;
 	Animation* helicopter;
 	Animation helicopter1;
