@@ -78,7 +78,13 @@ update_status ModuleEnemies::PreUpdate()
 				|| spawners[i]->pos.y >(abs(App->render->camera.y / SCREEN_SIZE) + SCREEN_HEIGHT) + SPAWN_MARGIN))
 			{
 				if (spawners[i]->frames_since_prev_spawn >= spawners[i]->delay_frames) {
-					iPoint deviation = { (int)(rand() * spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)), (int)(rand() *  spawners[i]->absolute_deviation.x * (rand() % 9 > 4 ? -1 : 1)) };
+					int pos = (rand() % 9 > 4 ? -1 : 1);
+					float ran = ((float)(rand() % 9 + 1) / 10);
+					int dx = (int)(ran * spawners[i]->absolute_deviation.x * pos);
+					pos = (rand() % 9 > 4 ? -1 : 1);
+					ran = ((float)(rand() % 9 + 1) / 10);
+					int dy = (int)(ran * spawners[i]->absolute_deviation.x * pos);
+					iPoint deviation = { dx, dy };
 					spawners[i]->info.pos = spawners[i]->pos + deviation;
 					Animation* anim = spawners[i]->anim_triggered;
 					if (anim != nullptr) {
@@ -176,7 +182,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int s_typ
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
+bool ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
@@ -205,13 +211,20 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			case ENEMY_TYPE::ENEMY_MORTAR:
-				enemies[i]= new EnemyMortar(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyMortar(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 			case ENEMY_TYPE::ENEMY_TRUCK:
-				enemies[i]= new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
-
 		}
+		SDL_Rect rect = enemies[i]->GetCollider()->rect;
+		rect.x = enemies[i]->position.x;
+		rect.y = enemies[i]->position.y;
+		if (App->collision->CheckCollisionForCollider(rect, COLLIDER_WALL)) {
+			EraseEnemy(enemies[i]);
+			return false;
+		}
+		return true;
 	}
 }
 

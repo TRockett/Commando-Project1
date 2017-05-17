@@ -64,7 +64,7 @@ public:
 
 private:
 
-	void SpawnEnemy(const EnemyInfo& info);
+	bool SpawnEnemy(const EnemyInfo& info);
 	void SpawnerSpawn(EnemySpawner& spawner);
 
 private:

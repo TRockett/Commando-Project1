@@ -71,6 +71,15 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_BOX][COLLIDER_WATER] = false;
 	matrix[COLLIDER_BOX][COLLIDER_BOX] = false;
 	matrix[COLLIDER_BOX][COLLIDER_PLAYER_BODY] = false;
+
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_WALL] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_PLAYER_FEET] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_ENEMY_SHOT] = true;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_WATER] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_BOX] = false;
+	matrix[COLLIDER_PLAYER_BODY][COLLIDER_PLAYER_BODY] = false;
 }
 
 // Destructor
@@ -114,11 +123,11 @@ update_status ModuleCollision::Update()
 		// avoid checking collisions already checked
 		for(uint k = i+1; k < MAX_COLLIDERS; ++k)
 		{
-			// skip empty colliders
-			if(colliders[k] == nullptr || colliders[i]->to_delete == true)
-				continue;
-
 			c2 = colliders[k];
+
+			// skip empty colliders
+			if(c2 == nullptr || c2->to_delete == true)
+				continue;
 
 			if(c1->CheckCollision(c2->rect) == true)
 			{
@@ -161,8 +170,11 @@ void ModuleCollision::DebugDraw()
 			case COLLIDER_WALL: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
-			case COLLIDER_PLAYER: // green
+			case COLLIDER_PLAYER_BODY: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+			case COLLIDER_PLAYER_FEET: // green_dark
+			App->render->DrawQuad(colliders[i]->rect, 128, 255, 128, alpha);
 			break;
 			case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
@@ -238,5 +250,23 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	// between argument "r" and property "rect"
 	if (r.x <= rect.x + rect.w && r.x + r.w >= rect.x && r.y <= rect.y + rect.h && r.y + r.h >= rect.y)
 		return true;
+	return false;
+}
+
+bool ModuleCollision::CheckCollisionForCollider(SDL_Rect col, COLLIDER_TYPE type) {
+	for (uint k = 0; k < MAX_COLLIDERS; ++k)
+	{
+		// skip empty colliders
+		if (colliders[k] == nullptr || colliders[k]->to_delete == true)
+			continue;
+
+		Collider* c2 = colliders[k];
+
+		if (c2->CheckCollision(col))
+		{
+			if (matrix[type][c2->type] || matrix[c2->type][type])
+				return true;
+		}
+	}
 	return false;
 }
