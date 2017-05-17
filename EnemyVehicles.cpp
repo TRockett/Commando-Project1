@@ -74,6 +74,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	else if (sub_type == 6)
 	{
 		animation = &vertical_truck;
+		movement.loop = false;
 		
 	}
 	
@@ -155,17 +156,18 @@ void EnemyVehicles::Move() {
 	else if (sub_type == 6)
 	{
 		if (move == true)
-		{
+		{		
 			position = initial_position + movement.GetCurrentPosition(&animation);
 			if (movement.Finished() == true)
 			{
 				move = false;
 			}
+			
 		}
-		else if (position.y + 10 >= player_pos.y)
+		else if (position.y + 100 >= player_pos.y)
 		{
 			move = true; 
-			movement.PushBack({ 0.0f, -1.0f }, 30, animation);
+			movement.PushBack({ 0.0f, -1.0f }, 300, animation);
 		}
 		
 	}	
