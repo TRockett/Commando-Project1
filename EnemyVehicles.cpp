@@ -20,10 +20,9 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	vertical_truck.PushBack({1129, 278, 32, 46});
 	vertical_truck.PushBack({ 1129, 329, 32, 46 });
 	vertical_truck.PushBack({ 1129, 379, 32, 46 });
-
-
+	vertical_truck.speed = 0.05f;
 	vertical_truck.loop = true;
-	vertical_truck.speed = 0.015f;
+
 
 	//car with enemies left to right
 	car_enemies_ltor.PushBack({1049, 345, 47, 25});
@@ -74,7 +73,9 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	else if (sub_type == 6)
 	{
 		animation = &vertical_truck;
+		animation->loop = false;
 		movement.loop = false;
+		shooting_position = { 11,39 };
 		
 	}
 	
@@ -86,7 +87,8 @@ EnemyVehicles::~EnemyVehicles()
 {
 }
 
-void EnemyVehicles::Move() {
+void EnemyVehicles::Move() 
+{
 	iPoint player_pos = App->player->GetPosition();
 
 	if (sub_type == 1)
@@ -161,17 +163,24 @@ void EnemyVehicles::Move() {
 			if (movement.Finished() == true)
 			{
 				move = false;
-			}
-			
+			}			
 		}
 		else if (position.y + 100 >= player_pos.y)
 		{
 			move = true; 
-			movement.PushBack({ 0.0f, -1.0f }, 300, animation);
+			movement.PushBack({ 0.0f, -1.0f }, 30, animation);
+		}
+
+		if (animation->Finished() == true)
+		{
+			Particle molo = App->particles->molotov;
+			molo.speed = { 0, 1 };
+			App->particles->AddParticle(molo, position.x + shooting_position.x, position.y + shooting_position.y, MOLOTOV, COLLIDER_NONE);
+			animation->Reset();
 		}
 		
 	}	
-	}
+}
 
 
 	

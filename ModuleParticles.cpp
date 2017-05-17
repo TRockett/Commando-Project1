@@ -85,8 +85,8 @@ ModuleParticles::ModuleParticles()
 	fire_downright.anim.loop = false;
 	fire_downright.life = fire_life;
 
-	molotov.anim.PushBack({ 1441,428,10,4 });
-	molotov.life = 600;
+	molotov.anim.PushBack({ 128,112,10,4 });
+	molotov.life = 1200;
 	molotov.anim.loop = false;
 
 	Bluefire_down.anim.PushBack({ 56,113,7,11 });
