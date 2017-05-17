@@ -74,7 +74,8 @@ private:
 
 	fPoint prev_position;
 	Mix_Chunk* shoot;
-	Collider* collider;
+	Collider* collider_body;
+	Collider* collider_feet;
 	Particle fire;	//Fire shot particle
 	Animation bridge;
 	Animation bridge2;

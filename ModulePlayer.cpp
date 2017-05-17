@@ -164,11 +164,13 @@ bool ModulePlayer::Start()
 	fire = App->particles->fire_up;
 	if (b_godmode == false)
 	{
-		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_PLAYER, this);
+		collider_body = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 17 }, COLLIDER_PLAYER_BODY, this);
+		collider_feet = App->collision->AddCollider({ (int)position.x, (int)position.y + 17, 13, 6 }, COLLIDER_PLAYER_FEET, this);
 	}
 	else
 	{
-		collider = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 23 }, COLLIDER_NONE, this);
+		collider_body = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 17 }, COLLIDER_NONE, this);
+		collider_feet = App->collision->AddCollider({ (int)position.x, (int)position.y + 17, 13, 6 }, COLLIDER_NONE, this);
 	}
 	LOG("Loading player textures");
 	graphics = App->textures->Load("Images/sprites.png"); 
@@ -314,7 +316,8 @@ update_status ModulePlayer::Update()
 	else if ((int)position.y - frame.pivot.y + frame.rect.h > SCREEN_HEIGHT + (-camera->y / SCREEN_SIZE))
 		position.y = SCREEN_HEIGHT + (-camera->y / SCREEN_SIZE) - (float)frame.rect.h + (float)frame.pivot.y;
 
-	collider->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h };
+	collider_body->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y, frame.rect.w, frame.rect.h - 6 };
+	collider_feet->rect = { (int)position.x - frame.pivot.x, (int)position.y - frame.pivot.y + (frame.rect.h - 6), frame.rect.w, frame.rect.h - (frame.rect.h - 6) };
 
 	int margin = 110; //Must be equal to the player's initial position
 	if (camera->y < 0 && !((ModuleSceneGame*)App->current_scene)->intro) {
@@ -410,11 +413,8 @@ void ModulePlayer::checkInput() {
 		{
 			b_godmode = !b_godmode;
 
-			if (collider->type != COLLIDER_NONE)
-				collider->type = COLLIDER_NONE;
-
-			else
-				collider->type = COLLIDER_PLAYER;
+			collider_body->type = collider_body->type == COLLIDER_NONE ? COLLIDER_PLAYER_BODY : COLLIDER_NONE;
+			collider_feet->type = collider_feet->type == COLLIDER_NONE ? COLLIDER_PLAYER_FEET : COLLIDER_NONE;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
@@ -445,7 +445,7 @@ void ModulePlayer::processInput() {
 		direction = 0;
 		current_animation = &forward;
 		fire = App->particles->fire_up;
-		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
+		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
 		shooting_angle.y = fminf(shooting_angle.y, 0.0f);
 		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
@@ -472,28 +472,28 @@ void ModulePlayer::processInput() {
 		direction = 135;
 		current_animation = &down_right;
 		fire = App->particles->fire_downright;
-		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
+		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
 		direction = 225;
 		current_animation = &down_left;
 		fire = App->particles->fire_downleft;
-		grenade_speed = 1 + speed * cosf(direction * (M_PI / 180.0f));
+		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
 		direction = 315;
 		current_animation = &up_left;
 		fire = App->particles->fire_upleft;
-		grenade_speed = 0.3 + speed * cosf(direction * (M_PI / 180.0f));
+		grenade_speed = 0.3 + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
 		direction = 45;
 		current_animation = &up_right;
 		fire = App->particles->fire_upright;
-		grenade_speed = 0.3 + speed * cosf(direction * (M_PI / 180.0f));
+		grenade_speed = 0.3 + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case IDLE:
 		grenade_speed = 1;
@@ -530,8 +530,8 @@ void ModulePlayer::processInput() {
 	shooting_angle.y = fminf(1.0f, shooting_angle.y);*/
 
 	if (state != IDLE) {
-		position.x += speed * sinf(direction * (M_PI / 180.0f));
-		position.y -= speed * cosf(direction * (M_PI / 180.0f));
+		position.x += speed * sinf((int)direction * (M_PI / 180.0f));
+		position.y -= speed * cosf((int)direction * (M_PI / 180.0f));
 	}
 }
 
@@ -574,7 +574,8 @@ void ModulePlayer::enemyCollision() {
 		}
 		else ((ModuleSceneGame*)App->current_scene)->next = App->current_scene;
 
-		collider->active = false;
+		collider_body->active = false;
+		collider_feet->active = false;
 		current_animation = &death;
 		//if (current_animation->Finished())
 			current_animation->Reset();
@@ -589,7 +590,8 @@ void ModulePlayer::Drown() {
 			((ModuleSceneGame*)App->current_scene)->next = (Module*)App->scene_congrats;
 		}
 		else ((ModuleSceneGame*)App->current_scene)->next = App->current_scene;
-		collider->active = false;
+		collider_body->active = false;
+		collider_feet->active = false;
 		current_animation = &drown;
 		//if (current_animation->Finished())
 			current_animation->Reset();

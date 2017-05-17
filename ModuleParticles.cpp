@@ -180,7 +180,7 @@ update_status ModuleParticles::Update()
 		else if(ticks >= p->born)
 		{
 			AnimationFrame frame = p->anim.GetCurrentFrame();
-			App->render->Blit(graphics, p->position.x - frame.pivot.x, p->position.y - frame.pivot.y, &(frame.rect));
+			App->render->Blit(graphics, (int)p->position.x - frame.pivot.x, (int)p->position.y - frame.pivot.y, &(frame.rect));
 			if(p->fx_played == false)
 			{
 				p->fx_played = true;

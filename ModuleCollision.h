@@ -9,12 +9,13 @@ enum COLLIDER_TYPE
 {
 	COLLIDER_NONE = -1,
 	COLLIDER_WALL,
-	COLLIDER_PLAYER,
+	COLLIDER_PLAYER_FEET,
 	COLLIDER_ENEMY,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_ENEMY_SHOT,
 	COLLIDER_WATER,
 	COLLIDER_BOX,
+	COLLIDER_PLAYER_BODY,
 
 	COLLIDER_MAX
 };
@@ -55,6 +56,7 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	bool CheckCollisionForCollider(SDL_Rect col, COLLIDER_TYPE type);
 	bool EraseCollider(Collider* collider);
 	void DebugDraw();
 
