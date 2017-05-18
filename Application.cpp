@@ -16,6 +16,8 @@
 #include "ModuleObjects.h"
 #include "ModuleInterface.h"
 #include "ModuleLevel3.h"
+#include "ModuleLevel4.h"
+#include "ModuleLevelTransition.h"
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
@@ -26,14 +28,16 @@ Application::Application()
 	modules[6] = scene_welcome = new ModuleSceneWelcome();
 	modules[7] = scene_game = new ModuleSceneGame();
 	modules[8] = level_3 = new ModuleLevel3();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = enemies = new ModuleEnemies();
-	modules[11] = objects = new ModuleObjects();
-	modules[12] = particles = new ModuleParticles();
-	modules[13] = collision = new ModuleCollision();
+	modules[9] = level_4 = new ModuleLevel4();
+	modules[10] = player = new ModulePlayer();
+	modules[11] = enemies = new ModuleEnemies();
+	modules[12] = objects = new ModuleObjects();
+	modules[13] = particles = new ModuleParticles();
+	modules[14] = collision = new ModuleCollision();
 	modules[1] = fonts = new ModuleFonts();
-	modules[15] = render = new ModuleRender();
-	modules[14] = fade = new ModuleFadeToBlack();
+	modules[16] = render = new ModuleRender();
+	modules[15] = fade = new ModuleFadeToBlack();
+	modules[17] = transition = new ModuleLevelTransition();
 }	
 
 Application::~Application()
