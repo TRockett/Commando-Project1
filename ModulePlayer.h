@@ -97,7 +97,7 @@ private:
 
 	void checkInput();
 	void processInput();
-	void wallCollision();
+	void wallCollision(Collider* self, Collider* other);
 	void waterCollision();
 	void enemyCollision();
 	void rotateShootingAngle();

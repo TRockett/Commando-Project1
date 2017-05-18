@@ -11,6 +11,7 @@
 #include "ModuleCollision.h"
 #include "SDL/include/SDL_timer.h"
 #include "ModuleObjects.h"
+#include <algorithm>
 
 
 ModulePlayer::ModulePlayer()
@@ -545,7 +546,7 @@ void ModulePlayer::rotateShootingAngle() {
 void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	switch (other->type) {
 	case COLLIDER_WALL:
-		wallCollision();
+		wallCollision(self, other);
 		break;
 	case COLLIDER_WATER:
 		waterCollision();
@@ -557,8 +558,16 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	}
 }
 
-void ModulePlayer::wallCollision() {
-	position = prev_position;
+void ModulePlayer::wallCollision(Collider* self, Collider* other) {
+	iPoint self_centre = { self->rect.x + self->rect.w / 2, self->rect.y + self->rect.h / 2 };
+	iPoint other_centre = { other->rect.x + other->rect.w / 2, other->rect.y + other->rect.h / 2 };
+
+	iPoint rel_pos = { clip(self_centre.x - other_centre.x, -1, 1), clip(self_centre.y - other_centre.y, -1, 1) };
+
+	if (self_centre.x < other_centre.x) {
+		
+	}
+
 }
 
 void ModulePlayer::waterCollision() {

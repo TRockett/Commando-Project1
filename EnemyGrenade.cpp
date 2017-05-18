@@ -166,7 +166,7 @@ void EnemyGrenade::Move()
 				throwing.Reset();
 				
 			}
-			else if (this->disappear == false)
+			else if (disappear == false)
 			{
 				animation = &throwing;
 				movement.PushBack({ 0 , 0 }, 30);
@@ -209,7 +209,6 @@ void EnemyGrenade::Move()
 			{
 				position = prev_position;
 				current_angle = -Collisionangle(current_angle);
-
 			}
 
 			animation = GetAnimationForDirection(current_angle);
