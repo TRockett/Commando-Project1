@@ -320,32 +320,37 @@ bool ModuleObjects::Start() {
 
 
 		//Colliders of the bridge
-		App->collision->AddCollider({ 20, 942, 78, 60 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 159, 942, 80 ,60 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 20, 942, 78, 77 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 159, 942, 80 ,77 }, COLLIDER_WALL);
 
 
 		//Colliders of the final door wall
-		App->collision->AddCollider({ 0, 0, 87, 25 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 170, 0, 86, 25 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 0, 0, 87, 42 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 170, 0, 86, 42 }, COLLIDER_WALL);
 
 
 		//Colliders of the  walls at the part after the bridge
-		App->collision->AddCollider({ 28, 85, 23, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 51, 77, 12, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 85, 23, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 51, 77, 12, 11 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 205, 85, 23, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 193, 77, 12, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 205, 85, 23, 10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 193, 77, 12, 11 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 96, 838, 27, 14 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 84, 844, 12, 9 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 79,853, 5, 1 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 71,858, 8, 1 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 96, 838, 27, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 84, 844, 12, 17 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 79,853, 5, 8 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 71,858, 8, 8 }, COLLIDER_WALL);
 
 		//Colliders of the "fosses"
-		App->collision->AddCollider({ 139, 1439, 73, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 11, 1248, 73, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 172, 1185, 38, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 44, 1121, 38, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 139, 1441, 73, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 11, 1250, 73, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 172, 1187, 38, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 44, 1123, 38, 5 }, COLLIDER_WALL);
+
+		App->collision->AddCollider({ 139, 1449, 73, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 11, 1258, 73, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 172, 1192, 38, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 44, 1128, 38, 5 }, COLLIDER_WALL);
 
 		//colliders for bunkers
 		App->collision->AddCollider({ 68, 1953, 47, 14 }, COLLIDER_WALL);

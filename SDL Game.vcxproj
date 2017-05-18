@@ -91,6 +91,8 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleInterface.h" />
     <ClInclude Include="ModuleLevel3.h" />
+    <ClInclude Include="ModuleLevel4.h" />
+    <ClInclude Include="ModuleLevelTransition.h" />
     <ClInclude Include="ModuleObjects.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
@@ -125,6 +127,8 @@
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleInterface.cpp" />
     <ClCompile Include="ModuleLevel3.cpp" />
+    <ClCompile Include="ModuleLevel4.cpp" />
+    <ClCompile Include="ModuleLevelTransition.cpp" />
     <ClCompile Include="ModuleObjects.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
