@@ -5,7 +5,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 
-#define MAX_ENEMIES 30
+#define MAX_ENEMIES 50
 #define MAX_SPAWNERS 15
 #define SPAWN_MARGIN 100
 

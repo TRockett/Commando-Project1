@@ -73,6 +73,8 @@ bool ModuleLevel3::Start() {
 		//App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 100, 1, true);
 
 		//App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 100, 2, true);
+		
+		App->enemies->AddEnemy(COMMANDER, level_dimensions.x, 5, 270, 2);
 
 		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 62, 0, 0);
 
@@ -121,6 +123,22 @@ update_status ModuleLevel3::Update() {
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 	
 	sprintf_s(score_text, 10, "%7d", score);
+	if (App->player->position.y <= SCREEN_HEIGHT)
+	{
+		if (spawning == false)
+		{
+			timer = SDL_GetTicks();
+			spawning = true;
+		}
+		else if (timer + 200 < SDL_GetTicks())
+		{
+			for (int i = 0; i < 19; i++)
+			{
+				App->enemies->AddEnemy(ENEMY_GRENADE, level_dimensions.x, 5, 270, 2);
+			}
+			timer = SDL_GetTicks();
+		}
+	}
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 

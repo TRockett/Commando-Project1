@@ -1,6 +1,7 @@
 #include "EnemyMoto.h"
 #include "ModulePlayer.h"
 #include "Application.h"
+#include "ModuleEnemies.h"
 
 
 EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
@@ -23,6 +24,7 @@ EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 
 	movement.PushBack({ -2.5f, 0.0f }, 10, &riding);
 	
+	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_NONE, App->enemies);
 	movement.loop = false;
 
 }

@@ -216,6 +216,7 @@ bool ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			case ENEMY_TYPE::ENEMY_TRUCK:
 				enemies[i] = new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
+				
 		}
 		SDL_Rect rect = enemies[i]->GetCollider()->rect;
 		rect.x = enemies[i]->position.x;

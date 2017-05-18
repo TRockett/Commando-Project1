@@ -13,7 +13,8 @@ class ModuleLevel3 :
 	public ModuleSceneGame
 {
 private:
-
+	int timer;
+	bool spawning;
 public:
 	bool Start();
 	update_status PreUpdate();
