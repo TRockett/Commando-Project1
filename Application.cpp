@@ -55,6 +55,8 @@ bool Application::Init()
 
 	// Disable the map that you do not start with
 	level_3->Disable();
+	level_4->Disable();
+	transition->Disable();
 	scene_game->Disable();
 	scene_congrats->Disable();
 	scene_welcome->Enable();
