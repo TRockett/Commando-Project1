@@ -269,7 +269,7 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int del
 			spawners[i]->info.sub_type = sub_type;
 			spawners[i]->pos = { x, y };
 			spawners[i]->delay_frames = delay;
-			spawners[i]->absolute_deviation = { 10, 10 };
+			spawners[i]->absolute_deviation = { 0, 0 };
 			spawners[i]->global = global;
 			spawners[i]->anim_triggered = anim_triggered;
 			ret = true;

@@ -25,6 +25,7 @@ ModuleParticles::ModuleParticles()
 	explosion.anim.PushBack({ 130, 94, 15, 13 }, { 7, 6 });
 	explosion.anim.speed = 0.15f;
 	explosion.anim.loop = false;
+	explosion.life = 150;
 
 	//bullet particles
 	bullet.anim.PushBack({ 0, 100, 2, 2 }, { 1, 1 });
@@ -49,6 +50,7 @@ ModuleParticles::ModuleParticles()
 	grenade_explosion.anim.PushBack({ 48,131,21,23 }, { 10, 11 });
 	grenade_explosion.anim.PushBack({ 70,131,27,26 }, { 13, 13 });
 	grenade_explosion.anim.PushBack({ 99,131,32,32 }, { 16, 16 });
+	grenade_explosion.life = 300;
 	grenade_explosion.anim.loop = false;
 	grenade_explosion.anim.speed = 0.25f;
 

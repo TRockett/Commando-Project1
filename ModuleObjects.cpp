@@ -311,12 +311,12 @@ bool ModuleObjects::Start() {
 	else if (App->level == 3)
 	{
 
-		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1893, 90, 300, 2, false, &door_bunker1);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1829, 90, 200, 2, false, &door_bunker2);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1572, 90, 400, 2, false, &door_bunker3);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1444, 90, 330, 2, false, &door_bunker4);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1188, 90, 350, 2, false, &door_bunker5);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1252, 90, 280, 2, false, &door_bunker6);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1898, 90, 300, 2, false, &door_bunker1);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1834, 90, 200, 2, false, &door_bunker2);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1577, 90, 400, 2, false, &door_bunker3);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1449, 90, 330, 2, false, &door_bunker4);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1193, 90, 350, 2, false, &door_bunker5);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1257, 90, 280, 2, false, &door_bunker6);
 
 
 		//Colliders of the bridge
@@ -468,7 +468,7 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, 30, 70, &mortar_right4.GetCurrentFrame().rect);
 		}
 	}
-	if (App->level == 1)
+	else if (App->level == 1)
 	{
 		App->render->Blit(sprite_graphics, 208, 128 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 19, 128 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
