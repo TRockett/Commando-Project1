@@ -133,7 +133,7 @@ update_status ModuleLevel3::Update() {
 			timer = SDL_GetTicks();
 			spawning = true;
 		}
-		else if (timer + 1000 < SDL_GetTicks() && counter < 20)
+		else if (timer + 1500 < SDL_GetTicks() && counter < 20)
 		{
 			App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
