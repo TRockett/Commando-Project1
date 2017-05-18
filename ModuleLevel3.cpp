@@ -68,13 +68,13 @@ bool ModuleLevel3::Start() {
 
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 47, 410, 270, 5);
 
-		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
+		//App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
 
 		//App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 100, 1, true);
 
 		//App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 100, 2, true);
 		
-		App->enemies->AddEnemy(COMMANDER, level_dimensions.x, 5, 270, 2);
+		App->enemies->AddEnemy(COMMANDER, SCREEN_WIDTH / 2, 5, 0, 1);
 
 		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 62, 0, 0);
 
@@ -91,6 +91,9 @@ bool ModuleLevel3::Start() {
 	App->particles->Enable();
 	App->enemies->Enable();
 	App->fonts->Enable();
+
+	spawning = false;
+	counter = 0;
 
 	/*if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 		ret = false;*/
@@ -130,12 +133,9 @@ update_status ModuleLevel3::Update() {
 			timer = SDL_GetTicks();
 			spawning = true;
 		}
-		else if (timer + 200 < SDL_GetTicks())
+		else if (timer + 1000 < SDL_GetTicks() && counter < 20)
 		{
-			for (int i = 0; i < 19; i++)
-			{
-				App->enemies->AddEnemy(ENEMY_GRENADE, level_dimensions.x, 5, 270, 2);
-			}
+			App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
 		}
 	}

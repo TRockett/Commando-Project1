@@ -15,6 +15,7 @@ class ModuleLevel3 :
 private:
 	int timer;
 	bool spawning;
+	int counter;
 public:
 	bool Start();
 	update_status PreUpdate();
