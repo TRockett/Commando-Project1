@@ -33,6 +33,8 @@ bool ModuleLevelTransition::Init() {
 	trans.PushBack({ 500,0, 224, 256 });
 	trans.loop = true;
 	trans.speed = 0.15f;
+
+	string_2 = (char*)calloc(strlen(string_1), sizeof(char));
 	return true;
 }
 
@@ -60,6 +62,8 @@ update_status ModuleLevelTransition::PreUpdate() {
 update_status ModuleLevelTransition::Update() {
 	bool ret = false;
 
+	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0);
+
 	string_2[actual] = string_1[actual];
 	App->fonts->BlitText(15, 60, font_white, string_2);
 	
@@ -67,7 +71,6 @@ update_status ModuleLevelTransition::Update() {
 	{
 		actual++;
 	}
-	App->render->Blit(background_graphics, 0, 0, nullptr, 0);
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 

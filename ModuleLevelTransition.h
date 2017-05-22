@@ -19,7 +19,7 @@ private:
 	int font_red, font_white;
 	Animation trans;
 	char* string_1 = "BROKE THE 3RD AREA NOW RUSH TO THE LAST AREA";
-	char* string_2 = "                                            ";
+	char* string_2;
 	int actual = 0;
 public:
 	bool Init();
