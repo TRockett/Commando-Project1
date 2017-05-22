@@ -43,7 +43,7 @@ bool ModuleObjects::Init() {
 	final_door.PushBack({860, 0, 88, 43});
 	final_door.PushBack({ 962, 0, 87, 57 });
 	final_door.PushBack({ 962, 83, 96, 59 });
-	final_door.speed = 0.1f;
+	final_door.speed = 0;
 	final_door.loop =false ;
 
 	//Door of the bunkers of level 3 animation but left side
@@ -450,6 +450,10 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 42, 1700, &door_bunker_left1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left3.GetCurrentFrame().rect);
+
+
+		//Final door animation
+		App->render->Blit(sprite_graphics, 83, 0, &final_door.GetCurrentFrame().rect);
 
 		//Mortars
 		if (App->player->position.x < level_dimensions.x / 4)

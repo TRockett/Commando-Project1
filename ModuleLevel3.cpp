@@ -126,16 +126,17 @@ update_status ModuleLevel3::Update() {
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 	
 	sprintf_s(score_text, 10, "%7d", score);
-	if (App->player->position.y <= SCREEN_HEIGHT)
+	if (App->player->position.y <= SCREEN_HEIGHT - 100)
 	{
 		if (spawning == false)
 		{
 			timer = SDL_GetTicks();
 			spawning = true;
+			App->objects->final_door.speed = 0.05f;
 		}
 		else if (timer + 1500 < SDL_GetTicks() && counter < 20)
 		{
-			App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH/2, 5, 0, 2);		
+			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 74) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
 		}
 	}
