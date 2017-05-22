@@ -42,6 +42,7 @@ struct EnemySpawner {
 	bool global = false;
 	int frames_since_prev_spawn = 0;
 	Animation* anim_triggered;
+	bool active = true;
 };
 
 class ModuleEnemies : public Module

@@ -282,7 +282,9 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int del
 }
 
 void ModuleEnemies::SpawnerSpawn(EnemySpawner& spawner) {
-	SpawnEnemy(spawner.info);
-	spawner.frames_since_prev_spawn = 0;
-	LOG("Spawning enemy at %d", spawner.info.pos.x * SCREEN_SIZE);
+	if (spawner.active) {
+		SpawnEnemy(spawner.info);
+		spawner.frames_since_prev_spawn = 0;
+		LOG("Spawning enemy at %d", spawner.info.pos.x * SCREEN_SIZE);
+	}
 }
