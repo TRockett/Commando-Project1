@@ -35,7 +35,7 @@ public:
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1, uint margin = 0, uint spacing = 0);
 	void UnLoad(int font_id);
-	void SetTextToDraw(int x, int y, int bmp_font_id, const char* text);
+	void DrawInterface(int x, int y, int bmp_font_id, const char* text);
 
 	// Create a surface from text
 	void BlitText(int x, int y, int bmp_font_id, const char* text) const;

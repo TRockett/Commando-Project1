@@ -101,14 +101,21 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 	const Font* font = &fonts[font_id];
 	SDL_Rect rect;
 	uint len = strlen(text);
+	uint row = 0;
+	uint col = 0;
 
 	rect.w = font->char_w;
 	rect.h = font->char_h;
 
 	for(uint i = 0; i < len; ++i)
 	{
+		if (text[i] == '\n') {
+			row++;
+			col = 0;
+			continue;
+		}
 		// TODO 2: Find the character in the table and its position in the texture, then Blit
-		for (uint j = 0; j < font->len; j++) {
+		for (uint j = 0; j < font->len; j++, col++) {
 			if (font->table[j] == text[i]) {
 				rect.y = (j / font->row_chars);
 				rect.x = (j - rect.y * font->row_chars);
@@ -119,11 +126,11 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 				break;
 			}
 		}
-		App->render->Blit(font->graphic, x + i * rect.w, y, &rect, 0.0f, false);
+		App->render->Blit(font->graphic, x + col * rect.w, y + row * (rect.h + 1), &rect, 0.0f, false);
 	}
 }
 
-void ModuleFonts::SetTextToDraw(int x, int y, int font_bmp_id, const char* text) {
+void ModuleFonts::DrawInterface(int x, int y, int font_bmp_id, const char* text) {
 	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
 		if (petitions[i] == nullptr) {
 			petitions[i] = new DrawPetition{ font_bmp_id, x, y, text };
