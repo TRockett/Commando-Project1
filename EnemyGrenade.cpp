@@ -253,7 +253,7 @@ void EnemyGrenade::Move()
 	else if (dying == true)
 	{
 		animation = &death;
-		collider->to_delete = true;
+		collider->active = false;
 		movement.Clear();
 		movement.Reset();
 
@@ -269,7 +269,7 @@ void EnemyGrenade::Move()
 	else if (disappear == true)
 	{
 		animation = &death;
-		collider->to_delete = true;
+		collider->active = false;
 		movement.Clear();
 		movement.Reset();
 

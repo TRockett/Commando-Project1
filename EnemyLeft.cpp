@@ -261,7 +261,7 @@ void EnemyLeft::Move() {
 		else if (dying == true)
 		{
 			animation = &death;
-			collider->to_delete = true;
+			collider->active = false;
 			movement.Clear();
 			movement.Reset();
 
@@ -277,7 +277,7 @@ void EnemyLeft::Move() {
 		else if (disappear == true)
 		{
 			animation = &death;
-			collider->to_delete = true;
+			collider->active = false;
 			movement.Clear();
 			movement.Reset();
 

@@ -112,12 +112,10 @@ update_status ModuleCollision::Update()
 
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		// skip empty colliders
-		if(colliders[i] == nullptr)
-			continue;
 
 		c1 = colliders[i];
-		if (c1->active == false || c1->to_delete == true)
+		// skip empty colliders
+		if(c1 == nullptr || !c1->active || c1->to_delete || c1->type == COLLIDER_NONE)
 			continue;
 
 		// avoid checking collisions already checked
@@ -126,10 +124,10 @@ update_status ModuleCollision::Update()
 			c2 = colliders[k];
 
 			// skip empty colliders
-			if(c2 == nullptr || c2->to_delete == true)
+			if(c2 == nullptr || c2->to_delete || !c2->active || c2->type == COLLIDER_NONE)
 				continue;
 
-			if(c1->CheckCollision(c2->rect) == true)
+			if(c1->CheckCollision(c2->rect))
 			{
 				if(matrix[c1->type][c2->type] && c1->callback) 
 					c1->callback->OnCollision(c1, c2);
