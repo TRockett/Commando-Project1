@@ -149,25 +149,33 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle,
 	
 
 	timer = SDL_GetTicks();
-
-	if (sub_type == 2)
-	{
-		jumping = true;
-	}
-	else
+	if (sub_type == 1)
 	{
 		movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 100);
 	}
-
-	if (position.x < SCREEN_WIDTH / 2)
+	else if (sub_type == 2)
 	{
-		direction = 1;
-		animation = &walk_l;
+		jumping = true;
+		if (position.x < SCREEN_WIDTH / 2)
+		{
+			direction = 1;
+			animation = &walk_l;
+		}
+		else
+		{
+			direction = -1;
+			animation = &walk;
+		}
 	}
-	else
+	else if (sub_type == 3)
 	{
-		direction = -1;
-		animation = &walk;
+		movement.PushBack({ 1,0 }, 110);
+		movement.PushBack({ 0,1 }, 100);
+	}
+	else if (sub_type == 4)
+	{
+		movement.PushBack({ -1,0 }, 90);
+		movement.PushBack({ 0,1 }, 100);
 	}
 }
 
