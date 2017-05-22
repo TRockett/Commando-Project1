@@ -123,6 +123,8 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	if (sub_type == 4)
 	{
 		movement.PushBack({ 1,0 }, 200);
+		movement.PushBack({ 0,0 }, 50);
+		movement.PushBack({ -1,0 }, 100);
 		movement.loop = false;
 	}
 	else if (sub_type == 5)
@@ -271,7 +273,6 @@ void EnemyGrenade::Move()
 		else if (sub_type == 5)
 		{
 				
-
 				if (SDL_GetTicks() >= timer + 1000)
 				{
 					animation = &throwing;
