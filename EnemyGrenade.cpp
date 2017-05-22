@@ -120,12 +120,26 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
 
 	movement.loop = false;
-
-	movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 20);
-
+	if (sub_type == 4)
+	{
+		movement.PushBack({ 1,0 }, 200);
+		movement.loop = false;
+	}
+	else if (sub_type == 5)
+	{
+		movement.PushBack({ -1,0 }, 200);
+		movement.PushBack({ 0,0 }, 50);
+		movement.PushBack({ 1,0 }, 100);
+		movement.loop = false;
+	}
+	else
+	{
+		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 20);
+	}
 	animation = &e1_forward;
 	
 	throwi = false;
+
 
 
 };
@@ -165,7 +179,7 @@ void EnemyGrenade::Move()
 				animation = GetAnimationForDirection(current_angle);
 				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 				throwing.Reset();
-				
+
 			}
 			else if (this->disappear == false)
 			{
@@ -178,10 +192,10 @@ void EnemyGrenade::Move()
 				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
 				App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
-				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_NONE,nullptr,0,true);
+				App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_NONE, nullptr, 0, true);
 
 			}
-			
+
 			collision = false;
 			throwi = !throwi;
 
@@ -200,6 +214,7 @@ void EnemyGrenade::Move()
 				App->particles->bullet.life = 1800;
 				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 				timer = SDL_GetTicks();
+
 			}
 
 			if (collision != true)
@@ -218,6 +233,7 @@ void EnemyGrenade::Move()
 		}
 		else if (sub_type == 3)
 		{
+
 			if (SDL_GetTicks() >= timer + 1000)
 			{
 				float deltaX = -position.x + player_pos.x;
@@ -246,10 +262,35 @@ void EnemyGrenade::Move()
 			animation = GetAnimationForDirection(current_angle);
 			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
 		}
+		else if (sub_type == 4)
+		{
+			animation = GetAnimationForDirection(current_angle);
+			
+			
+		}
+		else if (sub_type == 5)
+		{
+				
 
-		
+				if (SDL_GetTicks() >= timer + 1000)
+				{
+					animation = &throwing;
+					float deltaX = -position.x + player_pos.x;
+					float deltaY = -position.y + player_pos.y;
+					float angle = atan2f(deltaY, deltaX);
+					float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+					fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+					App->particles->grenade.speed = { (float)(normalised_v.x * 1.0f), (float)((normalised_v.y * 1.0f)) };
+					App->particles->AddParticle(App->particles->grenade, position.x + shooting_position.x, position.y + shooting_position.y, GRENADE_ENEMY, COLLIDER_NONE, nullptr, 0, true);
+					timer = SDL_GetTicks();
+				
+			}
+		}
 
 	}
+		
+
+	
 	else if (dying == true)
 	{
 		animation = &death;
