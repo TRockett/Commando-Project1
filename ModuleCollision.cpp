@@ -80,6 +80,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_BODY][COLLIDER_WATER] = false;
 	matrix[COLLIDER_PLAYER_BODY][COLLIDER_BOX] = false;
 	matrix[COLLIDER_PLAYER_BODY][COLLIDER_PLAYER_BODY] = false;
+
+	
 }
 
 // Destructor

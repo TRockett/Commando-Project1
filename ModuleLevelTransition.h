@@ -16,13 +16,11 @@ public:
 
 private:
 	SDL_Texture* background_graphics;
-	SDL_Texture* title_graphics;
-	SDL_Texture* screen_welcome;
-	SDL_Texture* capcom;
 	int font_red, font_white;
-	Animation welcome_anim;
-	Animation screen_1;
-
+	Animation trans;
+	char* string_1 = "BROKE THE 3RD AREA NOW RUSH TO THE LAST AREA";
+	char* string_2 = "                                            ";
+	int actual = 0;
 public:
 	bool Init();
 	bool Start();

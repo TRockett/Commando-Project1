@@ -11,6 +11,7 @@
 #include "ModuleFonts.h"
 #include"ModuleLevel3.h"
 #include "ModuleLevel4.h"
+#include "ModuleLevelTransition.h"
 
 ModuleSceneWelcome::ModuleSceneWelcome()
 {
@@ -65,6 +66,8 @@ update_status ModuleSceneWelcome::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_4] == KEY_DOWN)
 		App->fade->FadeToBlack(this, App->level_4, 3.0f);
 
+	if (App->input->keyboard[SDL_SCANCODE_5] == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->transition, 3.0f);
 
 	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
 		App->scene_game->intro = false;
