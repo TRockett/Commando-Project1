@@ -33,7 +33,7 @@ private:
 	Animation door_bunker_left1;
 	Animation door_bunker_left2;
 	Animation door_bunker_left3;
-	Animation final_door;
+
 	Animation* helicopter;
 	Animation helicopter1;
 	Animation helicopter2;
@@ -74,6 +74,7 @@ private:
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
+	Animation final_door;
 	
 	bool droping = false;
 	bool Init();
