@@ -56,7 +56,7 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
-	bool CheckCollisionForCollider(SDL_Rect col, COLLIDER_TYPE type);
+	bool CheckCollisionForCollider(Collider* col);
 	bool EraseCollider(Collider* collider);
 	void DebugDraw();
 

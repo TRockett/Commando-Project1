@@ -218,10 +218,10 @@ bool ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				break;
 				
 		}
-		SDL_Rect rect = enemies[i]->GetCollider()->rect;
-		rect.x = enemies[i]->position.x;
-		rect.y = enemies[i]->position.y;
-		if (App->collision->CheckCollisionForCollider(rect, COLLIDER_WALL)) {
+		Collider* col = enemies[i]->GetCollider();
+		col->rect.x = enemies[i]->position.x;
+		col->rect.y = enemies[i]->position.y;
+		if (App->collision->CheckCollisionForCollider(col)) {
 			EraseEnemy(enemies[i]);
 			return false;
 		}

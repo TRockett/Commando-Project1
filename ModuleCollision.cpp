@@ -253,7 +253,9 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	return false;
 }
 
-bool ModuleCollision::CheckCollisionForCollider(SDL_Rect col, COLLIDER_TYPE type) {
+bool ModuleCollision::CheckCollisionForCollider(Collider* col) {
+	COLLIDER_TYPE type = col->type;
+	SDL_Rect rect = col->rect;
 	for (uint k = 0; k < MAX_COLLIDERS; ++k)
 	{
 		// skip empty colliders
@@ -262,11 +264,9 @@ bool ModuleCollision::CheckCollisionForCollider(SDL_Rect col, COLLIDER_TYPE type
 
 		Collider* c2 = colliders[k];
 
-		if (c2->CheckCollision(col))
-		{
-			if (matrix[type][c2->type] || matrix[c2->type][type])
+		if (matrix[type][c2->type] || matrix[c2->type][type])
+			if (c2->CheckCollision(rect))
 				return true;
-		}
 	}
 	return false;
 }
