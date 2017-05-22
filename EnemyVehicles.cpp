@@ -2,6 +2,7 @@
 #include "ModulePlayer.h"
 #include "Application.h"
 #include "SDL/include/SDL_timer.h"
+#include "ModuleEnemies.h"
 
 
 
@@ -48,18 +49,17 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	}
 	else if (sub_type == 3)
 	{
-		direction = -1;
 		animation = &truck_riding;
-		movement.PushBack({ 0.8f * direction, 0.0f }, 40, animation);
+		movement.PushBack({ -0.8f, 0.0f }, 40, animation);
 		movement.PushBack({ 0.0f, 0.0f }, 40, animation);
-		movement.loop = true;
+		movement.loop = false;
 	}
 	else if (sub_type == 4)
 	{
 		direction = 1;
 		animation = &car_enemies_ltor;
 		movement.PushBack({ 1.2f * direction, 0.0f }, 15, animation);
-		movement.loop = true;
+		movement.loop = false;
 		timer = SDL_GetTicks();
 			
 	}
@@ -122,12 +122,20 @@ void EnemyVehicles::Move()
 		if (player_pos.y >= 692)
 		{
 			move = true;
-			
 		}
 		if (move == true)
 		{
 			position = initial_position + movement.GetCurrentPosition(&animation);
+			if (movement.Finished() == true)
+			{
+				App->enemies->AddEnemy(ENEMY_TRUCK, position.x, position.y, 0, 1);
+				movement.Reset();
+			}
 		}
+		
+		
+
+		
 	}	
 	else if (sub_type == 4)
 	{
