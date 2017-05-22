@@ -144,6 +144,11 @@ update_status ModuleLevel3::Update() {
 		{
 			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
+			counter++;
+		}
+		else if (timer + 2000 < SDL_GetTicks())
+		{
+			App->player->final_anim = true;
 		}
 	}
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;

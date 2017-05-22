@@ -44,6 +44,7 @@ public:
 	bool grenade_on = false;
 	bool bthrowing;
 	int intro_state;
+	short int final_anim;
 	fPoint init_pos;
 	float parabol = 0.65f;
 	Mix_Chunk* grenade_explosion;

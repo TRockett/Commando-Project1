@@ -19,6 +19,7 @@ ModulePlayer::ModulePlayer()
 	grenades = 6;
 	graphics = NULL;
 	current_animation = NULL;
+	final_anim = false;
 
 	// walk forward animation (arcade sprite sheet)
 	
@@ -249,6 +250,17 @@ update_status ModulePlayer::Update()
 					App->objects->droping = false;
 
 				}
+			}
+		}
+		else if (final_anim == 1)
+		{
+			if (position.x > (SCREEN_WIDTH / 2))
+			{
+				position.x = position.x - 0.55f;
+			}
+			else if (position.x < (SCREEN_WIDTH / 2))
+			{
+				position.x = position.x + 0.55f;
 			}
 		}
 		else 
