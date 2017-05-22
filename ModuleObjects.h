@@ -74,7 +74,7 @@ private:
 public:
 	ModuleObjects();
 	virtual ~ModuleObjects();
-	Animation final_door;
+		Animation final_door;
 	
 	bool droping = false;
 	bool Init();
