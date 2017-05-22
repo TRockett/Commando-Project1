@@ -12,7 +12,7 @@ EnemyMortar::EnemyMortar(int x, int y, int angle, int sub_type) : Enemy(x, y, an
 {
 	mortar.PushBack({ 0,354,15,20 });
 	mortar.PushBack({ 17,354,15,20 });
-	mortar.PushBack({ 34,355,25,19 });
+	mortar.PushBack({ 34,355,15,19 });
 	mortar.loop = false;
 	mortar.speed = 0.05f;
 

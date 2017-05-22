@@ -252,16 +252,33 @@ update_status ModulePlayer::Update()
 				}
 			}
 		}
-		else if (final_anim == 1)
+		else if (final_anim != 0)
 		{
-			if (position.x > (SCREEN_WIDTH / 2))
+			if (final_anim == 1)
 			{
-				position.x = position.x - 0.55f;
+				if (position.x < (SCREEN_WIDTH/2) + 20 && position.x > (SCREEN_WIDTH/2))
+				{
+					final_anim = 2;
+				}
+				else if (position.x > (SCREEN_WIDTH / 2))
+				{
+					position.x = position.x - 0.55f;
+					current_animation = &left;
+				}
+				else if (position.x < (SCREEN_WIDTH / 2))
+				{
+					position.x = position.x + 0.55f;
+					current_animation = &right;
+				}
+
+			
 			}
-			else if (position.x < (SCREEN_WIDTH / 2))
+			else
 			{
-				position.x = position.x + 0.55f;
+				position.y -= 0.5f;
+				current_animation = &forward;
 			}
+
 		}
 		else 
 		{

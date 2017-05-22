@@ -140,15 +140,15 @@ update_status ModuleLevel3::Update() {
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
 		}
-		else if (timer + 1500 < SDL_GetTicks() && counter < 20)
+		else if (timer + 1500 < SDL_GetTicks() && counter < 5)
 		{
 			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
 			counter++;
 		}
-		else if (timer + 2000 < SDL_GetTicks())
+		else if (timer + 2000 < SDL_GetTicks() && App->player->final_anim == 0)
 		{
-			App->player->final_anim = true;
+			App->player->final_anim = 1;
 		}
 	}
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
