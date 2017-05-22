@@ -256,7 +256,7 @@ update_status ModulePlayer::Update()
 		{
 			if (final_anim == 1)
 			{
-				if (position.x < (SCREEN_WIDTH/2) + 20 && position.x > (SCREEN_WIDTH/2))
+				if (position.x < (SCREEN_WIDTH/2) + 20 && position.x > (SCREEN_WIDTH/2)+10)
 				{
 					final_anim = 2;
 				}
