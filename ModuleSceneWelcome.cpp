@@ -10,6 +10,7 @@
 #include "ModuleSound.h"
 #include "ModuleFonts.h"
 #include"ModuleLevel3.h"
+#include "ModuleLevel4.h"
 
 ModuleSceneWelcome::ModuleSceneWelcome()
 {
@@ -61,6 +62,9 @@ bool ModuleSceneWelcome::Start() {
 update_status ModuleSceneWelcome::PreUpdate() {
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
 		App->fade->FadeToBlack(this, App->level_3, 3.0f);
+	if (App->input->keyboard[SDL_SCANCODE_4] == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->level_4, 3.0f);
+
 
 	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
 		App->scene_game->intro = false;
