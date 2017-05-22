@@ -176,7 +176,7 @@ void EnemyVehicles::Move()
 		else if (position.y + 100 >= player_pos.y)
 		{
 			move = true; 
-			movement.PushBack({ 0.0f, -1.0f }, 30, animation);
+			movement.PushBack({ 0.0f, -1.2f }, 150, animation);
 		}
 
 		if (animation->Finished() == true)
