@@ -177,6 +177,11 @@ void EnemyVehicles::Move()
 		{
 			move = true; 
 			movement.PushBack({ 0.0f, -1.2f }, 150, animation);
+			if (position.y <= 400)
+			{
+
+				movement.PushBack({ 0.0f, -49.9f }, 150, animation);
+			}
 		}
 
 		if (animation->Finished() == true)
@@ -186,6 +191,7 @@ void EnemyVehicles::Move()
 			App->particles->AddParticle(molo, position.x + shooting_position.x, position.y + shooting_position.y, MOLOTOV, COLLIDER_NONE);
 			animation->Reset();
 		}
+		
 		
 	}	
 }
