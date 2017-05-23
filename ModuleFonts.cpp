@@ -9,9 +9,6 @@
 // Constructor
 ModuleFonts::ModuleFonts() : Module()
 {
-	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		petitions[i] = nullptr;
-	}
 }
 
 // Destructor
@@ -127,14 +124,5 @@ void ModuleFonts::BlitText(Label* label) const
 			}
 		}
 		App->render->Blit(font->graphic, label->pos.x + col * rect.w, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
-	}
-}
-
-void ModuleFonts::DrawInterface(Label* label) {
-	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		if (petitions[i] == nullptr) {
-			petitions[i] = new DrawPetition{ label->font_id, label->pos.x, label->pos.y, label->string };
-			break;
-		}
 	}
 }

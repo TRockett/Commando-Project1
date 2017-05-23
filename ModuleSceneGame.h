@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleInterface.h"
+#include <string>
 
 #define MAX_LEVEL 2
 struct SDL_Texture;
@@ -16,7 +18,10 @@ protected:
 	SDL_Texture* background_graphics;
 	iPoint level_dimensions;
 	int font_red, font_white;
+	Label* score_label;
+	Label* grenade_label;
 	int timer;
+	std::string grenade_str;
 
 public:
 	bool Start();

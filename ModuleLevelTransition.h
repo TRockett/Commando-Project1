@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModuleInterface.h"
+
 struct SDL_Texture;
 
 class ModuleLevelTransition :
@@ -19,7 +21,7 @@ private:
 	int font_red, font_white;
 	Animation trans;
 	char* string_1 = "BROKE THE 3RD AREA NOW RUSH TO THE LAST AREA";
-	char* string_2;
+	Label* label;
 	int actual = 0;
 public:
 	bool Init();

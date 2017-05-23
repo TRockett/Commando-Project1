@@ -49,6 +49,13 @@ bool ModuleInterface::CleanUp() {
 	bool ret = true;
 
 	ret = App->textures->Unload(graphics);
+	for (uint i = 0; i < MAX_LABELS; i++) {
+		if (labels[i] != nullptr) {
+			delete labels[i];
+			labels[i] = nullptr;
+		}
+
+	}
 
 	return ret;
 }
@@ -62,6 +69,7 @@ int ModuleInterface::AddLabel(int id, const char* text, int posx, int posy) {
 			labels[i]->font_id = id;
 			labels[i]->pos = { posx, posy };
 			labels[i]->string = text;
+			return (int)i;
 		}
 	}
 }
