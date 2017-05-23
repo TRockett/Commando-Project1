@@ -50,8 +50,10 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y
 	else if (sub_type == 3)
 	{
 		animation = &truck_riding;
-		movement.PushBack({ -0.8f, 0.0f }, 40, animation);
-		movement.PushBack({ 0.0f, 0.0f }, 40, animation);
+		movement.PushBack({ 0.0f, 0.0f }, 20, animation);
+		movement.PushBack({ -0.8f, 0.0f }, 60, animation);
+		movement.PushBack({ 0.0f, 0.0f }, 20, animation);
+		
 		movement.loop = false;
 	}
 	else if (sub_type == 4)
@@ -119,7 +121,7 @@ void EnemyVehicles::Move()
 	}
 	else if (sub_type == 3)
 	{
-		if (player_pos.y >= 692)
+		if (player_pos.y >= position.y + 50)
 		{
 			move = true;
 		}
@@ -128,14 +130,10 @@ void EnemyVehicles::Move()
 			position = initial_position + movement.GetCurrentPosition(&animation);
 			if (movement.Finished() == true)
 			{
-				App->enemies->AddEnemy(ENEMY_TRUCK, position.x, position.y, 0, 1);
+				App->enemies->AddEnemy(ENEMY_TRUCK, position.x+55, position.y+5, 0, 1);
 				movement.Reset();
 			}
 		}
-		
-		
-
-		
 	}	
 	else if (sub_type == 4)
 	{
@@ -173,10 +171,15 @@ void EnemyVehicles::Move()
 				move = false;
 			}			
 		}
-		else if (position.y + 100 >= player_pos.y)
+		else if (position.y + 100 <= player_pos.y)
 		{
 			move = true; 
 			movement.PushBack({ 0.0f, -1.2f }, 150, animation);
+			if (position.y <= 400)
+			{
+
+				movement.PushBack({ 0.0f, -49.9f }, 150, animation);
+			}
 		}
 
 		if (animation->Finished() == true)
@@ -186,6 +189,7 @@ void EnemyVehicles::Move()
 			App->particles->AddParticle(molo, position.x + shooting_position.x, position.y + shooting_position.y, MOLOTOV, COLLIDER_NONE);
 			animation->Reset();
 		}
+		
 		
 	}	
 }

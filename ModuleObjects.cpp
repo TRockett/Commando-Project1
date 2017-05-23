@@ -352,79 +352,105 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 172, 1192, 38, 5 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 44, 1128, 38, 5 }, COLLIDER_WALL);
 
-		//colliders for bunkers
+		//colliders for bunkers( backward 3 rows left)
 		App->collision->AddCollider({ 68, 1953, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 73, 1942, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 81, 1938, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 84, 1977, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 74, 1970, 34, 4 }, COLLIDER_WALL);
 
 		App->collision->AddCollider({ 132, 1631, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 137, 1620, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 145, 1616, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 148, 1655, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 138, 1648, 34, 4 }, COLLIDER_WALL);
 
 		App->collision->AddCollider({ 196, 1504, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 201, 1493, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 209, 1489, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 212, 1528, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 202, 1521, 34, 4 }, COLLIDER_WALL);
 
+		//colliders for bunkers( backward 3 rows right)
 		App->collision->AddCollider({ 109, 1759, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 112, 1750, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 124, 1745, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 122, 1783, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 117, 1776, 34, 4 }, COLLIDER_WALL);
 
 		App->collision->AddCollider({ 45, 1311, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 48, 1302, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 60, 1297, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 58, 1335, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 53, 1328, 34, 4 }, COLLIDER_WALL);
 
 		App->collision->AddCollider({ 173, 1119, 47, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 176, 1110, 37, 4 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 188, 1105, 22, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 186, 1143, 19, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 181, 1136, 34, 4 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 21, 1627, 8, 10 }, COLLIDER_WALL);
+		//colliders for bunkers( part of one in the left)
+		App->collision->AddCollider({ 21, 1627, 8, 22 }, COLLIDER_WALL);
 
+		//colliders for bunkers( beginning right)
 		App->collision->AddCollider({ 236, 1944, 19, 25 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 186, 1885, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 156, 1894, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 143, 1881	, 39,12 }, COLLIDER_WALL);
+		//colliders for bunkers( door looking right)
+		App->collision->AddCollider({ 186, 1885, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 156, 1894, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 143, 1881	, 39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 151, 1875, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 152, 1911, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 58, 1821, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 28, 1830, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 12, 1819	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 58, 1821, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 1830, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 12, 1819,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 23, 1811, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 24, 1847, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 186, 1244, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 156, 1253, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 143, 1240	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 186, 1244, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 156, 1253, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 143, 1240	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 151, 1234, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 152, 1270, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 122, 1564, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 92, 1573, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 76, 1560	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 122, 1564, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 92, 1573, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 81, 1560	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 87, 1554, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 88, 1590, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 58, 1436, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 28, 1445, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 12, 1434	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 58, 1436, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 1445, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 12, 1434	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 23, 1426, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 24, 1462, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 122, 1180, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 92, 1189, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 76, 1176	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 122, 1180, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 92, 1189, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 81, 1176	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 87, 1170, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 88, 1206, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 165, 1691, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 187, 1701, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 170, 1688	,39,10 }, COLLIDER_WALL);
+		//colliders for bunkers( door looking left)
+		App->collision->AddCollider({ 165, 1691, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 187, 1701, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 169, 1688	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 177, 1683, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 175, 1718, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 37, 1691, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 59, 1701, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 42, 1688	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 37, 1691, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 59, 1701, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 42, 1688	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 49, 1683, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 47, 1718, 24, 2 }, COLLIDER_WALL);
 
-		App->collision->AddCollider({ 101, 1372, 2, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 123, 1382, 9, 10 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 106, 1369	,39,10 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 101, 1372, 2, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 123, 1382, 9, 22 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 106, 1369	,39,22 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 113, 1363, 23, 5 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 111, 1399, 24, 2 }, COLLIDER_WALL);
 
 		if (sprite_graphics == nullptr)
 			ret = false;
@@ -476,6 +502,22 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, 210, 70, &mortar_left4.GetCurrentFrame().rect);
 			App->render->Blit(sprite_graphics, 30, 70, &mortar_right4.GetCurrentFrame().rect);
 		}
+	}
+	else if (App->level == 4)
+	{
+		App->render->Blit(sprite_graphics, 200, 1690, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 50, 1320, &box2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 62, 910, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 174, 676, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 200, 366, &box3.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 18, 1471, &tree1.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 130, 1423, &tree1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 145, 1410, &tree1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 159, 1423, &tree2.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 162, 958, &tree1.GetCurrentFrame().rect);
+
 	}
 	else if (App->level == 1)
 	{

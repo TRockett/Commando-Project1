@@ -18,6 +18,7 @@
 #include "EnemyBazooka.h"
 #include "EnemyMortar.h"
 #include "EnemyTruck.h"
+#include "EnemyTower.h"
 #include "SDL\include\SDL.h"
 
 ModuleEnemies::ModuleEnemies()
@@ -215,6 +216,9 @@ bool ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 				break;
 			case ENEMY_TYPE::ENEMY_TRUCK:
 				enemies[i] = new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				break;
+			case ENEMY_TYPE::ENEMY_TOWER:
+				enemies[i] = new EnemyTower(info.pos.x, info.pos.y, info.angle, info.sub_type);
 				break;
 				
 		}

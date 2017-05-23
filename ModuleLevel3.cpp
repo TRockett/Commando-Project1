@@ -15,6 +15,7 @@
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
 #include "EnemyVehicles.h"
+#include "ModuleLevelTransition.h"
 
 
 
@@ -79,9 +80,9 @@ bool ModuleLevel3::Start() {
 		
 		App->enemies->AddEnemy(COMMANDER, SCREEN_WIDTH / 2, 5, 0, 1);
 
-		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 62, 0, 0);
+		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 60, 0, 2);
 
-		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 62, 0, 0);
+		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 60, 0, 1);
 
 		App->enemies->AddEnemy(LEFT_WEAPON, 0, 915, 0, 3);
 		App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 4);
@@ -147,16 +148,21 @@ update_status ModuleLevel3::Update() {
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
 		}
-		else if (timer + 1500 < SDL_GetTicks() && counter < 20)
+		else if (timer + 1500 < SDL_GetTicks() && counter < 5)
 		{
 			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
 			counter++;
 		}
-		else if (timer + 2000 < SDL_GetTicks())
+		else if (timer + 2000 < SDL_GetTicks() && App->player->final_anim == 0)
 		{
-			App->player->final_anim = true;
+			App->player->final_anim = 1;
 		}
+	}
+
+	if (App->player->final_anim == 3)
+	{
+		this->Disable();
 	}
 
 	if (score > top_score)
@@ -173,6 +179,12 @@ update_status ModuleLevel3::Update() {
 }
 
 update_status ModuleLevel3::PostUpdate() {
+	if (App->player->final_anim == 3)
+	{
+		App->fade->FadeToBlack(this, App->transition, 1.0f);
+		App->player->final_anim = 0;
+	}
+
 	return UPDATE_CONTINUE;
 }
 

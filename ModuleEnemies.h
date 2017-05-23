@@ -12,7 +12,7 @@
 
 enum ENEMY_TYPE
 {
-	
+
 	NO_TYPE,
 	LEFT_WEAPON,
 	MOTO_TYPE,
@@ -22,6 +22,7 @@ enum ENEMY_TYPE
 	COMMANDER,
 	ENEMY_MORTAR,
 	ENEMY_TRUCK,
+	ENEMY_TOWER,
 };
 
 class Enemy;

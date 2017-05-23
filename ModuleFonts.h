@@ -29,7 +29,7 @@ public:
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1, uint margin = 0, uint spacing = 0);
 	void UnLoad(int font_id);
-	void DrawInterface(Label* label);
+	iPoint getFontDimensions(int id);
 
 	// Create a surface from text
 	void BlitText(Label* label) const;

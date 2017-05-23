@@ -19,6 +19,7 @@ private:
 	Animation walk_l;
 
 
+
 	int current_angle;
 
 	bool disappear = false;

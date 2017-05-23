@@ -272,7 +272,7 @@ Particle::Particle(const Particle& p) :
 anim(p.anim), position(p.position), speed(p.speed),
 fx(p.fx), born(p.born), life(p.life),acceleration(p.acceleration)
 {
-	acceleration = -0.3f;
+	acceleration = -0.25f;
 	init_speed = p.speed;
 }
 
@@ -290,10 +290,10 @@ bool Particle::Update()
 
 	if (parabol == true)
 	{
-		if (init_speed.y + 0.5 >= (speed.y + acceleration))
+		if (init_speed.y + 2 >= (speed.y + acceleration))
 		{
 			speed.y = speed.y + acceleration;
-			acceleration = acceleration + 0.05f;
+			acceleration = acceleration + 0.02f;
 		}
 	}
 	if(life > 0)

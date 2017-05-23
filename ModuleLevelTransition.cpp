@@ -11,7 +11,7 @@
 #include"ModuleLevel3.h"
 #include "ModuleLevel4.h"
 #include "ModuleInterface.h"
-
+#include "SDL/include/SDL_timer.h"
 
 ModuleLevelTransition::ModuleLevelTransition()
 {
@@ -34,6 +34,8 @@ bool ModuleLevelTransition::Init() {
 	trans.loop = true;
 	trans.speed = 0.015f;
 
+	new_str = (char*)calloc(strlen(string_1), sizeof(char));
+	timer = SDL_GetTicks();
 	return true;
 }
 
@@ -48,18 +50,15 @@ bool ModuleLevelTransition::Start() {
 	App->interfac->AddLabel(font_red, "1up", 15, 0);
 	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
 	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
-	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50));
 
 	if (background_graphics == nullptr)
 		ret = false;
-
+	
 	return ret;
 }
 
 update_status ModuleLevelTransition::PreUpdate() {
-	//App->fade->FadeToBlack(this, App->level_4, 3.0f);
-
-
 	return UPDATE_CONTINUE;
 }
 
@@ -68,17 +67,20 @@ update_status ModuleLevelTransition::Update() {
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0);
 	if (label != nullptr) {
-		char* new_str = (char*)calloc(actual + 1, sizeof(char));
-		for (uint i = 0; i <= actual; i++)
-			new_str[i] = string_1[i];
+		//for (uint i = 0; i <= actual; i++)
+		new_str[actual] = string_1[actual];
 		label->setString(new_str);
 	}
-	
-	if (actual < strlen(string_1)) 
-	{
-		actual++;
-	}
 
+	if (SDL_GetTicks() >= timer + 100)
+	{
+		if (actual < strlen(string_1)) {
+			actual++;
+		}
+		else App->fade->FadeToBlack(this, App->level_4, 8);
+		timer = SDL_GetTicks();
+	}
+	
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 
 }

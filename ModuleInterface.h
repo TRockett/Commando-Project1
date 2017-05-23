@@ -1,12 +1,14 @@
 #pragma once
 #include "Module.h"
 #include "Animation.h"
+
 #define MAX_LABELS 64
 
 struct Label {
 	int font_id;
 	const char* string;
 	iPoint pos;
+	iPoint dimensions;
 
 	void setString(const char* str) {
 		string = str;

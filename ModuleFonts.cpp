@@ -99,7 +99,7 @@ void ModuleFonts::BlitText(Label* label) const
 	SDL_Rect rect;
 	uint len = strlen(label->string);
 	uint row = 0;
-	uint col = 0;
+	int col = 0;
 
 	rect.w = font->char_w;
 	rect.h = font->char_h;
@@ -108,7 +108,7 @@ void ModuleFonts::BlitText(Label* label) const
 	{
 		if (label->string[i] == '\n') {
 			row++;
-			col = 0;
+			col = -1;
 			continue;
 		}
 		// TODO 2: Find the character in the table and its position in the texture, then Blit
@@ -125,4 +125,11 @@ void ModuleFonts::BlitText(Label* label) const
 		}
 		App->render->Blit(font->graphic, label->pos.x + col * rect.w, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
 	}
+}
+
+iPoint ModuleFonts::getFontDimensions(int id) {
+	iPoint dimensions;
+	dimensions.x = App->fonts->fonts[id].char_w;
+	dimensions.y = App->fonts->fonts[id].char_h;
+	return dimensions;
 }
