@@ -145,9 +145,10 @@ void EnemyTruck::Move() {
 	if (jumping == true)
 	{
 		animation = &jump;
-		movement.PushBack({ 0.5, jump_speed }, 50);
-		jump_speed = jump_speed + 0.1f;
-		if (movement.Finished() == true)
+		animation->loop = false;
+		movement.PushBack({ 0.5f,0.2f }, 10);
+
+		if (animation->Finished() == true)
 		{
 			jumping = false;
 			current_angle = (rand() % 8) * 45;
