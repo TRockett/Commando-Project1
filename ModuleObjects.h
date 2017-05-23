@@ -34,6 +34,8 @@ private:
 	Animation door_bunker_left2;
 	Animation door_bunker_left3;
 
+
+
 	Animation* helicopter;
 	Animation helicopter1;
 	Animation helicopter2;
@@ -60,6 +62,10 @@ private:
 	Animation mortar_right2;
 	Animation mortar_right3;
 	Animation mortar_right4;
+
+	// level 4
+	Animation bunker_house;
+	Animation trinxera; // It can be also used in level 1
 
 	Animation stones;
 	int timer; 

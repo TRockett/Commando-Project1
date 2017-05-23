@@ -101,6 +101,12 @@ bool ModuleObjects::Init() {
 	door_bunker_left2 = door_bunker_left;
 	door_bunker_left3 = door_bunker_left;
 
+	//Bunker house of level 4 animation
+
+
+	//Trinxera
+	trinxera.PushBack({353, 75, 77, 16});
+
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
 
@@ -517,6 +523,8 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 159, 1423, &tree2.GetCurrentFrame().rect);
 
 		App->render->Blit(sprite_graphics, 162, 958, &tree1.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 16, 1375, &trinxera.GetCurrentFrame().rect);
 
 	}
 	else if (App->level == 1)
