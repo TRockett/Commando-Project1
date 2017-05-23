@@ -8,7 +8,6 @@ struct Label {
 	int font_id;
 	const char* string;
 	iPoint pos;
-	iPoint dimensions;
 
 	void setString(const char* str) {
 		string = str;

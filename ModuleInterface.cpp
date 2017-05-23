@@ -63,13 +63,13 @@ bool ModuleInterface::CleanUp() {
 int ModuleInterface::AddLabel(int id, const char* text, int posx, int posy) {
 	bool ret = false;
 
-	for (uint i = 0; i < MAX_LABELS; i++) {
+	for (int i = 0; i < MAX_LABELS; i++) {
 		if (labels[i] == nullptr) {
 			labels[i] = new Label();
 			labels[i]->font_id = id;
 			labels[i]->pos = { posx, posy };
 			labels[i]->string = text;
-			return (int)i;
+			return i;
 		}
 	}
 }
