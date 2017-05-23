@@ -43,12 +43,18 @@ bool ModuleSceneWelcome::Init() {
 bool ModuleSceneWelcome::Start() {
 	bool ret = true;
 	App->fonts->Enable();
+	App->interfac->Enable();
 	background_graphics = App->textures->Load("Images/Mapa4.png");
 	title_graphics = App->textures->Load("Images/title.png");
 	screen_welcome = App->textures->Load("Images/screen1.png");
 	capcom = App->textures->Load("Images/capcom.png");
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+	
+	App->interfac->AddLabel(font_red, "1up", 15, 0);
+	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+	
 	if (background_graphics == nullptr)
 		ret = false;
 	if (title_graphics == nullptr)
@@ -99,15 +105,13 @@ update_status ModuleSceneWelcome::Update() {
 }
 
 update_status ModuleSceneWelcome::PostUpdate() {
-	App->fonts->BlitText(15, 0, font_red, "1up");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 30, 0, font_red, "top score");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 15, 8, font_white, "50000");
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleSceneWelcome::CleanUp() {
 	bool ret = true;
 	App->fonts->Disable();
+	App->interfac->Disable();
 	ret = App->textures->Unload(background_graphics);
 
 	if (!App->textures->Unload(title_graphics))

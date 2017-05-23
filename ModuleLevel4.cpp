@@ -50,15 +50,23 @@ bool ModuleLevel4::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 320, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 300, 270, 1);
 
+		App->enemies->AddEnemy(ENEMY_TOWER, 210, 618, 0, 0);
+
+
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 830, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 770, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 720, 270, 1);
-		
 		
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+
+	App->interfac->AddLabel(font_red, "1up", 15, 0);
+	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+	grenade_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15));
+	score_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 103, 8));
 
 	//Enabling modules
 	App->player->Enable();
@@ -67,6 +75,7 @@ bool ModuleLevel4::Start() {
 	App->particles->Enable();
 	App->enemies->Enable();
 	App->fonts->Enable();
+	App->interfac->Enable();
 
 	/*if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
 	ret = false;*/
@@ -99,23 +108,21 @@ update_status ModuleLevel4::Update() {
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
 	sprintf_s(score_text, 10, "%7d", score);
-	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
-}
-
-update_status ModuleLevel4::PostUpdate() {
 
 	if (score > top_score)
 	{
 		top_score = score;
 	}
-	App->fonts->BlitText(15, 0, font_red, "1up");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 30, 0, font_red, "top score");
-	std::string grenade_str = "= ";
+	grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font_white, grenade_str.c_str());
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 103, 8, font_white, score_text);
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 15, 8, font_white, "50000");
 
+	grenade_label->setString(grenade_str.c_str());
+	score_label->setString(score_text);
+
+	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
+}
+
+update_status ModuleLevel4::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
@@ -129,6 +136,7 @@ bool ModuleLevel4::CleanUp() {
 	App->objects->Disable();
 	App->particles->Disable();
 	App->fonts->Disable();
+	App->interfac->Disable();
 	ret = App->textures->Unload(background_graphics);
 
 	return ret;

@@ -9,7 +9,6 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
-#include <string>
 #include "ModuleObjects.h"
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
@@ -53,13 +52,18 @@ bool ModuleSceneGame::Start() {
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 
-	
+	App->interfac->AddLabel(font_red, "1up", 15, 0);
+	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+	grenade_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15));
+	score_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 103, 8));
+
 	//Enabling modules
-	
 	App->collision->Enable();
 	App->objects->Enable();
 	App->particles->Enable();
-
+	App->fonts->Enable();
+	App->interfac->Enable();
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -92,10 +96,6 @@ update_status ModuleSceneGame::PreUpdate() {
 
 update_status ModuleSceneGame::Update() {
 	bool ret = true;
-
-
-
-
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 	
 	if (App->objects->droping == true)
@@ -106,34 +106,28 @@ update_status ModuleSceneGame::Update() {
 	}
 	else if(intro == false)
 	{
-		
-
 		App->player->Enable();
 		App->enemies->Enable();
 
 		if (!App->sound->isPlaying()) {
 			App->sound->PlayMusic();
 		}
-
 	}
 	sprintf_s(score_text, 10, "%7d", score);
-	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
-}
-
-update_status ModuleSceneGame::PostUpdate() {
-
 	if (score > top_score)
 	{
 		top_score = score;
 	}
-	App->fonts->BlitText(15, 0, font_red, "1up");
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -30, 0, font_red, "top score");
-	std::string grenade_str = "= ";
+	grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
-	App->fonts->BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15, font_white, grenade_str.c_str());
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -103, 8, font_white, score_text);
-	App->fonts->BlitText(SCREEN_WIDTH / 2 -15, 8, font_white,"50000");
-	
+
+	grenade_label->setString(grenade_str.c_str());
+	score_label->setString(score_text);
+
+	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
+}
+
+update_status ModuleSceneGame::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
@@ -148,8 +142,8 @@ bool ModuleSceneGame::CleanUp() {
 	App->enemies->Disable();
 	App->objects->Disable();
 	App->particles->Disable();
-
 	App->fonts->Disable();
+	App->interfac->Disable();
 	
 	ret = App->textures->Unload(background_graphics);
 

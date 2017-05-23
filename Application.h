@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 18
+#define NUM_MODULES 19
 
 class ModuleWindow;
 class ModuleInput;
@@ -24,6 +24,7 @@ class ModuleObjects;
 class ModuleLevel3;
 class ModuleLevel4;
 class ModuleLevelTransition;
+class ModuleInterface;
 
 class Application
 {
@@ -49,6 +50,7 @@ public:
 	Module* current_scene;
 	ModuleLevel4 * level_4;
 	ModuleLevelTransition* transition;
+	ModuleInterface* interfac;
 
 
 public:

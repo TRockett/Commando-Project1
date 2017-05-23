@@ -9,9 +9,6 @@
 // Constructor
 ModuleFonts::ModuleFonts() : Module()
 {
-	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		petitions[i] = nullptr;
-	}
 }
 
 // Destructor
@@ -90,33 +87,33 @@ void ModuleFonts::UnLoad(int font_id)
 }
 
 // Render text using a bitmap font
-void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
+void ModuleFonts::BlitText(Label* label) const
 {
-	if(text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
+	if(label->string == nullptr || label->font_id < 0 || label->font_id >= MAX_FONTS || fonts[label->font_id].graphic == nullptr)
 	{
-		LOG("Unable to render text with bmp font id %d", font_id);
+		LOG("Unable to render text with bmp font id %d", label->font_id);
 		return;
 	}
 
-	const Font* font = &fonts[font_id];
+	const Font* font = &fonts[label->font_id];
 	SDL_Rect rect;
-	uint len = strlen(text);
+	uint len = strlen(label->string);
 	uint row = 0;
-	uint col = 0;
+	int col = 0;
 
 	rect.w = font->char_w;
 	rect.h = font->char_h;
 
 	for(uint i = 0; i < len; ++i, col++)
 	{
-		if (text[i] == '\n') {
+		if (label->string[i] == '\n') {
 			row++;
-			col = 0;
+			col = -1;
 			continue;
 		}
 		// TODO 2: Find the character in the table and its position in the texture, then Blit
 		for (uint j = 0; j < font->len; j++) {
-			if (font->table[j] == text[i]) {
+			if (font->table[j] == label->string[i]) {
 				rect.y = (j / font->row_chars);
 				rect.x = (j - rect.y * font->row_chars);
 				rect.y *= font->char_h;
@@ -126,27 +123,13 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 				break;
 			}
 		}
-		App->render->Blit(font->graphic, x + col * rect.w, y + row * (rect.h + 1), &rect, 0.0f, false);
+		App->render->Blit(font->graphic, label->pos.x + col * rect.w, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
 	}
 }
 
-void ModuleFonts::DrawInterface(int x, int y, int font_bmp_id, const char* text) {
-	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		if (petitions[i] == nullptr) {
-			petitions[i] = new DrawPetition{ font_bmp_id, x, y, text };
-			break;
-		}
-	}
-}
-
-update_status ModuleFonts::Update() {
-	for (int i = 0; i < MAX_DRAW_PETITIONS; i++) {
-		if (petitions[i] != nullptr) {
-			LOG("Printed fonts at y:: %d", petitions[i]->y);
-			BlitText(petitions[i]->x, petitions[i]->y, petitions[i]->fontID, petitions[i]->text);
-			delete petitions[i];
-			petitions[i] = nullptr;
-		}
-	}
-	return UPDATE_CONTINUE;
+iPoint ModuleFonts::getFontDimensions(int id) {
+	iPoint dimensions;
+	dimensions.x = App->fonts->fonts[id].char_w;
+	dimensions.y = App->fonts->fonts[id].char_h;
+	return dimensions;
 }

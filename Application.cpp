@@ -18,6 +18,8 @@
 #include "ModuleLevel3.h"
 #include "ModuleLevel4.h"
 #include "ModuleLevelTransition.h"
+
+
 Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
@@ -35,9 +37,10 @@ Application::Application()
 	modules[13] = particles = new ModuleParticles();
 	modules[14] = collision = new ModuleCollision();
 	modules[1] = fonts = new ModuleFonts();
-	modules[16] = render = new ModuleRender();
-	modules[15] = fade = new ModuleFadeToBlack();
-	modules[17] = transition = new ModuleLevelTransition();
+	modules[15] = interfac = new ModuleInterface();
+	modules[17] = render = new ModuleRender();
+	modules[16] = fade = new ModuleFadeToBlack();
+	modules[18] = transition = new ModuleLevelTransition();
 }	
 
 Application::~Application()

@@ -1,96 +1,79 @@
-//#include "ModuleInterface.h"
-//#include "Application.h"
-//#include "ModuleRender.h"
-//#include "ModuleTextures.h"
-//
-//
-//ModuleInterface::ModuleInterface()
-//{
-//}
-//
-//
-//ModuleInterface::~ModuleInterface()
-//{
-//}
-//
-//
-//bool ModuleInterface::Init() {
-//
-//	graphics = nullptr;
-//
-//	return true;
-//}
-//
-//bool ModuleInterface::Start() {
-//	bool ret = true;
-//
-//	graphics = App->textures->Load("Images/sprites.png");
-//
-//	if (graphics == nullptr)
-//		ret = false;
-//	
-//	return ret;
-//}
-//
-//
-//ModuleInterface::ModuleInterface()
-//{
-//}
-//
-//
-//ModuleInterface::~ModuleInterface()
-//{
-//}
-//
-//
-//bool ModuleInterface::Init() {
-//
-//	graphics = nullptr;
-//
-//	return true;
-//}
-//
-//bool ModuleInterface::Start() {
-//	bool ret = true;
-//
-//	graphics = App->textures->Load("Images/sprites.png");
-//
-//	if (graphics == nullptr)
-//		ret = false;
-//	
-//	return ret;
-//}
-////
-////update_status ModuleInterface::PreUpdate() {
-////	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-////		App->fade->FadeToBlack(this, App->scene_game, 3.0f);
-////	return UPDATE_CONTINUE;
-////}
-////
-////update_status ModuleSceneWelcome::Update() {
-////	bool ret = false;
-////	AnimationFrame frame = welcome_anim.GetCurrentFrame();
-////	ret = App->render->Blit(background_graphics, 0 + frame.pivot.x, 0 + frame.pivot.y, &frame.rect, 0.0f);
-////	if (welcome_anim.getFrameIndex() == 0)
-////	{
-////		App->render->Blit(screen_welcome, 0, 70, &screen_1.GetCurrentFrame().rect);
-////
-////	}
-////	if (welcome_anim.getFrameIndex() != 0)
-////		App->render->Blit(title_graphics, 10, 56, nullptr, 0);
-////
-////	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
-////}
-////
-////update_status ModuleSceneWelcome::PostUpdate() {
-////	return UPDATE_CONTINUE;
-////}
-////
-////bool ModuleSceneWelcome::CleanUp() {
-////	bool ret = true;
-////
-////	ret = App->textures->Unload(background_graphics);
-////	if (!App->textures->Unload(title_graphics))
-////		ret = false;
-////	return ret;
-////}
+#include "ModuleInterface.h"
+#include "Application.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
+#include "ModuleFonts.h"
+
+
+ModuleInterface::ModuleInterface()
+{
+}
+
+
+ModuleInterface::~ModuleInterface()
+{
+}
+
+
+bool ModuleInterface::Init() {
+
+	graphics = nullptr;
+
+	return true;
+}
+
+bool ModuleInterface::Start() {
+	bool ret = true;
+
+	graphics = App->textures->Load("Images/sprites.png");
+
+	if (graphics == nullptr)
+		ret = false;
+	
+	return ret;
+}
+
+update_status ModuleInterface::PostUpdate() {
+
+	for (uint i = 0; i < MAX_LABELS; i++) {
+		if (labels[i] == nullptr)
+			continue;
+
+		App->fonts->BlitText(labels[i]);
+	}
+
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleInterface::CleanUp() {
+	bool ret = true;
+
+	ret = App->textures->Unload(graphics);
+	for (uint i = 0; i < MAX_LABELS; i++) {
+		if (labels[i] != nullptr) {
+			delete labels[i];
+			labels[i] = nullptr;
+		}
+
+	}
+
+	return ret;
+}
+
+int ModuleInterface::AddLabel(int id, const char* text, int posx, int posy) {
+	bool ret = false;
+
+	for (int i = 0; i < MAX_LABELS; i++) {
+		if (labels[i] == nullptr) {
+			labels[i] = new Label();
+			labels[i]->font_id = id;
+			labels[i]->pos = { posx, posy };
+			labels[i]->string = text;
+			return i;
+		}
+	}
+}
+
+Label* ModuleInterface::getLabel(int id) {
+	return labels[id];
+}
