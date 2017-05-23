@@ -18,9 +18,12 @@ private:
 	SDL_Texture* background_graphics;
 	int font_red, font_white;
 	Animation trans;
-	char* string_1 = "BROKE THE 3RD AREA NOW RUSH TO THE LAST AREA";
+	char* string_1 = "BROKE THE 3RD AREA";
 	char* string_2;
+	char* string_3 = "NOW RUSH TO THE LAST AREA";
+	char* string_4;
 	int actual = 0;
+	int actual_2 = 0;
 public:
 	bool Init();
 	bool Start();

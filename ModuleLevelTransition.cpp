@@ -35,6 +35,7 @@ bool ModuleLevelTransition::Init() {
 	trans.speed = 0.15f;
 
 	string_2 = (char*)calloc(strlen(string_1), sizeof(char));
+	string_4 = (char*)calloc(strlen(string_3), sizeof(char));
 	return true;
 }
 
@@ -65,13 +66,20 @@ update_status ModuleLevelTransition::Update() {
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0);
 
 	string_2[actual] = string_1[actual];
-	App->fonts->BlitText(15, 60, font_white, string_2);
+	App->fonts->BlitText(5, 60, font_white, string_2);
 	
 	if (actual < strlen(string_1)) 
 	{
 		actual++;
 	}
+	string_4[actual_2] = string_3[actual_2];
 
+	App->fonts->BlitText(5, 80, font_white, string_4);
+
+	if (actual_2 < strlen(string_3))
+	{
+		actual_2++;
+	}
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 
 }
