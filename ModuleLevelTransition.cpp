@@ -10,6 +10,7 @@
 #include "ModuleFonts.h"
 #include"ModuleLevel3.h"
 #include "ModuleLevel4.h"
+#include "SDL/include/SDL_timer.h"
 
 
 
@@ -32,10 +33,12 @@ bool ModuleLevelTransition::Init() {
 	trans.PushBack({ 250,0, 224, 256 });
 	trans.PushBack({ 500,0, 224, 256 });
 	trans.loop = true;
-	trans.speed = 0.15f;
+	trans.speed = 0.01f;
 
 	string_2 = (char*)calloc(strlen(string_1), sizeof(char));
 	string_4 = (char*)calloc(strlen(string_3), sizeof(char));
+
+	timer = SDL_GetTicks();
 	return true;
 }
 
@@ -48,13 +51,13 @@ bool ModuleLevelTransition::Start() {
 	
 	if (background_graphics == nullptr)
 		ret = false;
-
+	
 	return ret;
 }
 
 update_status ModuleLevelTransition::PreUpdate() {
 	
-	App->fade->FadeToBlack(this, App->level_4, 3.0f);
+	App->fade->FadeToBlack(this, App->level_4, 40);
 
 
 	return UPDATE_CONTINUE;
@@ -65,21 +68,28 @@ update_status ModuleLevelTransition::Update() {
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0);
 
+
 	string_2[actual] = string_1[actual];
 	App->fonts->BlitText(5, 60, font_white, string_2);
 	
-	if (actual < strlen(string_1)) 
+	if (SDL_GetTicks() >= timer + 100)
 	{
-		actual++;
+		if (actual < strlen(string_1))
+		{
+			actual++;
+		}
+		else if (actual_2 < strlen(string_3))
+		{
+			actual_2++;
+		}
+		timer = SDL_GetTicks();
 	}
 	string_4[actual_2] = string_3[actual_2];
-
-	App->fonts->BlitText(5, 80, font_white, string_4);
-
-	if (actual_2 < strlen(string_3))
+	if (actual >= strlen(string_1))
 	{
-		actual_2++;
+		App->fonts->BlitText(5, 80, font_white, string_4);
 	}
+	
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 
 }

@@ -24,6 +24,7 @@ private:
 	char* string_4;
 	int actual = 0;
 	int actual_2 = 0;
+	int timer = 0;
 public:
 	bool Init();
 	bool Start();
