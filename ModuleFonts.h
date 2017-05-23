@@ -3,10 +3,10 @@
 
 #include "Module.h"
 #include "SDL\include\SDL_pixels.h"
+#include "ModuleInterface.h"
 
 #define MAX_FONTS 60
 #define MAX_FONT_CHARS 256
-#define MAX_DRAW_PETITIONS 128
 
 struct SDL_Texture;
 
@@ -19,12 +19,6 @@ struct Font
 	const char* path;
 };
 
-struct DrawPetition {
-	int fontID,
-		x, y;
-	const char* text;
-};
-
 class ModuleFonts : public Module
 {
 public:
@@ -35,14 +29,12 @@ public:
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1, uint margin = 0, uint spacing = 0);
 	void UnLoad(int font_id);
-	void DrawInterface(int x, int y, int bmp_font_id, const char* text);
+	void DrawInterface(Label* label);
 
 	// Create a surface from text
-	void BlitText(int x, int y, int bmp_font_id, const char* text) const;
-	update_status Update();
+	void BlitText(Label* label) const;
 
 private:
-	DrawPetition* petitions[MAX_DRAW_PETITIONS];
 	Font	 fonts[MAX_FONTS];
 };
 
