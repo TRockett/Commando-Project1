@@ -49,6 +49,11 @@ bool ModuleLevel4::Start() {
 	{
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 320, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 300, 270, 1);
+
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 830, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 770, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 720, 270, 1);
+		
 		
 	}
 
