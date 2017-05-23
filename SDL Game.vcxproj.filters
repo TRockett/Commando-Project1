@@ -125,6 +125,9 @@
     <ClInclude Include="ModuleLevelTransition.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyTower.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -222,6 +225,9 @@
     </ClCompile>
     <ClCompile Include="ModuleLevelTransition.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTower.cpp">
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -78,6 +78,7 @@
     <ClInclude Include="EnemyLeft.h" />
     <ClInclude Include="EnemyMortar.h" />
     <ClInclude Include="EnemyMoto.h" />
+    <ClInclude Include="EnemyTower.h" />
     <ClInclude Include="EnemyTruck.h" />
     <ClInclude Include="EnemyVehicles.h" />
     <ClInclude Include="Enemywprisoner.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="EnemyLeft.cpp" />
     <ClCompile Include="EnemyMortar.cpp" />
     <ClCompile Include="EnemyMoto.cpp" />
+    <ClCompile Include="EnemyTower.cpp" />
     <ClCompile Include="EnemyTruck.cpp" />
     <ClCompile Include="EnemyVehicles.cpp" />
     <ClCompile Include="Enemywprisoner.cpp" />

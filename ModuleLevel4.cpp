@@ -49,7 +49,7 @@ bool ModuleLevel4::Start() {
 	{
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 320, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 300, 270, 1);
-		
+		App->enemies->AddEnemy(ENEMY_TOWER, 210, 618, 0, 0);
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
