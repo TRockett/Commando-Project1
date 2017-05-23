@@ -376,7 +376,7 @@ update_status ModulePlayer::Update()
 	else if (App->level == 3) 
 	{
 		App->render->Blit(graphics, 96, 942, &bridge.GetCurrentFrame().rect);
-		App->render->Blit(graphics, 96, 975, &bridge2.GetCurrentFrame().rect);
+		App->render->Blit(graphics, 96, 974, &bridge2.GetCurrentFrame().rect);
 	}
 	return UPDATE_CONTINUE;
 }

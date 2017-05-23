@@ -134,10 +134,6 @@ void EnemyVehicles::Move()
 				movement.Reset();
 			}
 		}
-		
-		
-
-		
 	}	
 	else if (sub_type == 4)
 	{
