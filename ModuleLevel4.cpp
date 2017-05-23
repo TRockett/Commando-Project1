@@ -47,6 +47,8 @@ bool ModuleLevel4::Start() {
 	//ADD ENEMIES
 	if (App->level == 4)
 	{
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 320, 270, 1);
+		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 300, 270, 1);
 		
 	}
 

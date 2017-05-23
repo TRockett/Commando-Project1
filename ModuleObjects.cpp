@@ -477,6 +477,22 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, 30, 70, &mortar_right4.GetCurrentFrame().rect);
 		}
 	}
+	else if (App->level == 4)
+	{
+		App->render->Blit(sprite_graphics, 200, 1690, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 50, 1320, &box2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 62, 910, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 174, 676, &box.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 200, 366, &box3.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 18, 1471, &tree1.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 130, 1423, &tree1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 145, 1410, &tree1.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 159, 1423, &tree2.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 162, 958, &tree1.GetCurrentFrame().rect);
+
+	}
 	else if (App->level == 1)
 	{
 		App->render->Blit(sprite_graphics, 208, 128 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
