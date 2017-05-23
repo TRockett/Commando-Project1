@@ -15,6 +15,7 @@
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
 #include "EnemyVehicles.h"
+#include "ModuleLevelTransition.h"
 
 
 
@@ -151,6 +152,11 @@ update_status ModuleLevel3::Update() {
 			App->player->final_anim = 1;
 		}
 	}
+
+	if (App->player->final_anim == 3)
+	{
+		this->Disable();
+	}
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
 
@@ -168,6 +174,11 @@ update_status ModuleLevel3::PostUpdate() {
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 103, 8, font_white, score_text);
 	App->fonts->BlitText(SCREEN_WIDTH / 2 - 15, 8, font_white, "50000");
 
+	if (App->player->final_anim == 3)
+	{
+		App->fade->FadeToBlack(this, App->transition, 1.0f);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -182,6 +193,7 @@ bool ModuleLevel3::CleanUp() {
 	App->particles->Disable();
 	App->fonts->Disable();
 	ret = App->textures->Unload(background_graphics);
+	
 
 	return ret;
 }
