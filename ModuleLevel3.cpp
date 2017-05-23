@@ -80,9 +80,9 @@ bool ModuleLevel3::Start() {
 		
 		App->enemies->AddEnemy(COMMANDER, SCREEN_WIDTH / 2, 5, 0, 1);
 
-		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 62, 0, 0);
+		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 60, 0, 2);
 
-		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 62, 0, 0);
+		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 60, 0, 1);
 
 		App->enemies->AddEnemy(LEFT_WEAPON, 0, 915, 0, 3);
 		App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 4);
