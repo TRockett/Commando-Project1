@@ -177,6 +177,7 @@ update_status ModuleLevel3::PostUpdate() {
 	if (App->player->final_anim == 3)
 	{
 		App->fade->FadeToBlack(this, App->transition, 1.0f);
+		App->player->final_anim = 0;
 	}
 
 	return UPDATE_CONTINUE;

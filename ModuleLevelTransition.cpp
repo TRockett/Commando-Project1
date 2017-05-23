@@ -57,7 +57,7 @@ bool ModuleLevelTransition::Start() {
 
 update_status ModuleLevelTransition::PreUpdate() {
 	
-	App->fade->FadeToBlack(this, App->level_4, 40);
+	App->fade->FadeToBlack(this, App->level_4, 8);
 
 
 	return UPDATE_CONTINUE;
