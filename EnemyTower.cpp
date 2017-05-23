@@ -12,39 +12,70 @@ EnemyTower::EnemyTower(int x, int y, int angle, int sub_type) : Enemy(x, y, angl
 	anim2.PushBack({ 152,144,14,14 });
 	anim3.PushBack({ 168,144,16,15 });
 	anim4.PushBack({ 185,144,16,15 });
+
+	anim_right.PushBack({ 151,128,15,16 });
+	anim_right2.PushBack({ 168,128,14,14 });
+	anim_right3.PushBack({ 185,128,16,13 });
 	
-	collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_NONE, App->enemies);
+	if (sub_type == 1)
+	{
+		collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_NONE, App->enemies);
+	}
+	else
+	{
+		collider = App->collision->AddCollider({ 0, 0, 15, 23 }, COLLIDER_ENEMY, App->enemies);
+	}
 }
 
 void EnemyTower::Move()
 {
 	iPoint player_pos = App->player->GetPosition();
+	if (sub_type == 1)
+	{
+		if (player_pos.x < SCREEN_WIDTH / 4 || player_pos.y >= position.y)
+		{
+			animation = &anim1;
+			shooting_position.x = 0;
+			shooting_position.y = 13;
+		}
+		else if (player_pos.x >= SCREEN_WIDTH / 4 && player_pos.x < ((SCREEN_WIDTH / 4) * 2))
+		{
+			animation = &anim2;
+			shooting_position.x = 0;
+			shooting_position.y = 14;
+		}
+		else if (player_pos.x >= ((SCREEN_WIDTH / 4) * 2) / 4 && player_pos.x < ((SCREEN_WIDTH / 4) * 3))
+		{
+			animation = &anim3;
+			shooting_position.x = 5;
+			shooting_position.y = 15;
+		}
+		else if (player_pos.x >= ((SCREEN_WIDTH / 4) * 3) / 4 && player_pos.x < SCREEN_WIDTH)
+		{
+			animation = &anim4;
+			shooting_position.x = 7;
+			shooting_position.y = 15;
+		}
+	}
+	else
+	{
+		if (player_pos.x < position.x - 40)
+		{
+			animation = &anim_right;
+		}
+		else if (player_pos.x < position.x - 20 && player_pos.x >= position.x - 40)
+		{
+			animation = &anim_right2;
+		}
+		else if (player_pos.x >= position.x - 20 && player_pos.x < position.x - 20)
+		{
+			animation = &anim_right3;
+		}
+		else if (player_pos.x < position.x + 20)
+		{
 
-	if (player_pos.x < SCREEN_WIDTH / 4)
-	{
-		animation = &anim1;
-		shooting_position.x = 0;
-		shooting_position.y = 13;
+		}
 	}
-	else if (player_pos.x >= SCREEN_WIDTH / 4 && player_pos.x < ((SCREEN_WIDTH / 4) * 2))
-	{
-		animation = &anim2;
-		shooting_position.x = 0;
-		shooting_position.y = 14;
-	}
-	else if (player_pos.x >= ((SCREEN_WIDTH / 4) * 2) / 4 && player_pos.x < ((SCREEN_WIDTH / 4) * 3))
-	{
-		animation = &anim3;
-		shooting_position.x = 5;
-		shooting_position.y = 15;
-	}
-	else if (player_pos.x >= ((SCREEN_WIDTH / 4) * 3) / 4 && player_pos.x <SCREEN_WIDTH)
-	{
-		animation = &anim4;
-		shooting_position.x = 7;
-		shooting_position.y = 15;
-	}
-
 	if (SDL_GetTicks() >= timer + 800)
 	{
 		float deltaX = -position.x + player_pos.x;
