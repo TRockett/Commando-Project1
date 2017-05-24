@@ -92,6 +92,15 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	throwing.loop = false;
 	throwing.speed = 0.1f;
 
+	anim1.PushBack({ 134,143 ,16,13 });
+	anim2.PushBack({ 152,143,14,14 });
+	anim3.PushBack({ 168,143,16,15 });
+	anim4.PushBack({ 185,143,16,15 });
+
+	anim_right.PushBack({ 151,128,15,16 });
+	anim_right2.PushBack({ 168,128,14,14 });
+	anim_right3.PushBack({ 185,128,16,13 });
+
 	//death
 	death.PushBack({ 0, 459, 15, 14 });
 
@@ -134,7 +143,7 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 		movement.PushBack({ 1,0 }, 100);
 		movement.loop = false;
 	}
-	else
+	else if (sub_type  != 6)
 	{
 		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 20);
 	}
@@ -231,7 +240,7 @@ void EnemyGrenade::Move()
 			}
 
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+			movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 		}
 		else if (sub_type == 3)
 		{
@@ -262,7 +271,7 @@ void EnemyGrenade::Move()
 			}
 
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+			movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 		}
 		else if (sub_type == 4)
 		{
@@ -287,7 +296,73 @@ void EnemyGrenade::Move()
 				
 			}
 		}
+		else if (sub_type == 6)
+		{
+			if (player_pos.x < position.x - 50)
+			{
+				animation = &anim1;
+				shooting_position.x = 0;
+				shooting_position.y = 13;
+			}
+			else if (player_pos.x < position.x - 50 && player_pos.x >= position.x - 30)
+			{
+				animation = &anim2;
+				shooting_position.x = 0;
+				shooting_position.y = 14;
+			}
+			else if (player_pos.x >= position.x - 30 && player_pos.x < position.x - 10)
+			{
+				animation = &anim3;
+				shooting_position.x = 5;
+				shooting_position.y = 15;
+			}
+			else if (player_pos.x >= position.x - 10 && player_pos.x < position.x + 10)
+			{
+				animation = &anim4;
+				shooting_position.x = 7;
+				shooting_position.y = 15;
+			}
+			else if (player_pos.x >= position.x + 10 && player_pos.x < position.x + 30)
+			{
+				animation = &anim_right;
+				shooting_position.x = 11;
+				shooting_position.y = 15;
+			}
+			else if (player_pos.x >= position.x + 30 && player_pos.x < position.x + 50)
+			{
+				animation = &anim_right2;
+				shooting_position.x = 12;
+				shooting_position.y = 14;
+			}
+			else if (player_pos.x >= position.x + 50)
+			{
+				animation = &anim_right3;
+				shooting_position.x = 14;
+				shooting_position.y = 15;
+			}
+		}
+		if (SDL_GetTicks() >= timer + 800)
+		{
+			float deltaX = -position.x + player_pos.x;
+			float deltaY = -position.y + player_pos.y;
+			float angle = atan2f(deltaY, deltaX);
+			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
+			App->particles->bullet.speed = { (float)(normalised_v.x * 1.2f), (float)(normalised_v.y * 1.2f) };
+			App->particles->bullet.life = 2000;
+			App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+			timer = SDL_GetTicks();
+		}
+		
+		if (player_pos.y <= position.y + 80)
+		{
+			
+			sub_type = 2;
+			current_angle = 130;
+			movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 100);
+			animation = GetAnimationForDirection(current_angle);
+		}
 	}
 		
 
