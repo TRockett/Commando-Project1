@@ -127,7 +127,7 @@ bool ModuleObjects::Init() {
 	bunker_house.PushBack({ 910, 200, 10, 30 });
 	bunker_house.PushBack({ 925, 200, 11, 30 });
 	bunker_house.PushBack({ 941, 200, 12, 30 });
-	bunker_house.loop = true;
+	bunker_house.loop =false;
 	bunker_house.speed = 0.5f;
 
 
@@ -340,6 +340,59 @@ bool ModuleObjects::Start() {
 		boxes[2] = App->collision->AddCollider({ 30, 274, 20, 16 }, COLLIDER_BOX, this);
 		boxes[3] = App->collision->AddCollider({ 195, 900, 21, 17 }, COLLIDER_BOX, this);
 		boxes[4] = App->collision->AddCollider({ 200, 212, 11, 10 }, COLLIDER_BOX, this);
+	}
+	else if (App->level == 4)
+	{
+		//Colliders of the cliffs at the beginning of the fourth level
+
+		//1st
+		App->collision->AddCollider({ 0, 1873, 143, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 194, 1873, 62, 40 }, COLLIDER_WALL);
+
+		//2nd
+		App->collision->AddCollider({ 0, 1744, 109, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 162, 1744, 94, 40 }, COLLIDER_WALL);
+
+		//3rd
+		App->collision->AddCollider({ 0, 1552, 62, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 115, 1552, 142, 40 }, COLLIDER_WALL);
+
+		//Colliders of tree palms
+
+		App->collision->AddCollider({ 33, 1494 , 5, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 145, 1446 , 5, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 170, 1446 , 5, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 161, 1439 , 5, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 177, 1194 , 5, 14 }, COLLIDER_WALL);
+
+		//Colliders of the airplane
+		App->collision->AddCollider({ 214, 1494 , 26, 57 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 199, 1226 , 13, 27 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 194, 1254 , 8, 6 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 199, 1188 , 14, 13 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 197, 1184 , 5, 3 }, COLLIDER_WALL);
+
+		//Colliders of the tree group 
+		App->collision->AddCollider({ 16, 895 , 32, 55 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 49, 903 , 13, 27 }, COLLIDER_WALL);
+
+		//Colliders of the headquarter (final boss)
+		App->collision->AddCollider({ 28, 65 , 70, 39 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 99, 76 , 60, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 159, 65 , 70, 39 }, COLLIDER_WALL);
+
+		//Colliders of the 2 bunker tents
+
+		//1st (rigt side of the level)
+		App->collision->AddCollider({ 179, 1042 , 2, 13 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 201, 1055 , 24, 20 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 205, 1077 , 10, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 224, 1015 , 16, 54 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 189, 1061 , 10, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 185, 1035 , 39, 11 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 201, 1028 , 17, 3 }, COLLIDER_WALL);
+
+
 	}
 	else if (App->level == 3)
 	{
