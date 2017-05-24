@@ -102,6 +102,33 @@ bool ModuleObjects::Init() {
 	door_bunker_left3 = door_bunker_left;
 
 	//Bunker house of level 4 animation
+	bunker_house.PushBack({ 941, 200, 12, 30 });
+	bunker_house.PushBack({ 925, 200, 11, 30 });
+	bunker_house.PushBack({ 910, 200, 10, 30 });
+	bunker_house.PushBack({ 895, 200, 9, 30 });
+	bunker_house.PushBack({ 882, 200, 8, 30 });
+	bunker_house.PushBack({ 871, 200, 7, 30 });
+	bunker_house.PushBack({ 860, 200, 6, 30 });
+	bunker_house.PushBack({ 850, 200, 5, 30 });
+	bunker_house.PushBack({ 841, 200, 4, 30 });
+	bunker_house.PushBack({ 833, 200, 3, 30 });
+	bunker_house.PushBack({ 826, 200, 2, 30 });
+	bunker_house.PushBack({ 820, 200, 1, 30 });
+	bunker_house.PushBack({ 819, 200, 1, 30 });
+	bunker_house.PushBack({ 820, 200, 1, 30 });
+	bunker_house.PushBack({ 826, 200, 2, 30 });
+	bunker_house.PushBack({ 833, 200, 3, 30 });
+	bunker_house.PushBack({ 841, 200, 4, 30 });
+	bunker_house.PushBack({ 850, 200, 5, 30 });
+	bunker_house.PushBack({ 860, 200, 6, 30 });
+	bunker_house.PushBack({ 871, 200, 7, 30 });
+	bunker_house.PushBack({ 882, 200, 8, 30 });
+	bunker_house.PushBack({ 895, 200, 9, 30 });
+	bunker_house.PushBack({ 910, 200, 10, 30 });
+	bunker_house.PushBack({ 925, 200, 11, 30 });
+	bunker_house.PushBack({ 941, 200, 12, 30 });
+	bunker_house.loop = true;
+	bunker_house.speed = 0.5f;
 
 
 	//Trinxera
@@ -523,7 +550,7 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 159, 1423, &tree2.GetCurrentFrame().rect);
 
 		App->render->Blit(sprite_graphics, 162, 958, &tree1.GetCurrentFrame().rect);
-
+		App->render->Blit(sprite_graphics, 59, 470, &bunker_house.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 16, 1375, &trinxera.GetCurrentFrame().rect);
 
 	}
