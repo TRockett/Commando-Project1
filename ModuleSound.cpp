@@ -16,14 +16,12 @@ ModuleSound::~ModuleSound()
 }
 
 bool ModuleSound::Init() {
-	int init = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
-	bool ret = true;
-	if (init < 0)
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0)
 	{
 		LOG("Could not initialize Sound lib. Mix_Init: %s", Mix_GetError());
-		ret = false;
+		return false;
 	}
-	return ret;
+	return true;
 }
 
 update_status ModuleSound::PreUpdate() {
