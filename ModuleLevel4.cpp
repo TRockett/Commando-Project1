@@ -61,6 +61,26 @@ bool ModuleLevel4::Start() {
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 830, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 770, 270, 1);
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 720, 270, 1);
+
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 1845, 90, 475, 1, 0, nullptr,0, 15);
+		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1845, 300, 250, 1, 0 ,nullptr,0 , 15);
+
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 1810, 90, 250, 1, 0, nullptr, 0, 10);
+		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1810, 310, 480, 1, 0, nullptr, 0, 10);
+
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 1790, 90, 485, 1, 0, nullptr, 0, 15);
+		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1790, 270, 250, 1, 0, nullptr, 0, 15);
+
+
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 1720, 90, 290, 1, 0, nullptr, 0, 20);
+		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1720, 270, 450, 1, 0, nullptr, 0, 20);
+
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 1660, 90, 355, 1, 0, nullptr, 0, 20);
+		App->enemies->AddSpawner(ENEMY_BAZOOKA, SCREEN_WIDTH, 1660, 270, 250, 1, 0, nullptr, 0, 20);
+
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 1530, 90, 200, 1, 0, nullptr, 0, 10);
+		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1530, 270, 250, 1, 0, nullptr, 0, 15);
+
 		
 	}
 
@@ -109,6 +129,7 @@ update_status ModuleLevel4::PreUpdate() {
 
 update_status ModuleLevel4::Update() {
 	bool ret = true;
+
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 

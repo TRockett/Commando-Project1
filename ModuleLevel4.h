@@ -27,7 +27,8 @@ public:
 		bool CleanUp();
 		void onFadeInEnd();
 
-
+private:
+	int timer1 = 0;
 	};
 
 #endif
