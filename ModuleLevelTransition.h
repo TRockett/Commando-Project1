@@ -20,7 +20,7 @@ private:
 	SDL_Texture* background_graphics;
 	int font_red, font_white;
 	Animation trans;
-	char* string_1 = "BROKE THE 3RD AREA\nNOW RUSH TO THE LAST AREA";
+	const char* string_1 = "BROKE THE 3RD AREA\nNOW RUSH TO THE LAST AREA";
 	char* new_str = "";
 	Label* label;
 	
