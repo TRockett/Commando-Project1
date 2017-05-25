@@ -36,6 +36,8 @@ bool ModuleLevel3::Start() {
 	screen_enemies = 0;
 	bool ret = true;
 	restart = false;
+	global = false;
+	global_on = true;
 	App->level = 3;
 	App->current_scene = this;
 	intro = false;
@@ -182,6 +184,16 @@ update_status ModuleLevel3::Update() {
 
 	grenade_label->setString(grenade_str.c_str());
 	score_label->setString(score_text);
+
+	if (App->player->position.y <= 675)
+	{
+		global = true;	
+	}
+	if (global == true && global_on == true)
+	{
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+		global_on = true;
+	}
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
