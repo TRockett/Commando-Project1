@@ -14,6 +14,7 @@ class ModuleLevel3 :
 {
 private:
 	int timer;
+	int timer2;
 	bool spawning;
 	int counter;
 public:

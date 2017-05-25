@@ -145,7 +145,7 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y,
 	}
 	else if (sub_type  != 6)
 	{
-		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 20);
+		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 50);
 	}
 	animation = &e1_forward;
 	
@@ -340,29 +340,29 @@ void EnemyGrenade::Move()
 				shooting_position.x = 14;
 				shooting_position.y = 15;
 			}
-		}
-		if (SDL_GetTicks() >= timer + 800)
-		{
-			float deltaX = -position.x + player_pos.x;
-			float deltaY = -position.y + player_pos.y;
-			float angle = atan2f(deltaY, deltaX);
-			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
-			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
+			if (SDL_GetTicks() >= timer + 800)
+			{
+				float deltaX = -position.x + player_pos.x;
+				float deltaY = -position.y + player_pos.y;
+				float angle = atan2f(deltaY, deltaX);
+				float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
+				fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
-			App->particles->bullet.speed = { (float)(normalised_v.x * 1.2f), (float)(normalised_v.y * 1.2f) };
-			App->particles->bullet.life = 2000;
-			App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
-			timer = SDL_GetTicks();
-		}
-		
-		if (player_pos.y <= position.y + 80)
-		{
-			
-			sub_type = 2;
-			current_angle = 130;
-			movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 100);
-			animation = GetAnimationForDirection(current_angle);
-		}
+				App->particles->bullet.speed = { (float)(normalised_v.x * 1.2f), (float)(normalised_v.y * 1.2f) };
+				App->particles->bullet.life = 2000;
+				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
+				timer = SDL_GetTicks();
+			}
+
+			if (player_pos.y <= position.y + 80)
+			{
+
+				sub_type = 2;
+				current_angle = 130;
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 100);
+				animation = GetAnimationForDirection(current_angle);
+			}
+		}	
 	}
 		
 
