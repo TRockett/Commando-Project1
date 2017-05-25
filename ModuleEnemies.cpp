@@ -84,7 +84,7 @@ update_status ModuleEnemies::PreUpdate()
 					int dx = (int)(ran * spawners[i]->absolute_deviation.x * pos);
 					pos = (rand() % 9 > 4 ? -1 : 1);
 					ran = ((float)(rand() % 9 + 1) / 10);
-					int dy = (int)(ran * spawners[i]->absolute_deviation.x * pos);
+					int dy = (int)(ran * spawners[i]->absolute_deviation.y * pos);
 					iPoint deviation = { dx, dy };
 					spawners[i]->info.pos = spawners[i]->pos + deviation;
 					Animation* anim = spawners[i]->anim_triggered;
