@@ -84,8 +84,8 @@ bool ModuleLevel3::Start() {
 
 		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 60, 0, 1);
 
-		App->enemies->AddEnemy(LEFT_WEAPON, 0, 915, 0, 3);
-		App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 4);
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 915, 0, 50, 3,0);
+		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 50, 4, 0);
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
