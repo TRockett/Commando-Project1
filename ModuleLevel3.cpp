@@ -87,7 +87,12 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddSpawner(LEFT_WEAPON, 0, 915, 0, 200, 3,0);
 		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 200, 4, 0);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1455, 270, 300,1,0);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 0,1860, 90, 50,1,0, nullptr, 0 , 80);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0,1950, 90, 75,1,0, nullptr, 0 , 50);
+		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1800, 270, 80,1,0,nullptr,0, 60);
+		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1325, 270, 220,1,0,nullptr, 0 , 25);
+		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 825, 270, 200,1,0 ,nullptr,0, 75);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 825, 90,50, 1,0,nullptr,0, 75);
+
 	}
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
@@ -161,31 +166,7 @@ update_status ModuleLevel3::Update() {
 			App->player->final_anim = 1;
 		}
 	}
-	//if (timer2 + 3000 < SDL_GetTicks())
-	//{
-	//	App->enemies->AddEnemy(ENEMY_GRENADE, 0, ((rand() % 80)+ 1860), 90, 1);
-	//	timer2 = SDL_GetTicks();
-	//}
-	//if (timer3 + 3000 < SDL_GetTicks())
-	//{
-	//	App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH, ((rand() % 120) + 1740), 270, 1);
-	//	timer3 = SDL_GetTicks();
-	//}
-	//if (timer4 + 3000 < SDL_GetTicks())
-	//{
-	//	App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH, ((rand() % 80) + 1300), 270, 1);
-	//	timer4 = SDL_GetTicks();
-	//}
-	//if (timer5 + 2900 < SDL_GetTicks())
-	//{
-	//	App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH, ((rand() % 150) + 750), 270, 1);
-	//	timer5 = SDL_GetTicks();
-	//}
-	//if (timer6 + 2800 < SDL_GetTicks())
-	//{
-	//	App->enemies->AddEnemy(ENEMY_GRENADE, 0, ((rand() % 150) + 750), 90, 1);
-	//	timer6 = SDL_GetTicks();
-	//}
+
 
 	if (App->player->final_anim == 3)
 	{
