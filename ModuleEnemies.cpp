@@ -260,7 +260,7 @@ bool ModuleEnemies::EraseEnemy(Enemy* enemy) {
 	return false;
 }
 
-bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type, bool global, Animation* anim_triggered) {
+bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type, bool global, Animation* anim_triggered, int abs_x, int abs_y) {
 	bool ret = false;
 
 	for (uint i = 0; i < MAX_SPAWNERS; ++i)
@@ -274,7 +274,7 @@ bool ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int del
 			spawners[i]->info.sub_type = sub_type;
 			spawners[i]->pos = { x, y };
 			spawners[i]->delay_frames = delay;
-			spawners[i]->absolute_deviation = { 0, 0 };
+			spawners[i]->absolute_deviation = { abs_x, abs_y };
 			spawners[i]->global = global;
 			spawners[i]->anim_triggered = anim_triggered;
 			ret = true;

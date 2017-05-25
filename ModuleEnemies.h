@@ -61,7 +61,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int sub_type);
-	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type = 0, bool global = false, Animation* anim_triggered = nullptr);
+	bool AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type = 0, bool global = false, Animation* anim_triggered = nullptr, int abs_x = 0, int abs_y = 0);
 	bool EraseEnemy(Enemy* enemy);
 
 private:
