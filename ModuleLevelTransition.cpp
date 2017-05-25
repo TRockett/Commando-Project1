@@ -32,7 +32,7 @@ bool ModuleLevelTransition::Init() {
 	trans.PushBack({ 678, 328, 32, 52 });
 	trans.PushBack({ 500, 0, 224, 256 });
 	trans.loop = true;
-	trans.speed = 0.015f;
+	trans.speed = 0.15f;
 
 	new_str = (char*)calloc(strlen(string_1), sizeof(char));
 	timer = SDL_GetTicks();
@@ -43,7 +43,7 @@ bool ModuleLevelTransition::Start() {
 	bool ret = true;
 	App->fonts->Enable();
 	App->interfac->Enable();
-	background_graphics = App->textures->Load("Images/sprites.png");
+	background_graphics = App->textures->Load("Images/trans.png");
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	
@@ -65,7 +65,7 @@ update_status ModuleLevelTransition::PreUpdate() {
 update_status ModuleLevelTransition::Update() {
 	bool ret = false;
 
-	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0);
+	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0.2f);
 	if (label != nullptr) {
 		//for (uint i = 0; i <= actual; i++)
 		new_str[actual] = string_1[actual];
@@ -77,7 +77,7 @@ update_status ModuleLevelTransition::Update() {
 		if (actual < strlen(string_1)) {
 			actual++;
 		}
-		else App->fade->FadeToBlack(this, App->level_4, 8);
+		else App->fade->FadeToBlack(this, App->level_4, 5);
 		timer = SDL_GetTicks();
 	}
 	
