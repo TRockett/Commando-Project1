@@ -15,6 +15,10 @@ class ModuleLevel3 :
 private:
 	int timer;
 	int timer2;
+	int timer3;
+	int timer4;
+	int timer5;
+	int timer6;
 	bool spawning;
 	int counter;
 public:
