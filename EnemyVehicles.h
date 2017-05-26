@@ -20,7 +20,7 @@ private:
 		bool move;
 
 	public:
-		EnemyVehicles(int x, int y, int angle, int sub_type);
+		EnemyVehicles(int x, int y, int angle, int sub_type, int isglobal);
 		void Move();
 		virtual ~EnemyVehicles();
 

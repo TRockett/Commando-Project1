@@ -6,7 +6,7 @@
 #include "ModuleEnemies.h"
 
 
-EnemyTower::EnemyTower(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyTower::EnemyTower(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 	anim1.PushBack({ 134,143 ,16,13 });
 	anim2.PushBack({ 152,143,14,14 });

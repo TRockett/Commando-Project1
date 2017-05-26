@@ -31,7 +31,7 @@ private:
 
 public:
 
-	Enemywprisoner(int x, int y, int angle, int sub_type);
+	Enemywprisoner(int x, int y, int angle, int sub_type, int isglobal);
 	virtual ~Enemywprisoner();
 	void Enemywprisoner::Move();
 

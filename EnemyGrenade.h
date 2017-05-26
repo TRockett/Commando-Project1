@@ -25,7 +25,7 @@ private:
 	Animation anim_right2;
 	Animation anim_right3;
 public:
-	EnemyGrenade(int x, int y, int angle, int sub_type);
+	EnemyGrenade(int x, int y, int angle, int sub_type, int isglobal);
 	virtual ~EnemyGrenade();
 
 	virtual void Move();

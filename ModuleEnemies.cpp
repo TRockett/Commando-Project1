@@ -194,38 +194,39 @@ bool ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch(info.type)
 		{
 			case ENEMY_TYPE::LEFT_WEAPON:
-				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyLeft(info.pos.x,info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::MOTO_TYPE:
-				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyMoto(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::ENEMY_GRENADE:
-				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyGrenade(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::MOTOLEVEL3:
-				enemies[i] = new EnemyVehicles(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyVehicles(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::COMMANDER:
-				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new Commander(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::ENEMY_BAZOOKA:
-				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyBazooka(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::ENEMY_MORTAR:
-				enemies[i] = new EnemyMortar(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyMortar(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::ENEMY_TRUCK:
-				enemies[i] = new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyTruck(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 			case ENEMY_TYPE::ENEMY_TOWER:
-				enemies[i] = new EnemyTower(info.pos.x, info.pos.y, info.angle, info.sub_type);
+				enemies[i] = new EnemyTower(info.pos.x, info.pos.y, info.angle, info.sub_type, info.isglobal);
 				break;
 				
 		}
 		Collider* col = enemies[i]->GetCollider();
 		col->rect.x = enemies[i]->position.x;
 		col->rect.y = enemies[i]->position.y;
-		if (App->collision->CheckCollisionForCollider(col)) {
+		
+		if (App->collision->CheckCollisionForCollider(col)&& enemies[i]->isglobal) {
 			EraseEnemy(enemies[i]);
 			return false;
 		}
@@ -271,11 +272,13 @@ EnemySpawner* ModuleEnemies::AddSpawner(ENEMY_TYPE type, int x, int y, int angle
 			spawners[i]->info.pos = { x, y };
 			spawners[i]->info.angle = angle;
 			spawners[i]->info.sub_type = sub_type;
+			spawners[i]->info.isglobal = global;
 			spawners[i]->pos = { x, y };
 			spawners[i]->delay_frames = delay;
 			spawners[i]->absolute_deviation = { abs_x, abs_y };
 			spawners[i]->global = global;
 			spawners[i]->anim_triggered = anim_triggered;
+
 			ret = spawners[i];
 			break;
 		}

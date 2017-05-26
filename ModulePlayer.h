@@ -102,6 +102,7 @@ private:
 	void waterCollision();
 	void enemyCollision();
 	void rotateShootingAngle();
+	void Final();
 
 	void Drown();
 

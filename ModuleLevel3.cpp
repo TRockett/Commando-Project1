@@ -149,10 +149,22 @@ update_status ModuleLevel3::Update() {
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
 	sprintf_s(score_text, 10, "%7d", score);
+
+	if (App->player->position.y <= 675)
+	{
+		global = true;
+	}
+	if (global == true && global_on == true)
+	{
+		//Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+		global_on = false;
+	}
+
 	if (App->player->position.y <= SCREEN_HEIGHT - 100)
 	{
 		if (spawning == false)
 		{
+			//Global->alive = false;
 			timer = SDL_GetTicks();
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
@@ -166,14 +178,12 @@ update_status ModuleLevel3::Update() {
 		else if (timer + 2000 < SDL_GetTicks() && App->player->final_anim == 0)
 		{
 			App->player->final_anim = 1;
+			App->enemies->Disable();
 		}
 	}
 
 
-	if (App->player->final_anim == 3)
-	{
-		this->Disable();
-	}
+
 
 	if (score > top_score)
 	{
@@ -185,15 +195,7 @@ update_status ModuleLevel3::Update() {
 	grenade_label->setString(grenade_str.c_str());
 	score_label->setString(score_text);
 
-	if (App->player->position.y <= 675)
-	{
-		global = true;	
-	}
-	if (global == true && global_on == true)
-	{
-		App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
-		global_on = true;
-	}
+	
 
 	return ret ? update_status::UPDATE_CONTINUE : update_status::UPDATE_ERROR;
 }
@@ -214,7 +216,6 @@ bool ModuleLevel3::CleanUp() {
 	App->sound->StopAll();
 	App->player->Disable();
 	App->collision->Disable();
-	App->enemies->Disable();
 	App->objects->Disable();
 	App->particles->Disable();
 	App->fonts->Disable();

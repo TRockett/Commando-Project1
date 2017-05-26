@@ -15,7 +15,7 @@ private:
 
 public:
 	
-	EnemyMoto(int x, int y, int angle, int sub_type);
+	EnemyMoto(int x, int y, int angle, int sub_type, int isglobal);
 	void Move();
 	virtual ~EnemyMoto();
 };

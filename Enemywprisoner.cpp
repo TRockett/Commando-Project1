@@ -5,7 +5,7 @@
 #include "ModulePlayer.h"
 #include "ModuleEnemies.h"
 
-Enemywprisoner::Enemywprisoner(int x, int y, int angle, int sub_type) : Enemy (x, y, angle, sub_type)
+Enemywprisoner::Enemywprisoner(int x, int y, int angle, int sub_type, int isglobal) : Enemy (x, y, angle, sub_type, isglobal)
 {
 	//soldier left
 

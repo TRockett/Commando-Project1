@@ -4,7 +4,7 @@ class EnemyTower :
 	public Enemy
 {
 public:
-	EnemyTower(int x, int y, int angle, int sub_type);
+	EnemyTower(int x, int y, int angle, int sub_type, int isglobal);
 	~EnemyTower();
 	virtual void Move();
 private:

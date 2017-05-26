@@ -6,7 +6,7 @@ class EnemyTruck :
 	public Enemy
 {
 public:
-	EnemyTruck(int x, int y, int angle, int sub_type);
+	EnemyTruck(int x, int y, int angle, int sub_type, int isglobal);
 	~EnemyTruck();
 
 	virtual void Move();

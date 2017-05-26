@@ -8,7 +8,7 @@
 #include "ModulePlayer.h"
 
 
-EnemyMortar::EnemyMortar(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyMortar::EnemyMortar(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 	mortar.PushBack({ 0,354,15,20 });
 	mortar.PushBack({ 17,354,15,20 });

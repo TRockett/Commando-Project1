@@ -35,11 +35,12 @@ public:
 	bool dead = false;
 	bool collision = false;
 	bool dying = false;
+	bool isglobal;
 	int direction;
 	iPoint shooting_position;
 
 public:
-	Enemy(int x, int y, int angle, int sub_type);
+	Enemy(int x, int y, int angle, int sub_type, int isglobal);
 	virtual ~Enemy();
 
 	Collider* GetCollider() const;

@@ -33,6 +33,7 @@ struct EnemyInfo
 	iPoint pos;
 	int angle;
 	int sub_type;
+	bool isglobal;
 };
 
 struct EnemySpawner {

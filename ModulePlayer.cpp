@@ -253,36 +253,8 @@ update_status ModulePlayer::Update()
 			}
 		}
 		else if (final_anim != 0)
-		{
-			if (final_anim == 1)
-			{
-				if (position.x >= (SCREEN_WIDTH/2) + 19 && position.x <= (SCREEN_WIDTH/2)+ 21)
-				{
-					final_anim = 2;
-				}
-				else if (position.x >= (SCREEN_WIDTH / 2)+20)
-				{
-					position.x = position.x - 0.5f;
-					current_animation = &left;
-				}
-				else if (position.x <= (SCREEN_WIDTH / 2)+20)
-				{
-					position.x = position.x + 0.5f;
-					current_animation = &right;
-				}
-
-				
-			}
-			else
-			{
-				position.y -= 0.5f;
-				current_animation = &forward;
-				if (position.y <= 0)
-				{
-					final_anim = 3;
-				}
-			}
-
+		{			
+			Final();
 		}
 		else 
 		{
@@ -628,6 +600,35 @@ void ModulePlayer::Drown() {
 		current_animation = &drown;
 		//if (current_animation->Finished())
 			current_animation->Reset();
+	}
+}
+void ModulePlayer::Final()
+{
+	if (final_anim == 1)
+	{
+		if (position.x >= (SCREEN_WIDTH / 2) + 19 && position.x <= (SCREEN_WIDTH / 2) + 21)
+		{
+			final_anim = 2;
+		}
+		else if (position.x >= (SCREEN_WIDTH / 2) + 20)
+		{
+			position.x = position.x - 0.5f;
+			current_animation = &left;
+		}
+		else if (position.x <= (SCREEN_WIDTH / 2) + 20)
+		{
+			position.x = position.x + 0.5f;
+			current_animation = &right;
+		}
+	}
+	else
+	{
+		position.y -= 0.5f;
+		current_animation = &forward;
+		if (position.y <= 0)
+		{
+			final_anim = 3;
+		}
 	}
 }
 

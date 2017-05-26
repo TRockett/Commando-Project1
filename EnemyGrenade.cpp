@@ -10,7 +10,7 @@
 
 
 
-EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type) : Enemy (x,y, angle, sub_type)
+EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type, int isglobal) : Enemy (x,y, angle, sub_type, isglobal)
 {// walk forward animation (arcade sprite sheet)
 
 	e1_forward.PushBack({ 0 + 148, 209, 13, 23 });

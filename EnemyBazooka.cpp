@@ -9,7 +9,7 @@
 #include "ModuleSceneGame.h"
 
 
-EnemyBazooka::EnemyBazooka(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyBazooka::EnemyBazooka(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type,isglobal)
 {
 	current_angle = angle;
 

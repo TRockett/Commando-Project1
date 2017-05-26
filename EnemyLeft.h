@@ -26,7 +26,7 @@ private:
 	iPoint shooting_position;
 
 public:
-	EnemyLeft(int x, int y, int angle, int sub_type);
+	EnemyLeft(int x, int y, int angle, int sub_type, int isglobal);
 
 	virtual ~EnemyLeft();
 	virtual void Move();

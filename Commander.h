@@ -7,7 +7,7 @@ class Commander :
 	public Enemy
 {
 public:
-	Commander(int x, int y, int angle, int sub_type);
+	Commander(int x, int y, int angle, int sub_type, int isglobal);
 	~Commander();
 
 	virtual void Move();

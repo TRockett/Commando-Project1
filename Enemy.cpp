@@ -7,7 +7,7 @@
 #include "ModuleSceneGame.h"
 #include <math.h>
 
-Enemy::Enemy(int x, int y, int angle, int sub_type) : position(x, y), initial_position(x, y), initial_angle(angle),sub_type(sub_type)
+Enemy::Enemy(int x, int y, int angle, int sub_type, int isglobal) : position(x, y), initial_position(x, y), initial_angle(angle),sub_type(sub_type),isglobal(isglobal)
 {}
 
 Enemy::~Enemy()

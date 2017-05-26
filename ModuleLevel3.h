@@ -18,6 +18,7 @@ private:
 	bool global_on;
 	bool spawning;
 	int counter;
+	//EnemySpawner* Global;
 public:
 	bool Start();
 	update_status PreUpdate();

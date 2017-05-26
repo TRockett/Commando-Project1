@@ -7,7 +7,7 @@
 #include "SDL/include/SDL_timer.h"
 #include "ModulePlayer.h"
 
-EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 
 	// walk forward animation (arcade sprite sheet)

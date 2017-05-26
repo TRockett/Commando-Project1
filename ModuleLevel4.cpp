@@ -53,8 +53,8 @@ bool ModuleLevel4::Start() {
 		App->enemies->AddEnemy(ENEMY_TOWER, 210, 618, 0, 1);
 		App->enemies->AddEnemy(ENEMY_TOWER, 57, 84, 0, 2);
 		App->enemies->AddEnemy(ENEMY_TOWER, 182, 84, 0, 2);
-		App->enemies->AddEnemy(ENEMY_TOWER, 100, 22, 0, 2);
-		App->enemies->AddEnemy(ENEMY_TOWER, 140, 22, 0, 2);
+		App->enemies->AddEnemy(ENEMY_TOWER, 100, 18, 0, 2);
+		App->enemies->AddEnemy(ENEMY_TOWER, 140, 18, 0, 2);
 		App->enemies->AddEnemy(ENEMY_GRENADE, 25, 1355, 0, 6);
 		App->enemies->AddEnemy(ENEMY_GRENADE, 50, 1355, 0, 6);
 

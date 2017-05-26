@@ -4,7 +4,7 @@ class EnemyMortar :
 	public Enemy
 {
 public:
-	EnemyMortar(int x, int y, int angle, int sub_type);
+	EnemyMortar(int x, int y, int angle, int sub_type, int isglobal);
 	~EnemyMortar();
 	virtual void Move();
 

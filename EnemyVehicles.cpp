@@ -6,7 +6,7 @@
 
 
 
-EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 	//truck
 	truck_riding.PushBack({1045,295,64,31});

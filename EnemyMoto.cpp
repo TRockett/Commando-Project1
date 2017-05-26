@@ -4,7 +4,7 @@
 #include "ModuleEnemies.h"
 
 
-EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type) : Enemy(x, y, angle, sub_type)
+EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 	//riding
 

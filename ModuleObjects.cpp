@@ -377,9 +377,9 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 49, 903 , 13, 27 }, COLLIDER_WALL);
 
 		//Colliders of the headquarter (final boss)
-		App->collision->AddCollider({ 28, 65 , 70, 39 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 28, 105 , 70, 5 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 99, 76 , 60, 4 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 159, 65 , 70, 39 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 159, 105 , 70, 5 }, COLLIDER_WALL);
 
 		//Colliders of the 2 bunker tents
 

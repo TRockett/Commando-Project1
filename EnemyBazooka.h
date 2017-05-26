@@ -7,7 +7,7 @@ class EnemyBazooka :
 	public Enemy
 {
 public:
-	EnemyBazooka(int x, int y, int angle, int sub_type);
+	EnemyBazooka(int x, int y, int angle, int sub_type, int isglobal);
 	~EnemyBazooka();
 
 	virtual void Move();
