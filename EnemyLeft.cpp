@@ -177,6 +177,7 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type, int isglobal) : Enem
 		movement.PushBack({ -1,0 }, 90);
 		movement.PushBack({ 0,1 }, 100);
 	}
+
 }
 
 

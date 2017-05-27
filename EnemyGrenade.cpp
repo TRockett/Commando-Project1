@@ -143,9 +143,16 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type, int isglobal)
 		movement.PushBack({ 1,0 }, 100);
 		movement.loop = false;
 	}
-	else if (sub_type  != 6)
+	else if (sub_type  == 6)
+	{		
+	}
+	else if (sub_type == 7)
 	{
 		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 50);
+	}
+	else
+	{
+		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 40);
 	}
 	animation = &e1_forward;
 	
@@ -174,8 +181,11 @@ void EnemyGrenade::Move()
 
 	if ((movement.Finished() || collision == true) && dead == false && dying == false)
 	{
-		movement.Clear();
-		movement.Reset();
+		if (sub_type != 7)
+		{
+			movement.Clear();
+			movement.Reset();
+		}
 
 		if (sub_type == 1)
 		{
@@ -363,6 +373,14 @@ void EnemyGrenade::Move()
 				animation = GetAnimationForDirection(current_angle);
 			}
 		}	
+		else if (sub_type == 7)
+		{
+			if (movement.Finished())
+			{
+				sub_type = 2;
+			}
+		}
+		collision = false;
 	}
 		
 

@@ -397,12 +397,12 @@ bool ModuleObjects::Start() {
 	else if (App->level == 3)
 	{
 
-		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1898, 45, 300, 2, false, &door_bunker1);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1834, 45, 200, 2, false, &door_bunker2);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1577, 45, 400, 2, false, &door_bunker3);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1449, 45, 330, 2, false, &door_bunker4);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1193, 45, 350, 2, false, &door_bunker5);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1257, 45, 280, 2, false, &door_bunker6);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1898, 45, 300, 7, false, &door_bunker1);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1834, 45, 200, 7, false, &door_bunker2);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1577, 45, 400, 7, false, &door_bunker3);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1449, 45, 330, 7, false, &door_bunker4);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1193, 45, 350, 7, false, &door_bunker5);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1257, 45, 280, 7, false, &door_bunker6);
 
 
 		//Colliders of the bridge
