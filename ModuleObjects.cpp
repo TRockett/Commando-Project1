@@ -404,6 +404,11 @@ bool ModuleObjects::Start() {
 		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1193, 45, 350, 7, false, &door_bunker5);
 		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1257, 45, 280, 7, false, &door_bunker6);
 
+		App->enemies->AddSpawner(ENEMY_GRENADE, 42, 1700, 325, 280, 7, false, &door_bunker_left1);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 170, 1700, 325, 280, 7, false, &door_bunker_left2);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 106, 1380, 325, 280, 7, false, &door_bunker_left3);
+
+
 
 		//Colliders of the bridge
 		App->collision->AddCollider({ 20, 942, 78, 77 }, COLLIDER_WALL);

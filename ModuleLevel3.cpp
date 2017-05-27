@@ -156,7 +156,7 @@ update_status ModuleLevel3::Update() {
 	}
 	if (global == true && global_on == true)
 	{
-		//Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+		App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
 		global_on = false;
 	}
 
@@ -164,7 +164,6 @@ update_status ModuleLevel3::Update() {
 	{
 		if (spawning == false)
 		{
-			//Global->alive = false;
 			timer = SDL_GetTicks();
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
