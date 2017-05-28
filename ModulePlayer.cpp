@@ -621,14 +621,28 @@ void ModulePlayer::Final()
 			current_animation = &right;
 		}
 	}
-	else
+	else if (final_anim == 2)
 	{
 		position.y -= 0.5f;
 		current_animation = &forward;
-		if (position.y <= 0)
+		
+		if (position.y <= 0 && App->level == 3)
 		{
 			final_anim = 3;
 		}
+		else if (position.y <= 81 && App->level == 4)
+		{
+			final_anim = 4;
+		}
+	}
+	else if (final_anim == 5)
+	{
+		if (position.y <= SCREEN_HEIGHT/2)
+		{
+			position.y += 0.5f;
+		}
+		else 
+		final_anim = 6;
 	}
 }
 

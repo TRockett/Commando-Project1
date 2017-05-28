@@ -40,11 +40,11 @@ bool ModuleObjects::Init() {
 	tree2.speed = 0.0f;
 
 	//Final door animation
-	final_door.PushBack({860, 0, 88, 43});
+	final_door.PushBack({ 860, 0, 88, 43 });
 	final_door.PushBack({ 962, 0, 87, 57 });
 	final_door.PushBack({ 962, 83, 96, 59 });
 	final_door.speed = 0;
-	final_door.loop =false ;
+	final_door.loop = false;
 
 	//Door of the bunkers of level 3 animation but left side
 	door_bunker_left.PushBack({ 596,196,12, 23 });
@@ -70,7 +70,7 @@ bool ModuleObjects::Init() {
 	door_bunker_left.speed = 0.2f;
 
 	//Door of the bunkers of level 3 animation
-	door_bunker.PushBack({630,196,12, 23});
+	door_bunker.PushBack({ 630,196,12, 23 });
 	door_bunker.PushBack({ 646,196,12, 22 });
 	door_bunker.PushBack({ 662,196,12, 20 });
 	door_bunker.PushBack({ 678,196,12, 18 });
@@ -127,33 +127,33 @@ bool ModuleObjects::Init() {
 	bunker_house.PushBack({ 910, 200, 10, 30 });
 	bunker_house.PushBack({ 925, 200, 11, 30 });
 	bunker_house.PushBack({ 941, 200, 12, 30 });
-	bunker_house.loop =false;
+	bunker_house.loop = false;
 	bunker_house.speed = 0.5f;
 
 
 	//Trinxera
-	trinxera.PushBack({353, 75, 77, 16});
+	trinxera.PushBack({ 353, 75, 77, 16 });
 
 	//Rock animation
 	rock.PushBack({ 825,83,28,11 });
 
 	//Rock after bridge 
-	rock2.PushBack({358, 0, 31, 17});
+	rock2.PushBack({ 358, 0, 31, 17 });
 
 	//box
-	box.PushBack({535, 0, 20, 16});
-	box.PushBack({535, 24, 20, 16});
+	box.PushBack({ 535, 0, 20, 16 });
+	box.PushBack({ 535, 24, 20, 16 });
 	box.speed = 0.04f;
 
 
 	//box side of the canon
-	box2.PushBack({471, 0, 21, 16});
+	box2.PushBack({ 471, 0, 21, 16 });
 	box2.PushBack({ 494 ,0, 21, 16 });
 	box2.speed = 0.04f;
 
 	//box individual
 	box3.PushBack({ 424, 0, 11, 10 });
-	box3.PushBack({ 439 ,0, 11, 10});
+	box3.PushBack({ 439 ,0, 11, 10 });
 	box3.speed = 0.04f;
 
 
@@ -164,17 +164,17 @@ bool ModuleObjects::Init() {
 	helix1.PushBack({ 857, 503, 42, 45 }, { 20,0 });
 	helix1.PushBack({ 865, 588, 26, 27 }, { 12, 27 });
 	helix1.PushBack({ 877, 393, 79, 21 }, { 0, 21 });
-	
+
 	helix1.loop = true;
 	helix1.speed = 0.25f;
-	
+
 	helicopter1.PushBack({ 710,440,64,82 }, { 31,0 });
 
 	helicopter2.PushBack({ 714,658,56,69 }, { 27,0 });
 
 	helicopter3.PushBack({ 799,914,48,55 }, { 23,0 });
 
-	
+
 	helix2.PushBack({ 861, 648, 32, 33 }, { 16,0 });
 	helix2.PushBack({ 868, 697, 20, 20 }, { 9,20 });
 	helix2.PushBack({ 875, 725, 65, 19 }, { 2,16 });
@@ -204,6 +204,16 @@ bool ModuleObjects::Init() {
 	mortar_left3.PushBack({ 167,392,14,16 });
 	mortar_left4.PushBack({ 182,392,14,15 });
 
+	bunker_fire.PushBack({ 81, 418,28,27, });
+	bunker_fire.PushBack({ 119, 418,28,29, });
+	bunker_fire.PushBack({ 158, 418,25,27, });
+	bunker_fire.PushBack({ 81, 418,28,27, });
+	bunker_fire.PushBack({ 119, 418,28,29, });
+	bunker_fire.PushBack({ 158, 418,25,27, });
+	bunker_fire.PushBack({ 81, 418,28,27, });
+	bunker_fire.PushBack({ 119, 418,28,29, });
+	bunker_fire.PushBack({ 158, 418,25,27, });
+	bunker_fire.speed = 0.05f;
 	return true;
 }
 
@@ -610,6 +620,16 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 162, 958, &tree1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 59, 470, &bunker_house.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 16, 1375, &trinxera.GetCurrentFrame().rect);
+
+		if (App->player->final_anim == 4)
+		{
+			App->render->Blit(sprite_graphics, 57, 74, &bunker_fire.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 182, 74, &bunker_fire.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 100, 8, &bunker_fire.GetCurrentFrame().rect);
+			App->render->Blit(sprite_graphics, 140, 8, &bunker_fire.GetCurrentFrame().rect);
+			if (bunker_fire.Finished())
+			App->player->final_anim = 5;
+		}
 
 	}
 	else if (App->level == 1)

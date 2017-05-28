@@ -66,7 +66,7 @@ private:
 	// level 4
 	Animation bunker_house;
 	Animation trinxera; // It can be also used in level 1
-
+	Animation bunker_fire;
 	Animation stones;
 	int timer; 
 
