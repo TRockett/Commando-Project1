@@ -18,3 +18,7 @@ void log(const char file[], int line, const char* format, ...)
 int clip(int value, int minimum, int maximum) {
 	return max(minimum, min(value, maximum));
 }
+
+float clip(float value, int minimum, int maximum) {
+	return max(minimum, min(value, maximum));
+}
