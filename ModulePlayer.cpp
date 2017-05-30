@@ -640,6 +640,7 @@ void ModulePlayer::Final()
 		if (position.y <= SCREEN_HEIGHT/2)
 		{
 			position.y += 0.5f;
+			current_animation = &backward;
 		}
 		else 
 		final_anim = 6;

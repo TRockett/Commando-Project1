@@ -354,7 +354,8 @@ bool ModuleObjects::Start() {
 	else if (App->level == 4)
 	{
 		//Colliders of the cliffs at the beginning of the fourth level
-
+		helipoint.x = SCREEN_WIDTH / 2;
+		helipoint.y = SCREEN_HEIGHT;
 		//1st
 		App->collision->AddCollider({ 0, 1873, 143, 40 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 194, 1873, 62, 40 }, COLLIDER_WALL);
@@ -628,8 +629,62 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, 100, 8, &bunker_fire.GetCurrentFrame().rect);
 			App->render->Blit(sprite_graphics, 140, 8, &bunker_fire.GetCurrentFrame().rect);
 			if (bunker_fire.Finished())
-			App->player->final_anim = 5;
+			{
+				App->player->final_anim = 5;
+			}		
 		}
+		else if (App->player->final_anim == 6)
+		{
+			App->render->Blit(sprite_graphics, SCREEN_WIDTH / 2 , helipoint.y, &helicopter1.GetCurrentFrame().rect);
+			helipoint.y -= 1;
+			if (helipoint.y <= (SCREEN_HEIGHT / 2))
+			{
+				App->player->final_anim = 7;
+			}
+		}
+		else if (App->player->final_anim == 7)
+		{
+			App->render->Blit(sprite_graphics, SCREEN_WIDTH / 2, helipoint.y, &helicopter1.GetCurrentFrame().rect);
+			helipoint.y = helipoint.y - reduction;
+			reduction = reduction - 0.02f;
+			App->player->Disable();
+			if (reduction <= 0)
+			{
+				App->player->final_anim = 8;
+				timer = SDL_GetTicks();
+
+			
+
+				helix->speed = 0.5f;
+			}
+		}
+		else if (App->player->final_anim == 8)
+		{
+		
+
+
+			if (timer + 500 >= SDL_GetTicks() )
+			{
+				helicopter = &helicopter2;
+				helix = &helix2;
+			}
+			else if (timer + 500 <= SDL_GetTicks()&& timer + 1500 >= SDL_GetTicks())
+			{
+				helicopter = &helicopter3;
+				helix = &helix3;
+			}
+			else
+			{
+				App->player->final_anim = 9;
+			}
+			AnimationFrame frame = helicopter->GetCurrentFrame();
+			AnimationFrame helixfr = helix->GetCurrentFrame();
+			iPoint pivot = frame.pivot;
+			iPoint pivot2 = helixfr.pivot;
+			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
+			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y - pivot2.y, &helixfr.rect);
+		}
+		
 
 	}
 	else if (App->level == 1)
