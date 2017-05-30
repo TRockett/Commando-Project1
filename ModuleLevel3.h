@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleSceneGame.h"
+#include "ModuleEnemies.h"
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -18,7 +19,7 @@ private:
 	bool global_on;
 	bool spawning;
 	int counter;
-	//EnemySpawner* Global;
+	EnemySpawner* Global;
 public:
 	bool Start();
 	update_status PreUpdate();

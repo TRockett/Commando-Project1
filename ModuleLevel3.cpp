@@ -94,6 +94,8 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1325, 270, 220,1,0,nullptr, 0 , 25);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 825, 270, 200,1,0 ,nullptr,0, 75);
 		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 825, 90,50, 1,0,nullptr,0, 75);
+		Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+		Global->active = false;
 
 	}
 
@@ -156,14 +158,16 @@ update_status ModuleLevel3::Update() {
 	}
 	if (global == true && global_on == true)
 	{
-		App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+		
 		global_on = false;
+		Global->active = true;
 	}
 
 	if (App->player->position.y <= SCREEN_HEIGHT - 100)
 	{
 		if (spawning == false)
 		{
+			Global->active = false;
 			timer = SDL_GetTicks();
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
