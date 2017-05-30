@@ -187,7 +187,7 @@ bool ModuleObjects::Init() {
 
 	helix3.PushBack({ 870, 900, 16, 17 }, {7, 17});
 	helix3.PushBack({ 866, 926, 24, 28 }, { 0,11 });
-	helix3.PushBack({ 876, 963, 53, 15 }, { 0,15 });
+	helix3.PushBack({ 876, 964, 53, 15 }, { 0,15 });
 	helix3.PushBack({ 811, 991, 71, 24 }, { 65,0 });
 	helix3.PushBack({ 873, 1020, 71, 24 }, { 4,0 });
 	helix3.PushBack({ 827, 1044, 53, 15 }, { 51,15 });
@@ -646,7 +646,7 @@ update_status ModuleObjects::Update() {
 			else  if (App->player->final_anim == 7)
 			{
 				helipoint.y = helipoint.y - reduction;
-				reduction = reduction - 0.02f;
+				reduction = reduction - 0.03f;
 				App->player->Disable();
 				if (reduction <= 0)
 				{
@@ -678,8 +678,8 @@ update_status ModuleObjects::Update() {
 			AnimationFrame helixfr = helix->GetCurrentFrame();
 			iPoint pivot = frame.pivot;
 			iPoint pivot2 = helixfr.pivot;
-			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
-			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y - pivot2.y, &helixfr.rect);
+			App->render->Blit(sprite_graphics, (SCREEN_WIDTH / 2) - pivot.x + 20, helipoint.y - pivot.y, &frame.rect);
+			App->render->Blit(sprite_graphics, (SCREEN_WIDTH / 2) - pivot2.x + 20, helipoint.y - pivot2.y, &helixfr.rect);
 		}
 
 	}
