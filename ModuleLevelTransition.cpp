@@ -28,11 +28,7 @@ ModuleLevelTransition::~ModuleLevelTransition()
 
 
 bool ModuleLevelTransition::Init() {
-	trans.PushBack({ 678, 380, 32, 52 });
-	trans.PushBack({ 678, 328, 32, 52 });
-	trans.PushBack({ 500, 0, 224, 256 });
-	trans.loop = true;
-	trans.speed = 0.15f;
+
 
 	new_str = (char*)calloc(strlen(string_1), sizeof(char));
 	timer = SDL_GetTicks();
@@ -40,10 +36,13 @@ bool ModuleLevelTransition::Init() {
 }
 
 bool ModuleLevelTransition::Start() {
+
+
+
 	bool ret = true;
 	App->fonts->Enable();
 	App->interfac->Enable();
-	background_graphics = App->textures->Load("Images/trans.png");
+	background_graphics = App->textures->Load("Images/trans2.png");
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	
@@ -51,6 +50,13 @@ bool ModuleLevelTransition::Start() {
 	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
 	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
 	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50));
+	sprite_graphics = App->textures->Load("Images/sprites.png");
+
+	trans.PushBack({ 0, 737, 32, 52 });
+	trans.PushBack({ 42, 737, 32, 52 });
+	trans.PushBack({ 82, 737, 32, 53 });
+	trans.loop = true;
+	trans.speed = 0.15f;
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -66,6 +72,8 @@ update_status ModuleLevelTransition::Update() {
 	bool ret = false;
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0.2f);
+	App->render->Blit(sprite_graphics, SCREEN_HEIGHT, SCREEN_WIDTH, &trans.GetCurrentFrame().rect);
+	
 	if (label != nullptr) {
 		//for (uint i = 0; i <= actual; i++)
 		new_str[actual] = string_1[actual];
@@ -86,6 +94,7 @@ update_status ModuleLevelTransition::Update() {
 }
 
 update_status ModuleLevelTransition::PostUpdate() {
+
 	return UPDATE_CONTINUE;
 }
 

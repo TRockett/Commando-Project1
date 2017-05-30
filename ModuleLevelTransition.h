@@ -18,6 +18,7 @@ public:
 
 private:
 	SDL_Texture* background_graphics;
+	SDL_Texture* sprite_graphics;
 	int font_red, font_white;
 	Animation trans;
 	const char* string_1 = "BROKE THE 3RD AREA\nNOW RUSH TO THE LAST AREA";
