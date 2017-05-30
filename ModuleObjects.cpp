@@ -185,12 +185,12 @@ bool ModuleObjects::Init() {
 	helix2.loop = true;
 
 
-	helix3.PushBack({ 870, 900, 16, 17 });
-	helix3.PushBack({ 866, 926, 24, 28 });
-	helix3.PushBack({ 876, 963, 53, 15 });
-	helix3.PushBack({ 811, 991, 71, 24 });
-	helix3.PushBack({ 873, 1020, 71, 24 });
-	helix3.PushBack({ 827, 1044, 53, 15 });
+	helix3.PushBack({ 870, 900, 16, 17 }, {7, 17});
+	helix3.PushBack({ 866, 926, 24, 28 }, { 0,11 });
+	helix3.PushBack({ 876, 963, 53, 15 }, { 0,15 });
+	helix3.PushBack({ 811, 991, 71, 24 }, { 65,0 });
+	helix3.PushBack({ 873, 1020, 71, 24 }, { 4,0 });
+	helix3.PushBack({ 827, 1044, 53, 15 }, { 51,15 });
 	helix3.speed = 0.25f;
 	helix3.loop = true;
 
@@ -631,51 +631,48 @@ update_status ModuleObjects::Update() {
 			if (bunker_fire.Finished())
 			{
 				App->player->final_anim = 5;
-			}		
-		}
-		else if (App->player->final_anim == 6)
-		{
-			App->render->Blit(sprite_graphics, SCREEN_WIDTH / 2 , helipoint.y, &helicopter1.GetCurrentFrame().rect);
-			helipoint.y -= 1;
-			if (helipoint.y <= (SCREEN_HEIGHT / 2))
-			{
-				App->player->final_anim = 7;
 			}
 		}
-		else if (App->player->final_anim == 7)
+		if (App->player->final_anim > 5)
 		{
-			App->render->Blit(sprite_graphics, SCREEN_WIDTH / 2, helipoint.y, &helicopter1.GetCurrentFrame().rect);
-			helipoint.y = helipoint.y - reduction;
-			reduction = reduction - 0.02f;
-			App->player->Disable();
-			if (reduction <= 0)
+			if (App->player->final_anim == 6)
 			{
-				App->player->final_anim = 8;
-				timer = SDL_GetTicks();
-
-			
-
-				helix->speed = 0.5f;
+				helipoint.y -= 1;
+				if (helipoint.y <= (SCREEN_HEIGHT / 2))
+				{
+					App->player->final_anim = 7;
+				}
 			}
-		}
-		else if (App->player->final_anim == 8)
-		{
-		
-
-
-			if (timer + 500 >= SDL_GetTicks() )
+			else  if (App->player->final_anim == 7)
 			{
-				helicopter = &helicopter2;
-				helix = &helix2;
+				helipoint.y = helipoint.y - reduction;
+				reduction = reduction - 0.02f;
+				App->player->Disable();
+				if (reduction <= 0)
+				{
+					App->player->final_anim = 8;
+					timer = SDL_GetTicks();
+					helix->speed = 0.5f;
+				}
 			}
-			else if (timer + 500 <= SDL_GetTicks()&& timer + 1500 >= SDL_GetTicks())
+			else if (App->player->final_anim == 8)
 			{
-				helicopter = &helicopter3;
-				helix = &helix3;
-			}
-			else
-			{
-				App->player->final_anim = 9;
+
+				if (timer + 500 >= SDL_GetTicks())
+				{
+					helicopter = &helicopter2;
+					helix = &helix2;
+				}
+				else if (timer + 500 <= SDL_GetTicks() && timer + 1500 >= SDL_GetTicks())
+				{
+					helicopter = &helicopter3;
+					helix = &helix3;
+				}
+				else
+				{
+					App->player->final_anim = 9;
+				}
+
 			}
 			AnimationFrame frame = helicopter->GetCurrentFrame();
 			AnimationFrame helixfr = helix->GetCurrentFrame();
@@ -684,7 +681,6 @@ update_status ModuleObjects::Update() {
 			App->render->Blit(sprite_graphics, helipoint.x - pivot.x, helipoint.y - pivot.y, &frame.rect);
 			App->render->Blit(sprite_graphics, helipoint.x - pivot2.x, helipoint.y - pivot2.y, &helixfr.rect);
 		}
-		
 
 	}
 	else if (App->level == 1)
