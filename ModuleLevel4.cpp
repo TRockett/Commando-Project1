@@ -36,6 +36,8 @@ bool ModuleLevel4::Start() {
 	screen_enemies = 0;
 	bool ret = true;
 	restart = false;
+	global = false;
+	global_on = true;
 	App->level = 4;
 	App->current_scene = this;
 	intro = false;
@@ -100,6 +102,8 @@ bool ModuleLevel4::Start() {
 	App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 1530, 270, 1);
 	App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1530, 270, 350, 1, 0, nullptr, 0, 15);
 
+	Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+	Global->active = false;
 		
 	
 
@@ -159,10 +163,22 @@ update_status ModuleLevel4::Update() {
 	grenade_label->setString(grenade_str.c_str());
 	score_label->setString(score_text);
 
+	if (App->player->position.y <= 1280)
+	{
+		global = true;
+	}
+	if (global == true && global_on == true)
+	{
+
+		global_on = false;
+		Global->active = true;
+	}
+
 	if (App->player->position.y <= SCREEN_HEIGHT - 100)
 	{
 		if (spawning == false)
 		{
+			Global->active = false;
 			timer = SDL_GetTicks();
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;

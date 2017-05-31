@@ -7,6 +7,8 @@
 #include "p2Point.h"
 #include "ModuleSceneGame.h"
 #include "Module.h"
+#include "ModuleEnemies.h"
+
 class ModuleLevel4 :
 	public ModuleSceneGame
 {
@@ -28,6 +30,9 @@ private:
 	int timer1 = 0;
 	bool spawning;
 	int counter;
+	EnemySpawner* Global;
+	bool global;
+	bool global_on;
 	};
 
 #endif

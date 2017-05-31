@@ -16,6 +16,7 @@ private:
 	Animation anim_right2;
 	Animation anim_right3;
 	int timer;
+	bool disappear = false;
 
 };
 

@@ -115,6 +115,34 @@ void EnemyTower::Move()
 		App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 		timer = SDL_GetTicks();
 	}
+	if (dying == true)
+	{
+		animation = &death;
+		collider->active = false;
+
+
+		if (animation->Finished() == true)
+		{
+			dead = true;
+			App->interfac->score += 200;
+			//App->scene_game->screen_enemies--;
+			App->enemies->EraseEnemy(this);
+		}
+	}
+
+	else if (disappear == true)
+	{
+		animation = &death;
+		collider->active = false;
+
+
+		if (animation->Finished() == true)
+		{
+			dead = true;
+			//App->scene_game->screen_enemies--;
+			App->enemies->EraseEnemy(this);
+		}
+	}
 }
 EnemyTower::~EnemyTower()
 {
