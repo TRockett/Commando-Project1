@@ -51,41 +51,23 @@ bool ModuleLevel3::Start() {
 	{
 		App->enemies->AddEnemy(MOTO_TYPE, SCREEN_WIDTH, 940, 270, 1);
 		App->enemies->AddEnemy(ENEMY_GRENADE, 10, 940, 0, 4);
-
 		App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH, 940, 0, 5);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, 0-46, 740, 270, 1);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 640, 270, 1);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 -46, 540, 270, 1);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 46, 519, 270, 1);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 45 , 440, 270, 2);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 64 , 770, 270, 3);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 64 , 670, 270, 3);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, 0 - 47, 615, 270, 4);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 47, 495, 270, 5);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH + 47, 410, 270, 5);
-
 		App->enemies->AddEnemy(MOTOLEVEL3, SCREEN_WIDTH/2, 700, 270, 6);
-
 		//App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 100, 1, true);
-
-		//App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 100, 2, true);
-		
+		//App->enemies->AddSpawner(ENEMY_GRENADE, 0, 0, 0, 100, 2, true);	
 		App->enemies->AddEnemy(COMMANDER, SCREEN_WIDTH / 2, 5, 0, 1);
-
 		App->enemies->AddEnemy(ENEMY_MORTAR, 210, 60, 0, 2);
-
 		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 60, 0, 1);
-
 		App->enemies->AddSpawner(LEFT_WEAPON, 0, 915, 0, 200, 3,0);
 		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 200, 4, 0);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1455, 270, 300,1,0);

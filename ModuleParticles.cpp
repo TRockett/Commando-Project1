@@ -272,7 +272,7 @@ Particle::Particle(const Particle& p) :
 anim(p.anim), position(p.position), speed(p.speed),
 fx(p.fx), born(p.born), life(p.life),acceleration(p.acceleration)
 {
-	acceleration = -0.25f;
+	acceleration = -0.15f;
 	init_speed = p.speed;
 }
 
