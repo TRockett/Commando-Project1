@@ -52,7 +52,7 @@ bool ModuleLevelTransition::Start() {
 	trans.PushBack({ 42, 737, 32, 52 });
 	trans.PushBack({ 82, 737, 32, 53 });
 	trans.loop = true;
-	trans.speed = 0.15f;
+	trans.speed = 0.05f;
 
 	if (background_graphics == nullptr)
 		ret = false;
@@ -68,7 +68,7 @@ update_status ModuleLevelTransition::Update() {
 	bool ret = false;
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr, 0.2f);
-	App->render->Blit(sprite_graphics, SCREEN_HEIGHT, SCREEN_WIDTH, &trans.GetCurrentFrame().rect);
+	App->render->Blit(sprite_graphics, (SCREEN_WIDTH/2) - 16, (SCREEN_HEIGHT/2) - 26, &trans.GetCurrentFrame().rect);
 	
 	if (label != nullptr) {
 		//for (uint i = 0; i <= actual; i++)
