@@ -99,11 +99,15 @@ void EnemyBazooka::Move()
 			animation = &e1_forward;
 			movement.PushBack({ sinf((float)current_angle * (M_PI / 180.0f)), cosf((float)current_angle * (M_PI / 180.0f)) }, 50);
 			throwing.Reset();
-			shoot = true;
+			if (App->player->position.y > position.y)
+			{
+				shoot = true;
+			}
 		}
-		else if (App->player->position.y > position.y)
+		else 
 		{
 			movement.PushBack({ 0 , 0 }, 30);
+
 			float deltaX = -position.x + player_pos.x;
 			float deltaY = -position.y + player_pos.y;
 			float angle = atan2f(deltaY, deltaX);
