@@ -113,11 +113,8 @@ update_status ModuleSceneGame::Update() {
 			App->sound->PlayMusic();
 		}
 	}
-	sprintf_s(score_text, 10, "%7d", score);
-	if (score > top_score)
-	{
-		top_score = score;
-	}
+	sprintf_s(score_text, 10, "%7d", App->interfac->score);
+
 	grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 

@@ -26,7 +26,6 @@ protected:
 public:
 	bool Start();
 	char score_text[100];
-	uint score = 0;
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
@@ -35,7 +34,6 @@ public:
 	bool intro = false;
 	int screen_enemies;
 	Module* next;
-	int top_score;
 	
 	Mix_Chunk* intro_music;
 	Mix_Chunk* newstart;

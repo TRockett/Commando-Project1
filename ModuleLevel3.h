@@ -14,7 +14,7 @@ class ModuleLevel3 :
 	public ModuleSceneGame
 {
 private:
-	int timer;
+	uint timer;
 	bool global;
 	bool global_on;
 	bool spawning;

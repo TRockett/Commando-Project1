@@ -65,8 +65,8 @@ void EnemyMortar::Move()
 		if (animation->Finished() == true)
 		{
 			dead = true;
-			App->scene_game->score = App->scene_game->score + 200;
-			App->scene_game->screen_enemies--;
+			App->interfac->score += 200;
+			//App->scene_game->screen_enemies--;
 			App->enemies->EraseEnemy(this);
 		}
 	}
@@ -79,7 +79,7 @@ void EnemyMortar::Move()
 		if (animation->Finished() == true)
 		{
 			dead = true;
-			App->scene_game->screen_enemies--;
+			//App->scene_game->screen_enemies--;
 			App->enemies->EraseEnemy(this);
 		}
 	}

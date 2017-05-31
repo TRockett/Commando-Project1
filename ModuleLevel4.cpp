@@ -83,9 +83,10 @@ bool ModuleLevel4::Start() {
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 
-	App->interfac->AddLabel(font_red, "1up", 15, 0);
-	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
-	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+	App->interfac->AddLabel(font_red, "1UP", 15, 0);
+	App->interfac->AddLabel(font_red, "TOP SCORE", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, App->interfac->score_texts[0], SCREEN_WIDTH / 2 - 15, 8);
+
 	grenade_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 15));
 	score_label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 103, 8));
 
@@ -127,12 +128,8 @@ update_status ModuleLevel4::Update() {
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
-	sprintf_s(score_text, 10, "%7d", score);
+	sprintf_s(score_text, 10, "%7d", App->interfac->score);
 
-	if (score > top_score)
-	{
-		top_score = score;
-	}
 	grenade_str = "= ";
 	grenade_str.append(std::to_string(App->player->grenades));
 

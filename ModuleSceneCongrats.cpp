@@ -25,25 +25,51 @@ bool ModuleSceneCongrats::Init() {
 
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
+
+	uint score = App->interfac->score;
+
+	for (uint i = 0; i < MAX_SCORES; i++) {
+		if (score > App->interfac->max_scores[i]) {
+			for (uint j = MAX_SCORES - 1; j > i; j--) {
+				App->interfac->max_scores[j] = App->interfac->max_scores[j - 1];
+				App->interfac->score_names[j] = App->interfac->score_names[j - 1];
+			}
+			App->interfac->max_scores[i] = score;
+			App->interfac->score_names[i] = "Player.1..";
+			break;
+		}
+	}
+
+	App->interfac->UpdateScores();
+
+	App->interfac->score = 0;
+
 	App->interfac->Enable();
 	App->fonts->Enable();
 	App->textures->Enable();
 
-	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
+	font_yellow = App->fonts->Load("Images/Fuentes_small_yellow.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-	App->scene_game->score_text;
 	App->player->lives = 3;
 	App->player->grenades = 6;
-	App->scene_game->score = 0;
-	background_graphics = App->textures->Load("Images/Mapa1.png");
+	background_graphics = App->textures->Load("Images/Mapa4.png");
 	title_graphics = App->textures->Load("Images/title.png");
 	capcom = App->textures->Load("Images/capcom.png");
 
-	sprintf_s(App->scene_game->score_text, 10, "%7d", App->scene_game->top_score);
-	App->interfac->AddLabel(font_white, "most recent score", 30, (SCREEN_HEIGHT / 2));
-	App->interfac->AddLabel(font_white, "best score", 30, (SCREEN_HEIGHT / 2 + 20));
-	App->interfac->AddLabel(font_white, App->scene_game->score_text, 130, (SCREEN_HEIGHT / 2 + 20));
-	App->interfac->AddLabel(font_white, App->scene_game->score_text, 130, (SCREEN_HEIGHT / 2));
+	App->interfac->AddLabel(font_yellow, "RANKING BEST 7", SCREEN_WIDTH / 2, 95, ALIGNMENT_CENTRE);
+	for (uint i = 0; i < MAX_SCORES; i++) {
+		char* str = (char*)malloc(4 * sizeof(char));
+		if (i == 0)
+			sprintf_s(str, 4, "%dST", i + 1);
+		else if (i == 1)
+			sprintf_s(str, 4, "%dND", i + 1);
+		else sprintf_s(str, 4, "%dTH", i + 1);
+
+
+		App->interfac->AddLabel(font_white, str, 23, 110 + 16 * i);
+		App->interfac->AddLabel(font_white, App->interfac->score_texts[i], 65 + 8 * 6, 110 + 16 * i, ALIGNMENT_RIGHT);
+		App->interfac->AddLabel(font_white, App->interfac->score_names[i], 120, 110 + 16 * i, ALIGNMENT_LEFT, true);
+	}
 
 
 	if (background_graphics == nullptr)
@@ -67,9 +93,9 @@ update_status ModuleSceneCongrats::PreUpdate() {
 }
 
 update_status ModuleSceneCongrats::Update() {
-	SDL_Rect target = { 20, 465, 216, 256 };
+	SDL_Rect target = { 20, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	App->render->Blit(background_graphics, 0, 0, &target, 0.0f);
-	App->render->Blit(title_graphics, 8, 20, 0 , 0.0f);
+	App->render->Blit(title_graphics, 8, 56, 0 , 0.0f);
 	App->render->Blit(capcom, 29, SCREEN_HEIGHT - 36,0 , 0.0f);
 	return update_status::UPDATE_CONTINUE;
 }

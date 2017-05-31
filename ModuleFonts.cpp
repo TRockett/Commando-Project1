@@ -15,6 +15,10 @@ ModuleFonts::ModuleFonts() : Module()
 ModuleFonts::~ModuleFonts()
 {}
 
+bool ModuleFonts::Init() {
+	return true;
+}
+
 // Load new texture from file path
 int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows, uint margin, uint spacing)
 {
@@ -26,8 +30,8 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 		return id;
 	}
 
-	for (int i = 0; i < MAX_FONTS; i++)
-		if (fonts->path == texture_path)
+	for (int i = 0; i < MAX_FONTS; i++) 
+		if (fonts[i].path == texture_path)
 			return i;
 
 	SDL_Texture* tex = App->textures->Load(texture_path);
@@ -82,6 +86,7 @@ void ModuleFonts::UnLoad(int font_id)
 	{
 		App->textures->Unload(fonts[font_id].graphic);
 		fonts[font_id].graphic = nullptr;
+		fonts[font_id].path = "";
 		LOG("Successfully Unloaded BMP font_id %d", font_id);
 	}
 }
@@ -97,7 +102,7 @@ void ModuleFonts::BlitText(Label* label) const
 
 	const Font* font = &fonts[label->font_id];
 	SDL_Rect rect;
-	uint len = strlen(label->string);
+	const uint len = strlen(label->string);
 	uint row = 0;
 	int col = 0;
 
@@ -123,7 +128,23 @@ void ModuleFonts::BlitText(Label* label) const
 				break;
 			}
 		}
-		App->render->Blit(font->graphic, label->pos.x + col * rect.w, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
+		int posX = 0;
+		switch (label->alignment)
+		{
+		case ALIGNMENT_LEFT:
+			posX = label->pos.x + col * rect.w;
+			break;
+		case ALIGNMENT_RIGHT:
+			posX = label->pos.x - (font->char_w * len) + col * rect.w;
+			break;
+		case ALIGNMENT_CENTRE:
+			posX = label->pos.x - ((font->char_w * len) / 2) + col * rect.w;
+			break;
+		default:
+			posX = label->pos.x + col * rect.w;
+			break;
+		}
+		App->render->Blit(font->graphic, posX, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
 	}
 }
 
@@ -132,4 +153,11 @@ iPoint ModuleFonts::getFontDimensions(int id) {
 	dimensions.x = App->fonts->fonts[id].char_w;
 	dimensions.y = App->fonts->fonts[id].char_h;
 	return dimensions;
+}
+
+bool ModuleFonts::CleanUp() {
+	for (uint i = 0; i < MAX_FONTS; i++) {
+		UnLoad(i);
+	}
+	return true;
 }

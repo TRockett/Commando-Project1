@@ -51,9 +51,9 @@ bool ModuleSceneWelcome::Start() {
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	
-	App->interfac->AddLabel(font_red, "1up", 15, 0);
-	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
-	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+	App->interfac->AddLabel(font_red, "1UP", 15, 0);
+	App->interfac->AddLabel(font_red, "TOP SCORE", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, App->interfac->score_texts[0], SCREEN_WIDTH / 2 - 15, 8);
 	
 	if (background_graphics == nullptr)
 		ret = false;

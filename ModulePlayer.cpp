@@ -441,7 +441,7 @@ void ModulePlayer::processInput() {
 		direction = 180;
 		current_animation = &backward;
 		fire = App->particles->fire_down;
-		grenade_speed = 1;
+		grenade_speed = 1.0f;
 		shooting_angle.y = fmaxf(shooting_angle.y, 0.0f);
 		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
@@ -450,7 +450,7 @@ void ModulePlayer::processInput() {
 		direction = 0;
 		current_animation = &forward;
 		fire = App->particles->fire_up;
-		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
+		grenade_speed = 1.0f + speed * cosf((int)direction * (M_PI / 180.0f));
 		shooting_angle.y = fminf(shooting_angle.y, 0.0f);
 		shooting_angle_delta.x = shooting_angle.x > 0 ? -0.15f : 0.15f;
 		break;
@@ -459,7 +459,7 @@ void ModulePlayer::processInput() {
 		direction = 90;
 		current_animation = &right;
 		fire = App->particles->fire_right;
-		grenade_speed = 1;
+		grenade_speed = 1.0f;
 		shooting_angle.x = fmaxf(shooting_angle.x, 0.0f);
 		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
@@ -468,7 +468,7 @@ void ModulePlayer::processInput() {
 		direction = 270;
 		current_animation = &left;
 		fire = App->particles->fire_left;
-		grenade_speed = 1;
+		grenade_speed = 1.0f;
 		shooting_angle.x = fminf(shooting_angle.x, 0.0f);
 		shooting_angle_delta.y = shooting_angle.y > 0 ? -0.15f : 0.15f;
 		break;
@@ -477,31 +477,31 @@ void ModulePlayer::processInput() {
 		direction = 135;
 		current_animation = &down_right;
 		fire = App->particles->fire_downright;
-		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
+		grenade_speed = 1.0f + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_DOWN_LEFT:
 		shooting_position = { 2,15 };
 		direction = 225;
 		current_animation = &down_left;
 		fire = App->particles->fire_downleft;
-		grenade_speed = 1 + speed * cosf((int)direction * (M_PI / 180.0f));
+		grenade_speed = 1.0f + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_LEFT:
 		shooting_position = { 0,4 };
 		direction = 315;
 		current_animation = &up_left;
 		fire = App->particles->fire_upleft;
-		grenade_speed = 0.3 + speed * cosf((int)direction * (M_PI / 180.0f));
+		grenade_speed = 0.3f + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case MOVING_UP_RIGHT:
 		shooting_position = { 15,5 };
 		direction = 45;
 		current_animation = &up_right;
 		fire = App->particles->fire_upright;
-		grenade_speed = 0.3 + speed * cosf((int)direction * (M_PI / 180.0f));
+		grenade_speed = 0.3f + speed * cosf((int)direction * (M_PI / 180.0f));
 		break;
 	case IDLE:
-		grenade_speed = 1;
+		grenade_speed = 1.0f;
 		if (!bthrowing) {
 			current_animation->speed = 0.0f;
 		}
@@ -550,7 +550,7 @@ void ModulePlayer::rotateShootingAngle() {
 void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	switch (other->type) {
 	case COLLIDER_WALL:
-		wallCollision();
+		wallCollision(self, other);
 		break;
 	case COLLIDER_WATER:
 		waterCollision();
@@ -562,8 +562,38 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	}
 }
 
-void ModulePlayer::wallCollision() {
+void ModulePlayer::wallCollision(Collider* self, Collider* other) {
+	/*iPoint self_centre = { self->rect.x + self->rect.w / 2, self->rect.y + self->rect.h / 2 };
+	iPoint other_centre = { other->rect.x + other->rect.w / 2, other->rect.y + other->rect.h / 2 };
+
+	iPoint delta_pos = self_centre - other_centre;
+	fPoint prev_pos_delta = prev_position - position;
+
+	float module = sqrt(prev_pos_delta.x * prev_pos_delta.x + prev_pos_delta.y * prev_pos_delta.y);
+
+	fPoint collision_normal = { -prev_pos_delta.x / module, -prev_pos_delta.y / module };
+
+	fPoint multiplier = { clip(1.0f + collision_normal.x, -1, 1), clip(1.0f + collision_normal.y, -1, 1) };*/
+
 	position = prev_position;
+
+	/*if (prev_pos_delta.x > 0) {
+		if (self_centre.x < other_centre.x) {
+			position.x = other->rect.x - self->rect.w;
+		}
+		else if (self_centre.x > other_centre.x) {
+			position.x = other->rect.x + other->rect.w;
+		}
+	}
+
+	if (abs(delta_pos.y) > other->rect.h / 2 && abs(delta_pos.x) < other->rect.w / 2) {
+		if (self_centre.y < other_centre.y) {
+			position.y = other->rect.y - self->rect.h;
+		}
+		else if (self_centre.y > other_centre.y) {
+			position.y = other->rect.y + other->rect.h - collider_body->rect.h;
+		}
+	}*/
 }
 
 void ModulePlayer::waterCollision() {

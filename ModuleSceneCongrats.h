@@ -11,9 +11,10 @@ class ModuleSceneCongrats :
 {
 private:
 	SDL_Texture* background_graphics;
-	int font_red, font_white;
+	int font_yellow, font_white;
 	SDL_Texture* title_graphics;
 	SDL_Texture* capcom;
+
 public:
 	
 	bool Init();

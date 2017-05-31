@@ -852,7 +852,7 @@ void ModuleObjects::OnCollision(Collider* self, Collider* other) {
 	for (int i = 0; i < 10; i++) {
 		if (boxes[i] == self) {
 			App->collision->EraseCollider(self);
-			App->scene_game->score = App->scene_game->score +1000;
+			App->interfac->score += 1000;
 			boxes[i] = nullptr;
 		}
 	}

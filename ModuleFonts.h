@@ -30,12 +30,14 @@ public:
 	int Load(const char* texture_path, const char* characters, uint rows = 1, uint margin = 0, uint spacing = 0);
 	void UnLoad(int font_id);
 	iPoint getFontDimensions(int id);
+	bool CleanUp();
+	bool Init();
 
 	// Create a surface from text
 	void BlitText(Label* label) const;
 
 private:
-	Font	 fonts[MAX_FONTS];
+	Font fonts[MAX_FONTS];
 };
 
 

@@ -22,15 +22,10 @@ ModuleLevelTransition::~ModuleLevelTransition()
 {
 }
 
-
-
-
-
-
 bool ModuleLevelTransition::Init() {
 
 
-	new_str = (char*)calloc(strlen(string_1), sizeof(char));
+	new_str = (char*)calloc(strlen(string_1) + 1, sizeof(char));
 	timer = SDL_GetTicks();
 	return true;
 }
@@ -45,10 +40,11 @@ bool ModuleLevelTransition::Start() {
 	background_graphics = App->textures->Load("Images/trans2.png");
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
-	
-	App->interfac->AddLabel(font_red, "1up", 15, 0);
-	App->interfac->AddLabel(font_red, "top score", SCREEN_WIDTH / 2 - 30, 0);
-	App->interfac->AddLabel(font_white, "50000", SCREEN_WIDTH / 2 - 15, 8);
+
+	App->interfac->AddLabel(font_red, "1UP", 15, 0);
+	App->interfac->AddLabel(font_red, "TOP SCORE", SCREEN_WIDTH / 2 - 30, 0);
+	App->interfac->AddLabel(font_white, App->interfac->score_texts[0], SCREEN_WIDTH / 2 - 15, 8);
+
 	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50));
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 
