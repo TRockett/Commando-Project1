@@ -551,6 +551,7 @@ void ModulePlayer::rotateShootingAngle() {
 void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 	switch (other->type) {
 	case COLLIDER_WALL:
+	case COLLIDER_TRENCH:
 		wallCollision(self, other);
 		break;
 	case COLLIDER_WATER:
