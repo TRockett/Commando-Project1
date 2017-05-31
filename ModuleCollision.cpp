@@ -207,6 +207,9 @@ void ModuleCollision::DebugDraw()
 			case COLLIDER_BOX: //orange
 			App->render->DrawQuad(colliders[i]->rect, 255, 102, 0, alpha);
 			break;
+			case COLLIDER_TRENCH: //black
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
+			break;
 		}
 	}
 }

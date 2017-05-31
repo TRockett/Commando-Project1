@@ -357,8 +357,8 @@ bool ModuleObjects::Start() {
 		helipoint.x = SCREEN_WIDTH / 2;
 		helipoint.y = SCREEN_HEIGHT;
 		//1st
-		App->collision->AddCollider({ 0, 1873, 143, 40 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 194, 1873, 62, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 0, 1873, 143, 40 }, COLLIDER_TRENCH);
+		App->collision->AddCollider({ 194, 1873, 62, 40 }, COLLIDER_TRENCH);
 
 		//2nd
 		App->collision->AddCollider({ 0, 1744, 109, 40 }, COLLIDER_WALL);
@@ -666,7 +666,6 @@ update_status ModuleObjects::Update() {
 				else if (timer + 500 <= SDL_GetTicks() && timer + 1500 >= SDL_GetTicks())
 				{
 					helicopter = &helicopter3;
-					helix = &helix3;
 				}
 				else
 				{
