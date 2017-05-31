@@ -59,6 +59,16 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_BODY] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_TRENCH] = false;
 
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_WALL] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_PLAYER_FEET] = true;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_ENEMY_SHOT] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_WATER] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_BOX] = false;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_PLAYER_BODY] = true;
+	matrix[COLLIDER_ENEMY_SHOT2][COLLIDER_TRENCH] = false;
+
 	matrix[COLLIDER_WATER][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WATER][COLLIDER_PLAYER_FEET] = true;
 	matrix[COLLIDER_WATER][COLLIDER_ENEMY] = true;
@@ -200,6 +210,9 @@ void ModuleCollision::DebugDraw()
 			break;
 			case COLLIDER_ENEMY_SHOT: // magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+			break;
+			case COLLIDER_ENEMY_SHOT2: // darker magenta
+			App->render->DrawQuad(colliders[i]->rect, 128, 255, 255, alpha);
 			break;
 			case COLLIDER_WATER: // roseta
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
