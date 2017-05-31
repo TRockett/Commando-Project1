@@ -164,6 +164,7 @@ update_status ModuleLevel4::PostUpdate() {
 	if (App->player->final_anim == 9)
 	{
 		App->fade->FadeToBlack(this, App->scene_congrats, 3.0f);
+
 	}
 	return UPDATE_CONTINUE;
 }

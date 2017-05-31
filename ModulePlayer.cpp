@@ -163,6 +163,7 @@ bool ModulePlayer::Start()
 	prev_position = position;
 	state = IDLE;
 	fire = App->particles->fire_up;
+	final_anim = 0;
 	if (b_godmode == false)
 	{
 		collider_body = App->collision->AddCollider({ (int)position.x, (int)position.y, 13, 17 }, COLLIDER_PLAYER_BODY, this);

@@ -51,7 +51,7 @@ EnemyVehicles::EnemyVehicles(int x, int y, int angle, int sub_type, int isglobal
 	{
 		animation = &truck_riding;
 		movement.PushBack({ 0.0f, 0.0f }, 20, animation);
-		movement.PushBack({ -0.8f, 0.0f }, 60, animation);
+		movement.PushBack({ -0.8f, 0.0f }, 80, animation);
 		movement.PushBack({ 0.0f, 0.0f }, 20, animation);
 		
 		movement.loop = false;

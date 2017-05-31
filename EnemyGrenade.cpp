@@ -148,7 +148,7 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type, int isglobal)
 	}
 	else if (sub_type == 7)
 	{
-		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 50);
+		movement.PushBack({ sinf((float)current_angle *(M_PI / 180.0f)), cosf((float)current_angle *(M_PI / 180.0f)) }, 40);
 	}
 	else
 	{
@@ -193,12 +193,12 @@ void EnemyGrenade::Move()
 			{
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
-				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 80);
 			}
 			else if (throwi == false)
 			{
 				animation = GetAnimationForDirection(current_angle);
-				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 80);
 				throwing.Reset();
 
 			}
@@ -222,7 +222,7 @@ void EnemyGrenade::Move()
 		}
 		else if (sub_type == 2)
 		{
-			if (SDL_GetTicks() >= timer + 1000)
+			if (SDL_GetTicks() >= timer + 1500)
 			{
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
@@ -254,7 +254,7 @@ void EnemyGrenade::Move()
 		else if (sub_type == 3)
 		{
 
-			if (SDL_GetTicks() >= timer + 1000)
+			if (SDL_GetTicks() >= timer + 1500)
 			{
 				float deltaX = -position.x + player_pos.x;
 				float deltaY = -position.y + player_pos.y;
@@ -367,7 +367,7 @@ void EnemyGrenade::Move()
 			{
 
 				sub_type = 2;
-				current_angle = 130;
+				current_angle = (rand() % 20) + 120;
 				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 100);
 				animation = GetAnimationForDirection(current_angle);
 			}

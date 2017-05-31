@@ -101,7 +101,7 @@ void EnemyBazooka::Move()
 			throwing.Reset();
 			shoot = true;
 		}
-		else
+		else if (App->player->position.y > position.y)
 		{
 			movement.PushBack({ 0 , 0 }, 30);
 			float deltaX = -position.x + player_pos.x;

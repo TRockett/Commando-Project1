@@ -158,7 +158,7 @@ void EnemyTruck::Move() {
 	}
 	else
 	{
-		if (SDL_GetTicks() >= timer + 1000)
+		if (SDL_GetTicks() >= timer + 1500)
 		{
 			float deltaX = -position.x + player_pos.x;
 			float deltaY = -position.y + player_pos.y;
@@ -192,7 +192,7 @@ void EnemyTruck::Move() {
 			}
 
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 50);
+			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 80);
 			collision = false;
 		}
 		else if (dying == true)
