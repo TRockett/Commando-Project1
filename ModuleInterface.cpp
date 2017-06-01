@@ -79,10 +79,10 @@ bool ModuleInterface::CleanUp() {
 	ret = App->textures->Unload(graphics);
 	for (uint i = 0; i < MAX_LABELS; i++) {
 		if (labels[i] != nullptr) {
+			//delete[] labels[i]->string;
 			delete labels[i];
 			labels[i] = nullptr;
 		}
-
 	}
 
 	return ret;

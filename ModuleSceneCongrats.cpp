@@ -67,7 +67,7 @@ bool ModuleSceneCongrats::Start() {
 
 
 		App->interfac->AddLabel(font_white, str, 23, 110 + 16 * i);
-		App->interfac->AddLabel(font_white, App->interfac->score_texts[i], 65 + 8 * 6, 110 + 16 * i, ALIGNMENT_RIGHT);
+		App->interfac->AddLabel(font_white, App->interfac->score_texts[i], 65 + 8 * 5, 110 + 16 * i, ALIGNMENT_RIGHT);
 		App->interfac->AddLabel(font_white, App->interfac->score_names[i], 120, 110 + 16 * i, ALIGNMENT_LEFT, true);
 	}
 
@@ -75,7 +75,8 @@ bool ModuleSceneCongrats::Start() {
 	if (background_graphics == nullptr)
 		ret = false;
 
-	if (App->sound->LoadMusic("Soundtrack/13. Namen eingeben.wav") == nullptr)
+	music = App->sound->LoadMusic("Soundtrack/13. Namen eingeben.wav");
+	if (music == nullptr)
 		ret = false;
 
 	if (title_graphics == nullptr)
@@ -115,5 +116,5 @@ bool ModuleSceneCongrats::CleanUp() {
 }
 
 void ModuleSceneCongrats::onFadeInEnd() {
-	App->sound->PlayMusic();
+	App->sound->PlayMusic(music, 0);
 }

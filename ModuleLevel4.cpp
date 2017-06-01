@@ -126,15 +126,16 @@ bool ModuleLevel4::Start() {
 	App->fonts->Enable();
 	App->interfac->Enable();
 
-	/*if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-	ret = false;*/
+	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
+	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav");
+	if (music == nullptr || newstart == nullptr)
+		ret = false;
 	if (background_graphics == nullptr)
 		ret = false;
 
-	/*if (!App->sound->isPlaying()) {
-	App->sound->PlayMusic();
-	}*/
-	/*App->sound->PlaySound(newstart, 0);*/
+	App->sound->StopMusic();
+	App->sound->PlayMusic(newstart, 0);
+	App->sound->ExecuteOnMusicEnd(PlayMainMusic);
 
 	return ret;
 }

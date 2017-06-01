@@ -103,17 +103,23 @@ bool ModuleLevel3::Start() {
 	spawning = false;
 	counter = 0;
 
-	/*if (App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav") == nullptr)
-		ret = false;*/
+	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
+	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav");
+	if (music == nullptr || newstart == nullptr)
+		ret = false;
+
+	App->sound->StopMusic();
+		App->sound->PlayMusic(newstart, 0);
+
 	if (background_graphics == nullptr)
 		ret = false;
 
 
-	/*if (!App->sound->isPlaying()) {
-		App->sound->PlayMusic();
-	}*/
+	App->sound->StopMusic();
+	//App->sound->PlayMusic(music);
 	
-	/*App->sound->PlaySound(newstart, 0);*/
+	App->sound->PlayMusic(newstart, 0);
+	App->sound->ExecuteOnMusicEnd(PlayMainMusic);
 
 	return ret;
 }

@@ -5,6 +5,8 @@
 #include "p2Point.h"
 
 struct SDL_Texture;
+class _Mix_Music;
+typedef _Mix_Music Mix_Music;
 
 class ModuleSceneCongrats :
 	public Module
@@ -14,6 +16,8 @@ private:
 	int font_yellow, font_white;
 	SDL_Texture* title_graphics;
 	SDL_Texture* capcom;
+
+	Mix_Music* music;
 
 public:
 	
