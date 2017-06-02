@@ -12,7 +12,7 @@ class Enemy
 protected:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
-	AnimationFrame current_frame;
+
 	Animation e1_forward;
 	Animation e1_backward;
 	Animation e1_left;
@@ -38,6 +38,7 @@ public:
 	bool isglobal;
 	int direction;
 	iPoint shooting_position;
+	AnimationFrame current_frame;
 
 public:
 	Enemy(int x, int y, int angle, int sub_type, int isglobal);
