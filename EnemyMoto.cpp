@@ -7,6 +7,7 @@
 EnemyMoto::EnemyMoto(int x, int y, int angle, int sub_type, int isglobal) : Enemy(x, y, angle, sub_type, isglobal)
 {
 	//riding
+	sub_type = 10;
 
 	riding.PushBack({1088, 43, 47, 22});
 	riding.PushBack({ 1089, 75, 47, 21 });

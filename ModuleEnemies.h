@@ -54,6 +54,8 @@ public:
 	ModuleEnemies();
 	~ModuleEnemies();
 
+	Enemy* enemies[MAX_ENEMIES];
+
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
@@ -70,10 +72,8 @@ private:
 	bool SpawnEnemy(const EnemyInfo& info);
 	void SpawnerSpawn(EnemySpawner& spawner);
 
-private:
-
 	EnemyInfo queue[MAX_ENEMIES];
-	Enemy* enemies[MAX_ENEMIES];
+
 	EnemySpawner* spawners[MAX_SPAWNERS];
 	SDL_Texture* sprites;
 	

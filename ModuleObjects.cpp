@@ -10,6 +10,7 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
+#include "Enemy.h"
 #include "SDL/include/SDL_timer.h"
 #include <string>
 #include "ModuleLevel3.h"
@@ -214,6 +215,14 @@ bool ModuleObjects::Init() {
 	bunker_fire.PushBack({ 119, 418,28,29, });
 	bunker_fire.PushBack({ 158, 418,25,27, });
 	bunker_fire.speed = 0.05f;
+
+
+	//Bridge animamtion
+	bridge.PushBack({ 691, 79, 64, 32 });
+
+	//Other part of the bridge (part below)
+	bridge2.PushBack({ 1066, 0, 66, 28 });
+
 	return true;
 }
 
@@ -584,7 +593,10 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 170, 1700, &door_bunker_left2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 106, 1380, &door_bunker_left3.GetCurrentFrame().rect);
 
-
+	
+		App->render->Blit(sprite_graphics, 96, 942, &bridge.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 96, 974, &bridge2.GetCurrentFrame().rect);
+		
 		//Final door animation
 		App->render->Blit(sprite_graphics, 83, 0, &final_door.GetCurrentFrame().rect);
 
@@ -608,6 +620,13 @@ update_status ModuleObjects::Update() {
 		{
 			App->render->Blit(sprite_graphics, 210, 70, &mortar_left4.GetCurrentFrame().rect);
 			App->render->Blit(sprite_graphics, 30, 70, &mortar_right4.GetCurrentFrame().rect);
+		}
+
+		for (uint i = 0; i < MAX_ENEMIES; ++i)
+		{
+
+			if (App->enemies->enemies[i] != nullptr && App->enemies->enemies[i]->sub_type == 10) 
+			App->render->Blit(sprite_graphics, App->enemies->enemies[i]->position.x - App->enemies->enemies[i]->current_frame.pivot.x, App->enemies->enemies[i]->position.y - App->enemies->enemies[i]->current_frame.pivot.y, &(App->enemies->enemies[i]->current_frame.rect));
 		}
 	}
 	else if (App->level == 4)
@@ -724,7 +743,10 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 144, -642 + level_dimensions.y , &tree2.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 18, -642 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 82, -706 + level_dimensions.y , &tree1.GetCurrentFrame().rect);
-
+		
+		App->render->Blit(sprite_graphics, 96, 802, &bridge.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 96, 834, &bridge2.GetCurrentFrame().rect);
+	
 	
 		//Rocks sprites
 		App->render->Blit(sprite_graphics, 112, -925, &rock.GetCurrentFrame().rect);

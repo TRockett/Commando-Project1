@@ -105,7 +105,7 @@ update_status ModuleEnemies::Update()
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr) enemies[i]->Move();
-		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+		if (enemies[i] != nullptr && enemies[i]->sub_type != 10) enemies[i]->Draw(sprites);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -113,8 +113,12 @@ update_status ModuleEnemies::Update()
 update_status ModuleEnemies::PostUpdate()
 {
 	// check camera position to decide what to spawn
+
 	for(uint i = 0; i < MAX_ENEMIES; ++i)
 	{
+		if (enemies[i] != nullptr && enemies[i]->sub_type == 10) enemies[i]->Draw(sprites);
+
+
 		if(enemies[i] != nullptr)
 		{
 			if(enemies[i]->position.x < (App->render->camera.x / SCREEN_SIZE) - SPAWN_MARGIN

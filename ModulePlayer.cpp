@@ -140,11 +140,6 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.loop = true;
 	throw_grenade.speed = 3.0f;
 
-	//Bridge animamtion
-	bridge.PushBack({ 691, 79, 64, 32 });
-
-	//Other part of the bridge (part below)
-	bridge2.PushBack({ 1066, 0, 66, 28 });
 }
 
 ModulePlayer::~ModulePlayer()
@@ -341,16 +336,7 @@ update_status ModulePlayer::Update()
 		App->render->Blit(godmode, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 
 	//Bridge sprite
-	if (App->level == 1)
-	{
-		App->render->Blit(graphics, 96, 802, &bridge.GetCurrentFrame().rect);
-		App->render->Blit(graphics, 96, 834, &bridge2.GetCurrentFrame().rect);
-	}
-	else if (App->level == 3) 
-	{
-		App->render->Blit(graphics, 96, 942, &bridge.GetCurrentFrame().rect);
-		App->render->Blit(graphics, 96, 974, &bridge2.GetCurrentFrame().rect);
-	}
+
 	return UPDATE_CONTINUE;
 }
 

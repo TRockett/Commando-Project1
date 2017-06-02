@@ -68,6 +68,10 @@ private:
 	Animation trinxera; // It can be also used in level 1
 	Animation bunker_fire;
 	Animation stones;
+
+	Animation bridge;
+	Animation bridge2;
+
 	int timer; 
 
 	fPoint helipoint;

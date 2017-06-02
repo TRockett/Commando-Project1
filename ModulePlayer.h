@@ -78,8 +78,7 @@ private:
 	Collider* collider_body;
 	Collider* collider_feet;
 	Particle fire;	//Fire shot particle
-	Animation bridge;
-	Animation bridge2;
+
 	float grenade_speed;
 	bool b_godmode;
 	
