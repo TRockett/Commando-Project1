@@ -9,6 +9,7 @@
 #define MAX_SPAWNERS 15
 #define SPAWN_MARGIN 100
 
+struct Mix_Chunk;
 
 enum ENEMY_TYPE
 {
@@ -66,6 +67,7 @@ public:
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, int angle, int sub_type);
 	EnemySpawner* AddSpawner(ENEMY_TYPE type, int x, int y, int angle, int delay, int sub_type = 0, bool global = false, Animation* anim_triggered = nullptr, int abs_x = 0, int abs_y = 0);
 	bool EraseEnemy(Enemy* enemy);
+	Mix_Chunk* enemy_death_sound;
 
 private:
 

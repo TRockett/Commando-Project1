@@ -43,8 +43,6 @@ bool ModuleLevel3::Start() {
 	intro = false;
 	background_graphics = App->textures->Load("Images/Mapa3.png", &level_dimensions);
 
-	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
-	App->sound->StopMusic();
 	
 	//App->scene_game->setLevelDimensions(level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
@@ -112,7 +110,9 @@ bool ModuleLevel3::Start() {
 
 	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
 	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav");
-	if (music == nullptr || newstart == nullptr)
+	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
+
+	if (music == nullptr || newstart == nullptr || motivationsong == nullptr)
 		ret = false;
 
 	App->sound->StopMusic();
