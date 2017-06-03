@@ -78,7 +78,7 @@ private:
 	Animation leave_heli;
 	Animation bye_anim;
 	Animation throw_grenade;
-	Animation player_one;
+
 
 
 	fPoint prev_position;
