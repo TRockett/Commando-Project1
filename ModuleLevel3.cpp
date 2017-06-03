@@ -70,13 +70,16 @@ bool ModuleLevel3::Start() {
 		App->enemies->AddEnemy(ENEMY_MORTAR, 30, 60, 0, 1);
 		App->enemies->AddSpawner(LEFT_WEAPON, 0, 915, 0, 200, 3,0);
 		App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 200, 4, 0);
+		App->enemies->AddEnemy(LEFT_WEAPON, 0, 915, 0, 3);
+		App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 915, 0, 4);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1455, 270, 300,1,0);
 		App->enemies->AddSpawner(ENEMY_GRENADE, 0,1950, 90, 75,1,0, nullptr, 0 , 50);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1800, 270, 80,1,0,nullptr,0, 60);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1325, 270, 220,1,0,nullptr, 0 , 25);
 		App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 825, 270, 200,1,0 ,nullptr,0, 75);
-		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 825, 90,50, 1,0,nullptr,0, 75);
+		App->enemies->AddSpawner(ENEMY_GRENADE, 0, 825, 90,150, 1,0,nullptr,0, 75);
 		Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
+
 		Global->active = false;
 
 	}
@@ -161,7 +164,7 @@ update_status ModuleLevel3::Update() {
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
 		}
-		else if (timer + 1500 < SDL_GetTicks() && counter < 5)
+		else if (timer + 1000 < SDL_GetTicks() && counter < 20)
 		{
 			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
 			timer = SDL_GetTicks();
