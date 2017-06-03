@@ -182,6 +182,7 @@ bool ModulePlayer::Start()
 
 bool ModulePlayer::CleanUp() {
 	LOG("Unloading player");
+	level_stage = 0;
 	App->textures->Unload(graphics);
 	App->textures->Unload(godmode);
 	return true;
