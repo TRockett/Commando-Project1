@@ -250,10 +250,11 @@ void EnemyLeft::Move() {
 
 		if ((movement.Finished() || collision == true) && dead == false && dying == false)
 		{
-			movement.Clear();
-			movement.Reset();
+
 			if (collision != true)
 			{
+				movement.Clear();
+				movement.Reset();
 				current_angle = (rand() % 8) * 45;
 			}
 			else

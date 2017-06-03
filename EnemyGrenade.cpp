@@ -193,7 +193,8 @@ void EnemyGrenade::Move()
 			{
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
-				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 80);
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 20);
+				sub_type = 7;
 			}
 			else if (throwi == false)
 			{
@@ -234,22 +235,24 @@ void EnemyGrenade::Move()
 				App->particles->bullet.life = 1800;
 				App->particles->AddParticle(App->particles->bullet, position.x + shooting_position.x, position.y + shooting_position.y, BULLET_ENEMY, COLLIDER_ENEMY_SHOT);
 				timer = SDL_GetTicks();
-
 			}
 
 			if (collision != true)
 			{
 				current_angle = (rand() % 8) * 45;
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
 			}
 			else
 			{
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
-
+				sub_type = 7;
+				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 20);
 			}
 
+
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 50);
+			
 		}
 		else if (sub_type == 3)
 		{
@@ -284,8 +287,8 @@ void EnemyGrenade::Move()
 		}
 		else if (sub_type == 4)
 		{
+
 			animation = GetAnimationForDirection(current_angle);
-			
 			
 		}
 		else if (sub_type == 5)
