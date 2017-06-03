@@ -250,22 +250,34 @@ void EnemyLeft::Move() {
 
 		if ((movement.Finished() || collision == true) && dead == false && dying == false)
 		{
-
-			if (collision != true)
+			if (!incolision)
 			{
 				movement.Clear();
 				movement.Reset();
+			}
+
+			if (collision != true)
+			{	
 				current_angle = (rand() % 8) * 45;
+				movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 80);
 			}
 			else
 			{
+				movement.Clear();
+				movement.Reset();
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
+				incolision = true;
+				movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 40);
 
+			}
+			if (movement.Finished())
+			{
+				incolision = false;
 			}
 
 			animation = GetAnimationForDirection(current_angle);
-			movement.PushBack({ sinf((float)current_angle), cosf((float)current_angle) }, 80);
+
 			collision = false;
 		}
 		else if (dying == true)

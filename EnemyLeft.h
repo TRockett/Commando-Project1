@@ -23,6 +23,7 @@ private:
 	float jump_speed = -3;
 	int jump_state = 0;
 	int direction;
+	bool incolision;
 	iPoint shooting_position;
 
 public:
