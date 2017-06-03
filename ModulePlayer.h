@@ -9,6 +9,8 @@
 
 struct SDL_Texture;
 struct Mix_Chunk;
+class _Mix_Music;
+typedef _Mix_Music Mix_Music;
 struct Collider;
 
 enum PLAYER_STATE : int {
@@ -78,6 +80,7 @@ private:
 
 	fPoint prev_position;
 	Mix_Chunk* shoot;
+	Mix_Music* death_music;
 	Collider* collider_body;
 	Collider* collider_feet;
 	Particle fire;	//Fire shot particle
@@ -110,4 +113,5 @@ private:
 
 };
 
+void FinishDeath();
 #endif

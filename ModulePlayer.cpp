@@ -178,6 +178,7 @@ bool ModulePlayer::Start()
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
+	death_music = App->sound->LoadMusic("Soundtrack/10. Leben verloren.wav");
 
 	return true;
 }
@@ -300,23 +301,6 @@ update_status ModulePlayer::Update()
 				state = MOVING_RIGHT;
 			}
 		}
-	}
-	else if (current_animation->Finished() && !((ModuleSceneGame*)App->current_scene)->restart) {
-
-		if (player_min_y <= ((level_dimensions.y * 1) / 4) - 100)
-		{
-			level_stage = MAX((level_dimensions.y * 3 / 4) + 100, prev_level_stage);
-		}
-		else if (player_min_y <= ((level_dimensions.y * 2) / 4) - 200 /*&& position.y > ((level_dimensions.y * 1) / 4) - 75*/)
-		{
-			level_stage = MAX((level_dimensions.y * 2 / 4) + 200, prev_level_stage);
-		}
-		else if (player_min_y <= ((level_dimensions.y * 3) / 4) + 75 /*&& (position.y >= ((level_dimensions.y * 2) / 4) + 75)*/)
-		{
-			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
-		}
-		((ModuleSceneGame*)App->current_scene)->restart = true;
-		state = IDLE;
 	}
 
 
@@ -626,8 +610,24 @@ void ModulePlayer::enemyCollision() {
 		collider_body->active = false;
 		collider_feet->active = false;
 		current_animation = &death;
-		//if (current_animation->Finished())
-			current_animation->Reset();
+		current_animation->Reset();
+
+		if (player_min_y <= ((level_dimensions.y * 1) / 4) - 100)
+		{
+			level_stage = MAX((level_dimensions.y * 3 / 4) + 100, prev_level_stage);
+		}
+		else if (player_min_y <= ((level_dimensions.y * 2) / 4) - 200 /*&& position.y > ((level_dimensions.y * 1) / 4) - 75*/)
+		{
+			level_stage = MAX((level_dimensions.y * 2 / 4) + 200, prev_level_stage);
+		}
+		else if (player_min_y <= ((level_dimensions.y * 3) / 4) + 75 /*&& (position.y >= ((level_dimensions.y * 2) / 4) + 75)*/)
+		{
+			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
+		}
+
+		App->sound->StopMusic();
+		App->sound->PlayMusic(death_music, 0);
+		Mix_HookMusicFinished(FinishDeath);
 	}
 }
 
@@ -642,8 +642,24 @@ void ModulePlayer::Drown() {
 		collider_body->active = false;
 		collider_feet->active = false;
 		current_animation = &drown;
-		//if (current_animation->Finished())
-			current_animation->Reset();
+		current_animation->Reset();
+
+		if (player_min_y <= ((level_dimensions.y * 1) / 4) - 100)
+		{
+			level_stage = MAX((level_dimensions.y * 3 / 4) + 100, prev_level_stage);
+		}
+		else if (player_min_y <= ((level_dimensions.y * 2) / 4) - 200 /*&& position.y > ((level_dimensions.y * 1) / 4) - 75*/)
+		{
+			level_stage = MAX((level_dimensions.y * 2 / 4) + 200, prev_level_stage);
+		}
+		else if (player_min_y <= ((level_dimensions.y * 3) / 4) + 75 /*&& (position.y >= ((level_dimensions.y * 2) / 4) + 75)*/)
+		{
+			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
+		}
+
+		App->sound->StopMusic();
+		App->sound->PlayMusic(death_music, 0);
+		Mix_HookMusicFinished(FinishDeath);
 	}
 }
 void ModulePlayer::Final()
@@ -689,6 +705,12 @@ void ModulePlayer::Final()
 		else 
 		final_anim = 6;
 	}
+}
+
+void FinishDeath() {
+	((ModuleSceneGame*)App->current_scene)->restart = true;
+	App->player->state = IDLE;
+	Mix_HookMusicFinished(nullptr);
 }
 
 PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
