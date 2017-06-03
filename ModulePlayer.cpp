@@ -366,17 +366,27 @@ void ModulePlayer::checkInput() {
 			state = MOVING_DOWN | state;
 		if (p.left_joystick.y + 0.25f < 0)
 			state = MOVING_UP | state;
-		if (p.left_trigger && grenades > 0 && current_animation != &throw_grenade) {
+		if (p.left_trigger.state == KEY_REPEAT && grenades > 0 && current_animation != &throw_grenade) {
 			grenade1 = true;
 			if (grenade_on == false) {
 				grenades--;
 			}
 		}
-		if (p.right_trigger)
+
+		if (p.right_trigger.state == KEY_REPEAT)
 			shooting = true;
-		if (p.left_bumper)
+
+		if (p.back.state == KEY_DOWN)
+		{
+			b_godmode = !b_godmode;
+
+			collider_body->type = collider_body->type == COLLIDER_NONE ? COLLIDER_PLAYER_BODY : COLLIDER_NONE;
+			collider_feet->type = collider_feet->type == COLLIDER_NONE ? COLLIDER_PLAYER_FEET : COLLIDER_NONE;
+		}
+		if (p.left_bumper.state == KEY_REPEAT)
 			speed = 10;
 		else speed = 1;
+
 		if (abs(p.left_joystick.x) > 0.25f || abs(p.left_joystick.y) > 0.25f)
 			shooting_angle_delta = { (p.left_joystick.x / abs(p.left_joystick.x)) * 0.15f, (p.left_joystick.y / abs(p.left_joystick.y)) * 0.15f };
 	}

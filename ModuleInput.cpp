@@ -73,10 +73,11 @@ update_status ModuleInput::PreUpdate()
 
 	controller_1.left_joystick.x = ((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX) / 32767.0f);
 	controller_1.left_joystick.y = ((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY) / 32767.0f);
-	controller_1.left_trigger = ((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / 32767.0f) > 0.35f; //Trigger dead zone
-	controller_1.right_trigger = ((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / 32767.0f) > 0.35f;
-	controller_1.left_bumper = (bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
-
+	controller_1.left_trigger.setState(((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / 32767.0f) > 0.35f); //Trigger dead zone
+	controller_1.right_trigger.setState(((float)SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / 32767.0f) > 0.35f);
+	controller_1.left_bumper.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER));
+	controller_1.back.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_BACK));
+	controller_1.start.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_START));
 
 	return update_status::UPDATE_CONTINUE;
 }

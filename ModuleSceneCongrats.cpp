@@ -35,7 +35,7 @@ bool ModuleSceneCongrats::Start() {
 				App->interfac->score_names[j] = App->interfac->score_names[j - 1];
 			}
 			App->interfac->max_scores[i] = score;
-			App->interfac->score_names[i] = "Player.1..";
+			App->interfac->score_names[i] = "PLAYER.1..";
 			break;
 		}
 	}
@@ -88,8 +88,14 @@ bool ModuleSceneCongrats::Start() {
 }
 
 update_status ModuleSceneCongrats::PreUpdate() {
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
-		App->fade->FadeToBlack(this, App->scene_welcome, 1.0f);
+	if (App->input->controller_connected) {
+		if (App->input->controller_1.start.state == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->scene_welcome, 1.0f);
+	}
+	else {
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->scene_welcome, 1.0f);
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 

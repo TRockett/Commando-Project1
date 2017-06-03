@@ -17,12 +17,35 @@ enum KEY_STATE
 	KEY_UP
 };
 
+struct Button {
+	KEY_STATE state = KEY_IDLE;
+
+	void setState(bool input) {
+		switch (state) {
+		case KEY_IDLE:
+			state = input ? KEY_DOWN : state;
+			break;
+		case KEY_DOWN:
+			state = input ? KEY_REPEAT : state;
+			break;
+		case KEY_REPEAT:
+			state = input ? state : KEY_UP;
+			break;
+		case KEY_UP:
+			state = input ? KEY_DOWN : KEY_IDLE;
+			break;
+		}
+	}
+};
+
 struct GamePad {
 	p2Point<float> left_joystick;
 	p2Point<float> right_joystick;
-	bool left_trigger;
-	bool right_trigger;
-	bool left_bumper;
+	Button back;
+	Button start;
+	Button left_bumper;
+	Button left_trigger;
+	Button right_trigger;
 };
 
 class ModuleInput : public Module

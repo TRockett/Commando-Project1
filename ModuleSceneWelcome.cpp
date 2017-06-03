@@ -67,20 +67,27 @@ bool ModuleSceneWelcome::Start() {
 }
 
 update_status ModuleSceneWelcome::PreUpdate() {
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
-		App->fade->FadeToBlack(this, App->level_3, 3.0f);
-	if (App->input->keyboard[SDL_SCANCODE_4] == KEY_DOWN)
-		App->fade->FadeToBlack(this, App->level_4, 3.0f);
+	if (App->input->controller_connected) {
+		if (App->input->controller_1.start.state == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->level_3, 3.0f);
+	}
+	else {
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->level_3, 3.0f);
 
-	if (App->input->keyboard[SDL_SCANCODE_5] == KEY_DOWN)
-		App->fade->FadeToBlack(this, App->transition, 3.0f);
+		if (App->input->keyboard[SDL_SCANCODE_4] == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->level_4, 3.0f);
 
-	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
-		App->scene_game->intro = false;
+		if (App->input->keyboard[SDL_SCANCODE_5] == KEY_DOWN)
+			App->fade->FadeToBlack(this, App->transition, 3.0f);
 
-	if (App->input->keyboard[SDL_SCANCODE_9] == KEY_DOWN) {
-		App->fade->FadeToBlack(this, App->level_3, 1.0f);
-		App->scene_game->intro = false;
+		if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
+			App->scene_game->intro = false;
+
+		if (App->input->keyboard[SDL_SCANCODE_9] == KEY_DOWN) {
+			App->fade->FadeToBlack(this, App->level_3, 1.0f);
+			App->scene_game->intro = false;
+		}
 	}
 		
 	return UPDATE_CONTINUE;
