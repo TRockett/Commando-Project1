@@ -300,9 +300,9 @@ update_status ModulePlayer::Update()
 	}
 	else if (current_animation->Finished() && !((ModuleSceneGame*)App->current_scene)->restart) {
 
-		if (App->player->position.y <= ((level_dimensions.y * 1) / 4) - 75)
+		if (App->player->position.y <= ((level_dimensions.y * 1) / 4) - 100)
 		{
-			App->player->level_stage = (level_dimensions.y * 3 / 4) + 75;
+			App->player->level_stage = (level_dimensions.y * 3 / 4) + 100;
 		}
 		else if (App->player->position.y <= ((level_dimensions.y * 2) / 4) - 200 && App->player->position.y > ((level_dimensions.y * 1) / 4) - 75)
 		{
