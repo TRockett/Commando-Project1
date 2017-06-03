@@ -383,14 +383,17 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 145, 1446 , 5, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 170, 1446 , 5, 14 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 161, 1439 , 5, 14 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 177, 1194 , 5, 14 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 177, 977 , 5, 14 }, COLLIDER_WALL);
 
 		//Colliders of the airplane
-		App->collision->AddCollider({ 214, 1494 , 26, 57 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 214, 1194 , 26, 57 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 199, 1226 , 13, 27 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 194, 1254 , 8, 6 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 199, 1188 , 14, 13 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 197, 1184 , 5, 3 }, COLLIDER_WALL);
+
+		//Collider of the trench
+		App->collision->AddCollider({ 0, 1389 , 90, 2 }, COLLIDER_WALL);
 
 		//Colliders of the tree group 
 		App->collision->AddCollider({ 16, 895 , 32, 55 }, COLLIDER_WALL);
@@ -411,6 +414,25 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 189, 1061 , 10, 3 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 185, 1035 , 39, 11 }, COLLIDER_WALL);
 		App->collision->AddCollider({ 201, 1028 , 17, 3 }, COLLIDER_WALL);
+
+
+		App->collision->AddCollider({ 17, 464 ,59, 21 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 16, 488 , 41, 12 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 39, 502 , 12,7 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 56, 492 , 7, 2 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 17, 442 , 16, 20 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 16, 438 , 6, 4 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 35, 451 , 15, 11 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 35, 446 , 5, 3 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 48, 454 , 9, 7 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 59,458 , 6, 3 }, COLLIDER_WALL);
+
+		//Colliders of the turret
+		App->collision->AddCollider({ 214, 585 , 40, 104 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 201, 594 , 12, 95 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 178, 661 , 6, 6 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 187, 653 , 11, 26 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 224, 578 , 16, 5 }, COLLIDER_WALL);
 
 		boxes[0] = App->collision->AddCollider({ 200, 1690, 20, 16 }, COLLIDER_BOX, this);
 		boxes[1] = App->collision->AddCollider({ 50, 1320, 20, 16 }, COLLIDER_BOX, this);
