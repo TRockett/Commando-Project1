@@ -141,6 +141,7 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.PushBack({ 136,68,20,24 });
 	throw_grenade.loop = true;
 	throw_grenade.speed = 3.0f;
+	
 
 
 

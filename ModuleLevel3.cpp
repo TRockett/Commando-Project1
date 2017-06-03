@@ -175,11 +175,10 @@ update_status ModuleLevel3::Update() {
 			timer = SDL_GetTicks();
 			App->sound->PlayMusic(motivationsong, -1);
 			spawning = true;
-			App->objects->final_door.speed = 0.05f;
 		}
 		else if (timer + 1000 < SDL_GetTicks() && counter < 20)
 		{
-			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 2);		
+			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 148) + (SCREEN_WIDTH - 37))/2, 5, 0, 7);		
 			timer = SDL_GetTicks();
 			counter++;
 		}

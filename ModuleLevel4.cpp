@@ -200,7 +200,7 @@ update_status ModuleLevel4::Update() {
 		}
 		else if (timer + 1500 < SDL_GetTicks() && counter < 20)
 		{
-			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 130) + (SCREEN_WIDTH - 30)) / 2, 81, 0, 2);
+			App->enemies->AddEnemy(ENEMY_GRENADE, ((rand() % 130) + (SCREEN_WIDTH - 30)) / 2, 81, 0, 7);
 			timer = SDL_GetTicks();
 			counter++;
 		}

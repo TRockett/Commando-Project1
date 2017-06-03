@@ -33,6 +33,8 @@ private:
 	Animation door_bunker_left1;
 	Animation door_bunker_left2;
 	Animation door_bunker_left3;
+	Animation final_door2;
+	Animation Upper_door;
 
 
 
@@ -73,6 +75,7 @@ private:
 	Animation bridge2;
 
 	int timer; 
+	int door_move = 0;
 
 	fPoint helipoint;
 	float reduction;
