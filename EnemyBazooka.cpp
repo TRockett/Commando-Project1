@@ -120,11 +120,14 @@ void EnemyBazooka::Move()
 				animation = &e1_down_left;
 				if (animation->Finished() == true)
 				{
-					App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-					App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					animation->Reset();
-					shoot = false;
+					if (App->player->position.y + 50 > position.y)
+					{
+						App->particles->Missile_downleft.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+						App->particles->AddParticle(App->particles->Bluefire_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						App->particles->AddParticle(App->particles->Missile_downleft, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+						animation->Reset();
+						shoot = false;
+					}
 				}
 			}
 			else if (position.x < player_pos.x + 20)

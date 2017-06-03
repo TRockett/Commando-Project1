@@ -65,7 +65,7 @@ void EnemyMortar::Move()
 		if (animation->Finished() == true)
 		{
 			dead = true;
-			App->interfac->score += 200;
+			App->interfac->score += 500;
 			//App->scene_game->screen_enemies--;
 			App->enemies->EraseEnemy(this);
 		}
