@@ -200,6 +200,7 @@ update_status ModuleLevel3::PostUpdate() {
 	{
 		App->fade->FadeToBlack(this, App->transition, 1.0f);
 		App->player->final_anim = 0;
+		App->player->level_stage = 0;
 	}
 
 	return UPDATE_CONTINUE;

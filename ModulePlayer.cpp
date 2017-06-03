@@ -23,10 +23,10 @@ ModulePlayer::ModulePlayer()
 
 	// walk forward animation (arcade sprite sheet)
 	
-	forward.PushBack({0, 0, 13, 23});
-	forward.PushBack({14, 0, 13, 22});
 	forward.PushBack({ 0, 0, 13, 23 });
-	forward.PushBack({28, 0, 13, 22});
+	forward.PushBack({ 14, 0, 13, 22 });
+	forward.PushBack({ 0, 0, 13, 23 });
+	forward.PushBack({ 28, 0, 13, 22});
 	forward.loop = true;
 	forward.speed = 0.15f;
 
@@ -151,6 +151,8 @@ bool ModulePlayer::Start()
 	level_dimensions = ((ModuleSceneGame*)App->current_scene)->getLevelDimensions();
 	position.x = (SCREEN_WIDTH / 2) + 20;
 	position.y = (float)((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y + 110 - level_stage;
+	prev_level_stage = level_stage;
+	level_stage = 0;
 	shooting_angle = { 0.0f, 0.0f };
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -176,7 +178,6 @@ bool ModulePlayer::Start()
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
-	level_stage = 0;
 
 	return true;
 }
@@ -302,17 +303,17 @@ update_status ModulePlayer::Update()
 	}
 	else if (current_animation->Finished() && !((ModuleSceneGame*)App->current_scene)->restart) {
 
-		if (App->player->position.y <= ((level_dimensions.y * 1) / 4) - 100)
+		if (player_min_y <= ((level_dimensions.y * 1) / 4) - 100)
 		{
-			App->player->level_stage = (level_dimensions.y * 3 / 4) + 100;
+			level_stage = MAX((level_dimensions.y * 3 / 4) + 100, prev_level_stage);
 		}
-		else if (App->player->position.y <= ((level_dimensions.y * 2) / 4) - 200 && App->player->position.y > ((level_dimensions.y * 1) / 4) - 75)
+		else if (player_min_y <= ((level_dimensions.y * 2) / 4) - 200 /*&& position.y > ((level_dimensions.y * 1) / 4) - 75*/)
 		{
-			App->player->level_stage = (level_dimensions.y * 2 / 4) + 200;
+			level_stage = MAX((level_dimensions.y * 2 / 4) + 200, prev_level_stage);
 		}
-		else if (App->player->position.y <= ((level_dimensions.y * 3) / 4) + 75 && (App->player->position.y >= ((level_dimensions.y * 2) / 4) + 75))
+		else if (player_min_y <= ((level_dimensions.y * 3) / 4) + 75 /*&& (position.y >= ((level_dimensions.y * 2) / 4) + 75)*/)
 		{
-			App->player->level_stage = (level_dimensions.y / 4) - 75;
+			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
 		}
 		((ModuleSceneGame*)App->current_scene)->restart = true;
 		state = IDLE;

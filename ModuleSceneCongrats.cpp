@@ -26,6 +26,7 @@ bool ModuleSceneCongrats::Init() {
 bool ModuleSceneCongrats::Start() {
 	bool ret = true;
 
+	App->player->level_stage = 0;
 	uint score = App->interfac->score;
 
 	for (uint i = 0; i < MAX_SCORES; i++) {

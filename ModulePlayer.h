@@ -54,6 +54,7 @@ public:
 	}
 	int lives;
 	int level_stage;
+	int prev_level_stage;
 	uint grenades;
 	iPoint level_dimensions;
 
