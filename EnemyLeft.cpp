@@ -230,7 +230,7 @@ void EnemyLeft::Move() {
 	}
 	else
 	{
-		if (SDL_GetTicks() >= timer + 1500)
+		if (SDL_GetTicks() >= timer + 2000)
 		{
 			float deltaX = -position.x + player_pos.x;
 			float deltaY = -position.y + player_pos.y;
