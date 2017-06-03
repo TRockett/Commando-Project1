@@ -142,15 +142,7 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.loop = true;
 	throw_grenade.speed = 3.0f;
 
-	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
-	player_one.PushBack({ 0,808,62,8 });
-	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
-	player_one.PushBack({ 0,808,62,8 });
-	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
-	player_one.PushBack({ 0,808,62,8 });
-	player_one.speed = 0.02f;
 
-	restart_anim = false;
 
 }
 
@@ -213,16 +205,7 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;
 
-		if (restart_anim == true)
-		{
-			current_animation = &player_one;
-			App->enemies->Disable();
-			if (player_one.Finished())
-			{
-				restart_anim = false;
-				App->enemies->Enable();
-			}
-		}
+
 		else if (final_anim != 0)
 		{			
 			Final();
