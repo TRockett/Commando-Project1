@@ -34,7 +34,7 @@ void Enemy::Draw(SDL_Texture* sprites)
 
 void Enemy::OnCollision(Collider* collider)
 {
-	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_WATER)
+	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_WATER ||collider->type == COLLIDER_TRENCH)
 	{
 		collision = true;
 

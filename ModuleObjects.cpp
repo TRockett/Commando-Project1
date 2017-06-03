@@ -370,12 +370,12 @@ bool ModuleObjects::Start() {
 		App->collision->AddCollider({ 194, 1873, 62, 40 }, COLLIDER_TRENCH);
 
 		//2nd
-		App->collision->AddCollider({ 0, 1744, 109, 40 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 162, 1744, 94, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 0, 1744, 109, 40 }, COLLIDER_TRENCH);
+		App->collision->AddCollider({ 162, 1744, 94, 40 }, COLLIDER_TRENCH);
 
 		//3rd
-		App->collision->AddCollider({ 0, 1552, 62, 40 }, COLLIDER_WALL);
-		App->collision->AddCollider({ 115, 1552, 142, 40 }, COLLIDER_WALL);
+		App->collision->AddCollider({ 0, 1552, 62, 40 }, COLLIDER_TRENCH);
+		App->collision->AddCollider({ 115, 1552, 142, 40 }, COLLIDER_TRENCH);
 
 		//Colliders of tree palms
 
