@@ -47,6 +47,11 @@ bool ModuleLevelTransition::Start() {
 
 	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50));
 	sprite_graphics = App->textures->Load("Images/sprites.png");
+	song = App->sound->LoadMusic("Soundtrack/6. Stage Clear.wav");
+	App->sound->StopMusic();
+	App->sound->PlayMusic(song, 0);
+
+
 
 	trans.PushBack({ 0, 737, 32, 52 });
 	trans.PushBack({ 42, 737, 32, 52 });

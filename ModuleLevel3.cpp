@@ -42,6 +42,10 @@ bool ModuleLevel3::Start() {
 	App->current_scene = this;
 	intro = false;
 	background_graphics = App->textures->Load("Images/Mapa3.png", &level_dimensions);
+
+	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
+	App->sound->StopMusic();
+	
 	//App->scene_game->setLevelDimensions(level_dimensions);
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
@@ -163,6 +167,7 @@ update_status ModuleLevel3::Update() {
 		{
 			Global->active = false;
 			timer = SDL_GetTicks();
+			App->sound->PlayMusic(motivationsong, -1);
 			spawning = true;
 			App->objects->final_door.speed = 0.05f;
 		}
@@ -211,6 +216,7 @@ bool ModuleLevel3::CleanUp() {
 	App->fonts->Disable();
 	App->interfac->Disable();
 	ret = App->textures->Unload(background_graphics);
+
 
 	return ret;
 }

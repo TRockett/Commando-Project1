@@ -10,10 +10,15 @@
 
 struct SDL_Texture;
 struct Mix_Chunk;
+
+class _Mix_Music;
+typedef _Mix_Music Mix_Music;
+
 class ModuleLevel3 :
 	public ModuleSceneGame
 {
 private:
+	Mix_Music* motivationsong;
 	uint timer;
 	bool global;
 	bool global_on;

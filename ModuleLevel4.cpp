@@ -16,6 +16,7 @@
 #include "ModuleFonts.h"
 #include "SDL/include/SDL_timer.h"
 #include "EnemyVehicles.h"
+#include "ModuleSound.h"
 
 
 
@@ -42,7 +43,8 @@ bool ModuleLevel4::Start() {
 	App->current_scene = this;
 	intro = false;
 	background_graphics = App->textures->Load("Images/Mapa4.png", &level_dimensions);
-
+	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
+	App->sound->StopMusic();
 
 	spawning = false;
 	counter = 0;
@@ -193,6 +195,7 @@ update_status ModuleLevel4::Update() {
 			Global->active = false;
 			timer = SDL_GetTicks();
 			spawning = true;
+			App->sound->PlayMusic(motivationsong, -1);
 			App->objects->final_door.speed = 0.05f;
 		}
 		else if (timer + 1500 < SDL_GetTicks() && counter < 5)

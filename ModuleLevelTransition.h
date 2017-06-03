@@ -8,6 +8,9 @@
 
 struct SDL_Texture;
 
+class _Mix_Music;
+typedef _Mix_Music Mix_Music;
+
 class ModuleLevelTransition :
 	public Module
 {
@@ -17,6 +20,7 @@ public:
 	virtual ~ModuleLevelTransition();
 
 private:
+	Mix_Music* song;
 	SDL_Texture* background_graphics;
 	SDL_Texture* sprite_graphics;
 	int font_red, font_white;

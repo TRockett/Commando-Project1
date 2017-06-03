@@ -8,6 +8,10 @@
 #include "ModuleSceneGame.h"
 #include "Module.h"
 #include "ModuleEnemies.h"
+struct SDL_Texture;
+struct Mix_Chunk;
+class _Mix_Music;
+typedef _Mix_Music Mix_Music;
 
 class ModuleLevel4 :
 	public ModuleSceneGame
@@ -16,8 +20,7 @@ public:
 	ModuleLevel4();
 	virtual ~ModuleLevel4();
 
-	struct SDL_Texture;
-	struct Mix_Chunk;
+
 	
 	bool Start();
 	update_status PreUpdate();
@@ -27,6 +30,8 @@ public:
 	void onFadeInEnd();
 
 private:
+	Mix_Music* motivationsong;
+
 	int timer1 = 0;
 	bool spawning;
 	int counter;
