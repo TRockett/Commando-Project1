@@ -188,7 +188,7 @@ update_status ModuleLevel4::Update() {
 		Global->active = true;
 	}
 
-	if (App->player->position.y <= SCREEN_HEIGHT - 100)
+	if (App->player->position.y <= SCREEN_HEIGHT)
 	{
 		if (spawning == false)
 		{
