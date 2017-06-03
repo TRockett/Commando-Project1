@@ -176,13 +176,14 @@ bool ModulePlayer::Start()
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
+	level_stage = 0;
 
 	return true;
 }
 
 bool ModulePlayer::CleanUp() {
 	LOG("Unloading player");
-	level_stage = 0;
+
 	App->textures->Unload(graphics);
 	App->textures->Unload(godmode);
 	return true;
