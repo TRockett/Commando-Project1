@@ -177,7 +177,7 @@ EnemyLeft::EnemyLeft(int x, int y, int angle, int sub_type, int isglobal) : Enem
 		movement.PushBack({ -1,0 }, 90);
 		movement.PushBack({ 0,1 }, 100);
 	}
-
+	incolision = false;
 }
 
 
@@ -265,13 +265,12 @@ void EnemyLeft::Move() {
 				current_angle = (rand() % 8) * 45;
 				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 80);
 			}
-			else
+			else if (!incolision)
 			{
 				position = prev_position;
 				current_angle = Collisionangle(current_angle);
 				incolision = true;
 				movement.PushBack({ sinf((float)current_angle*(M_PI / 180.0f)), cosf((float)current_angle*(M_PI / 180.0f)) }, 40);
-
 			}
 		
 
