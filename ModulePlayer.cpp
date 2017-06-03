@@ -148,9 +148,9 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-
+	level_dimensions = ((ModuleSceneGame*)App->current_scene)->getLevelDimensions();
 	position.x = (SCREEN_WIDTH / 2) + 20;
-	position.y = (float)((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y + 110;
+	position.y = (float)((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y + 110 - level_stage;
 	shooting_angle = { 0.0f, 0.0f };
 	direction = 0;
 	shooting_position = { 9,1 };
@@ -299,6 +299,19 @@ update_status ModulePlayer::Update()
 		}
 	}
 	else if (current_animation->Finished() && !((ModuleSceneGame*)App->current_scene)->restart) {
+
+		if (App->player->position.y <= ((level_dimensions.y * 1) / 4) - 75)
+		{
+			App->player->level_stage = (level_dimensions.y * 3 / 4) + 75;
+		}
+		else if (App->player->position.y <= ((level_dimensions.y * 2) / 4) - 200 && App->player->position.y > ((level_dimensions.y * 1) / 4) - 75)
+		{
+			App->player->level_stage = (level_dimensions.y * 2 / 4) + 200;
+		}
+		else if (App->player->position.y <= ((level_dimensions.y * 3) / 4) + 75 && (App->player->position.y >= ((level_dimensions.y * 2) / 4) + 75))
+		{
+			App->player->level_stage = (level_dimensions.y / 4) - 75;
+		}
 		((ModuleSceneGame*)App->current_scene)->restart = true;
 		state = IDLE;
 	}

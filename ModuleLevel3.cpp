@@ -144,6 +144,8 @@ update_status ModuleLevel3::Update() {
 
 	sprintf_s(score_text, 10, "%7d", App->interfac->score);
 
+
+
 	if (App->player->position.y <= 675)
 	{
 		global = true;

@@ -53,7 +53,9 @@ public:
 		return toiPoint(position);
 	}
 	int lives;
+	int level_stage;
 	uint grenades;
+	iPoint level_dimensions;
 
 private:
 	SDL_Texture* graphics = nullptr;
