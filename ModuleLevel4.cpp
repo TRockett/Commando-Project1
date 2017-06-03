@@ -70,10 +70,10 @@ bool ModuleLevel4::Start() {
 	App->enemies->AddSpawner(LEFT_WEAPON, 0, 1845, 90, 465, 1, 0, nullptr,0, 15);
 
 	App->enemies->AddEnemy(LEFT_WEAPON, SCREEN_WIDTH, 1845, 270, 1);
-	App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1845, 270, 350, 1, 0 ,nullptr,0 , 15);
+	App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1845, 270, 370, 1, 0 ,nullptr,0 , 15);
 
 	App->enemies->AddEnemy(ENEMY_GRENADE, 0, 1810, 90, 1);
-	App->enemies->AddSpawner(ENEMY_GRENADE, 0, 1810, 90, 290, 1, 0, nullptr, 0, 10);
+	App->enemies->AddSpawner(ENEMY_GRENADE, 0, 1810, 90, 350, 1, 0, nullptr, 0, 10);
 
 	
 	App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 1810, 270, 400, 1, 0, nullptr, 0, 10);
@@ -82,7 +82,7 @@ bool ModuleLevel4::Start() {
 	App->enemies->AddSpawner(LEFT_WEAPON, 0, 1790, 90, 485, 1, 0, nullptr, 0, 15);
 
 	
-	App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1790, 270, 350, 1, 0, nullptr, 0, 15);
+	App->enemies->AddSpawner(LEFT_WEAPON, SCREEN_WIDTH, 1790, 270, 450, 1, 0, nullptr, 0, 15);
 
 	App->enemies->AddEnemy(LEFT_WEAPON, 0, 1720, 90, 1);
 	App->enemies->AddSpawner(LEFT_WEAPON, 0, 1720, 90, 390, 1, 0, nullptr, 0, 20);
@@ -94,7 +94,7 @@ bool ModuleLevel4::Start() {
 	App->enemies->AddSpawner(LEFT_WEAPON, 0, 1660, 90, 355, 1, 0, nullptr, 0, 20);
 
 	App->enemies->AddEnemy(ENEMY_BAZOOKA, SCREEN_WIDTH, 1660, 270, 1);
-	App->enemies->AddSpawner(ENEMY_BAZOOKA, SCREEN_WIDTH, 1660, 270, 350, 1, 0, nullptr, 0, 20);
+	App->enemies->AddSpawner(ENEMY_BAZOOKA, SCREEN_WIDTH, 1660, 270, 370, 1, 0, nullptr, 0, 20);
 
 	
 	App->enemies->AddSpawner(LEFT_WEAPON, 0, 1530, 90, 300, 1, 0, nullptr, 0, 10);
@@ -105,7 +105,18 @@ bool ModuleLevel4::Start() {
 	Global = App->enemies->AddSpawner(LEFT_WEAPON, 0, 0, 0, 80, 1, 1);
 	Global->active = false;
 		
-	
+	App->enemies->AddEnemy(ENEMY_GRENADE, 0, 1020, 90, 1);
+	App->enemies->AddSpawner(ENEMY_GRENADE, 0, 970, 90, 450, 1, 0, nullptr, 0, 15);
+
+	App->enemies->AddEnemy(ENEMY_GRENADE, SCREEN_WIDTH, 900, 270, 1);
+	App->enemies->AddSpawner(ENEMY_GRENADE, SCREEN_WIDTH, 900, 270, 350, 1, 0, nullptr, 0, 15);
+
+	App->enemies->AddEnemy(ENEMY_BAZOOKA, 0, 540, 90, 1);
+	App->enemies->AddSpawner(ENEMY_BAZOOKA, 0, 540, 90, 350, 1, 0, nullptr, 0, 10);
+
+	App->enemies->AddEnemy(ENEMY_BAZOOKA, SCREEN_WIDTH, 500, 270, 1);
+	App->enemies->AddSpawner(ENEMY_BAZOOKA, SCREEN_WIDTH, 500, 270, 450, 1, 0, nullptr, 0, 10);
+
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
