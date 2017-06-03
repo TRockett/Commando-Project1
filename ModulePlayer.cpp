@@ -206,7 +206,7 @@ update_status ModulePlayer::Update()
 		grenade1 = false;
 
 
-		else if (final_anim != 0)
+		if (final_anim != 0)
 		{			
 			Final();
 		}
