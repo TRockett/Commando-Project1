@@ -55,6 +55,7 @@ public:
 	int lives;
 	int level_stage;
 	int prev_level_stage;
+	bool restart_anim;
 	uint grenades;
 	iPoint level_dimensions;
 
@@ -75,6 +76,8 @@ private:
 	Animation leave_heli;
 	Animation bye_anim;
 	Animation throw_grenade;
+	Animation player_one;
+
 
 	fPoint prev_position;
 	Mix_Chunk* shoot;

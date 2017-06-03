@@ -11,6 +11,8 @@
 #include "ModuleCollision.h"
 #include "SDL/include/SDL_timer.h"
 #include "ModuleObjects.h"
+#include "ModuleEnemies.h"
+
 
 
 ModulePlayer::ModulePlayer()
@@ -140,6 +142,16 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.loop = true;
 	throw_grenade.speed = 3.0f;
 
+	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
+	player_one.PushBack({ 0,808,62,8 });
+	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
+	player_one.PushBack({ 0,808,62,8 });
+	player_one.PushBack({ 0,792,62,24 }, { 0,16 });
+	player_one.PushBack({ 0,808,62,8 });
+	player_one.speed = 0.02f;
+
+	restart_anim = false;
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -200,55 +212,14 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;
 
-		if (((ModuleSceneGame*)App->current_scene)->intro == true)
+		if (restart_anim == true)
 		{
-			if (intro_state == 0)
+			current_animation = &player_one;
+			App->enemies->Disable();
+			if (player_one.Finished())
 			{
-				current_animation->speed = 0.05f;
-				current_animation = &leave_heli;
-				position.x = position.x + 0.5f;;
-				position.y = position.y - parabol;
-				parabol = parabol - 0.015f ;
-				if (current_animation->Finished() == true)
-				{
-					intro_state = 1;
-				}
-			}
-			else if (intro_state == 1)
-			{
-				current_animation = &bye_anim;
-				if (current_animation->Finished() == true)
-				{
-					intro_state = 2;
-					init_pos = position;
-				}
-			}
-			else if (intro_state == 2)
-			{
-				position.y = position.y + 0.5f;
-				current_animation = &backward;
-				if (init_pos.y + 20 <= position.y )
-				{
-					intro_state = 3;
-				}
-			}
-			else if (intro_state == 3)
-			{
-				if (position.x >= (SCREEN_WIDTH / 2) + 15)
-				{
-					position.x = position.x - 0.55f;
-					position.y = position.y + 0.6f;
-
-				}
-				else
-				{
-					intro_state = 4;
-					current_animation = &forward;
-					current_animation->speed = 0;
-					App->scene_game->intro = false;
-					App->objects->droping = false;
-
-				}
+				restart_anim = false;
+				App->enemies->Enable();
 			}
 		}
 		else if (final_anim != 0)
@@ -316,6 +287,7 @@ update_status ModulePlayer::Update()
 			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
 		}
 		((ModuleSceneGame*)App->current_scene)->restart = true;
+		restart_anim = true;
 		state = IDLE;
 	}
 

@@ -50,6 +50,8 @@ bool ModuleLevel3::Start() {
 	App->render->camera.x = -20 * SCREEN_SIZE;
 	App->render->camera.y = (-level_dimensions.y + SCREEN_HEIGHT) * SCREEN_SIZE;
 
+
+
 	//ADD ENEMIES
 	if (App->level == 3) 
 	{
@@ -128,6 +130,8 @@ bool ModuleLevel3::Start() {
 	App->sound->PlayMusic(newstart, 0);
 	App->sound->ExecuteOnMusicEnd(PlayMainMusic);
 
+
+
 	return ret;
 }
 
@@ -143,6 +147,8 @@ update_status ModuleLevel3::PreUpdate() {
 
 update_status ModuleLevel3::Update() {
 	bool ret = true;
+
+
 
 	ret = App->render->Blit(background_graphics, 0, 0, nullptr);
 
