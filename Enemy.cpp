@@ -48,7 +48,7 @@ void Enemy::OnCollision(Collider* collider)
 int Enemy::Collisionangle(int angle)
 {
 	int a = angle;
-	a += 180;
+	a += 180 + (rand() % 40) - 20;
 	if (a > 360)
 	{
 		a -= 360;
