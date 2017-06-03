@@ -20,6 +20,7 @@
 #include "EnemyTruck.h"
 #include "EnemyTower.h"
 #include "SDL\include\SDL.h"
+#include "ModuleSound.h"
 
 ModuleEnemies::ModuleEnemies()
 {
@@ -40,7 +41,7 @@ bool ModuleEnemies::Start()
 {
 	// Create a prototype for each enemy available so we can copy them around
 	sprites = App->textures->Load("Images/sprites.png");
-
+	enemy_death_sound = App->sound->LoadSound("SoundFX/Commando Sound Effects_12.wav");
 	return true;
 }
 

@@ -5,6 +5,8 @@
 #include "EnemyLeft.h"
 #include "ModuleRender.h"
 #include "ModuleSceneGame.h"
+#include "ModuleSound.h"
+#include "ModuleEnemies.h"
 #include <math.h>
 
 Enemy::Enemy(int x, int y, int angle, int sub_type, int isglobal) : position(x, y), initial_position(x, y), initial_angle(angle),sub_type(sub_type),isglobal(isglobal)
@@ -42,9 +44,11 @@ void Enemy::OnCollision(Collider* collider)
 	if (collider->type == COLLIDER_PLAYER_SHOT)
 	{
 		dying = true;
+		App->sound->PlaySound(App->enemies->enemy_death_sound);
 	}
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y, EXPLOSION,COLLIDER_ENEMY);
 }
+
 int Enemy::Collisionangle(int angle)
 {
 	int a = angle;

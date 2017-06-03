@@ -40,6 +40,7 @@ public:
 	Mix_Music* intro_music;
 	Mix_Music* newstart;
 	Mix_Music* music;
+	Mix_Music* boss_music;
 
 	iPoint getLevelDimensions() {
 		return{ level_dimensions.x, level_dimensions.y - SCREEN_HEIGHT };
