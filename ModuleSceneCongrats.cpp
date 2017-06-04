@@ -69,7 +69,7 @@ bool ModuleSceneCongrats::Start() {
 
 		App->interfac->AddLabel(font_white, str, 23, 110 + 16 * i);
 		App->interfac->AddLabel(font_white, App->interfac->score_texts[i], 65 + 8 * 5, 110 + 16 * i, ALIGNMENT_RIGHT);
-		App->interfac->AddLabel(font_white, App->interfac->score_names[i], 120, 110 + 16 * i, ALIGNMENT_LEFT, true);
+		App->interfac->AddLabel(font_white, App->interfac->score_names[i], 120, 110 + 16 * i, ALIGNMENT_LEFT);
 	}
 
 

@@ -11,6 +11,7 @@
 #include "ModuleCollision.h"
 #include "SDL/include/SDL_timer.h"
 #include "ModuleObjects.h"
+#include "ModuleFonts.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -179,6 +180,10 @@ bool ModulePlayer::Start()
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
 	death_music = App->sound->LoadMusic("Soundtrack/10. Leben verloren.wav");
+
+	int id = App->fonts->LoadWhiteFont();
+
+	ready_label = App->interfac->getLabel(App->interfac->AddLabel(id, "PLAYER 1\nREADY", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, ALIGNMENT_CENTRE, 3000));
 
 	return true;
 }
@@ -704,6 +709,13 @@ void ModulePlayer::Final()
 		}
 		else 
 		final_anim = 6;
+	}
+}
+
+void ModulePlayer::RemoveReadyLabel() {
+	if (ready_label != nullptr) {
+		delete ready_label;
+		ready_label = nullptr;
 	}
 }
 

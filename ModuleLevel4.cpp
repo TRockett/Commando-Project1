@@ -140,7 +140,7 @@ bool ModuleLevel4::Start() {
 	App->interfac->Enable();
 
 	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
-	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav");
+	music = App->sound->LoadMusic("Soundtrack/7. Hintergrundmusik 2.wav");
 	if (music == nullptr || newstart == nullptr)
 		ret = false;
 	if (background_graphics == nullptr)

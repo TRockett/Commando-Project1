@@ -23,17 +23,13 @@ ModuleLevelTransition::~ModuleLevelTransition()
 }
 
 bool ModuleLevelTransition::Init() {
-
-
-	new_str = (char*)calloc(strlen(string_1) + 1, sizeof(char));
 	timer = SDL_GetTicks();
 	return true;
 }
 
 bool ModuleLevelTransition::Start() {
-
-
-
+	new_str = (char*)calloc(strlen(string_1) + 1, sizeof(char));
+	actual = 0;
 	bool ret = true;
 	App->fonts->Enable();
 	App->interfac->Enable();
@@ -45,7 +41,7 @@ bool ModuleLevelTransition::Start() {
 	App->interfac->AddLabel(font_red, "TOP SCORE", SCREEN_WIDTH / 2 - 30, 0);
 	App->interfac->AddLabel(font_white, App->interfac->score_texts[0], SCREEN_WIDTH / 2 - 15, 8);
 
-	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50));
+	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, ALIGNMENT_CENTRE));
 	sprite_graphics = App->textures->Load("Images/sprites.png");
 	song = App->sound->LoadMusic("Soundtrack/6. Stage Clear.wav");
 	App->sound->StopMusic();
@@ -81,7 +77,7 @@ update_status ModuleLevelTransition::Update() {
 		label->setString(new_str);
 	}
 
-	if (SDL_GetTicks() >= timer + 100)
+	if (SDL_GetTicks() >= timer + 150)
 	{
 		if (actual < strlen(string_1)) {
 			actual++;
@@ -104,7 +100,10 @@ bool ModuleLevelTransition::CleanUp() {
 	App->fonts->Disable();
 	App->interfac->Disable();
 	ret = App->textures->Unload(background_graphics);
-
+	if (new_str != nullptr) {
+		delete[] new_str;
+		new_str = nullptr;
+	}
 
 
 

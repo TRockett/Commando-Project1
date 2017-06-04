@@ -15,8 +15,12 @@ struct Label {
 	int font_id;
 	const char* string;
 	iPoint pos;
-	bool ranking;
 	Text_alignment alignment;
+	uint tickrate;
+	uint born;
+	int life;
+	uint start_time;
+	bool visible = true;
 
 	void setString(const char* str) {
 		string = str;
@@ -39,7 +43,9 @@ public:
 	bool Init();
 	bool Start();
 	update_status PostUpdate();
-	int AddLabel(int id, const char* text, int posx, int posy, Text_alignment alignment = ALIGNMENT_LEFT, bool ranking = false);
+	int AddLabel(int id, const char* text, int posx, int posy, Text_alignment alignment = ALIGNMENT_LEFT, int life = -1);
+	bool RemoveLabel(Label* label);
+	bool RemoveLabel(int label_id);
 	Label* getLabel(int id);
 	bool CleanUp();
 	void UpdateScores();

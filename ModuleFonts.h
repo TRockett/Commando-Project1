@@ -35,6 +35,7 @@ public:
 
 	// Create a surface from text
 	void BlitText(Label* label) const;
+	int LoadWhiteFont();
 
 private:
 	Font fonts[MAX_FONTS];

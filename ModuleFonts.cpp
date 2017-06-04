@@ -102,12 +102,37 @@ void ModuleFonts::BlitText(Label* label) const
 
 	const Font* font = &fonts[label->font_id];
 	SDL_Rect rect;
-	const uint len = strlen(label->string);
 	uint row = 0;
-	int col = 0;
+	uint col = 0;
+	const uint len = strlen(label->string);
+	uint total_rows = 1;
 
 	rect.w = font->char_w;
 	rect.h = font->char_h;
+
+	for (uint i = 0; label->string[i] != '\0'; i++) {
+		switch (label->string[i]) {
+		case '\n':
+			total_rows++;
+			break;
+		}
+	}
+
+	uint *row_len = (uint*)SDL_calloc(total_rows, sizeof(uint));
+
+	{	//Enclosed Scope
+		uint char_count = 0;
+		for (uint i = 0; label->string[i] != '\0'; i++) {
+			if (label->string[i] == '\n') {
+				row_len[row] = char_count;
+				char_count = 0;
+				row++;
+			}
+			else char_count++;
+		}
+		row_len[row] = char_count;
+		row = 0;
+	}
 
 	for(uint i = 0; i < len; ++i, col++)
 	{
@@ -135,10 +160,10 @@ void ModuleFonts::BlitText(Label* label) const
 			posX = label->pos.x + col * rect.w;
 			break;
 		case ALIGNMENT_RIGHT:
-			posX = label->pos.x - (font->char_w * len) + col * rect.w;
+			posX = label->pos.x - (font->char_w * row_len[row] ) + col * rect.w;
 			break;
 		case ALIGNMENT_CENTRE:
-			posX = label->pos.x - ((font->char_w * len) / 2) + col * rect.w;
+			posX = label->pos.x - ((font->char_w * row_len[row]) / 2) + col * rect.w;
 			break;
 		default:
 			posX = label->pos.x + col * rect.w;
@@ -146,6 +171,12 @@ void ModuleFonts::BlitText(Label* label) const
 		}
 		App->render->Blit(font->graphic, posX, label->pos.y + row * (rect.h + 1), &rect, 0.0f, false);
 	}
+}
+
+int ModuleFonts::LoadWhiteFont() {
+	return App->fonts->Load("Images/Fuentes_small_grey.png",
+		"0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;®.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ",
+		5, 0, 1);
 }
 
 iPoint ModuleFonts::getFontDimensions(int id) {

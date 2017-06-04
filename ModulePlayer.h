@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleParticles.h"
+#include "ModuleInterface.h"
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -42,6 +43,8 @@ public:
 	bool CleanUp();
 	update_status Update();
 	void OnCollision(Collider*, Collider*);
+	void RemoveReadyLabel();
+
 	PLAYER_STATE state = IDLE;
 	bool grenade_on = false;
 	bool bthrowing;
@@ -59,6 +62,8 @@ public:
 	int prev_level_stage;
 	uint grenades;
 	iPoint level_dimensions;
+	Label* ready_label;
+
 
 private:
 	SDL_Texture* graphics = nullptr;
