@@ -377,7 +377,7 @@ void ModulePlayer::checkInput() {
 		}
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)
 		{
-			if (state != DEAD)
+			if (state != DEAD && b_godmode == false)
 			{
 				state = DEAD;
 				lives = 0;
