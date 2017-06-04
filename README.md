@@ -30,15 +30,32 @@ TEAM MEMBERS:
 -Marc Moreno (Code)
 
 CONTROLS:
+Keyboard:
 
 Start: SPACE BAR
 Movement: UP/DOWN/LEFT/RIGHT ARROWS
 Shoot: Z
 Grenade: X
+Speed: LShift
+God Mode: G
+Insta death: F
+Start in level 4: 4
+Start in level tansition:5
+Keyboard:
+
+Start: Start
+Movement: Left joystick
+Shoot: R trigger
+Grenade: L trigger
+Speed: L bumper
+God Mode: Back
+
 
 CHANGELIST:
 
 v.0.1 - Scrolling Background of the first level with music.
 v.0.2 - Change from main menu to diferent maps pressing a key.
 v.0.3 - Super Joe's movement + Shooting particles with sound fx
+v.0.5 - Added the base class enemy and the grenades particle
+v.1.0 - Level 3 and for full implemented, and all the enemies.
 
