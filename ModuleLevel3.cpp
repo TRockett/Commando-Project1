@@ -110,9 +110,9 @@ bool ModuleLevel3::Start() {
 	spawning = false;
 	counter = 0;
 
-	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
-	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.wav");
-	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
+	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.ogg");
+	music = App->sound->LoadMusic("Soundtrack/3.Hintergrundmusik 1.ogg");
+	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.ogg");
 
 	if (music == nullptr || newstart == nullptr || motivationsong == nullptr)
 		ret = false;

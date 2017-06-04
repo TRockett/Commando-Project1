@@ -28,7 +28,7 @@ bool ModuleSceneCongrats::Start() {
 
 	App->player->level_stage = 0;
 	uint score = App->interfac->score;
-	char* song_path = "Soundtrack/13. Namen eingeben.wav";
+	char* song_path = "Soundtrack/13. Namen eingeben.ogg";
 	for (uint i = 0; i < MAX_SCORES; i++) {
 		if (score > App->interfac->max_scores[i]) {
 			for (uint j = MAX_SCORES - 1; j > i; j--) {
@@ -38,7 +38,7 @@ bool ModuleSceneCongrats::Start() {
 			App->interfac->max_scores[i] = score;
 			App->interfac->score_names[i] = "PLAYER.1..";
 			if (i == 0)
-				song_path = "Soundtrack/14. Namen eingegeben (1 Platz).wav";
+				song_path = "Soundtrack/14. Namen eingegeben (1 Platz).ogg";
 			break;
 		}
 	}

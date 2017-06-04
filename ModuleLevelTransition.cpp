@@ -43,7 +43,7 @@ bool ModuleLevelTransition::Start() {
 
 	label = App->interfac->getLabel(App->interfac->AddLabel(font_white, "", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, ALIGNMENT_CENTRE));
 	sprite_graphics = App->textures->Load("Images/sprites.png");
-	song = App->sound->LoadMusic("Soundtrack/6. Stage Clear.wav");
+	song = App->sound->LoadMusic("Soundtrack/6. Stage Clear.ogg");
 	App->sound->StopMusic();
 	App->sound->PlayMusic(song, 0);
 

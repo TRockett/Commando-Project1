@@ -180,8 +180,8 @@ bool ModulePlayer::Start()
 
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
-	death_music = App->sound->LoadMusic("Soundtrack/10. Leben verloren.wav");
-	game_over_music = App->sound->LoadMusic("Soundtrack/12. Spiel Vorbei.wav");
+	death_music = App->sound->LoadMusic("Soundtrack/10. Leben verloren.ogg");
+	game_over_music = App->sound->LoadMusic("Soundtrack/12. Spiel Vorbei.ogg");
 
 	int id = App->fonts->LoadWhiteFont();
 

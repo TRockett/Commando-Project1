@@ -43,7 +43,7 @@ bool ModuleLevel4::Start() {
 	App->current_scene = this;
 	intro = false;
 	background_graphics = App->textures->Load("Images/Mapa4.png", &level_dimensions);
-	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.wav");
+	motivationsong = App->sound->LoadMusic("Soundtrack/5. Festung.ogg");
 	App->sound->StopMusic();
 
 	spawning = false;
@@ -141,8 +141,8 @@ bool ModuleLevel4::Start() {
 	App->fonts->Enable();
 	App->interfac->Enable();
 
-	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.wav");
-	music = App->sound->LoadMusic("Soundtrack/7. Hintergrundmusik 2.wav");
+	newstart = App->sound->LoadMusic("Soundtrack/4. Neustart.ogg");
+	music = App->sound->LoadMusic("Soundtrack/7. Hintergrundmusik 2.ogg");
 	if (music == nullptr || newstart == nullptr)
 		ret = false;
 	if (background_graphics == nullptr)
