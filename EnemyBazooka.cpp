@@ -114,7 +114,7 @@ void EnemyBazooka::Move()
 			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
 			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
 
-			if (position.x > player_pos.x - 50 && position.x < player_pos.x + 50)
+			if (position.x > player_pos.x - 30 && position.x < player_pos.x + 30)
 			{
 				shooting_position.x = 4;
 				shooting_position.y = 19;
@@ -128,7 +128,7 @@ void EnemyBazooka::Move()
 					shoot = false;
 				}
 			}
-			else if (position.x > player_pos.x - 50)
+			else if (position.x > player_pos.x - 30)
 			{
 				shooting_position.x = 0;
 				shooting_position.y = 18;
@@ -145,7 +145,7 @@ void EnemyBazooka::Move()
 					}
 				}
 			}
-			else if (position.x < player_pos.x + 50)
+			else if (position.x < player_pos.x + 30)
 			{
 				shooting_position.x = 19;
 				shooting_position.y = 18;
