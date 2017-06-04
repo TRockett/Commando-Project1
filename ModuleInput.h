@@ -46,6 +46,7 @@ struct GamePad {
 	Button left_bumper;
 	Button left_trigger;
 	Button right_trigger;
+
 };
 
 class ModuleInput : public Module

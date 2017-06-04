@@ -78,7 +78,7 @@ update_status ModuleInput::PreUpdate()
 	controller_1.left_bumper.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER));
 	controller_1.back.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_BACK));
 	controller_1.start.setState((bool)SDL_GameControllerGetButton(Controller, SDL_CONTROLLER_BUTTON_START));
-
+	
 	return update_status::UPDATE_CONTINUE;
 }
 

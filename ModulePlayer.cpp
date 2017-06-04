@@ -13,6 +13,7 @@
 #include "ModuleObjects.h"
 #include "ModuleFonts.h"
 #include "ModuleEnemies.h"
+#include "ModuleFadeToBlack.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -374,7 +375,27 @@ void ModulePlayer::checkInput() {
 		{
 			//App->fade->FadeToBlack()
 		}
+		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)
+		{
+			if (state != DEAD)
+			{
+				state = DEAD;
+				lives = 0;
 
+				((ModuleSceneGame*)App->current_scene)->next = (Module*)App->scene_congrats;
+				
+
+				collider_body->active = false;
+				collider_feet->active = false;
+				current_animation = &death;
+				current_animation->Reset();
+
+				App->sound->StopMusic();
+				App->sound->PlayMusic(death_music, 0);
+				Mix_HookMusicFinished(FinishDeath);
+
+			}
+		}
 		if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
 			speed = 10;
 		else speed = 1;

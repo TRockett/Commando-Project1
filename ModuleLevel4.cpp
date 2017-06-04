@@ -119,6 +119,8 @@ bool ModuleLevel4::Start() {
 	App->enemies->AddEnemy(ENEMY_BAZOOKA, SCREEN_WIDTH, 500, 270, 1);
 	App->enemies->AddSpawner(ENEMY_BAZOOKA, SCREEN_WIDTH, 500, 270, 450, 1, 0, nullptr, 0, 10);
 
+	App->enemies->AddEnemy(COMMANDER, (SCREEN_WIDTH - 10) / 2, 81, 0, 1);
+
 
 	font_red = App->fonts->Load("Images/Fuentes_small_red.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);
 	font_white = App->fonts->Load("Images/Fuentes_small_grey.png", "0123456789ABCDEF\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1\1           K;�.,0123456789=      ABCDEFGHIJKLMNOPQRSTUVWXYZ.\1\1   abcdefghijklmnopqrstuvwxyz    |                                ", 5, 0, 1);

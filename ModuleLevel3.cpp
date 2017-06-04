@@ -175,6 +175,7 @@ update_status ModuleLevel3::Update() {
 			timer = SDL_GetTicks();
 			App->sound->PlayMusic(motivationsong, -1);
 			spawning = true;
+			App->objects->final_door.speed = 0.05f;
 		}
 		else if (timer + 1000 < SDL_GetTicks() && counter < 20)
 		{

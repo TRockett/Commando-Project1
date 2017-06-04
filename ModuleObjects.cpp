@@ -683,7 +683,7 @@ update_status ModuleObjects::Update() {
 
 
 		
-		App->render->Blit(sprite_graphics, 99, 80 - door_move, &final_door2.GetCurrentFrame().rect);
+		App->render->Blit(sprite_graphics, 98, 80 - door_move, &final_door2.GetCurrentFrame().rect);
 
 		App->render->Blit(sprite_graphics, 98, 53, &Upper_door.GetCurrentFrame().rect);
 
