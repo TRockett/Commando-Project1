@@ -131,16 +131,16 @@ EnemyGrenade::EnemyGrenade(int x, int y , int angle, int sub_type, int isglobal)
 	movement.loop = false;
 	if (sub_type == 4)
 	{
-		movement.PushBack({ 0.5f,0 }, 60);
+		movement.PushBack({ 0.5f,0 }, 50);
 		movement.PushBack({ 0,0 }, 50);
-		movement.PushBack({ -0.5f,0 }, 100);
+		movement.PushBack({ -0.5f,0 }, 200);
 		movement.loop = false;
 	}
 	else if (sub_type == 5)
 	{
 		movement.PushBack({ -0.5f,0 }, 50);
 		movement.PushBack({ 0,0 }, 50);
-		movement.PushBack({ 0.5f,0 }, 100);
+		movement.PushBack({ 0.5f,0 }, 200);
 		movement.loop = false;
 	}
 	else if (sub_type  == 6)
@@ -293,7 +293,7 @@ void EnemyGrenade::Move()
 				animation = GetAnimationForDirection(current_angle);
 			}
 
-			if (SDL_GetTicks() >= timer + 1500)
+			if (SDL_GetTicks() >= timer + 1500 && (this->position.x >= 0 && this->position.x <= (SCREEN_WIDTH)))
 			{
 				animation = &throwing;
 				float deltaX = -position.x + player_pos.x;
@@ -315,7 +315,7 @@ void EnemyGrenade::Move()
 				animation->Reset();
 				animation = GetAnimationForDirection(current_angle);
 			}
-			if (SDL_GetTicks() >= timer + 1500)
+			if (SDL_GetTicks() >= timer + 1500 && (this->position.x >= 0 && this->position.x <= (SCREEN_WIDTH)))
 			{
 				animation = &throwing;
 				float deltaX = -position.x + player_pos.x;
