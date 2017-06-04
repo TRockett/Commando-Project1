@@ -25,6 +25,8 @@ private:
 	bool spawning;
 	int counter;
 	EnemySpawner* Global;
+
+
 public:
 	bool Start();
 	update_status PreUpdate();

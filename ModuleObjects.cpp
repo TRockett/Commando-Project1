@@ -14,6 +14,7 @@
 #include "SDL/include/SDL_timer.h"
 #include <string>
 #include "ModuleLevel3.h"
+#include "ModuleLevel4.h"
 
 
 ModuleObjects::ModuleObjects()
@@ -46,6 +47,9 @@ bool ModuleObjects::Init() {
 	final_door.PushBack({ 962, 83, 96, 59 });
 	final_door.speed = 0;
 	final_door.loop = false;
+
+	final_door2.PushBack({ 352,97,58,25 });
+	Upper_door.PushBack({ 352,125,58,26 });
 
 	//Door of the bunkers of level 3 animation but left side
 	door_bunker_left.PushBack({ 596,196,12, 23 });
@@ -676,8 +680,19 @@ update_status ModuleObjects::Update() {
 		App->render->Blit(sprite_graphics, 59, 470, &bunker_house.GetCurrentFrame().rect);
 		App->render->Blit(sprite_graphics, 16, 1375, &trinxera.GetCurrentFrame().rect);
 
+
+
+		
+		App->render->Blit(sprite_graphics, 99, 80 - door_move, &final_door2.GetCurrentFrame().rect);
+
+		App->render->Blit(sprite_graphics, 98, 53, &Upper_door.GetCurrentFrame().rect);
+
+
 		if (App->player->final_anim == 4)
-		{
+		{	
+			if (door_move > 0)
+			door_move--;
+			
 			App->render->Blit(sprite_graphics, 57, 74, &bunker_fire.GetCurrentFrame().rect);
 			App->render->Blit(sprite_graphics, 182, 74, &bunker_fire.GetCurrentFrame().rect);
 			App->render->Blit(sprite_graphics, 100, 8, &bunker_fire.GetCurrentFrame().rect);
@@ -687,6 +702,11 @@ update_status ModuleObjects::Update() {
 				App->player->final_anim = 5;
 			}
 		}
+		else if (App->level_4->spawning == true && door_move < 25)
+		{
+			door_move++;
+		}
+
 		if (App->player->final_anim > 5)
 		{
 			if (App->player->final_anim == 6)

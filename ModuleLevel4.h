@@ -21,7 +21,7 @@ public:
 	virtual ~ModuleLevel4();
 
 
-	
+	bool spawning;
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
@@ -33,7 +33,7 @@ private:
 	Mix_Music* motivationsong;
 
 	int timer1 = 0;
-	bool spawning;
+
 	int counter;
 	EnemySpawner* Global;
 	bool global;

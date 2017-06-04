@@ -51,7 +51,7 @@ bool ModuleLevelTransition::Start() {
 
 	trans.PushBack({ 0, 737, 32, 52 });
 	trans.PushBack({ 42, 737, 32, 52 });
-	trans.PushBack({ 82, 737, 32, 53 });
+	trans.PushBack({ 81, 737, 32, 53 });
 	trans.loop = true;
 	trans.speed = 0.05f;
 

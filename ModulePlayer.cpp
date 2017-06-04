@@ -12,6 +12,7 @@
 #include "SDL/include/SDL_timer.h"
 #include "ModuleObjects.h"
 #include "ModuleFonts.h"
+#include "ModuleEnemies.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -140,7 +141,6 @@ ModulePlayer::ModulePlayer()
 	throw_grenade.PushBack({ 136,68,20,24 });
 	throw_grenade.loop = true;
 	throw_grenade.speed = 3.0f;
-
 }
 
 ModulePlayer::~ModulePlayer()
@@ -206,58 +206,8 @@ update_status ModulePlayer::Update()
 		shooting = false;
 		grenade1 = false;
 
-		if (((ModuleSceneGame*)App->current_scene)->intro == true)
-		{
-			if (intro_state == 0)
-			{
-				current_animation->speed = 0.05f;
-				current_animation = &leave_heli;
-				position.x = position.x + 0.5f;;
-				position.y = position.y - parabol;
-				parabol = parabol - 0.015f ;
-				if (current_animation->Finished() == true)
-				{
-					intro_state = 1;
-				}
-			}
-			else if (intro_state == 1)
-			{
-				current_animation = &bye_anim;
-				if (current_animation->Finished() == true)
-				{
-					intro_state = 2;
-					init_pos = position;
-				}
-			}
-			else if (intro_state == 2)
-			{
-				position.y = position.y + 0.5f;
-				current_animation = &backward;
-				if (init_pos.y + 20 <= position.y )
-				{
-					intro_state = 3;
-				}
-			}
-			else if (intro_state == 3)
-			{
-				if (position.x >= (SCREEN_WIDTH / 2) + 15)
-				{
-					position.x = position.x - 0.55f;
-					position.y = position.y + 0.6f;
 
-				}
-				else
-				{
-					intro_state = 4;
-					current_animation = &forward;
-					current_animation->speed = 0;
-					App->scene_game->intro = false;
-					App->objects->droping = false;
-
-				}
-			}
-		}
-		else if (final_anim != 0)
+		if (final_anim != 0)
 		{			
 			Final();
 		}
@@ -332,15 +282,12 @@ update_status ModulePlayer::Update()
 		int level_y = (((ModuleSceneGame*)App->current_scene)->getLevelDimensions().y) * SCREEN_SIZE;
 		if (camera->y < -level_y)
 			camera->y = -level_y;
-		
 	}
 	
 	if(b_godmode == false)
 		App->render->Blit(graphics, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
 	else 
 		App->render->Blit(godmode, ((int)position.x - frame.pivot.x), ((int)position.y - frame.pivot.y), &frame.rect);
-
-	//Bridge sprite
 
 	return UPDATE_CONTINUE;
 }
@@ -425,8 +372,7 @@ void ModulePlayer::checkInput() {
 		}
 		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
-			/*lives = 1;
-			enemyCollision();*/
+			//App->fade->FadeToBlack()
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
