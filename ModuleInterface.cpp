@@ -39,7 +39,7 @@ bool ModuleInterface::Init() {
 	score_names[2] = "MR.MORENO.";
 	score_names[3] = "BBAAYYUU..";
 	score_names[4] = "CAPCOM....";
-	score_names[5] = "PATIUSKAS.";
+	score_names[5] = "SUPER.JOE.";
 	score_names[6] = "..........";
 
 

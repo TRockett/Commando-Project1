@@ -471,9 +471,11 @@ void ModulePlayer::processInput() {
 		break;
 	case IDLE:
 		grenade_speed = 1.0f;
+
 		if (!bthrowing) {
 			current_animation->speed = 0.0f;
 		}
+
 		switch (prev_state)
 		{
 		case MOVING_UP:
@@ -497,11 +499,6 @@ void ModulePlayer::processInput() {
 		}
 		break;
 	}
-
-	/*shooting_angle.x = fmaxf(-1.0f, shooting_angle.x);
-	shooting_angle.x = fminf(1.0f, shooting_angle.x);
-	shooting_angle.y = fmaxf(-1.0f, shooting_angle.y);
-	shooting_angle.y = fminf(1.0f, shooting_angle.y);*/
 
 	if (state != IDLE) {
 		position.x += speed * sinf((int)direction * (M_PI / 180.0f));
