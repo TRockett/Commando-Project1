@@ -34,13 +34,13 @@ bool ModuleInterface::Init() {
 	/*for (uint i = 0; i < MAX_SCORES; i++)
 		score_names[i] = (char*)malloc(10 * sizeof(char));*/
 
-	score_names[0] = "NINALB.SUX";
-	score_names[1] = "POL.2.....";
-	score_names[2] = "MARC.GG...";
-	score_names[3] = "CAPCOM....";
-	score_names[4] = "EXED.EXES.";
-	score_names[5] = "PATIUS....";
-	score_names[6] = "POL.1.....";
+	score_names[0] = "NINALB.OP.";
+	score_names[1] = "POL.MVP...";
+	score_names[2] = "MR.MORENO.";
+	score_names[3] = "BBAAYYUU..";
+	score_names[4] = "CAPCOM....";
+	score_names[5] = "PATIUSKAS.";
+	score_names[6] = "..........";
 
 
 	for (uint i = 0; i < MAX_SCORES; i++) {
