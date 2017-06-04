@@ -181,6 +181,7 @@ bool ModulePlayer::Start()
 	shoot = App->sound->LoadSound("SoundFX/Commando (shoot)_03.wav");
 	grenade_explosion = App->sound->LoadSound("SoundFX/Commando (grenade)_02.wav");
 	death_music = App->sound->LoadMusic("Soundtrack/10. Leben verloren.wav");
+	game_over_music = App->sound->LoadMusic("Soundtrack/12. Spiel Vorbei.wav");
 
 	int id = App->fonts->LoadWhiteFont();
 
@@ -390,10 +391,12 @@ void ModulePlayer::checkInput() {
 				current_animation = &death;
 				current_animation->Reset();
 
-				App->sound->StopMusic();
-				App->sound->PlayMusic(death_music, 0);
-				Mix_HookMusicFinished(FinishDeath);
+				if (lives <= 0)
+					App->interfac->AddLabel(App->fonts->LoadWhiteFont(), "PLAYER 1\nGAME OVER", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALIGNMENT_CENTRE);
 
+				App->sound->StopMusic();
+				App->sound->PlayMusic(lives > 0 ? death_music : game_over_music, 0);
+				Mix_HookMusicFinished(FinishDeath);
 			}
 		}
 		if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_REPEAT)
@@ -597,8 +600,11 @@ void ModulePlayer::enemyCollision() {
 			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
 		}
 
+		if (lives <= 0)
+			App->interfac->AddLabel(App->fonts->LoadWhiteFont(), "PLAYER 1\nGAME OVER", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALIGNMENT_CENTRE);
+
 		App->sound->StopMusic();
-		App->sound->PlayMusic(death_music, 0);
+		App->sound->PlayMusic(lives > 0 ? death_music : game_over_music, 0);
 		Mix_HookMusicFinished(FinishDeath);
 	}
 }
@@ -629,8 +635,11 @@ void ModulePlayer::Drown() {
 			level_stage = MAX((level_dimensions.y / 4) - 75, prev_level_stage);
 		}
 
+		if (lives <= 0)
+			App->interfac->AddLabel(App->fonts->LoadWhiteFont(), "PLAYER 1\nGAME OVER", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALIGNMENT_CENTRE);
+
 		App->sound->StopMusic();
-		App->sound->PlayMusic(death_music, 0);
+		App->sound->PlayMusic(lives > 0 ? death_music : game_over_music, 0);
 		Mix_HookMusicFinished(FinishDeath);
 	}
 }

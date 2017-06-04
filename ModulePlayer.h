@@ -89,6 +89,7 @@ private:
 	fPoint prev_position;
 	Mix_Chunk* shoot;
 	Mix_Music* death_music;
+	Mix_Music* game_over_music;
 	Collider* collider_body;
 	Collider* collider_feet;
 	Particle fire;	//Fire shot particle
