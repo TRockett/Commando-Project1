@@ -527,7 +527,10 @@ void ModulePlayer::OnCollision(Collider* self, Collider* other) {
 		break;
 	case COLLIDER_ENEMY:
 	case COLLIDER_ENEMY_SHOT:
-		enemyCollision();
+		if (final_anim == 0)
+		{
+			enemyCollision();
+		}
 		break;
 	}
 }

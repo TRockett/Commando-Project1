@@ -113,7 +113,22 @@ void EnemyBazooka::Move()
 			float angle = atan2f(deltaY, deltaX);
 			float vec_mod = sqrtf(pow(deltaX, 2) + pow(deltaY, 2));
 			fPoint normalised_v = { deltaX / vec_mod, deltaY / vec_mod };
-			if (position.x > player_pos.x - 20)
+
+			if (position.x > player_pos.x - 50 && position.x < player_pos.x + 50)
+			{
+				shooting_position.x = 4;
+				shooting_position.y = 19;
+				animation = &e1_backward;
+				if (animation->Finished() == true)
+				{
+					App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
+					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
+					animation->Reset();
+					shoot = false;
+				}
+			}
+			else if (position.x > player_pos.x - 50)
 			{
 				shooting_position.x = 0;
 				shooting_position.y = 18;
@@ -130,7 +145,7 @@ void EnemyBazooka::Move()
 					}
 				}
 			}
-			else if (position.x < player_pos.x + 20)
+			else if (position.x < player_pos.x + 50)
 			{
 				shooting_position.x = 19;
 				shooting_position.y = 18;
@@ -144,20 +159,7 @@ void EnemyBazooka::Move()
 					shoot = false;
 				}
 			}
-			else
-			{
-				shooting_position.x = 4;
-				shooting_position.y = 19;
-				animation = &e1_backward;
-				if (animation->Finished() == true)
-				{
-					App->particles->Missile_down.speed = { (float)(normalised_v.x * 2.0f), (float)((normalised_v.y * 2.0f)) };
-					App->particles->AddParticle(App->particles->Bluefire_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					App->particles->AddParticle(App->particles->Missile_down, position.x + shooting_position.x, position.y + shooting_position.y, MISSILE, COLLIDER_ENEMY_SHOT, nullptr, 0, false);
-					animation->Reset();
-					shoot = false;
-				}
-			}
+	
 
 		}
 		collision = false;
